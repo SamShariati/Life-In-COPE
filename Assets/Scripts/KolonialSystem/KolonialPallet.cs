@@ -1,17 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class KolonialPallet : MonoBehaviour, IInteractable
 {
-
+    [SerializeField] private List<CardboardBoxData> possibleBoxTypes;
     [SerializeField] int maxNrCrates;
     [SerializeField] int nrCratesLeft;
     Transform firstLayer;
     Transform secondLayer;
     Transform thirdLayer;
     Transform fourthLayer;
+    private List<CardboardBox> crates = new List<CardboardBox>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         nrCratesLeft = maxNrCrates;
@@ -19,15 +21,32 @@ public class KolonialPallet : MonoBehaviour, IInteractable
         secondLayer = transform.Find("secondLayer");
         thirdLayer = transform.Find("thirdLayer");
         fourthLayer = transform.Find("fourthLayer");
+
+        GenerateCrates();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GenerateCrates()
     {
-        //Keyboard.current.eKey.wasPressedThisFrame  // GetKeyDown
-        //Keyboard.current.eKey.isPressed            // GetKey
-        //Keyboard.current.eKey.wasReleasedThisFrame // GetKeyUp
+        if (maxNrCrates > possibleBoxTypes.Count)
+        {
+            Debug.LogError("maxNrCrates exceeds the number of available crate types!");
+            return;
+        }
+        List<CardboardBoxData> shuffled = new List<CardboardBoxData>(possibleBoxTypes);
 
+        // Fisher-Yates shuffle
+        for (int i = shuffled.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            CardboardBoxData temp = shuffled[i];
+            shuffled[i] = shuffled[j];
+            shuffled[j] = temp;
+        }
+
+        for (int i = 0; i < maxNrCrates; i++)
+        {
+            crates.Add(new CardboardBox(shuffled[i]));
+        }
     }
 
     private void RemoveACrate()

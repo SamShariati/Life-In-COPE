@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &252691026
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.56148
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.54437
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238614689587929952, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_Name
+      value: KolonialPallet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
 --- !u!1 &295282371
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +192,7 @@ GameObject:
   - component: {fileID: 295282377}
   - component: {fileID: 295282378}
   m_Layer: 0
-  m_Name: Spelare
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonPlayer
   walkSpeed: 5
   sprintSpeed: 10
-  mouseSensitivity: 0.5
+  mouseSensitivity: 0.3
   cameraTransform: {fileID: 752466111}
 --- !u!114 &295282378
 MonoBehaviour:
@@ -749,71 +806,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1404661420
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120158671864202903, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1464415757107406186, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_Name
-      value: fourthLayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6238614689587929952, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: m_Name
-      value: KolonialPallet
-      objectReference: {fileID: 0}
-    - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
-      propertyPath: maxNrCrates
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
 --- !u!1 &1451150596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1053,6 @@ SceneRoots:
   - {fileID: 1786357570}
   - {fileID: 1451150600}
   - {fileID: 295282375}
-  - {fileID: 1404661420}
   - {fileID: 1279987184}
   - {fileID: 461869322}
+  - {fileID: 252691026}

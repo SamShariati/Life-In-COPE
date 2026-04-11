@@ -4172,6 +4172,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1e2a8b74a68314cade1337de518bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KolonialPallet
+  possibleBoxTypes:
+  - {fileID: 11400000, guid: f7e3c76d6f835924e85bfb421d062726, type: 2}
+  - {fileID: 11400000, guid: 9a65a0e2d818f614fa70e49b5a533f9e, type: 2}
+  - {fileID: 11400000, guid: 49977c6334f29784098ca2179c65e4f3, type: 2}
+  - {fileID: 11400000, guid: 20822409300de964db49c2b5c3a39d82, type: 2}
+  - {fileID: 11400000, guid: 59e162d5281b4e34593523c98e0ffad3, type: 2}
+  - {fileID: 11400000, guid: 278d7e6aca9372c4ea0edc59d15c8f8a, type: 2}
+  - {fileID: 11400000, guid: 5427186b60eb5c543a6817ea01fec53a, type: 2}
+  - {fileID: 11400000, guid: 27dc4a8c1a889ef45bf9cb626215f880, type: 2}
+  - {fileID: 11400000, guid: 0aae041523b35a146a0c0f77bf59a692, type: 2}
+  - {fileID: 11400000, guid: e17d8ac053becd149b3dcff9a0864f23, type: 2}
+  - {fileID: 11400000, guid: ce50d30e434019c41ba0328a4c764004, type: 2}
+  - {fileID: 11400000, guid: d3a85df9498226f41a6f9e78301433b6, type: 2}
+  - {fileID: 11400000, guid: 2e91fcbe9123b7a4bb94bb6772ca7610, type: 2}
+  - {fileID: 11400000, guid: 62d6b631456177042abe37a832a742e5, type: 2}
+  - {fileID: 11400000, guid: 28e74ae7312d4ca418410a482f4238ff, type: 2}
+  - {fileID: 11400000, guid: 46358ad14bf854e41b24668c9caa67e7, type: 2}
+  - {fileID: 11400000, guid: 001e855e22b467145842b683e96848e7, type: 2}
+  - {fileID: 11400000, guid: e55279e8ad5282f48a6a1f438ec7580d, type: 2}
+  - {fileID: 11400000, guid: 86c40a5ab05bb634aa6aa2281af8b894, type: 2}
+  - {fileID: 11400000, guid: 470e5dde819a3f746af9fae8bcd69f29, type: 2}
+  - {fileID: 11400000, guid: 14c668e714f9b8245bb64ef27ff880a7, type: 2}
+  - {fileID: 11400000, guid: 492221181ad121047ac79798140ee181, type: 2}
+  - {fileID: 11400000, guid: 6d0b299b9bee6e74bb5ec45e7972e215, type: 2}
+  - {fileID: 11400000, guid: e6631570130aa3f4098bee369aae4762, type: 2}
+  - {fileID: 11400000, guid: 01d4268f0822fc3408c91474a061f549, type: 2}
+  - {fileID: 11400000, guid: 9121f6560c90ebf4d9acbc77d91c694d, type: 2}
+  - {fileID: 11400000, guid: 1517a7f10a3caee49aa5bdb90d5d00cf, type: 2}
+  maxNrCrates: 12
+  nrCratesLeft: 0
 --- !u!1 &6394774064389275296
 GameObject:
   m_ObjectHideFlags: 0
