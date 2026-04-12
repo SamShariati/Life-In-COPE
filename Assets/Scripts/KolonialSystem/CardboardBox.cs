@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class CardboardBox : MonoBehaviour
+public class CardboardBox
 {
     public string boxID;
     public int nrOfGoods;

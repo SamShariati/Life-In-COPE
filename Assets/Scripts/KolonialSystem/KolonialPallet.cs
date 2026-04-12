@@ -6,17 +6,20 @@ using UnityEngine.Playables;
 public class KolonialPallet : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<CardboardBoxData> possibleBoxTypes;
-    [SerializeField] int maxNrCrates;
-    [SerializeField] int nrCratesLeft;
+    [SerializeField] int maxNrBoxes;
+    [SerializeField] int nrBoxesLeft;
+    [SerializeField] private List<CardboardBox> crates = new List<CardboardBox>();
     Transform firstLayer;
     Transform secondLayer;
     Transform thirdLayer;
     Transform fourthLayer;
-    private List<CardboardBox> crates = new List<CardboardBox>();
+    
+
+
 
     void Start()
     {
-        nrCratesLeft = maxNrCrates;
+        nrBoxesLeft = maxNrBoxes;
         firstLayer = transform.Find("firstLayer");
         secondLayer = transform.Find("secondLayer");
         thirdLayer = transform.Find("thirdLayer");
@@ -27,7 +30,7 @@ public class KolonialPallet : MonoBehaviour, IInteractable
 
     private void GenerateCrates()
     {
-        if (maxNrCrates > possibleBoxTypes.Count)
+        if (maxNrBoxes > possibleBoxTypes.Count)
         {
             Debug.LogError("maxNrCrates exceeds the number of available crate types!");
             return;
@@ -43,35 +46,37 @@ public class KolonialPallet : MonoBehaviour, IInteractable
             shuffled[j] = temp;
         }
 
-        for (int i = 0; i < maxNrCrates; i++)
+        for (int i = 0; i < maxNrBoxes; i++)
         {
             crates.Add(new CardboardBox(shuffled[i]));
+            Debug.Log(shuffled[i].boxID);
         }
+        
     }
 
     private void RemoveACrate()
     {
-        if (nrCratesLeft <= 0) return;
-        nrCratesLeft -= 1;
+        if (nrBoxesLeft <= 0) return;
+        nrBoxesLeft -= 1;
         CheckPalletProgression();
     }
 
     
     private void CheckPalletProgression()
     {
-        if (nrCratesLeft == 0)
+        if (nrBoxesLeft == 0)
         {
             firstLayer.gameObject.SetActive(false);
         }
-        else if (nrCratesLeft <= maxNrCrates * 0.25f)
+        else if (nrBoxesLeft <= maxNrBoxes * 0.25f)
         {
             secondLayer.gameObject.SetActive(false);
         }
-        else if (nrCratesLeft <= maxNrCrates * 0.50f)
+        else if (nrBoxesLeft <= maxNrBoxes * 0.50f)
         {
             thirdLayer.gameObject.SetActive(false);
         }
-        else if (nrCratesLeft <= maxNrCrates * 0.75f)
+        else if (nrBoxesLeft <= maxNrBoxes * 0.75f)
         {
             fourthLayer.gameObject.SetActive(false);
         }
