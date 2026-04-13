@@ -8,34 +8,47 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private TextMeshProUGUI interactText;
 
-    void Update()
+    private PlayerInput _input;
+
+    private void Awake()
+    {
+        _input = new PlayerInput();
+    }
+
+    private void OnEnable()
+    {
+        _input.Player.Enable();
+        _input.Player.Interact.performed += OnInteract;
+    }
+
+    private void OnDisable()
+    {
+        _input.Player.Interact.performed -= OnInteract;
+        _input.Player.Disable();
+    }
+
+    private void OnInteract(InputAction.CallbackContext ctx)
+    {
+        TryInteract();
+    }
+
+    private void Update()
     {
         CheckForInteractable();
-
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            TryInteract();
-        }
     }
 
     private void TryInteract()
     {
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                interactable.Interact();
-            }
+            hit.collider.GetComponent<IInteractable>()?.Interact();
         }
     }
 
     private void CheckForInteractable()
     {
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
@@ -46,7 +59,6 @@ public class PlayerInteract : MonoBehaviour
                 return;
             }
         }
-
         interactText.gameObject.SetActive(false);
     }
 }

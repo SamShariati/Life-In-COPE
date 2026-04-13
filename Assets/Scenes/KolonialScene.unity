@@ -167,9 +167,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1464415757107406186, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: m_Name
+      value: fourthLayer
+      objectReference: {fileID: 0}
     - target: {fileID: 6238614689587929952, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: m_Name
       value: KolonialPallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: maxNrBoxes
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrCrates
@@ -195,7 +203,6 @@ GameObject:
   - component: {fileID: 295282376}
   - component: {fileID: 295282377}
   - component: {fileID: 295282378}
-  - component: {fileID: 295282379}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -355,36 +362,6 @@ MonoBehaviour:
   interactRange: 4
   cameraTransform: {fileID: 752466111}
   interactText: {fileID: 936815299}
---- !u!114 &295282379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295282371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: b2b3bfbcb7af6c248aeff74c022a8b1b, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &461869319
 GameObject:
   m_ObjectHideFlags: 0

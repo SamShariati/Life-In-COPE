@@ -9,10 +9,10 @@ public class KolonialPallet : MonoBehaviour, IInteractable
     [SerializeField] int maxNrBoxes;
     [SerializeField] int nrBoxesLeft;
     [SerializeField] private List<CardboardBox> crates = new List<CardboardBox>();
-    Transform firstLayer;
-    Transform secondLayer;
-    Transform thirdLayer;
-    Transform fourthLayer;
+    [SerializeField] Transform firstLayer;
+    [SerializeField] Transform secondLayer;
+    [SerializeField] Transform thirdLayer;
+    [SerializeField] Transform fourthLayer;
     
 
 

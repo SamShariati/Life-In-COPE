@@ -12,28 +12,47 @@ public class FirstPersonPlayer : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
 
     private CharacterController controller;
+    private PlayerInput _input;
     private float xRotation = 0f;
+    private Vector2 moveInput;
 
-    void Start()
+
+    void Awake()
     {
+        _input = new PlayerInput();
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void OnEnable()
+    {
+        _input.Player.Enable();
+        _input.Player.Movement.performed += OnMovement;
+        _input.Player.Movement.canceled += OnMovement;
+
+    }
+    private void OnDisable()
+    {
+        _input.Player.Disable();
+        _input.Player.Movement.performed -= OnMovement;
+        _input.Player.Movement.canceled -= OnMovement;
+
+    }
+
     void Update()
     {
-        HandleMovement();
+        MovePlayer();
         HandleMouseLook();
     }
 
-    private void HandleMovement()
+    private void OnMovement(InputAction.CallbackContext ctx)
     {
-        Vector2 input = new Vector2(
-            Keyboard.current.dKey.isPressed ? 1 : Keyboard.current.aKey.isPressed ? -1 : 0,
-            Keyboard.current.wKey.isPressed ? 1 : Keyboard.current.sKey.isPressed ? -1 : 0
-        );
+        moveInput = ctx.ReadValue<Vector2>();
+    }
 
-        Vector3 move = transform.right * input.x + transform.forward * input.y;
+    private void MovePlayer()
+    {
+        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
 
         float speed = Keyboard.current.leftShiftKey.isPressed ? sprintSpeed : walkSpeed;
 
