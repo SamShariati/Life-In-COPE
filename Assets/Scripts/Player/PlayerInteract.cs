@@ -32,6 +32,7 @@ public class PlayerInteract : MonoBehaviour
         TryInteract();
     }
 
+
     private void Update()
     {
         CheckForInteractable();

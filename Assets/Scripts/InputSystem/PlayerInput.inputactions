@@ -7,6 +7,15 @@
             "id": "86322b81-ee2a-42b8-9eb5-d88d6cc5f9a4",
             "actions": [
                 {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "2559066a-ea5b-4789-ae96-9bb132ae577d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "3d4f9ef1-d4ba-45f4-8adb-04c01a313c07",
@@ -16,10 +25,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement",
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "2bc92bbf-b3c0-40ce-986f-3e92aa4f75be",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
                     "type": "Value",
-                    "id": "2559066a-ea5b-4789-ae96-9bb132ae577d",
-                    "expectedControlType": "Vector2",
+                    "id": "701b123b-fff0-49f8-b429-82cc363b4957",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -91,6 +109,28 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3191e266-eb4a-4b4c-b339-6a3e9c0ffefb",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d4519c5-e4e8-4f0b-9751-a98bd083714a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
