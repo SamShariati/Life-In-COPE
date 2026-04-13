@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
     private Vector2 moveInput;
     private Vector2 mouseDelta;
 
+    private float verticalVelocity;
+    private float gravity = -9.81f;
+
 
     void Awake()
     {
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
         currentSpeed = ctx.performed ? sprintSpeed : walkSpeed;
     }
     public void OnInteract(InputAction.CallbackContext ctx) { }
+    public void OnDrop(InputAction.CallbackContext ctx) { }
 
     //--------------------------------------------------------
 
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
     {
         MovePlayer();
         HandleMouseLook();
+        CheckGravity();
     }
     private void MovePlayer()
     {
@@ -81,5 +86,19 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * mouseDelta.x);
+    }
+
+    private void CheckGravity()
+    {
+        if (controller.isGrounded)
+        {
+            verticalVelocity = -1f; // small negative to keep grounded
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime; // accumulate gravity
+        }
+        Vector3 verticalMovement = new Vector3(0, verticalVelocity, 0);
+        controller.Move(verticalMovement * Time.deltaTime);
     }
 }

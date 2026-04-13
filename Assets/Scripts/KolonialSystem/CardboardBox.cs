@@ -6,6 +6,7 @@ public class CardboardBox
     public string boxID;
     public int nrOfGoods;
     //public Sprite crateImage;
+    
 
     public CardboardBox(CardboardBoxData data)
     {

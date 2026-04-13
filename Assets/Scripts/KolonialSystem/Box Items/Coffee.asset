@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: Coffee
   nrOfGoods: 10
+  prefab: {fileID: 4961213287052928863, guid: 74659a208fdd1e441a4752c6e6337182, type: 3}

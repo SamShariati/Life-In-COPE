@@ -9,9 +9,11 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     [SerializeField] private TextMeshProUGUI interactText;
 
     private PlayerInput _input;
+    public PlayerInventory Inventory { get; private set; }
 
     private void Awake()
     {
+        Inventory = GetComponent<PlayerInventory>();
         _input = new PlayerInput();
     }
 
@@ -36,6 +38,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     public void OnMovement(InputAction.CallbackContext ctx) { }
     public void OnLook(InputAction.CallbackContext ctx) { }
     public void OnSprint(InputAction.CallbackContext ctx) { }
+    public void OnDrop(InputAction.CallbackContext ctx) { }
 
     //---------------------------------------------------------
 
@@ -50,7 +53,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            hit.collider.GetComponent<IInteractable>()?.Interact();
+            hit.collider.GetComponent<IInteractable>()?.Interact(this);
         }
     }
 
