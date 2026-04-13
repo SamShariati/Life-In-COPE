@@ -177,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrBoxes
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrCrates

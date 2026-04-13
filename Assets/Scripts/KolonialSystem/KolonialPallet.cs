@@ -5,18 +5,16 @@ using UnityEngine.Playables;
 
 public class KolonialPallet : MonoBehaviour, IInteractable
 {
+
     [SerializeField] private List<CardboardBoxData> possibleBoxTypes;
     [SerializeField] int maxNrBoxes;
     [SerializeField] int nrBoxesLeft;
-    [SerializeField] private List<CardboardBox> crates = new List<CardboardBox>();
-    [SerializeField] Transform firstLayer;
-    [SerializeField] Transform secondLayer;
-    [SerializeField] Transform thirdLayer;
-    [SerializeField] Transform fourthLayer;
+    [SerializeField] private List<CardboardBox> boxList = new List<CardboardBox>();
+    Transform firstLayer;
+    Transform secondLayer;
+    Transform thirdLayer;
+    Transform fourthLayer;
     
-
-
-
     void Start()
     {
         nrBoxesLeft = maxNrBoxes;
@@ -48,7 +46,7 @@ public class KolonialPallet : MonoBehaviour, IInteractable
 
         for (int i = 0; i < maxNrBoxes; i++)
         {
-            crates.Add(new CardboardBox(shuffled[i]));
+            boxList.Add(new CardboardBox(shuffled[i]));
             Debug.Log(shuffled[i].boxID);
         }
         
@@ -68,15 +66,15 @@ public class KolonialPallet : MonoBehaviour, IInteractable
         {
             firstLayer.gameObject.SetActive(false);
         }
-        else if (nrBoxesLeft <= maxNrBoxes * 0.25f)
+        if (nrBoxesLeft <= maxNrBoxes * 0.25f)
         {
             secondLayer.gameObject.SetActive(false);
         }
-        else if (nrBoxesLeft <= maxNrBoxes * 0.50f)
+        if (nrBoxesLeft <= maxNrBoxes * 0.50f)
         {
             thirdLayer.gameObject.SetActive(false);
         }
-        else if (nrBoxesLeft <= maxNrBoxes * 0.75f)
+        if (nrBoxesLeft <= maxNrBoxes * 0.75f)
         {
             fourthLayer.gameObject.SetActive(false);
         }

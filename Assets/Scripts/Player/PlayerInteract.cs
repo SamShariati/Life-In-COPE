@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
 {
     [SerializeField] private float interactRange = 3f;
     [SerializeField] private Transform cameraTransform;
@@ -18,19 +18,26 @@ public class PlayerInteract : MonoBehaviour
     private void OnEnable()
     {
         _input.Player.Enable();
-        _input.Player.Interact.performed += OnInteract;
+        _input.Player.AddCallbacks(this);
     }
 
     private void OnDisable()
     {
-        _input.Player.Interact.performed -= OnInteract;
         _input.Player.Disable();
+        _input.Player.RemoveCallbacks(this);
     }
 
-    private void OnInteract(InputAction.CallbackContext ctx)
+
+    //-----------------------INPUT ACTIONS---------------------
+    public void OnInteract(InputAction.CallbackContext ctx)
     {
-        TryInteract();
+        if (ctx.performed) TryInteract();
     }
+    public void OnMovement(InputAction.CallbackContext ctx) { }
+    public void OnLook(InputAction.CallbackContext ctx) { }
+    public void OnSprint(InputAction.CallbackContext ctx) { }
+
+    //---------------------------------------------------------
 
 
     private void Update()

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class FirstPersonPlayer : MonoBehaviour
+public class FirstPersonPlayer : MonoBehaviour, PlayerInput.IPlayerActions
 {
     [Header("Movement")]
     [SerializeField] private float walkSpeed;
@@ -31,43 +31,32 @@ public class FirstPersonPlayer : MonoBehaviour
     private void OnEnable()
     {
         _input.Player.Enable();
-        _input.Player.Movement.performed += OnMovement;
-        _input.Player.Movement.canceled += OnMovement;
-
-        _input.Player.Sprint.performed += OnSprint;
-        _input.Player.Sprint.canceled += OnSprint;
-
-        _input.Player.Look.performed += OnLook;
-        _input.Player.Look.canceled += OnLook;
+        _input.Player.AddCallbacks(this);
 
     }
     private void OnDisable()
     {
         _input.Player.Disable();
-        _input.Player.Movement.performed -= OnMovement;
-        _input.Player.Movement.canceled -= OnMovement;
-
-        _input.Player.Sprint.performed -= OnSprint;
-        _input.Player.Sprint.canceled -= OnSprint;
-
-        _input.Player.Look.performed -= OnLook;
-        _input.Player.Look.canceled -= OnLook;
+        _input.Player.RemoveCallbacks(this);
 
     }
 
-    private void OnMovement(InputAction.CallbackContext ctx)
+    //-----------------------INPUT ACTIONS---------------------
+    public void OnMovement(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
     }
-
-    private void OnLook(InputAction.CallbackContext ctx)
+    public void OnLook(InputAction.CallbackContext ctx)
     {
         mouseDelta = ctx.ReadValue<Vector2>() * mouseSensitivity;
     }
-    private void OnSprint(InputAction.CallbackContext ctx)
+    public void OnSprint(InputAction.CallbackContext ctx)
     {
         currentSpeed = ctx.performed ? sprintSpeed : walkSpeed;
     }
+    public void OnInteract(InputAction.CallbackContext ctx) { }
+
+    //--------------------------------------------------------
 
     void Update()
     {
