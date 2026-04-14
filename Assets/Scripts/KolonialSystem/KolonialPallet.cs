@@ -86,11 +86,11 @@ public class KolonialPallet : MonoBehaviour, IInteractable
     //IInteractable methods--------------
     public string GetInteractPrompt(PlayerInteract player)
     {
-        if (player.Inventory.IsHoldingBox())
+        if (player.Inventory.IsHoldingBox() || nrBoxesLeft <= 0)
         {
             return "";
         }
-        return "Grab a crate";
+        return "Grab a box";
     }
 
     public void Interact(PlayerInteract player)

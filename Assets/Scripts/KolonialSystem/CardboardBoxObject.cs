@@ -67,7 +67,7 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
         {
             return "";
         }
-        return "Pick up box";
+        return $"Pick up box ({data.boxID})";
 
     }
 
