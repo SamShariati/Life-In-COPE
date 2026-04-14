@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
     }
     public void OnInteract(InputAction.CallbackContext ctx) { }
     public void OnDrop(InputAction.CallbackContext ctx) { }
+    public void OnThrow(InputAction.CallbackContext ctx) { }
 
     //--------------------------------------------------------
 

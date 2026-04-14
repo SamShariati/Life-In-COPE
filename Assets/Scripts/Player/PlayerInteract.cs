@@ -39,6 +39,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     public void OnLook(InputAction.CallbackContext ctx) { }
     public void OnSprint(InputAction.CallbackContext ctx) { }
     public void OnDrop(InputAction.CallbackContext ctx) { }
+    public void OnThrow(InputAction.CallbackContext ctx) { }
 
     //---------------------------------------------------------
 
@@ -65,7 +66,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                interactText.text = interactable.GetInteractPrompt();
+                interactText.text = interactable.GetInteractPrompt(this);
                 interactText.gameObject.SetActive(true);
                 return;
             }

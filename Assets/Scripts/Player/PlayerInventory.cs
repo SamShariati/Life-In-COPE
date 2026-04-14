@@ -35,6 +35,11 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     public void OnMovement(InputAction.CallbackContext ctx) { }
     public void OnLook(InputAction.CallbackContext ctx) { }
     public void OnSprint(InputAction.CallbackContext ctx) { }
+
+    public void OnThrow(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) ThrowBox();
+    }
     public void OnDrop(InputAction.CallbackContext ctx)
     {
         if (ctx.performed) DropBox();
@@ -81,6 +86,14 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     {
         if (!currentlyHoldingBox) return;
         heldBox.GetDropped();
+        heldBox = null;
+        currentlyHoldingBox = false;
+    }
+
+    public void ThrowBox()
+    {
+        if (!currentlyHoldingBox) return;
+        heldBox.GetThrown();
         heldBox = null;
         currentlyHoldingBox = false;
     }

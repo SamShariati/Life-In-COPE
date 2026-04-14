@@ -4200,8 +4200,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01d4268f0822fc3408c91474a061f549, type: 2}
   - {fileID: 11400000, guid: 9121f6560c90ebf4d9acbc77d91c694d, type: 2}
   - {fileID: 11400000, guid: 1517a7f10a3caee49aa5bdb90d5d00cf, type: 2}
-  maxNrCrates: 12
-  nrCratesLeft: 0
+  maxNrBoxes: 10
+  nrBoxesLeft: 0
+  boxList: []
 --- !u!1 &6394774064389275296
 GameObject:
   m_ObjectHideFlags: 0

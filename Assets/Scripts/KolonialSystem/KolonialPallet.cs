@@ -84,8 +84,12 @@ public class KolonialPallet : MonoBehaviour, IInteractable
     }
 
     //IInteractable methods--------------
-    public string GetInteractPrompt()
+    public string GetInteractPrompt(PlayerInteract player)
     {
+        if (player.Inventory.IsHoldingBox())
+        {
+            return "";
+        }
         return "Grab a crate";
     }
 

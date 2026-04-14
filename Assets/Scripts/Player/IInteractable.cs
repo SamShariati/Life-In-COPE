@@ -3,6 +3,6 @@ using UnityEngine;
 public interface IInteractable
 {
     void Interact(PlayerInteract player);
-    string GetInteractPrompt();
+    string GetInteractPrompt(PlayerInteract player);
 
 }
