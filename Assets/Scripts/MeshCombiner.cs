@@ -31,7 +31,7 @@ public class MeshCombiner : MonoBehaviour
         if (!System.IO.Directory.Exists("Assets/CombinedMeshes"))
             AssetDatabase.CreateFolder("Assets", "CombinedMeshes");
 
-        AssetDatabase.CreateAsset(combinedMesh, "Assets/CombinedMeshes/EU-Pall.asset");
+        AssetDatabase.CreateAsset(combinedMesh, "Assets/CombinedMeshes/"+gameObject.name+".asset");
         AssetDatabase.SaveAssets();
 
         gameObject.SetActive(true);
