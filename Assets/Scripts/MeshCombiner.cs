@@ -1,39 +1,88 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class MeshCombiner : MonoBehaviour
 {
-    [ContextMenu("Combine Meshes")]
-    public void CombineMeshes()
+    [ContextMenu("Combine Children Meshes")]
+    public void CombineChildren()
     {
-        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+        // Group MeshFilters by material
+        Dictionary<Material, List<CombineInstance>> materialGroups = new Dictionary<Material, List<CombineInstance>>();
 
-        for (int i = 0; i < meshFilters.Length; i++)
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+
+        foreach (MeshFilter mf in meshFilters)
         {
-            combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = transform.worldToLocalMatrix * meshFilters[i].transform.localToWorldMatrix;
+            if (mf.gameObject == gameObject) continue; // skip parent
+
+            MeshRenderer mr = mf.GetComponent<MeshRenderer>();
+            if (mr == null) continue;
+
+            foreach (Material mat in mr.sharedMaterials)
+            {
+                if (!materialGroups.ContainsKey(mat))
+                    materialGroups[mat] = new List<CombineInstance>();
+
+                CombineInstance ci = new CombineInstance
+                {
+                    mesh = mf.sharedMesh,
+                    transform = transform.worldToLocalMatrix * mf.transform.localToWorldMatrix
+                };
+                materialGroups[mat].Add(ci);
+            }
         }
 
-        foreach (Transform child in transform)
-            child.gameObject.SetActive(false);
+        // Build one sub-mesh per material
+        Mesh[] subMeshes = new Mesh[materialGroups.Count];
+        Material[] materials = new Material[materialGroups.Count];
+        int i = 0;
 
-        MeshFilter mf = gameObject.GetComponent<MeshFilter>();
-        if (mf == null) mf = gameObject.AddComponent<MeshFilter>();
-        if (gameObject.GetComponent<MeshRenderer>() == null)
-            gameObject.AddComponent<MeshRenderer>();
+        foreach (var kvp in materialGroups)
+        {
+            Mesh m = new Mesh();
+            m.CombineMeshes(kvp.Value.ToArray(), true);
+            subMeshes[i] = m;
+            materials[i] = kvp.Key;
+            i++;
+        }
+
+        // Combine sub-meshes into one mesh (false = keep as sub-meshes)
+        CombineInstance[] finalCombine = new CombineInstance[subMeshes.Length];
+        for (int j = 0; j < subMeshes.Length; j++)
+        {
+            finalCombine[j] = new CombineInstance { mesh = subMeshes[j], transform = Matrix4x4.identity };
+        }
 
         Mesh combinedMesh = new Mesh();
-        combinedMesh.CombineMeshes(combine);
-        mf.sharedMesh = combinedMesh;
+        combinedMesh.CombineMeshes(finalCombine, false);
+        combinedMesh.RecalculateNormals();
+        combinedMesh.RecalculateBounds();
 
-        // Save mesh to disk ← this is the new part
-        if (!System.IO.Directory.Exists("Assets/CombinedMeshes"))
-            AssetDatabase.CreateFolder("Assets", "CombinedMeshes");
+        // Explicitly add MeshFilter and MeshRenderer if missing
+        MeshFilter parentMF = GetComponent<MeshFilter>();
+        if (parentMF == null) parentMF = gameObject.AddComponent<MeshFilter>();
 
-        AssetDatabase.CreateAsset(combinedMesh, "Assets/CombinedMeshes/"+gameObject.name+".asset");
+        MeshRenderer parentMR = GetComponent<MeshRenderer>();
+        if (parentMR == null) parentMR = gameObject.AddComponent<MeshRenderer>();
+
+        parentMF.sharedMesh = combinedMesh;
+        parentMR.sharedMaterials = materials;
+
+        // Disable children
+        foreach (MeshFilter mf in meshFilters)
+        {
+            if (mf.gameObject != gameObject)
+                mf.gameObject.SetActive(false);
+        }
+
+#if UNITY_EDITOR
+        AssetDatabase.CreateAsset(combinedMesh, "Assets/CombinedMeshes/" + gameObject.name + ".asset");
         AssetDatabase.SaveAssets();
+#endif
 
-        gameObject.SetActive(true);
+        Debug.Log($"Combined into {subMeshes.Length} sub-meshes with {subMeshes.Length} materials.");
     }
 }
