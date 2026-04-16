@@ -33,7 +33,7 @@ public class Shelf : MonoBehaviour
     public GoodsType goodsType;
     public ShelfStatus shelfStatus;
 
-    private void Start()
+    private void Awake()
     {
 
         shelfLayers = transform.Find("layers");
