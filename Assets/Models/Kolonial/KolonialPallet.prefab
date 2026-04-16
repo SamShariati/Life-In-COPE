@@ -5510,10 +5510,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1e2a8b74a68314cade1337de518bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KolonialPallet
-  possibleBoxTypes:
+  allBoxTypes:
+  - {fileID: 11400000, guid: 49977c6334f29784098ca2179c65e4f3, type: 2}
   - {fileID: 11400000, guid: f7e3c76d6f835924e85bfb421d062726, type: 2}
   - {fileID: 11400000, guid: 9a65a0e2d818f614fa70e49b5a533f9e, type: 2}
-  - {fileID: 11400000, guid: 49977c6334f29784098ca2179c65e4f3, type: 2}
   - {fileID: 11400000, guid: 20822409300de964db49c2b5c3a39d82, type: 2}
   - {fileID: 11400000, guid: 59e162d5281b4e34593523c98e0ffad3, type: 2}
   - {fileID: 11400000, guid: 278d7e6aca9372c4ea0edc59d15c8f8a, type: 2}

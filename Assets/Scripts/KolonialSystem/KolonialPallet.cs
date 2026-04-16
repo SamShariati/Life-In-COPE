@@ -6,16 +6,16 @@ using UnityEngine.Playables;
 public class KolonialPallet : MonoBehaviour, IInteractable
 {
 
-    [SerializeField] private List<CardboardBoxData> possibleBoxTypes;
+    [SerializeField] public List<CardboardBoxData> allBoxTypes;
     [SerializeField] int maxNrBoxes;
     [SerializeField] int nrBoxesLeft;
-    [SerializeField] private List<CardboardBoxData> boxList = new List<CardboardBoxData>();
+    [SerializeField] public List<CardboardBoxData> boxList = new List<CardboardBoxData>();
     Transform firstLayer;
     Transform secondLayer;
     Transform thirdLayer;
     Transform fourthLayer;
     
-    void Start()
+    void Awake()
     {
         nrBoxesLeft = maxNrBoxes;
         firstLayer = transform.Find("firstLayer");
@@ -28,12 +28,12 @@ public class KolonialPallet : MonoBehaviour, IInteractable
 
     private void GenerateCrates()
     {
-        if (maxNrBoxes > possibleBoxTypes.Count)
+        if (maxNrBoxes > allBoxTypes.Count)
         {
             Debug.LogError("maxNrCrates exceeds the number of available crate types!");
             return;
         }
-        List<CardboardBoxData> shuffled = new List<CardboardBoxData>(possibleBoxTypes);
+        List<CardboardBoxData> shuffled = new List<CardboardBoxData>(allBoxTypes);
 
         // Fisher-Yates shuffle
         for (int i = shuffled.Count - 1; i > 0; i--)

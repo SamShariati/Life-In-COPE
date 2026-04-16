@@ -99,7 +99,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Prism",
-                "value": "{\"m_Value\":{\"x\":1.3756232261657715,\"y\":4.118901252746582,\"z\":-8.411478042602539}}"
+                "value": "{\"m_Value\":{\"x\":-6.880305290222168,\"y\":5.67042875289917,\"z\":-15.010367393493653}}"
             },
             {
                 "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

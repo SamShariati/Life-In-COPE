@@ -9,6 +9,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     public bool currentlyHoldingBox;
     CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
+    [SerializeField] GameObject boxPrefab;
 
     private PlayerInput _input;
     private void Awake()
@@ -67,7 +68,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         //heldBox = box;
         //Debug.Log(heldBox.boxID);
         //currentlyHoldingBox = true;
-        GameObject box = Instantiate(data.prefab);
+        GameObject box = Instantiate(boxPrefab);
         heldBox = box.GetComponent<CardboardBoxObject>();
         heldBox.Initiate(data);
         heldBox.GetPickedUp(holdPoint);
