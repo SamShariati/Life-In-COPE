@@ -56,7 +56,14 @@ public class Shelf : MonoBehaviour
 
                 foreach (Transform layer in shelfLayers)
                 {
+
+                    List<Transform> positions = new List<Transform>();
                     foreach (Transform pos in layer)
+                    {
+                        positions.Add(pos);
+                    }
+
+                    foreach (Transform pos in positions)
                     {
                         GameObject product = Instantiate(transparentPrefab);
                         product.transform.SetParent(layer);
@@ -71,7 +78,14 @@ public class Shelf : MonoBehaviour
 
                 foreach (Transform layer in shelfLayers)
                 {
+
+                    List<Transform> positions = new List<Transform>();
                     foreach (Transform pos in layer)
+                    {
+                        positions.Add(pos);
+                    }
+
+                    foreach (Transform pos in positions)
                     {
                         GameObject product = Instantiate(stockedPrefab);
                         product.transform.SetParent(layer);
