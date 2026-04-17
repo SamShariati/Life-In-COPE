@@ -8,7 +8,7 @@ public class KolonialPallet : MonoBehaviour, IInteractable
 
     [SerializeField] public List<CardboardBoxData> allBoxTypes;
     [SerializeField] int maxNrBoxes;
-    [SerializeField] int nrBoxesLeft;
+    int nrBoxesLeft;
     [SerializeField] public List<CardboardBoxData> boxList = new List<CardboardBoxData>();
     Transform firstLayer;
     Transform secondLayer;

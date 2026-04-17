@@ -57,6 +57,9 @@ public class Shelf : MonoBehaviour
                 foreach (Transform layer in shelfLayers)
                 {
 
+                    Transform firstLayer = shelfLayers.GetChild(0);
+                    Transform fourthLayer = shelfLayers.GetChild(3);
+
                     List<Transform> positions = new List<Transform>();
                     foreach (Transform pos in layer)
                     {
@@ -65,11 +68,20 @@ public class Shelf : MonoBehaviour
 
                     foreach (Transform pos in positions)
                     {
-                        GameObject product = Instantiate(transparentPrefab);
-                        product.transform.SetParent(layer);
-                        product.transform.position = pos.position;
-                    }
 
+                        if (layer == firstLayer || layer == fourthLayer)
+                        {
+                            GameObject product = Instantiate(stockedPrefab);
+                            product.transform.SetParent(layer);
+                            product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
+                        }
+                        else
+                        {
+                            GameObject product = Instantiate(transparentPrefab);
+                            product.transform.SetParent(layer);
+                            product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
+                        }
+                    }
                 }
 
                 break;
@@ -89,7 +101,7 @@ public class Shelf : MonoBehaviour
                     {
                         GameObject product = Instantiate(stockedPrefab);
                         product.transform.SetParent(layer);
-                        product.transform.position = pos.position;
+                        product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
                     }
 
                 }
