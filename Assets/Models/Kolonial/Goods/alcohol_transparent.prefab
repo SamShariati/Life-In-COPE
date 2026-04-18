@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2056542286540637697}
   - component: {fileID: 2866100495481203295}
   m_Layer: 0
-  m_Name: liqour_transparent
+  m_Name: alcohol_transparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

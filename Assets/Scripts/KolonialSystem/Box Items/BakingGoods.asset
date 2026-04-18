@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: bakingGoods
   nrOfGoods: 10
-  stockedPrefab: {fileID: 4278482443645969364, guid: 3945e21c2ee43a34a8b96d8b35b4658c, type: 3}
-  transparentPrefab: {fileID: 5462151978291121606, guid: 77de4a40a63af724983d57598ccab025, type: 3}
+  stockedPrefab: {fileID: 4869945559246925710, guid: 3945e21c2ee43a34a8b96d8b35b4658c, type: 3}
+  transparentPrefab: {fileID: 5493199824905320769, guid: 77de4a40a63af724983d57598ccab025, type: 3}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5522917302207163959}
   - component: {fileID: 1169618955175015772}
   m_Layer: 0
-  m_Name: liqour
+  m_Name: alcohol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
