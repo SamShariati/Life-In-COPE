@@ -5,22 +5,23 @@ using UnityEngine;
 public class Shelf : MonoBehaviour
 {
 
-    public GameObject stockedPrefab;
-    public GameObject transparentPrefab;
+    [HideInInspector] public GameObject stockedPrefab;
+    [HideInInspector] public GameObject transparentPrefab;
 
-    [SerializeField] Transform shelfLayers;
+    Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
     
 
     public enum GoodsType
     {
-        none, animalFood, baking, alcohol,
+        none, animalFood, bakingGoods, alcohol,
         bread, candy, cannedFood, cereal,
         chips, cigarettes, clothes, coffee,
         cookies, diapers, electronics, energyDrink,
         gum, hygiene, jam, juice,
         medicine, party, pasta, soda,
-        spices, tacos, tea, toys
+        spices, tacos, tea, toys,
+        beer
     }
     
     public enum ShelfStatus
@@ -73,13 +74,15 @@ public class Shelf : MonoBehaviour
                         {
                             GameObject product = Instantiate(stockedPrefab);
                             product.transform.SetParent(layer);
-                            product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
+                            //product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 2f), pos.position.z);
+                            product.transform.position = pos.position;
                         }
                         else
                         {
                             GameObject product = Instantiate(transparentPrefab);
                             product.transform.SetParent(layer);
-                            product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
+                            //product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 2f), pos.position.z);
+                            product.transform.position = pos.position;
                         }
                     }
                 }
@@ -101,7 +104,8 @@ public class Shelf : MonoBehaviour
                     {
                         GameObject product = Instantiate(stockedPrefab);
                         product.transform.SetParent(layer);
-                        product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 4f), pos.position.z);
+                        product.transform.position = new Vector3(pos.position.x, pos.position.y + (product.transform.localScale.y / 2f), pos.position.z);
+                        //product.transform.position = pos.position;
                     }
 
                 }
