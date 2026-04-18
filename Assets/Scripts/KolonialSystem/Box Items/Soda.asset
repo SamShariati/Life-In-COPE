@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: soda
   nrOfGoods: 10
-  stockedPrefab: {fileID: 0}
-  transparentPrefab: {fileID: 0}
+  stockedPrefab: {fileID: 3665328637174707424, guid: 795d26496818fe445828eb71dc79cf1c, type: 3}
+  transparentPrefab: {fileID: 4240456650771702296, guid: 885c719887cb4f74095cf65a229ed479, type: 3}
