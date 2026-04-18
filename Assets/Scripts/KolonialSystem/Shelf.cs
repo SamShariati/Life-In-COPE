@@ -104,8 +104,8 @@ public class Shelf : MonoBehaviour
                     {
                         GameObject product = Instantiate(stockedPrefab);
                         product.transform.SetParent(layer);
-                        product.transform.position = new Vector3(pos.position.x, pos.position.y + (product.transform.localScale.y / 2f), pos.position.z);
-                        //product.transform.position = pos.position;
+                        //product.transform.position = new Vector3(pos.position.x, pos.position.y + (product.transform.localScale.y / 2f), pos.position.z);
+                        product.transform.position = pos.position;
                     }
 
                 }
