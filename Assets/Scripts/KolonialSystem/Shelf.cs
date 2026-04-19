@@ -21,7 +21,7 @@ public class Shelf : MonoBehaviour
         gum, hygiene, jam, juice,
         medicine, party, pasta, soda,
         spices, tacos, tea, toys,
-        beer
+        beer, cakes, peanutButter
     }
     
     public enum ShelfStatus
