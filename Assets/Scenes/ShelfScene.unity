@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KolonialPallet
       objectReference: {fileID: 0}
+    - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
+      propertyPath: maxNrBoxes
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1189,7 +1193,7 @@ PrefabInstance:
       objectReference: {fileID: 1984693608}
     - target: {fileID: 3552350929478041419, guid: 4837fe4239fc8be4f89fc0d6fc9831d4, type: 3}
       propertyPath: goodsType
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4353704734184753136, guid: 4837fe4239fc8be4f89fc0d6fc9831d4, type: 3}
       propertyPath: m_Mesh
