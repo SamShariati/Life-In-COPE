@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e4e920eaefee746b27e8193b06d774, type: 3}
   m_Name: Energy Drink
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
-  boxID: energyDrinks
+  boxID: energyDrink
   nrOfGoods: 10
-  stockedPrefab: {fileID: 2387190743683803838, guid: fb89872059f158745b0aa6ca8503db53, type: 3}
-  transparentPrefab: {fileID: 2387190743683803838, guid: fb89872059f158745b0aa6ca8503db53, type: 3}
+  stockedPrefab: {fileID: 1485298061996951270, guid: fb89872059f158745b0aa6ca8503db53, type: 3}
+  transparentPrefab: {fileID: 138070442039823325, guid: 33a85dac61b1dde4abde30b496164688, type: 3}
