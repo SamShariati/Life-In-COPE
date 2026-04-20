@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e4e920eaefee746b27e8193b06d774, type: 3}
-  m_Name: Juice
+  m_Name: Toilet Paper
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
-  boxID: juice
+  boxID: toiletPaper
   nrOfGoods: 10
-  stockedPrefab: {fileID: 0}
-  transparentPrefab: {fileID: 0}
+  stockedPrefab: {fileID: 9112432508726339449, guid: 38707d6b911b4344f8c472cc7bf44f91, type: 3}
+  transparentPrefab: {fileID: 6232881885538220350, guid: 977c493043f4a024da4a8e37ef4de62a, type: 3}

@@ -18,7 +18,7 @@ public class Shelf : MonoBehaviour
         bread, candy, cannedFood, cereal,
         chips, coffee, proteinDrink,
         cookies, electronics, energyDrink,
-        hygiene, jam, juice,
+        hygiene, jam, juice, toiletPaper,
         medicine, party, pasta, soda,
         spices, tacos, tea, toys,
         beer, cakes, peanutButter, washing

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: tacos
   nrOfGoods: 10
-  stockedPrefab: {fileID: 0}
-  transparentPrefab: {fileID: 0}
+  stockedPrefab: {fileID: 8254209457882822997, guid: 06f86ef00c8af564684401b951fa7cfb, type: 3}
+  transparentPrefab: {fileID: 1059616478165392698, guid: c43c1ae4b9f7fc5448c15b564a65748f, type: 3}
