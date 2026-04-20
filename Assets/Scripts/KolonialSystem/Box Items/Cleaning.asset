@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e4e920eaefee746b27e8193b06d774, type: 3}
-  m_Name: Washing
+  m_Name: Cleaning
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
-  boxID: washing
+  boxID: cleaning
   nrOfGoods: 10
   stockedPrefab: {fileID: 412518343761198886, guid: 125c1b55ec6c8554bb58dd8fc3775c1a, type: 3}
   transparentPrefab: {fileID: 4631351632207429143, guid: 0ed242616f0ce474dac769cd3f0b54ef, type: 3}

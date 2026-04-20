@@ -16,12 +16,12 @@ public class Shelf : MonoBehaviour
     {
         none, animalFood, bakingGoods, alcohol,
         bread, candy, cannedFood, cereal,
-        chips, coffee, proteinDrink,
+        chips, coffee, proteinDrink, cleaning,
         cookies, electronics, energyDrink,
         hygiene, jam, juice, toiletPaper,
         medicine, party, pasta, soda,
         spices, tacos, tea, toys,
-        beer, cakes, peanutButter, washing
+        beer, cakes, peanutButter, shampoo
     }
     
     public enum ShelfStatus

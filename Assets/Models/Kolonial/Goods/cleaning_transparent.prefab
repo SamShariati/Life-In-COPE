@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3494280708611680978}
   - component: {fileID: 92218497770903309}
   m_Layer: 0
-  m_Name: washing_transparent
+  m_Name: cleaning_transparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
