@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1360243850932098503}
   - component: {fileID: 7692509987730564440}
   - component: {fileID: 6292021154305675623}
-  - component: {fileID: 6758581502959307029}
   m_Layer: 0
   m_Name: jam
   m_TagString: Untagged
@@ -132,27 +131,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6758581502959307029
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3461779930310973954}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5658144, y: 0.7254621, z: 1.8015504}
-  m_Center: {x: 0.019000053, y: 0.36273104, z: 0.02399993}
 --- !u!1001 &542709621375777266
 PrefabInstance:
   m_ObjectHideFlags: 0

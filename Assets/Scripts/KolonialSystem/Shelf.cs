@@ -14,14 +14,13 @@ public class Shelf : MonoBehaviour
 
     public enum GoodsType
     {
-        none, animalFood, bakingGoods, alcohol,
-        bread, candy, cannedFood, cereal,
-        chips, coffee, proteinDrink, cleaning,
-        cookies, electronics, energyDrink,
-        hygiene, jam, juice, toiletPaper,
-        medicine, party, pasta, soda,
-        spices, tacos, tea, toys,
-        beer, cakes, peanutButter, shampoo
+        none, alcohol, animalFood, bakingGoods,
+        beer, bread, cakes, candy,
+        cannedFood, cereal, chips, cleaning,
+        coffee, cookies, electronics, energyDrink, 
+        hygiene, jam, peanutButter, proteinDrink,
+        sauces, shampoo, soda, tacos,
+        tea, toiletPaper, toys
     }
     
     public enum ShelfStatus
@@ -74,15 +73,15 @@ public class Shelf : MonoBehaviour
                         {
                             GameObject product = Instantiate(stockedPrefab);
                             product.transform.SetParent(layer);
-                            //product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 2f), pos.position.z);
                             product.transform.position = pos.position;
+                            product.transform.rotation = pos.rotation;
                         }
                         else
                         {
                             GameObject product = Instantiate(transparentPrefab);
                             product.transform.SetParent(layer);
-                            //product.transform.position = new Vector3(pos.position.x, pos.position.y + (pos.localScale.y / 2f), pos.position.z);
                             product.transform.position = pos.position;
+                            product.transform.rotation = pos.rotation;
                         }
                     }
                 }
@@ -104,8 +103,8 @@ public class Shelf : MonoBehaviour
                     {
                         GameObject product = Instantiate(stockedPrefab);
                         product.transform.SetParent(layer);
-                        //product.transform.position = new Vector3(pos.position.x, pos.position.y + (product.transform.localScale.y / 2f), pos.position.z);
                         product.transform.position = pos.position;
+                        product.transform.rotation = pos.rotation;
                     }
 
                 }

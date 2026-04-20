@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4021796313927809682}
   - component: {fileID: 3274609880561380309}
   - component: {fileID: 139089272255262385}
-  - component: {fileID: 7748360202083560683}
   m_Layer: 0
   m_Name: cannedFood
   m_TagString: Untagged
@@ -120,27 +119,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7748360202083560683
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7330995422431880967}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.47169024, y: 0.6864042, z: 1.7147301}
-  m_Center: {x: -0.017184973, y: 0.3432021, z: 0.015740156}
 --- !u!1001 &19530215822491313
 PrefabInstance:
   m_ObjectHideFlags: 0

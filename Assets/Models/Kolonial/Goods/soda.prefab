@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 8712334442627763303}
   - component: {fileID: 2608653210548335519}
   - component: {fileID: 3443467319832305506}
-  - component: {fileID: 4660941461567510673}
   m_Layer: 0
   m_Name: soda
   m_TagString: Untagged
@@ -288,27 +287,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4660941461567510673
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7515720205861820072}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.088687465, y: 0.25713915, z: 0.3604875}
-  m_Center: {x: -0.000000117346644, y: 0.12863472, z: -0.0014998764}
 --- !u!1 &8039686550751168890
 GameObject:
   m_ObjectHideFlags: 0

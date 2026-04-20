@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 2536583061497454891}
   - component: {fileID: 313751295245894377}
   - component: {fileID: 4142018347969860800}
-  - component: {fileID: 3041692350243711158}
   m_Layer: 0
   m_Name: cereal
   m_TagString: Untagged
@@ -289,27 +288,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3041692350243711158
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2497628015340907093}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.4902163, y: 0.94729596, z: 1.7103263}
-  m_Center: {x: -0.00000008940697, y: 0.47364798, z: 0.039999723}
 --- !u!1 &7452213876413095619
 GameObject:
   m_ObjectHideFlags: 0

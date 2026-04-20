@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2241188727728191597}
   - component: {fileID: 5901203504714201850}
   - component: {fileID: 1799959332086871131}
+  - component: {fileID: 3434571910305006154}
   m_Layer: 0
   m_Name: beer_transparent
   m_TagString: Untagged
@@ -104,6 +105,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3434571910305006154
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504508073736772852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.061260164, y: 0.22595629, z: 0.061259925}
+  m_Center: {x: 0.0000004945323, y: 0.11304331, z: 0.1799404}
 --- !u!1001 &6898795283790448308
 PrefabInstance:
   m_ObjectHideFlags: 0
