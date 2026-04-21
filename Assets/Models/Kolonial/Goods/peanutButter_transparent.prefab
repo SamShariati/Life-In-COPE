@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3315262963717911975}
   - component: {fileID: 4557649507120581881}
   - component: {fileID: 8459327261245064533}
-  - component: {fileID: 2451524237538664243}
   m_Layer: 0
   m_Name: peanutButter_transparent
   m_TagString: Untagged
@@ -106,27 +105,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2451524237538664243
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5461512091917027599}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.14872143, y: 0.34700423, z: 0.12624337}
-  m_Center: {x: 0.0014739744, y: 0.17350209, z: 0.27159995}
 --- !u!1001 &1635775505837659558
 PrefabInstance:
   m_ObjectHideFlags: 0

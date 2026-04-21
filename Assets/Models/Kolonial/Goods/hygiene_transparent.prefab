@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 2393102835164090316}
   - component: {fileID: 618627543416461211}
   - component: {fileID: 912465711844345101}
-  - component: {fileID: 2770880852390551214}
   m_Layer: 0
   m_Name: hygiene_transparent
   m_TagString: Untagged
@@ -195,24 +194,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2770880852390551214
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016161096737587490}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.15704842, y: 0.3590738, z: 0.11064136}
-  m_Center: {x: 0, y: 0.17953686, z: 0.3088001}

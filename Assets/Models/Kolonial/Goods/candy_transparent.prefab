@@ -497,7 +497,6 @@ GameObject:
   - component: {fileID: 262626910291871559}
   - component: {fileID: 5847808663935503424}
   - component: {fileID: 1987047084731189505}
-  - component: {fileID: 6385296390242879395}
   m_Layer: 0
   m_Name: candy_transparent
   m_TagString: Untagged
@@ -591,27 +590,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6385296390242879395
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528218408849162084}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.45090008, y: 0.4092464, z: 0.8412128}
-  m_Center: {x: 0.00044997036, y: 0.19384284, z: 0.42578503}
 --- !u!1 &1771936700052116322
 GameObject:
   m_ObjectHideFlags: 0
