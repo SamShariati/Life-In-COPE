@@ -8,12 +8,16 @@ public class Shelf : MonoBehaviour, IInteractable
 
     [HideInInspector] public GameObject stockedPrefab;
     [HideInInspector] public GameObject transparentPrefab;
+    [HideInInspector] public GameObject placedPrefab;
     [HideInInspector] public Transform shelfArrow;
-
+    [HideInInspector] public int remainingStockCount;
+    [HideInInspector] private StockingShelf stockingShelf;
+    public GameObject player;
 
     Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
-    
+    [HideInInspector] public List<Transform> stockingPosList = new List<Transform>();
+
 
     public enum GoodsType
     {
@@ -38,7 +42,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-
+        player = GameObject.FindWithTag("Player");
         shelfLayers = transform.Find("layers");
         shelfArrow = transform.Find("shelfArrow");
 
@@ -49,6 +53,13 @@ public class Shelf : MonoBehaviour, IInteractable
                 productPosList.Add(posObject);
             }
         }
+        Transform secondLayer = shelfLayers.GetChild(1);
+        Transform thirdLayer = shelfLayers.GetChild(2);
+        foreach (Transform pos in secondLayer) stockingPosList.Add(pos);
+        foreach (Transform pos in thirdLayer) stockingPosList.Add(pos);
+
+        stockingShelf = new StockingShelf(this);
+
     }
 
     public void PlaceGoodsInShelves()
@@ -123,7 +134,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract player)
     {
-
+        stockingShelf.Activate(player);
     }
     public string GetInteractPrompt(PlayerInteract player)
     {

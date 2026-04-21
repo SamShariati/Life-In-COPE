@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chips
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: chips
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 334515469654367594, guid: 5149ed692f96c52478a035cfe2df310a, type: 3}
+  placedPrefab: {fileID: 2054336194606534394, guid: 7245376447c40c444ab36d7337c430ef, type: 3}
   transparentPrefab: {fileID: 2054336194606534394, guid: 01953d13fd4930b4f9511d03b42fd37b, type: 3}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cookies
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: cookies
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 3514105299151949006, guid: 2ebec8c7d7cea3f42a52f47646ef1ddf, type: 3}
+  placedPrefab: {fileID: 250270414189897713, guid: 054ff10658c301d4ea3b9aa994c16cca, type: 3}
   transparentPrefab: {fileID: 8759990544788009932, guid: a397505e2f382af48a5b153e65df6781, type: 3}

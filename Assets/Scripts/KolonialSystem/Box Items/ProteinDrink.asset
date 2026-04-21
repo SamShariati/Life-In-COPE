@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ProteinDrink
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: proteinDrink
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 8524875005496463257, guid: 8f66e6085691dcd4180bfa80ae079d0f, type: 3}
+  placedPrefab: {fileID: 3752773749665004738, guid: a5d971e800e762943a9d5b0558a6b53f, type: 3}
   transparentPrefab: {fileID: 3752773749665004738, guid: 223f1410c4d8ebd4b9de5629cd2b4236, type: 3}

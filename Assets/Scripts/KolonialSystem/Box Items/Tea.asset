@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tea
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: tea
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 220753093344147243, guid: 67d15c43f259abd49ac619f21a5f56ac, type: 3}
+  placedPrefab: {fileID: 8645513323599782777, guid: 7e1e9a93ffdacf9478019dc38bdaf6b4, type: 3}
   transparentPrefab: {fileID: 8645513323599782777, guid: 68bbcb28f26ca6647a661ef554d62e90, type: 3}

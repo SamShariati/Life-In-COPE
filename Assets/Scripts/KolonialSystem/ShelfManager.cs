@@ -22,12 +22,12 @@ public class ShelfManager : MonoBehaviour
         goodsDataList = pallet.allBoxTypes;
         goodsOnPallet = pallet.boxDataList;
         SetShelfStatus();
-        SetShelfPrefab();
+        SetShelfData();
         PlaceAllShelves();
         DeactivateShelfArrows();
     }
 
-    private void SetShelfPrefab()
+    private void SetShelfData()
     {
         foreach (Shelf shelf in shelfList)
         {
@@ -38,7 +38,11 @@ public class ShelfManager : MonoBehaviour
                 if (shelfGoodsType == boxData.boxID)
                 {
                     shelf.stockedPrefab = boxData.stockedPrefab;
+                    shelf.placedPrefab = boxData.placedPrefab;
                     shelf.transparentPrefab = boxData.transparentPrefab;
+
+                    //Adding number of slots left to fill in shelf.
+                    shelf.remainingStockCount = boxData.nrGoodsInBox;
                 }
             }
 

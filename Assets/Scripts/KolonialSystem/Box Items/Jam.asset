@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Jam
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: jam
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 6351431379621013037, guid: 234bf9939ba257941a2b256e40fd2640, type: 3}
+  placedPrefab: {fileID: 7987885935183631160, guid: 7f199cceaa9e8c048b47052f72be0dff, type: 3}
   transparentPrefab: {fileID: 7987885935183631160, guid: 51fa322b40e598a48bfcd7c7ccf11443, type: 3}

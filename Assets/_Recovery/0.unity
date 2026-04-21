@@ -1404,10 +1404,6 @@ PrefabInstance:
       propertyPath: interactText
       value: 
       objectReference: {fileID: 936815299}
-    - target: {fileID: 5578784595230896801, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.358
-      objectReference: {fileID: 0}
     - target: {fileID: 8394032781787490749, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_Name
       value: Player

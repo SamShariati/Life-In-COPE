@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Toys
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: toys
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 5165234154103866515, guid: 524d10b14d5ea2a4499b3edae7b68e3b, type: 3}
+  placedPrefab: {fileID: 1306111848030963018, guid: a40afeb11d952c149b845e55fec17b0b, type: 3}
   transparentPrefab: {fileID: 1306111848030963018, guid: 109453243b0f9ab4ca95ef977abc630b, type: 3}

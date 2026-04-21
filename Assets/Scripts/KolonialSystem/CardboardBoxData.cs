@@ -4,9 +4,11 @@ using UnityEngine;
 public class CardboardBoxData : ScriptableObject
 {
     public string boxID;
-    public int nrOfGoods;
+    public int nrGoodsInBox;
     //public Sprite crateImage;
+
     public GameObject stockedPrefab;
+    public GameObject placedPrefab;
     public GameObject transparentPrefab;
 }
 

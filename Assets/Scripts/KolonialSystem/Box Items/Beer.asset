@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Beer
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: beer
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 7795189480879726370, guid: a7ad45d89ab05154c943182addc7f50d, type: 3}
+  placedPrefab: {fileID: 6504508073736772852, guid: 0e4e02c7ef1ed914f91d8af128fbd886, type: 3}
   transparentPrefab: {fileID: 6504508073736772852, guid: 9726550eae090da448bf774faa468ccb, type: 3}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Toilet Paper
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: toiletPaper
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 9112432508726339449, guid: 38707d6b911b4344f8c472cc7bf44f91, type: 3}
+  placedPrefab: {fileID: 6232881885538220350, guid: 02e26dc5a64245e4085ba4be593bd66d, type: 3}
   transparentPrefab: {fileID: 6232881885538220350, guid: 977c493043f4a024da4a8e37ef4de62a, type: 3}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sauces
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: sauces
-  nrOfGoods: 10
+  nrGoodsInBox: 20
   stockedPrefab: {fileID: 7449238644334660010, guid: e0da9d0140b91ea40bfc7a2db4c542e6, type: 3}
+  placedPrefab: {fileID: 3079805025008221720, guid: 5210d09297d625840857e58092fa544e, type: 3}
   transparentPrefab: {fileID: 3079805025008221720, guid: 74b088e8f994eb248a05adbaa046e031, type: 3}
