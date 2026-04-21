@@ -25,10 +25,10 @@ public class StockingShelf : MonoBehaviour, PlayerInput.IShelfActions
 
     public void OnStop(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed) ; //Metod här
+        //if (ctx.performed) Metod här
     }
     public void OnLook(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed) ; //Metod här
+        //if (ctx.performed) Metod här
     }
 }
