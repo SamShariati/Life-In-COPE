@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,15 +8,17 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
 {
 
     public bool currentlyHoldingBox;
-    CardboardBoxObject heldBox;
+    public CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject boxPrefab;
+    private ShelfManager shelfManager;
 
     private PlayerInput _input;
     private void Awake()
     {   
         _input = new PlayerInput();
-        currentlyHoldingBox = false; 
+        currentlyHoldingBox = false;
+        shelfManager = FindAnyObjectByType<ShelfManager>();
     }
 
     private void OnEnable()
@@ -59,22 +62,22 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
             return false;
         }
     }
-    public void AddBox(CardboardBoxData data)
+    public void AddBoxFromPallet(CardboardBoxData data)
     {
         if (currentlyHoldingBox)
         {
             return;
         }
-        //heldBox = box;
-        //Debug.Log(heldBox.boxID);
-        //currentlyHoldingBox = true;
+
         GameObject box = Instantiate(boxPrefab);
         heldBox = box.GetComponent<CardboardBoxObject>();
         heldBox.Initiate(data);
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
+        shelfManager.ActivateShelfArrow(heldBox);
     }
 
+    //----------------HANDLING BOXES-------------------
     public void PickUpBox(CardboardBoxObject boxObject)
     {
         if (currentlyHoldingBox) return;
@@ -82,6 +85,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = boxObject;
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
+        shelfManager.ActivateShelfArrow(boxObject);
     }
     public void DropBox()
     {
@@ -89,6 +93,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetDropped();
         heldBox = null;
         currentlyHoldingBox = false;
+        shelfManager.DeactivateShelfArrows();
     }
 
     public void ThrowBox()
@@ -97,5 +102,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetThrown();
         heldBox = null;
         currentlyHoldingBox = false;
+        shelfManager.DeactivateShelfArrows();
     }
+    //-------------------------------------------------
 }

@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
 using UnityEngine;
 
-public class Shelf : MonoBehaviour
+public class Shelf : MonoBehaviour, IInteractable
 {
 
     [HideInInspector] public GameObject stockedPrefab;
     [HideInInspector] public GameObject transparentPrefab;
+    [HideInInspector] public Transform shelfArrow;
+
 
     Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
@@ -37,6 +40,7 @@ public class Shelf : MonoBehaviour
     {
 
         shelfLayers = transform.Find("layers");
+        shelfArrow = transform.Find("shelfArrow");
 
         foreach (Transform layer in shelfLayers)
         {
@@ -117,12 +121,23 @@ public class Shelf : MonoBehaviour
         }
     }
 
-    private void HandleEmpty()
+    public void Interact(PlayerInteract player)
     {
 
     }
-    private void HandleStocked()
+    public string GetInteractPrompt(PlayerInteract player)
     {
+        if (player.Inventory.currentlyHoldingBox)
+        {
+            string shelfGoodsType = goodsType.ToString();
+            if (shelfGoodsType == player.Inventory.heldBox.data.boxID)
+            {
+                return $"Stock the shelf ({shelfGoodsType})";
+            }
+            else { return ""; }
+        }
+        else { return ""; }
+        
 
     }
 }

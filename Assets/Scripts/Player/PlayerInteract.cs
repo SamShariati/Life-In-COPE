@@ -54,7 +54,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            hit.collider.GetComponent<IInteractable>()?.Interact(this);
+            hit.collider.GetComponentInParent<IInteractable>()?.Interact(this);
         }
     }
 
@@ -63,7 +63,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
             if (interactable != null)
             {
                 interactText.text = interactable.GetInteractPrompt(this);

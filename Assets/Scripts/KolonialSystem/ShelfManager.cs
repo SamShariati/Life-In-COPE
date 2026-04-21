@@ -20,10 +20,11 @@ public class ShelfManager : MonoBehaviour
         pallet = FindAnyObjectByType<KolonialPallet>();
         shelfList = new List<Shelf>(FindObjectsByType<Shelf>());
         goodsDataList = pallet.allBoxTypes;
-        goodsOnPallet = pallet.boxList;
+        goodsOnPallet = pallet.boxDataList;
         SetShelfStatus();
         SetShelfPrefab();
         PlaceAllShelves();
+        DeactivateShelfArrows();
     }
 
     private void SetShelfPrefab()
@@ -78,12 +79,35 @@ public class ShelfManager : MonoBehaviour
         }
 
     }
-
     private void PlaceAllShelves()
     {
-        foreach(Shelf shelf in shelfList)
+        foreach (Shelf shelf in shelfList)
         {
             shelf.PlaceGoodsInShelves();
         }
     }
+
+
+    //----------------SHELF ARROWS--------------------------
+
+    public void ActivateShelfArrow(CardboardBoxObject box)
+    {
+        
+        foreach (Shelf shelf in shelfList)
+        {
+            string shelfGoodsType = shelf.goodsType.ToString();
+            if (shelfGoodsType == box.data.boxID)
+            {
+                shelf.shelfArrow.gameObject.SetActive(true);
+            }
+        }
+    }
+    public void DeactivateShelfArrows()
+    {
+        foreach(Shelf shelf in shelfList)
+        {
+            shelf.shelfArrow.gameObject.SetActive(false);
+        }
+    }
+    //-----------------------------------------------------
 }

@@ -9,7 +9,7 @@ public class KolonialPallet : MonoBehaviour, IInteractable
     [SerializeField] public List<CardboardBoxData> allBoxTypes;
     [SerializeField] int maxNrBoxes;
     int nrBoxesLeft;
-    [SerializeField] public List<CardboardBoxData> boxList = new List<CardboardBoxData>();
+    [SerializeField] public List<CardboardBoxData> boxDataList = new List<CardboardBoxData>();
     Transform firstLayer;
     Transform secondLayer;
     Transform thirdLayer;
@@ -46,7 +46,7 @@ public class KolonialPallet : MonoBehaviour, IInteractable
 
         for (int i = 0; i < maxNrBoxes; i++)
         {
-            boxList.Add(shuffled[i]);
+            boxDataList.Add(shuffled[i]);
             //Debug.Log(shuffled[i].boxID);
         }
         
@@ -56,11 +56,11 @@ public class KolonialPallet : MonoBehaviour, IInteractable
         nrBoxesLeft -= 1;
         CheckPalletProgression();
     }
-    public CardboardBoxData GetABox()
+    public CardboardBoxData SpawnABox()
     {
-        int rand = Random.Range(0, boxList.Count);
-        CardboardBoxData data = boxList[rand];
-        boxList.RemoveAt(rand);
+        int rand = Random.Range(0, boxDataList.Count);
+        CardboardBoxData data = boxDataList[rand];
+        boxDataList.RemoveAt(rand);
         return data;
     }
     private void CheckPalletProgression()
@@ -97,8 +97,8 @@ public class KolonialPallet : MonoBehaviour, IInteractable
     {
         if (!player.Inventory.IsHoldingBox() && nrBoxesLeft > 0)
         {
-            CardboardBoxData box = GetABox();
-            player.Inventory.AddBox(box);
+            CardboardBoxData box = SpawnABox();
+            player.Inventory.AddBoxFromPallet(box);
             RemoveACrate();
         }
         

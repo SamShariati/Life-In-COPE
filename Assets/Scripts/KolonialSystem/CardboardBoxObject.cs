@@ -11,6 +11,9 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     [SerializeField] private TextMeshProUGUI textIDBack;
     [SerializeField] private Transform textPosFront;
     [SerializeField] private Transform textPosBack;
+    
+    //ÄNDRA SÅ ATT ETT PARENTOBJEKT INNEHÅLLER: closedBoxPrefab, openBoxPrefab, OCH ALLA 4 OBJEKT OVAN
+    //SKAPA TVÅ METODER: EnableClosedBox, EnableOpenBox. DESSA AKTIVERAS FRÅN SHELF (TROR JAG)
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
