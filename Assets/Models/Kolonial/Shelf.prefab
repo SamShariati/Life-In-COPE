@@ -3719,7 +3719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5703467872355653930
 Transform:
   m_ObjectHideFlags: 0
@@ -4632,9 +4632,10 @@ MonoBehaviour:
   shelfArrow: {fileID: 0}
   remainingStockCount: 0
   player: {fileID: 0}
+  productPosList: []
   stockingPosList: []
   inStockingMode: 0
-  goodsType: 17
+  goodsType: 0
   shelfStatus: 0
 --- !u!1 &8618512617024154223
 GameObject:
