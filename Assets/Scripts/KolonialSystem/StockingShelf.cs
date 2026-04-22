@@ -208,6 +208,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         _input.Shelf.RemoveCallbacks(this);
         _input.Player.Enable();
 
+
         _playerMovement.enabled = true;
 
         if (_runner != null)
@@ -246,7 +247,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         _cameraTransform.localRotation = Quaternion.Euler(_shelfPitch, _shelfYaw, 0f);
     }
 
-    // ----- IShelfActions -----
+    // ----- IShelfActions ------------------------------
     public void OnStop(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && shelf.inStockingMode)
@@ -261,7 +262,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     {
         _lookDelta = ctx.ReadValue<Vector2>();
     }
-
+    // ----- IShelfActions ------------------------------
 
     private void GetTransparentItems()
     {
