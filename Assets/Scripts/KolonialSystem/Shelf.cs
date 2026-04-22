@@ -12,11 +12,13 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public Transform shelfArrow;
     [HideInInspector] public int remainingStockCount;
     [HideInInspector] private StockingShelf stockingShelf;
+
     public GameObject player;
 
     Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
     [HideInInspector] public List<Transform> stockingPosList = new List<Transform>();
+    [HideInInspector] public bool inStockingMode = false;
 
 
     public enum GoodsType
@@ -147,17 +149,27 @@ public class Shelf : MonoBehaviour, IInteractable
     }
     public string GetInteractPrompt(PlayerInteract player)
     {
-        if (player.Inventory.currentlyHoldingBox && remainingStockCount > 0)
+        string shelfGoodsType = goodsType.ToString();
+        if (GetInteractConditions(player))
         {
-            string shelfGoodsType = goodsType.ToString();
-            if (shelfGoodsType == player.Inventory.heldBox.data.boxID)
-            {
-                return $"Stock the shelf ({shelfGoodsType})";
-            }
-            else { return ""; }
+            return $"Stock the shelf ({shelfGoodsType})";     
         }
         else { return ""; }
-        
+    }        
+
+    private bool GetInteractConditions(PlayerInteract player)
+    {
+
+        string shelfGoodsType = goodsType.ToString();
+        if (!inStockingMode && player.Inventory.currentlyHoldingBox && remainingStockCount > 0
+            && shelfGoodsType == player.Inventory.heldBox.data.boxID)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 }

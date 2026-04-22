@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class StockingShelf : PlayerInput.IShelfActions
 {
     private PlayerInput _input;
-    private Shelf _shelf;
+    private Shelf shelf;
     private GameObject _player;
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
@@ -26,7 +26,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private Vector2 _lookDelta;
 
     // Stocking state
-    private bool _isStocking = false;
+    //private bool _isStocking = false;
     private bool _stockingStarted = false;
     private List<Transform> _stockingPositions = new List<Transform>();
     private int _currentStockIndex = 0;
@@ -38,9 +38,9 @@ public class StockingShelf : PlayerInput.IShelfActions
     // since StockingShelf is not itself a MonoBehaviour
     private CoroutineRunner _runner;
 
-    public StockingShelf(Shelf shelf)
+    public StockingShelf(Shelf _shelf)
     {
-        _shelf = shelf;
+        shelf = _shelf;
         _input = new PlayerInput();
         _currentStockIndex = 0;
     }
@@ -52,13 +52,13 @@ public class StockingShelf : PlayerInput.IShelfActions
         GetTransparentItems();
         _playerInteract = pI;
         _playerInteract.Inventory.shelfManager.DisableShelfArrow();
-        _player = _shelf.player;
+        _player = shelf.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
         _characterController = _player.GetComponent<CharacterController>();
 
         // Use the pre-built stocking positions from Shelf (captured before transparents were spawned)
-        _stockingPositions = _shelf.stockingPosList;
+        _stockingPositions = shelf.stockingPosList;
 
         // Swap to Shelf action map
         _playerMovement.enabled = false;
@@ -79,20 +79,20 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     private IEnumerator StockingSequence(PlayerInteract playerInteract)
     {
-        _isStocking = true;
+        shelf.inStockingMode = true;
 
         // --- Step 1: Smoothly move player to shelfArrow position & rotate camera toward shelf ---
-        Transform arrowTransform = _shelf.shelfArrow;
-        arrowTransform.position = new Vector3(_shelf.shelfArrow.position.x, StandingHeight, _shelf.shelfArrow.position.z); 
+        Transform arrowTransform = shelf.shelfArrow;
+        arrowTransform.position = new Vector3(shelf.shelfArrow.position.x, StandingHeight, shelf.shelfArrow.position.z); 
         //arrowTransform.position = _shelf.shelfArrow.position;
         Vector3 targetPos = arrowTransform.position;
 
-        Vector3 dirToShelfFlat = (_shelf.transform.position - arrowTransform.position);
+        Vector3 dirToShelfFlat = (shelf.transform.position - arrowTransform.position);
         dirToShelfFlat.y = 0f; // flatten so player doesn't tilt up/down
         Quaternion targetPlayerRot = Quaternion.LookRotation(dirToShelfFlat.normalized);
 
         // The shelf's pivot (center) is the shelf transform itself
-        Vector3 shelfCenter = _shelf.transform.position;
+        Vector3 shelfCenter = shelf.transform.position;
 
         float elapsed = 0f;
         float transitionDuration = 0.6f;
@@ -144,23 +144,23 @@ public class StockingShelf : PlayerInput.IShelfActions
         // --- Step 3: Stocking loop ---
         Transform boxTransform = playerInteract.Inventory.heldBox.transform;
 
-        while (_currentStockIndex < _stockingPositions.Count && _shelf.remainingStockCount > 0)
+        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
             Transform targetSlot = _stockingPositions[_currentStockIndex];
 
             // Spawn placedPrefab at box position and fly it to the shelf slot
-            flyingItem = GameObject.Instantiate(_shelf.placedPrefab, boxTransform.position, Quaternion.identity);
+            flyingItem = GameObject.Instantiate(shelf.placedPrefab, boxTransform.position, Quaternion.identity);
 
             yield return _runner.StartCoroutine(FlyToShelf(flyingItem, targetSlot));
 
             // Remove flying item, place stockedPrefab permanently
             GameObject.Destroy(flyingItem);
-            GameObject placed = GameObject.Instantiate(_shelf.stockedPrefab);
+            GameObject placed = GameObject.Instantiate(shelf.stockedPrefab);
             placed.transform.SetParent(targetSlot.parent);
             placed.transform.position = targetSlot.position;
             placed.transform.rotation = targetSlot.rotation;
 
-            _shelf.remainingStockCount--;
+            shelf.remainingStockCount--;
             _currentStockIndex++;
 
             // Removing the placeholder transparent prefab in that position
@@ -169,7 +169,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
 
             // Pause between placements (skip wait after last item)
-            if (_currentStockIndex < _stockingPositions.Count && _shelf.remainingStockCount > 0)
+            if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
                 yield return new WaitForSeconds(TimeBetweenPlacements);
         }
 
@@ -199,7 +199,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     private void ExitStocking(PlayerInteract playerInteract)
     {
-        _isStocking = false;
+        shelf.inStockingMode = false;
         _stockingStarted = false;
 
         _input.Shelf.Disable();
@@ -218,7 +218,7 @@ public class StockingShelf : PlayerInput.IShelfActions
             GameObject.Destroy(flyingItem);
             flyingItem = null;
         }
-        if (_currentStockIndex < _stockingPositions.Count && _shelf.remainingStockCount > 0)
+        if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
             playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
         }
@@ -232,7 +232,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     // Called every frame by the CoroutineRunner's Update so shelf-look works
     public void UpdateLook()
     {
-        if (!_stockingStarted || !_isStocking) return;
+        if (!_stockingStarted || !shelf.inStockingMode) return;
         if (_cameraTransform == null) return;
 
         _shelfYaw += _lookDelta.x * ShelfLookSensitivity;
@@ -247,7 +247,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     // ----- IShelfActions -----
     public void OnStop(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && _isStocking)
+        if (ctx.performed && shelf.inStockingMode)
         {
             _runner.StopAllCoroutines();
             ExitStocking(_playerInteract);
@@ -263,7 +263,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     private void GetTransparentItems()
     {
-        Transform shelfLayers = _shelf.transform.Find("layers");
+        Transform shelfLayers = shelf.transform.Find("layers");
         Transform secondLayer = shelfLayers.GetChild(1);
         Transform thirdLayer = shelfLayers.GetChild(2);
 
