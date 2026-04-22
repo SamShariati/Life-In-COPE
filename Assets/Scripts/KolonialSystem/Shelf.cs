@@ -45,6 +45,7 @@ public class Shelf : MonoBehaviour, IInteractable
         player = GameObject.FindWithTag("Player");
         shelfLayers = transform.Find("layers");
         shelfArrow = transform.Find("shelfArrow");
+        remainingStockCount = 20;
 
         foreach (Transform layer in shelfLayers)
         {
@@ -134,11 +135,19 @@ public class Shelf : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract player)
     {
-        stockingShelf.Activate(player);
+        if (player.Inventory.currentlyHoldingBox && remainingStockCount > 0)
+        {
+            string shelfGoodsType = goodsType.ToString();
+            if (shelfGoodsType == player.Inventory.heldBox.data.boxID)
+            {
+                stockingShelf.Activate(player);
+            }
+        }
+
     }
     public string GetInteractPrompt(PlayerInteract player)
     {
-        if (player.Inventory.currentlyHoldingBox)
+        if (player.Inventory.currentlyHoldingBox && remainingStockCount > 0)
         {
             string shelfGoodsType = goodsType.ToString();
             if (shelfGoodsType == player.Inventory.heldBox.data.boxID)

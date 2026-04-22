@@ -11,7 +11,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     public CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject boxPrefab;
-    private ShelfManager shelfManager;
+    [HideInInspector] public ShelfManager shelfManager;
 
     private PlayerInput _input;
     private void Awake()
@@ -74,7 +74,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.Initiate(data);
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
-        shelfManager.ActivateShelfArrow(heldBox);
+        shelfManager.EnableShelfArrow(heldBox);
     }
 
     //----------------HANDLING BOXES-------------------
@@ -85,7 +85,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = boxObject;
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
-        shelfManager.ActivateShelfArrow(boxObject);
+        shelfManager.EnableShelfArrow(boxObject);
     }
     public void DropBox()
     {
@@ -93,7 +93,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetDropped();
         heldBox = null;
         currentlyHoldingBox = false;
-        shelfManager.DeactivateShelfArrows();
+        shelfManager.DisableShelfArrow();
     }
 
     public void ThrowBox()
@@ -102,7 +102,15 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetThrown();
         heldBox = null;
         currentlyHoldingBox = false;
-        shelfManager.DeactivateShelfArrows();
+        shelfManager.DisableShelfArrow();
+    }
+
+    public void DestroyBox()
+    {
+        GameObject.Destroy(heldBox.gameObject);
+        heldBox = null;
+        currentlyHoldingBox = false;
+        shelfManager.DisableShelfArrow();
     }
     //-------------------------------------------------
 }

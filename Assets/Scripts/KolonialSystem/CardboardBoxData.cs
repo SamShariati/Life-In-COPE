@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardboardBoxData : ScriptableObject
 {
     public string boxID;
-    public int nrGoodsInBox;
+    
     //public Sprite crateImage;
 
     public GameObject stockedPrefab;

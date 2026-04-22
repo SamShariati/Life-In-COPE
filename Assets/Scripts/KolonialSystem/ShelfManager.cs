@@ -24,7 +24,7 @@ public class ShelfManager : MonoBehaviour
         SetShelfStatus();
         SetShelfData();
         PlaceAllShelves();
-        DeactivateShelfArrows();
+        DisableShelfArrow();
     }
 
     private void SetShelfData()
@@ -41,8 +41,6 @@ public class ShelfManager : MonoBehaviour
                     shelf.placedPrefab = boxData.placedPrefab;
                     shelf.transparentPrefab = boxData.transparentPrefab;
 
-                    //Adding number of slots left to fill in shelf.
-                    shelf.remainingStockCount = boxData.nrGoodsInBox;
                 }
             }
 
@@ -94,7 +92,7 @@ public class ShelfManager : MonoBehaviour
 
     //----------------SHELF ARROWS--------------------------
 
-    public void ActivateShelfArrow(CardboardBoxObject box)
+    public void EnableShelfArrow(CardboardBoxObject box)
     {
         
         foreach (Shelf shelf in shelfList)
@@ -106,7 +104,7 @@ public class ShelfManager : MonoBehaviour
             }
         }
     }
-    public void DeactivateShelfArrows()
+    public void DisableShelfArrow()
     {
         foreach(Shelf shelf in shelfList)
         {
