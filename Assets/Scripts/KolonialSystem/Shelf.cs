@@ -13,7 +13,7 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public int remainingStockCount;
     [HideInInspector] private StockingShelf stockingShelf;
 
-    public GameObject player;
+    [HideInInspector] public GameObject player;
 
     Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
@@ -40,7 +40,7 @@ public class Shelf : MonoBehaviour, IInteractable
     }
 
     public GoodsType goodsType;
-    public ShelfStatus shelfStatus;
+    [HideInInspector] public ShelfStatus shelfStatus;
 
     private void Awake()
     {

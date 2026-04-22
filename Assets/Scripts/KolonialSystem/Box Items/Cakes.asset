@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Cakes
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: cakes
-  nrGoodsInBox: 20
   stockedPrefab: {fileID: 3957396532853959809, guid: 9da458c350fca604a980f15b032458f0, type: 3}
-  placedPrefab: {fileID: 3407409449170725112, guid: 3ca0038302f040e479b577f54678e032, type: 3}
+  placedPrefab: {fileID: 898108996945458242, guid: e376de3f7cca9bf46b7a90d737779e3b, type: 3}
   transparentPrefab: {fileID: 898108996945458242, guid: 535e59f59e9973b4088380b903146fd1, type: 3}

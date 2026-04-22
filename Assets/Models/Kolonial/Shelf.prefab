@@ -3729,7 +3729,7 @@ Transform:
   m_GameObject: {fileID: 7646974221949579347}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.2555559, z: 3.5}
+  m_LocalPosition: {x: 0, y: -3.2555559, z: 3.14}
   m_LocalScale: {x: 0.6, y: 0.8000001, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4605,7 +4605,7 @@ Transform:
   m_GameObject: {fileID: 8562832109724398246}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.93, z: 0}
+  m_LocalPosition: {x: -2.01106, y: 2.93, z: -6.05138}
   m_LocalScale: {x: 1, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4628,7 +4628,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shelf
   stockedPrefab: {fileID: 0}
   transparentPrefab: {fileID: 0}
-  productPosList: []
+  placedPrefab: {fileID: 0}
+  shelfArrow: {fileID: 0}
+  remainingStockCount: 0
+  player: {fileID: 0}
+  stockingPosList: []
+  inStockingMode: 0
   goodsType: 17
   shelfStatus: 0
 --- !u!1 &8618512617024154223

@@ -31,8 +31,10 @@ public class StockingShelf : PlayerInput.IShelfActions
     private List<Transform> _stockingPositions = new List<Transform>();
     private int _currentStockIndex = 0;
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
-    private const float TimeBetweenPlacements = 0.25f; // timer pause between placements
-    private const float MoveSpeed = 6f;             // speed of placedPrefab flying to shelf
+    private const float TimeBetweenPlacements = 0f; // timer pause between placements
+
+    //Variabeln vi ändrar på för Speed Upgrades -> +1f = ca -20% av 10sec
+    private const float MoveSpeed = 5f;             // speed of placedPrefab flying to shelf
 
     // Coroutine host — a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour
