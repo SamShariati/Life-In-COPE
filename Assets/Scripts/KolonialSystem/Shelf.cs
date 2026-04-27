@@ -130,7 +130,7 @@ public class Shelf : MonoBehaviour, IInteractable
                 break;
 
             case ShelfStatus.none:
-                Debug.Log("shelfStatus is None");
+                //Debug.Log("shelfStatus is None");
                 break;
         }
     }
