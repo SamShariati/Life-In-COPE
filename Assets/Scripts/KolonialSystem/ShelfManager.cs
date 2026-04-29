@@ -18,7 +18,7 @@ public class ShelfManager : MonoBehaviour
     void Start()
     {
         pallet = FindAnyObjectByType<KolonialPallet>();
-        GetShelfList();
+        shelfList = new List<Shelf>(FindObjectsByType<Shelf>());
         goodsDataList = pallet.allBoxTypes;
         goodsOnPallet = pallet.boxDataList;
         SetShelfStatus();
@@ -27,19 +27,7 @@ public class ShelfManager : MonoBehaviour
         DisableShelfArrow();
     }
 
-    private void GetShelfList()
-    {
-        shelfList = new List<Shelf>(FindObjectsByType<Shelf>());
-        foreach (Shelf shelf in shelfList)
-        {
-            string shelfType = shelf.shelfType.ToString();
-            
-            if (shelfType == "Decour")
-            {
-                shelfList.Remove(shelf);
-            }
-        }
-    }
+
     private void SetShelfData()
     {
         foreach (Shelf shelf in shelfList)
