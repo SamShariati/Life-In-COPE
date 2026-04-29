@@ -18,7 +18,7 @@ public class ShelfManager : MonoBehaviour
     void Start()
     {
         pallet = FindAnyObjectByType<KolonialPallet>();
-        shelfList = new List<Shelf>(FindObjectsByType<Shelf>());
+        GetShelfList();
         goodsDataList = pallet.allBoxTypes;
         goodsOnPallet = pallet.boxDataList;
         SetShelfStatus();
@@ -27,10 +27,24 @@ public class ShelfManager : MonoBehaviour
         DisableShelfArrow();
     }
 
+    private void GetShelfList()
+    {
+        shelfList = new List<Shelf>(FindObjectsByType<Shelf>());
+        foreach (Shelf shelf in shelfList)
+        {
+            string shelfType = shelf.shelfType.ToString();
+            
+            if (shelfType == "Decour")
+            {
+                shelfList.Remove(shelf);
+            }
+        }
+    }
     private void SetShelfData()
     {
         foreach (Shelf shelf in shelfList)
         {
+            //shelf.goodsDataList = goodsDataList;
             string shelfGoodsType = shelf.goodsType.ToString();
 
             foreach (CardboardBoxData boxData in goodsDataList)
@@ -51,6 +65,7 @@ public class ShelfManager : MonoBehaviour
         foreach (Shelf shelf in shelfList)
         {
             string shelfGoodsType = shelf.goodsType.ToString();
+            string shelfType = shelf.shelfType.ToString();
             bool goodsTypeInPallet = false;
             if (shelfGoodsType == "none")
             {
@@ -69,7 +84,7 @@ public class ShelfManager : MonoBehaviour
                     continue;
                 }
             }
-            if (goodsTypeInPallet)
+            if (goodsTypeInPallet && shelfType != "decour")
             {
                 shelf.shelfStatus = Shelf.ShelfStatus.empty;
             }
@@ -98,7 +113,8 @@ public class ShelfManager : MonoBehaviour
         foreach (Shelf shelf in shelfList)
         {
             string shelfGoodsType = shelf.goodsType.ToString();
-            if (shelfGoodsType == box.data.boxID)
+            string shelfType = shelf.shelfType.ToString();
+            if (shelfGoodsType == box.data.boxID && shelfType != "decour")
             {
                 shelf.shelfArrow.gameObject.SetActive(true);
             }

@@ -12,6 +12,7 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public Transform shelfArrow;
     [HideInInspector] public int remainingStockCount;
     [HideInInspector] private StockingShelf stockingShelf;
+    //[HideInInspector] public List<CardboardBoxData> goodsDataList;
 
     [HideInInspector] public GameObject player;
 
@@ -38,8 +39,14 @@ public class Shelf : MonoBehaviour, IInteractable
         empty,
         stocked
     }
+    public enum ShelfType
+    {
+        custom,
+        decour
+    }
 
     public GoodsType goodsType;
+    public ShelfType shelfType;
     [HideInInspector] public ShelfStatus shelfStatus;
 
     private void Awake()
@@ -108,6 +115,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
             case ShelfStatus.stocked:
 
+                remainingStockCount = 0;
                 foreach (Transform layer in shelfLayers)
                 {
 
