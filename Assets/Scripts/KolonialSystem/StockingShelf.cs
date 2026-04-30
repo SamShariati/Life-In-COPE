@@ -22,7 +22,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private const float MaxYaw = 75f;
     private const float MaxPitch = 30f;
     private const float ShelfLookSensitivity = 0.1f;
-    private const float StandingHeight = 2.5f;
+    private const float StandingHeight = 1f;
     private Vector2 _lookDelta;
 
     // Stocking state
@@ -34,7 +34,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private const float TimeBetweenPlacements = 0f; // timer pause between placements
 
     //Variabeln vi ändrar på för Speed Upgrades -> +1f = ca -20% av 10sec
-    private const float MoveSpeed = 5f;             // speed of placedPrefab flying to shelf
+    private const float MoveSpeed = 2f;             // speed of placedPrefab flying to shelf
 
     // Coroutine host — a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour

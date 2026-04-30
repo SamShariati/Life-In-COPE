@@ -6,6 +6,7 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     public CardboardBoxData data;
 
     private Rigidbody rb;
+    private BoxCollider collider;
 
     [SerializeField] private TextMeshProUGUI textIDFront;
     [SerializeField] private TextMeshProUGUI textIDBack;
@@ -17,6 +18,7 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
         textPosFront = transform.Find("textPosFront");
         textPosBack = transform.Find("textPosBack");
     }
@@ -44,6 +46,7 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     {
 
         rb.isKinematic = true; // disable physics while carried
+        collider.enabled = false;
         transform.SetParent(holdPoint);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -52,14 +55,17 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     public void GetDropped()
     {
         rb.isKinematic = false; // re-enable physics
+        collider.enabled = true;
         transform.SetParent(null);
     }
 
     public void GetThrown(float throwForce = 10f)
     {
         rb.isKinematic = false;
+        collider.enabled = true;
         transform.SetParent(null);
-        rb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        Vector3 throwDirection = (transform.forward + transform.up * 0.4f).normalized;
+        rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
     }
 
 

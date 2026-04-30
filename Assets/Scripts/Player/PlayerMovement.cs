@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
 {
     [Header("Movement")]
     [SerializeField] private float walkSpeed;
-    [SerializeField] private float sprintSpeed = 10f;
-    private float currentSpeed = 5;
+    [SerializeField] private float sprintSpeed = 5f;
+    private float currentSpeed = 2.5f;
 
     [Header("Mouse Look")]
     [SerializeField] private float mouseSensitivity = 0.1f;
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
         //Vector2 mouseDelta = Mouse.current.delta.ReadValue() * mouseSensitivity;
 
         xRotation -= mouseDelta.y;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -25f, 50f);
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * mouseDelta.x);
