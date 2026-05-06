@@ -43,11 +43,11 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BTActivated)
+        if (BTActivated) // BT
         {
             //BTträd
         }
-        else
+        else //FSM
         {
             currentState.UpdateState(this);
         }
