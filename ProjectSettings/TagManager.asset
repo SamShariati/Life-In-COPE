@@ -8,13 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NavMeshFloor
   - Water
   - UI
   - Player
   - Box
-  - 
-  - 
+  - Shelf
+  - PrepShop
   - 
   - 
   - 
