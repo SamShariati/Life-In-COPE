@@ -3,12 +3,13 @@ public class EnterStoreState : FSMBaseState
 {
     Vector3 storePosition;
     float distanceToTarget;
-    bool finishedState = false;
-    float timer = 3f;
+
+    float idleTime;
 
     public override void EnterState(CustomerManager agent)
     {
         storePosition = agent.enterStorePos.transform.position;
+        idleTime = Random.Range(agent.minIdleTime, agent.maxIdleTime);
     }
 
     public override void UpdateState(CustomerManager agent)
@@ -17,9 +18,10 @@ public class EnterStoreState : FSMBaseState
 
         if (distanceToTarget < 0.1f)
         {
-            timer -= Time.deltaTime;
 
-            if (timer < 0)
+            idleTime -= Time.deltaTime;
+
+            if (idleTime < 0)
             {
                 agent.SwitchState(agent.nothingState);
                 agent.BTActivated = true;
