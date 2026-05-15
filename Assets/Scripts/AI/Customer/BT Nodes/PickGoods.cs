@@ -11,11 +11,8 @@ public class PickGoods : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        //if (!runOnce)
-        //{
-        //    RotateTowardsShelf(agent);
-        //}
-        
+
+        RotateTowardsShelf(agent);
 
         switch (phase)
         {
@@ -23,8 +20,7 @@ public class PickGoods : BTNode
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
-                    RotateTowardsShelf(agent);
-                    PickGoodsFromShelf(agent);
+                    
                     agent.C_Functions.SetTimer(agent.maxIdleTime);
                     phase = Phase.WaitingToExit;
                 }
@@ -32,13 +28,13 @@ public class PickGoods : BTNode
 
 
             case Phase.WaitingToExit:
-
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
-                    phase = Phase.WaitingToPick; // reset for next time
+                    PickGoodsFromShelf(agent);
+                    phase = Phase.WaitingToPick;
                     agent.currentlyPickingGoods = false;
                     agent.shelfRouteChosen = false;
-                    runOnce = true;
+                    agent.shelfRouteReached = false;
                     return NodeState.SUCCESS;
                 }
                 return NodeState.RUNNING;
@@ -56,7 +52,7 @@ public class PickGoods : BTNode
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.angularSpeed);
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed/60));
     }
 
     private void PickGoodsFromShelf(CustomerManager agent)
