@@ -5,23 +5,44 @@ public class PickGoods : BTNode
     bool runOnce = false;
     float idleTimeLeft;
     float timerUntilExit;
+
+    private enum Phase { WaitingToPick, Picking, WaitingToExit}
+    private Phase phase = Phase.WaitingToPick;
+
     public override NodeState Evaluate(CustomerManager agent)
     {
-        RotateTowardsShelf(agent);
-
         if (!runOnce)
         {
-            idleTimeLeft = agent.maxIdleTime;
-            timerUntilExit = 3f; //Måste ändras inga magiska nummer
+            RotateTowardsShelf(agent);
         }
+        
 
-        idleTimeLeft -= Time.deltaTime;
-
-        if (idleTimeLeft < 0)
+        switch (phase)
         {
-            PickGoodsFromShelf(agent);
-        }
+            case Phase.WaitingToPick:
 
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    PickGoodsFromShelf(agent);
+                    agent.C_Functions.SetTimer(agent.maxIdleTime);
+                    phase = Phase.WaitingToExit;
+                }
+                return NodeState.RUNNING;
+
+
+            case Phase.WaitingToExit:
+
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    phase = Phase.WaitingToPick; // reset for next time
+                    agent.currentlyPickingGoods = false;
+                    agent.shelfRouteChosen = false;
+                    runOnce = true;
+                    return NodeState.SUCCESS;
+                }
+                return NodeState.RUNNING;
+
+        }
 
         return NodeState.RUNNING;
 

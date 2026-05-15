@@ -10,6 +10,7 @@ public class PickGoodsConditions : BTNode
         if (!agent.currentlyPickingGoods)
         {
             agent.currentlyPickingGoods = true;
+            agent.C_Functions.ResetTimer();
             return NodeState.SUCCESS;
         }
         else if (agent.currentlyPickingGoods)

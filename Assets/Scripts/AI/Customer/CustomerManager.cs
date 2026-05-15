@@ -8,7 +8,7 @@ public class CustomerManager : MonoBehaviour
 {
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
-    public CustomerFunctions customerFunction;
+    public CustomerFunctions C_Functions;
 
     //-------------------FSM STATES-------------------------
 
@@ -24,7 +24,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
     [HideInInspector] public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
     [HideInInspector] public Vector3 chosenShelfPosition;
-    [HideInInspector] public int nrGoodsFound = 0;
+    public int nrGoodsFound = 0;
     [HideInInspector] public bool BTActivated = false;
     [HideInInspector] public bool shelfRouteChosen = false;
     [HideInInspector] public bool shelfRouteReached = false;
@@ -50,11 +50,11 @@ public class CustomerManager : MonoBehaviour
         navigation = GetComponent<NavMeshAgent>();
         spawnAgentPos = GameObject.Find("spawnAgentPos");
         enterStorePos = GameObject.Find("enterStorePos");
-        customerFunction = new CustomerFunctions(this);
+        C_Functions = new CustomerFunctions(this);
     }
     void Start()
     {
-        customerFunction.GenerateSpecificGoods();
+        C_Functions.GenerateSpecificGoods();
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();
@@ -82,11 +82,15 @@ public class CustomerManager : MonoBehaviour
     {
         GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
         GoToShelf goToShelf = new GoToShelf();
+        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
+        PickGoods pickGoods = new PickGoods();
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
-        Selector shelfState = new Selector(new List<BTNode> { goToShelfState });
+        Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
 
-        rootNode = new Selector(new List<BTNode> { shelfState });
+        Selector shelfState = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
+
+        rootNode = new Selector(new List<BTNode> { shelfState});
     }
 }

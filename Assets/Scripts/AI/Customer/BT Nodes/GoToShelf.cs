@@ -33,12 +33,16 @@ public class GoToShelf : BTNode
 
     private void RemoveItemFromGoodsList(CustomerManager agent)
     {
-        foreach (CardboardBoxData goods in agent.remainingGoodsList)
-        {
-            if (goods == agent.currentChosenGood)
-            {
-                agent.remainingGoodsList.Remove(goods);
-            }
-        }
+
+        agent.remainingGoodsList.Remove(agent.currentChosenGood);
+
+        //foreach (CardboardBoxData goods in agent.remainingGoodsList)
+        //{
+        //    agent.remainingGoodsList.Remove(agent.currentChosenGood);
+        //    if (goods == agent.currentChosenGood)
+        //    {
+        //        agent.remainingGoodsList.Remove(agent.currentChosenGood);
+        //    }
+        //}
     }
 }

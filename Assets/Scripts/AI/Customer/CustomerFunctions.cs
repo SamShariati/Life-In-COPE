@@ -8,6 +8,7 @@ public class CustomerFunctions
     private GameObject shelfObjectParent;
     private GameObject palletObject;
     private List<CardboardBoxData> palletDataList;
+    public float idleTimer = 0f;
 
     public CustomerFunctions (CustomerManager agent)
     {
@@ -30,6 +31,7 @@ public class CustomerFunctions
         }
         GetShelfPositions();
     }
+    
 
     //Gets the shelf positions of said goods and pairs them into "goodsShelfPairs".
     private void GetShelfPositions()
@@ -51,4 +53,21 @@ public class CustomerFunctions
             }
         }
     }
+
+    //Generalized Timer---------------------
+    public bool TickTimer(float delta)
+    {
+        idleTimer -= delta;
+        return idleTimer <= 0;
+    }
+    public void SetTimer(float duration)
+    {
+        idleTimer = duration;
+    }
+
+    public void ResetTimer()
+    {
+        idleTimer = 0;
+    }
+    //--------------------------------------
 }
