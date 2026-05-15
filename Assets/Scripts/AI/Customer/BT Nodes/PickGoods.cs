@@ -11,10 +11,10 @@ public class PickGoods : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        if (!runOnce)
-        {
-            RotateTowardsShelf(agent);
-        }
+        //if (!runOnce)
+        //{
+        //    RotateTowardsShelf(agent);
+        //}
         
 
         switch (phase)
@@ -23,6 +23,7 @@ public class PickGoods : BTNode
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
+                    RotateTowardsShelf(agent);
                     PickGoodsFromShelf(agent);
                     agent.C_Functions.SetTimer(agent.maxIdleTime);
                     phase = Phase.WaitingToExit;
@@ -62,7 +63,7 @@ public class PickGoods : BTNode
     {
         Shelf chosenShelf = agent.shelfIDPairs[agent.currentChosenGood.boxID];
 
-        if (chosenShelf.remainingStockCount <= 0)
+        if (chosenShelf.remainingStockCount > 0)
         {
             //Plockanimering
             agent.nrGoodsFound++;

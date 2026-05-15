@@ -22,7 +22,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public CardboardBoxData currentChosenGood;
     [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
-    [HideInInspector] public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
+    public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
     [HideInInspector] public Vector3 chosenShelfPosition;
     public int nrGoodsFound = 0;
     [HideInInspector] public bool BTActivated = false;

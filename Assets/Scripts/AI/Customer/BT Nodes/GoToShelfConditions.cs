@@ -7,11 +7,11 @@ public class GoToShelfConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        if (!runOnce)
-        {
-            runOnce = true;
-            Debug.Log("Entered GoToShelfConditions");
-        }
+        //if (!runOnce)
+        //{
+        //    runOnce = true;
+        //    Debug.Log("Entered GoToShelfConditions");
+        //}
 
 
         if (!agent.shelfRouteChosen)
