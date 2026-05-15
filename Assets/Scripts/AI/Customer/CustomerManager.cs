@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class CustomerManager : MonoBehaviour
 {
     private BTNode rootNode;
+    [HideInInspector] public NavMeshAgent navigation;
+    public CustomerFunctions customerFunction;
 
     //-------------------FSM STATES-------------------------
 
@@ -15,45 +17,44 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public NothingState nothingState = new NothingState();
     [HideInInspector] public IdleState idleState = new IdleState();
 
+    //-------------------SHELF BRANCH VARIABLES------------------------
 
-    //------------------------------------------------------
-
-    [HideInInspector] public NavMeshAgent navigation;
+    [HideInInspector] public CardboardBoxData currentChosenGood;
+    [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
+    [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
     [HideInInspector] public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
-    [HideInInspector] public Dictionary<CardboardBoxData, Vector3> goodsShelfPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Vector3 chosenShelfPosition;
+    [HideInInspector] public int nrGoodsFound = 0;
+    [HideInInspector] public bool BTActivated = false;
+    [HideInInspector] public bool shelfRouteChosen = false;
+    [HideInInspector] public bool shelfRouteReached = false;
+    [HideInInspector] public bool currentlyPickingGoods = false;
 
+    //-----------------------------------------------------------------
 
     [Header("Objects Needed")]
     [HideInInspector] public GameObject spawnAgentPos;
-    public GameObject enterStorePos;
-    [SerializeField] private GameObject shelfObjectParent;
-    [SerializeField] private GameObject palletObject;
-    [SerializeField] private List<CardboardBoxData> palletDataList;
+    [HideInInspector] public GameObject enterStorePos;
     
-
 
     [Header("Customer Stats")]
     public float walkSpeed;
     public float runSpeed;
-    private int nrGoodsNeeded = 3;
+    public int nrGoodsNeeded = 3;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
 
-    [Header("Booleans")]
-
-    [HideInInspector] public bool BTActivated = false;
-    [HideInInspector] public bool shelfRouteChosen = false;
 
     private void Awake()
     {
         navigation = GetComponent<NavMeshAgent>();
         spawnAgentPos = GameObject.Find("spawnAgentPos");
         enterStorePos = GameObject.Find("enterStorePos");
+        customerFunction = new CustomerFunctions(this);
     }
     void Start()
     {
-        GenerateSpecificGoods();
+        customerFunction.GenerateSpecificGoods();
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();
@@ -69,43 +70,6 @@ public class CustomerManager : MonoBehaviour
         else //FSM
         {
             currentState.UpdateState(this);
-        }
-    }
-
-    
-
-    private void GenerateSpecificGoods()
-    {
-        shelfObjectParent = GameObject.Find("Shelfs");
-        palletObject = GameObject.Find("KolonialPallet");
-
-        palletDataList = palletObject.GetComponent<KolonialPallet>().boxDataList;
-
-        for (int i = 0; i < nrGoodsNeeded; i++)
-        {
-            int rand = Random.Range(0, palletDataList.Count);
-            remainingGoodsList.Add(palletDataList[rand]);
-            palletDataList.RemoveAt(rand);
-        }
-        GetShelfPositions();
-    }
-
-    private void GetShelfPositions()
-    {
-        Shelf[] shelves = shelfObjectParent.GetComponentsInChildren<Shelf>();
-
-        foreach (CardboardBoxData box in remainingGoodsList)
-        {
-            foreach (Shelf shelf in shelves)
-            {
-                string shelfGoodsType = shelf.goodsType.ToString();
-
-                if (shelfGoodsType == box.boxID)
-                {
-                    Transform shelfArrow = shelf.transform.Find("shelfArrow");
-                    goodsShelfPairs[box] = shelfArrow.position;
-                }
-            }
         }
     }
 

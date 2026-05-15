@@ -22,7 +22,7 @@ public class GoToShelfConditions : BTNode
             return NodeState.SUCCESS;
 
         }
-        else if (agent.shelfRouteChosen)
+        else if (agent.shelfRouteChosen && !agent.shelfRouteReached)
         {
             return NodeState.SUCCESS;
         }
@@ -37,9 +37,9 @@ public class GoToShelfConditions : BTNode
         if (agent.remainingGoodsList.Count > 0)
         {
             int rand = Random.Range(0, agent.remainingGoodsList.Count);
-            CardboardBoxData chosenGoods = agent.remainingGoodsList[rand];
+            agent.currentChosenGood = agent.remainingGoodsList[rand];
 
-            agent.chosenShelfPosition = agent.goodsShelfPairs[chosenGoods];
+            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
         }
         else
         {
