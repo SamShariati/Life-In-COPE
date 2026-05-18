@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class PickGoods : BTNode
 {
-    bool runOnce = false;
-    float idleTimeLeft;
-    float timerUntilExit;
 
     private enum Phase { WaitingToPick, Picking, WaitingToExit}
     private Phase phase = Phase.WaitingToPick;

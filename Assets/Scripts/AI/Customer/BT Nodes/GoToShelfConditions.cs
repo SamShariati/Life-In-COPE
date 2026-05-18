@@ -2,16 +2,9 @@ using UnityEngine;
 
 public class GoToShelfConditions : BTNode
 {
-    bool runOnce = false;
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-
-        //if (!runOnce)
-        //{
-        //    runOnce = true;
-        //    Debug.Log("Entered GoToShelfConditions");
-        //}
 
 
         if (!agent.shelfRouteChosen)
@@ -43,7 +36,7 @@ public class GoToShelfConditions : BTNode
         }
         else
         {
-            agent.SwitchState(agent.standInLineState);
+            agent.SwitchState(agent.goToLineState);
             agent.BTActivated = false;
         }
     }

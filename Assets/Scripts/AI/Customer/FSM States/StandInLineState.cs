@@ -14,13 +14,14 @@ public class StandInLineState : FSMBaseState
     {
         distanceToTarget = Vector3.Distance(agent.transform.position, agent.currentQueuePos);
         agent.navigation.SetDestination(agent.currentQueuePos);
+        agent.navigation.speed = agent.walkSpeed;
+        agent.navigation.isStopped = false;
 
-
-        if (distanceToTarget < 0.3f)
+        if (distanceToTarget < 0.2f)
         {
             if (agent.assignedSlot == 0)
             {
-                agent.SwitchState(agent.enterStoreState);
+                agent.SwitchState(agent.plingInLineState);
             }
         }
 

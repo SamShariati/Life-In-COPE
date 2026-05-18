@@ -54,7 +54,7 @@ public class QueueManager : MonoBehaviour
         return false; // queue is full
     }
 
-    public void AdvanceQueue(CustomerManager agent)
+    public void AdvanceQueue()
     {
         queue[0].occupant = null;
 
@@ -66,7 +66,7 @@ public class QueueManager : MonoBehaviour
                 queue[i].occupant = null;
                 queue[i - 1].occupant = customer;
                 customer.assignedSlot = i - 1;
-                agent.currentQueuePos = queue[i - 1].queuePos.transform.position;
+                customer.currentQueuePos = queue[i - 1].queuePos.transform.position;
                 //customer.navigation.SetDestination(queue[i - 1].position.transform.position); //ska flyttas in till FSM
             }
         }

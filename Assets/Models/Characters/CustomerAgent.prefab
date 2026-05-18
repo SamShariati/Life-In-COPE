@@ -1190,7 +1190,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3430471018003981037}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1228,7 +1228,8 @@ MonoBehaviour:
   currentQueuePos: {x: 0, y: 0, z: 0}
   spawnAgentPos: {fileID: 0}
   enterStorePos: {fileID: 0}
-  walkSpeed: 2
+  walkToRegisterPos: {x: 0, y: 0, z: 0}
+  walkSpeed: 4
   runSpeed: 6
   nrGoodsNeeded: 1
   maxIdleTime: 5
