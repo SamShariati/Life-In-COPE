@@ -57,13 +57,10 @@ public class CustomerFunctions
 
     public void GenerateNavPositions()
     {
-        customerPositions = GameObject.Find("customerPositions");
-        foreach (Transform pos in customerPositions.transform)
-        {
-            agent.queuePosList.Add(pos.gameObject);
-        }
+        
         agent.spawnAgentPos = GameObject.Find("spawnAgentPos");
         agent.enterStorePos = GameObject.Find("enterStorePos");
+        agent.walkToRegisterPos = GameObject.Find("walkToRegisterPos").transform.position;
     }
     
 

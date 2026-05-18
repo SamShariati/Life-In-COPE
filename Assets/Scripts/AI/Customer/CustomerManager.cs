@@ -13,9 +13,10 @@ public class CustomerManager : MonoBehaviour
     //-------------------FSM STATES-------------------------
 
     private FSMBaseState currentState;
-    EnterStoreState enterStoreState = new EnterStoreState();
+    [HideInInspector] public EnterStoreState enterStoreState = new EnterStoreState();
     [HideInInspector] public NothingState nothingState = new NothingState();
     [HideInInspector] public IdleState idleState = new IdleState();
+    [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
@@ -30,18 +31,25 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool shelfRouteReached = false;
     [HideInInspector] public bool currentlyPickingGoods = false;
 
+    //-------------CASH REGISTER VARIABLES-----------------------------
+
+    public int assignedSlot = -1;
+    [HideInInspector] public Vector3 currentQueuePos;
+
+
     //-----------------------------------------------------------------
 
     [Header("Objects Needed")]
     [HideInInspector] public GameObject spawnAgentPos;
     [HideInInspector] public GameObject enterStorePos;
-    public List<GameObject> queuePosList = new List<GameObject>();
+    [HideInInspector] public Vector3 walkToRegisterPos;
+
 
 
     [Header("Customer Stats")]
     public float walkSpeed;
     public float runSpeed;
-    public int nrGoodsNeeded = 3;
+    public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
 

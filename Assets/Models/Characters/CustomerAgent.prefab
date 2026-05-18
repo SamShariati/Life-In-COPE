@@ -1224,11 +1224,13 @@ MonoBehaviour:
   shelfRouteChosen: 0
   shelfRouteReached: 0
   currentlyPickingGoods: 0
+  assignedSlot: -1
+  currentQueuePos: {x: 0, y: 0, z: 0}
   spawnAgentPos: {fileID: 0}
   enterStorePos: {fileID: 0}
   walkSpeed: 2
   runSpeed: 6
-  nrGoodsNeeded: 5
+  nrGoodsNeeded: 1
   maxIdleTime: 5
   minIdleTime: 2
 --- !u!1 &3441553779031292813

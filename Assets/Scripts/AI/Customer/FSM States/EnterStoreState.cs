@@ -16,7 +16,7 @@ public class EnterStoreState : FSMBaseState
     {
         distanceToTarget = Vector3.Distance(agent.transform.position, storePosition);
 
-        if (distanceToTarget < 0.1f)
+        if (distanceToTarget < 0.5f)
         {
 
             idleTime -= Time.deltaTime;

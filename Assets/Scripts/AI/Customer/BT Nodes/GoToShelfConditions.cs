@@ -43,7 +43,8 @@ public class GoToShelfConditions : BTNode
         }
         else
         {
-            //Aktivera Kassa FSM
+            agent.SwitchState(agent.standInLineState);
+            agent.BTActivated = false;
         }
     }
 }
