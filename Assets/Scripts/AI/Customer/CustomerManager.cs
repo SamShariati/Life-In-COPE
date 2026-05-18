@@ -35,7 +35,8 @@ public class CustomerManager : MonoBehaviour
     [Header("Objects Needed")]
     [HideInInspector] public GameObject spawnAgentPos;
     [HideInInspector] public GameObject enterStorePos;
-    
+    public List<GameObject> queuePosList = new List<GameObject>();
+
 
     [Header("Customer Stats")]
     public float walkSpeed;
@@ -48,9 +49,10 @@ public class CustomerManager : MonoBehaviour
     private void Awake()
     {
         navigation = GetComponent<NavMeshAgent>();
-        spawnAgentPos = GameObject.Find("spawnAgentPos");
-        enterStorePos = GameObject.Find("enterStorePos");
         C_Functions = new CustomerFunctions(this);
+
+        C_Functions.GenerateNavPositions();
+
     }
     void Start()
     {

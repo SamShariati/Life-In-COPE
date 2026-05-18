@@ -1216,11 +1216,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomerManager
   navigation: {fileID: 0}
+  currentChosenGood: {fileID: 0}
+  remainingGoodsList: []
+  chosenShelfPosition: {x: 0, y: 0, z: 0}
+  nrGoodsFound: 0
+  BTActivated: 0
+  shelfRouteChosen: 0
+  shelfRouteReached: 0
+  currentlyPickingGoods: 0
   spawnAgentPos: {fileID: 0}
   enterStorePos: {fileID: 0}
   walkSpeed: 2
   runSpeed: 6
-  BTActivated: 0
+  nrGoodsNeeded: 5
+  maxIdleTime: 5
+  minIdleTime: 2
 --- !u!1 &3441553779031292813
 GameObject:
   m_ObjectHideFlags: 0

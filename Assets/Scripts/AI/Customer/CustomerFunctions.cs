@@ -7,6 +7,7 @@ public class CustomerFunctions
 
     private GameObject shelfObjectParent;
     private GameObject palletObject;
+    private GameObject customerPositions;
     private List<CardboardBoxData> palletDataList;
     public float idleTimer = 0f;
 
@@ -21,7 +22,7 @@ public class CustomerFunctions
         shelfObjectParent = GameObject.Find("Shelfs");
         palletObject = GameObject.Find("KolonialPallet");
 
-        palletDataList = palletObject.GetComponent<KolonialPallet>().boxDataList;
+        palletDataList = palletObject.GetComponent<KolonialPallet>().allBoxTypes;
 
         for (int i = 0; i < agent.nrGoodsNeeded; i++)
         {
@@ -53,6 +54,18 @@ public class CustomerFunctions
             }
         }
     }
+
+    public void GenerateNavPositions()
+    {
+        customerPositions = GameObject.Find("customerPositions");
+        foreach (Transform pos in customerPositions.transform)
+        {
+            agent.queuePosList.Add(pos.gameObject);
+        }
+        agent.spawnAgentPos = GameObject.Find("spawnAgentPos");
+        agent.enterStorePos = GameObject.Find("enterStorePos");
+    }
+    
 
     //Generalized Timer---------------------
     public bool TickTimer(float delta)

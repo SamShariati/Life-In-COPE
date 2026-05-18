@@ -10,7 +10,7 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public GameObject transparentPrefab;
     [HideInInspector] public GameObject placedPrefab;
     [HideInInspector] public Transform shelfArrow;
-    [HideInInspector] public int remainingStockCount;
+    [HideInInspector] public int remainingStockCount; //ATM if variable = 0 --> shelf stocked, else not
     [HideInInspector] private StockingShelf stockingShelf;
     //[HideInInspector] public List<CardboardBoxData> goodsDataList;
 

@@ -59,7 +59,7 @@ public class PickGoods : BTNode
     {
         Shelf chosenShelf = agent.shelfIDPairs[agent.currentChosenGood.boxID];
 
-        if (chosenShelf.remainingStockCount > 0)
+        if (chosenShelf.remainingStockCount <= 0)
         {
             //Plockanimering
             agent.nrGoodsFound++;
