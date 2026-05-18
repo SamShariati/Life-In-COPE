@@ -17,6 +17,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public NothingState nothingState = new NothingState();
     [HideInInspector] public IdleState idleState = new IdleState();
     [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
+    [HideInInspector] public GoToLineState goToLineState = new GoToLineState();
+    [HideInInspector] public PlingInLineState plingInLineState = new PlingInLineState();
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 

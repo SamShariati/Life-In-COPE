@@ -3,36 +3,25 @@ using UnityEngine.InputSystem;
 
 public class StandInLineState : FSMBaseState
 {
-    bool firstInLine = false;
+    //bool firstInLine = false;
     float distanceToTarget;
     public override void EnterState(CustomerManager agent)
     {
-        //QueueManager.Instance.JoinQueue(agent);
-        agent.navigation.SetDestination(agent.walkToRegisterPos);
+        QueueManager.Instance.JoinQueue(agent);
     }
 
     public override void UpdateState(CustomerManager agent)
     {
-        distanceToTarget = Vector3.Distance(agent.transform.position, agent.walkToRegisterPos);
+        distanceToTarget = Vector3.Distance(agent.transform.position, agent.currentQueuePos);
         agent.navigation.SetDestination(agent.currentQueuePos);
 
 
-
-
-
-
-        if (agent.navigation.pathPending || distanceToTarget < 0.1f)
+        if (distanceToTarget < 0.3f)
         {
             if (agent.assignedSlot == 0)
             {
-                firstInLine = true;
+                agent.SwitchState(agent.enterStoreState);
             }
-        }
-
-        if (firstInLine && Keyboard.current.xKey.wasPressedThisFrame)
-        {
-            QueueManager.Instance.AdvanceQueue(agent);
-            agent.SwitchState(agent.enterStoreState);
         }
 
     }
