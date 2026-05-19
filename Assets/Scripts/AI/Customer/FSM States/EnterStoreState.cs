@@ -3,7 +3,6 @@ public class EnterStoreState : FSMBaseState
 {
     Vector3 storePosition;
     float distanceToTarget;
-
     float idleTime;
 
     public override void EnterState(CustomerManager agent)
