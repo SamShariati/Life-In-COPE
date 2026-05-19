@@ -12,6 +12,7 @@ public class GoToShelf : BTNode
             runOnce = true;
             Debug.Log("Entered GoToShelf");
         }
+        agent.animator.SetState(AnimState.Walk);
 
         agent.navigation.speed = agent.walkSpeed;
         agent.navigation.isStopped = false;

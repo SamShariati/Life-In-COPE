@@ -12,6 +12,7 @@ public class GoToLineState : FSMBaseState
     }
     public override void UpdateState(CustomerManager agent)
     {
+        agent.animator.SetState(AnimState.Walk);
         distanceToTarget = Vector3.Distance(agent.transform.position, agent.walkToRegisterPos);
         agent.navigation.SetDestination(targetPos);
 

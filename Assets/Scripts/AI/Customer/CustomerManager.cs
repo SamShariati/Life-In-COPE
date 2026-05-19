@@ -35,7 +35,7 @@ public class CustomerManager : MonoBehaviour
 
     //-------------CASH REGISTER VARIABLES-----------------------------
 
-    public int assignedSlot = -1;
+    public int assignedQueueSlot = -1;
     [HideInInspector] public Vector3 currentQueuePos;
 
 
@@ -45,6 +45,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public GameObject spawnAgentPos;
     [HideInInspector] public GameObject enterStorePos;
     [HideInInspector] public Vector3 walkToRegisterPos;
+    [HideInInspector] public CustomerAnimator animator;
+
 
 
 
@@ -60,8 +62,8 @@ public class CustomerManager : MonoBehaviour
     {
         navigation = GetComponent<NavMeshAgent>();
         C_Functions = new CustomerFunctions(this);
-
         C_Functions.GenerateNavPositions();
+        animator = GetComponent<CustomerAnimator>();
 
     }
     void Start()

@@ -10,6 +10,7 @@ public class PlingInLineState : FSMBaseState
     }
     public override void UpdateState(CustomerManager agent)
     {
+        agent.animator.SetState(AnimState.Idle);
         agent.navigation.SetDestination(agent.currentQueuePos);
         if (agent.C_Functions.TickTimer(Time.deltaTime))
         {

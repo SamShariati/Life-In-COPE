@@ -19,10 +19,15 @@ public class StandInLineState : FSMBaseState
 
         if (distanceToTarget < 0.2f)
         {
-            if (agent.assignedSlot == 0)
+            agent.animator.SetState(AnimState.Idle);
+            if (agent.assignedQueueSlot == 0)
             {
                 agent.SwitchState(agent.plingInLineState);
             }
+        }
+        else
+        {
+            agent.animator.SetState(AnimState.Walk);
         }
 
     }

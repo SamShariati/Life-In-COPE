@@ -14,11 +14,13 @@ public class EnterStoreState : FSMBaseState
 
     public override void UpdateState(CustomerManager agent)
     {
+        
+
         distanceToTarget = Vector3.Distance(agent.transform.position, storePosition);
 
         if (distanceToTarget < 0.5f)
         {
-
+            agent.animator.SetState(AnimState.Idle);
             idleTime -= Time.deltaTime;
 
             if (idleTime < 0)
@@ -26,6 +28,10 @@ public class EnterStoreState : FSMBaseState
                 agent.SwitchState(agent.nothingState);
                 agent.BTActivated = true;
             }
+        }
+        else
+        {
+            agent.animator.SetState(AnimState.Walk);
         }
 
         agent.navigation.speed = agent.walkSpeed;

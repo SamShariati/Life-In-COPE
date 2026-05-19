@@ -8,7 +8,7 @@ public class PickGoods : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-
+        agent.animator.SetState(AnimState.Idle);
         RotateTowardsShelf(agent);
 
         switch (phase)

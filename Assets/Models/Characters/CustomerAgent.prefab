@@ -1127,6 +1127,7 @@ GameObject:
   - component: {fileID: 2048297290439289826}
   - component: {fileID: 3985933204275392539}
   - component: {fileID: -870789391586482391}
+  - component: {fileID: -4470825329941955998}
   m_Layer: 0
   m_Name: CustomerAgent
   m_TagString: Untagged
@@ -1169,7 +1170,7 @@ Animator:
   m_GameObject: {fileID: 3430471018003981037}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2f51be603ea52db45be54e6116872d0c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5dee6d9587d12df4daaf4452fb7387e5, type: 2}
+  m_Controller: {fileID: 9100000, guid: fafe390cae0deef44bd90c810c9dd6eb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1224,16 +1225,29 @@ MonoBehaviour:
   shelfRouteChosen: 0
   shelfRouteReached: 0
   currentlyPickingGoods: 0
-  assignedSlot: -1
+  assignedQueueSlot: -1
   currentQueuePos: {x: 0, y: 0, z: 0}
   spawnAgentPos: {fileID: 0}
   enterStorePos: {fileID: 0}
   walkToRegisterPos: {x: 0, y: 0, z: 0}
-  walkSpeed: 4
+  animator: {fileID: 0}
+  walkSpeed: 2
   runSpeed: 6
   nrGoodsNeeded: 1
   maxIdleTime: 5
   minIdleTime: 2
+--- !u!114 &-4470825329941955998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430471018003981037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c594c699e777343b43efc845be64d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerAnimator
 --- !u!1 &3441553779031292813
 GameObject:
   m_ObjectHideFlags: 0
