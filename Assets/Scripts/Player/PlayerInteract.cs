@@ -8,6 +8,8 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private TextMeshProUGUI interactText;
 
+    [SerializeField] private LayerMask interactLayerMask;
+
     private PlayerInput _input;
     public PlayerInventory Inventory { get; private set; }
 
@@ -52,7 +54,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     private void TryInteract()
     {
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayerMask))
         {
             hit.collider.GetComponentInParent<IInteractable>()?.Interact(this);
         }
@@ -61,7 +63,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
     private void CheckForInteractable()
     {
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayerMask))
         {
             IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
             if (interactable != null)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4670563144065856175}
   - component: {fileID: 4251051412173271612}
   - component: {fileID: 5330366503234371917}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: boxIDBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7538362000470451787}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: textPosBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 5859606348270519811}
   - component: {fileID: -6429235989297367297}
   - component: {fileID: 7738100017515203453}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: KolonialBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7232401164489157988}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: textPosFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 641238088705791566}
   - component: {fileID: 5493708437780708913}
   - component: {fileID: 2645543965733527238}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 1514731205371431881}
   - component: {fileID: 8189483976616771579}
   - component: {fileID: 5297874067530751455}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: boxIDFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}

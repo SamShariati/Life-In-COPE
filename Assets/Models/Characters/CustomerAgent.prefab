@@ -1233,7 +1233,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   walkSpeed: 2
   runSpeed: 6
-  nrGoodsNeeded: 1
+  nrGoodsNeeded: 3
   maxIdleTime: 5
   minIdleTime: 2
 --- !u!114 &-4470825329941955998

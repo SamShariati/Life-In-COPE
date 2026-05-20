@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8016611180270430577}
   - component: {fileID: 5730846910867245471}
   - component: {fileID: 1874075133416772983}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: cardBoardBoxPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
