@@ -307,6 +307,54 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CashRegister"",
+            ""id"": ""27815c5d-08be-48fc-9683-fee4cbf95df5"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""92aa059f-b906-4287-8f41-2d9e3a1ab7d4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Stop"",
+                    ""type"": ""Button"",
+                    ""id"": ""997dd33b-48dc-4f20-84d1-896f78e8eb71"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""374d962f-7355-48ba-b99b-6211945c434c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5bf2877-75ca-4bfd-b732-93ae3fc91998"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -323,12 +371,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Shelf = asset.FindActionMap("Shelf", throwIfNotFound: true);
         m_Shelf_Look = m_Shelf.FindAction("Look", throwIfNotFound: true);
         m_Shelf_Stop = m_Shelf.FindAction("Stop", throwIfNotFound: true);
+        // CashRegister
+        m_CashRegister = asset.FindActionMap("CashRegister", throwIfNotFound: true);
+        m_CashRegister_Look = m_CashRegister.FindAction("Look", throwIfNotFound: true);
+        m_CashRegister_Stop = m_CashRegister.FindAction("Stop", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Shelf.enabled, "This will cause a leak and performance issues, PlayerInput.Shelf.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CashRegister.enabled, "This will cause a leak and performance issues, PlayerInput.CashRegister.Disable() has not been called.");
     }
 
     /// <summary>
@@ -658,6 +711,113 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="ShelfActions" /> instance referencing this action map.
     /// </summary>
     public ShelfActions @Shelf => new ShelfActions(this);
+
+    // CashRegister
+    private readonly InputActionMap m_CashRegister;
+    private List<ICashRegisterActions> m_CashRegisterActionsCallbackInterfaces = new List<ICashRegisterActions>();
+    private readonly InputAction m_CashRegister_Look;
+    private readonly InputAction m_CashRegister_Stop;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "CashRegister".
+    /// </summary>
+    public struct CashRegisterActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public CashRegisterActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "CashRegister/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_CashRegister_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "CashRegister/Stop".
+        /// </summary>
+        public InputAction @Stop => m_Wrapper.m_CashRegister_Stop;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_CashRegister; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="CashRegisterActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(CashRegisterActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="CashRegisterActions" />
+        public void AddCallbacks(ICashRegisterActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CashRegisterActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CashRegisterActionsCallbackInterfaces.Add(instance);
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Stop.started += instance.OnStop;
+            @Stop.performed += instance.OnStop;
+            @Stop.canceled += instance.OnStop;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="CashRegisterActions" />
+        private void UnregisterCallbacks(ICashRegisterActions instance)
+        {
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Stop.started -= instance.OnStop;
+            @Stop.performed -= instance.OnStop;
+            @Stop.canceled -= instance.OnStop;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CashRegisterActions.UnregisterCallbacks(ICashRegisterActions)" />.
+        /// </summary>
+        /// <seealso cref="CashRegisterActions.UnregisterCallbacks(ICashRegisterActions)" />
+        public void RemoveCallbacks(ICashRegisterActions instance)
+        {
+            if (m_Wrapper.m_CashRegisterActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="CashRegisterActions.AddCallbacks(ICashRegisterActions)" />
+        /// <seealso cref="CashRegisterActions.RemoveCallbacks(ICashRegisterActions)" />
+        /// <seealso cref="CashRegisterActions.UnregisterCallbacks(ICashRegisterActions)" />
+        public void SetCallbacks(ICashRegisterActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CashRegisterActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CashRegisterActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="CashRegisterActions" /> instance referencing this action map.
+    /// </summary>
+    public CashRegisterActions @CashRegister => new CashRegisterActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -714,6 +874,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// <seealso cref="ShelfActions.AddCallbacks(IShelfActions)" />
     /// <seealso cref="ShelfActions.RemoveCallbacks(IShelfActions)" />
     public interface IShelfActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Stop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStop(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CashRegister" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="CashRegisterActions.AddCallbacks(ICashRegisterActions)" />
+    /// <seealso cref="CashRegisterActions.RemoveCallbacks(ICashRegisterActions)" />
+    public interface ICashRegisterActions
     {
         /// <summary>
         /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

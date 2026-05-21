@@ -107693,7 +107693,7 @@ GameObject:
   - component: {fileID: 1092160920}
   - component: {fileID: 1092160921}
   m_Layer: 11
-  m_Name: CashRegister
+  m_Name: cashRegister
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107708,7 +107708,7 @@ Transform:
   m_GameObject: {fileID: 1092160919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.635, y: 0.77, z: -0.826}
+  m_LocalPosition: {x: -0.635, y: 0.002, z: -0.826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107733,8 +107733,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.82, y: 1.7, z: 1.02}
-  m_Center: {x: 0, y: 0.08, z: 0}
+  m_Size: {x: 0.82, y: 3, z: 1.02}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1093159367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129416,6 +129416,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c230a15ac2729408e23ded8a7040b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CashRegister
+  player: {fileID: 0}
+  registerPos: {x: 0, y: 0, z: 0}
+  inScanningMode: 0
 --- !u!65 &1307479861
 BoxCollider:
   m_ObjectHideFlags: 0

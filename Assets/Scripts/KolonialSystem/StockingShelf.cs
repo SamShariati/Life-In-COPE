@@ -38,7 +38,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     // Coroutine host — a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour
-    private CoroutineRunner _runner;
+    private ShelfCoroutineRunner _runner;
 
     public StockingShelf(Shelf _shelf)
     {
@@ -72,7 +72,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         if (_runner == null)
         {
             GameObject runnerGO = new GameObject("StockingShelfRunner");
-            _runner = runnerGO.AddComponent<CoroutineRunner>();
+            _runner = runnerGO.AddComponent<ShelfCoroutineRunner>();
             _runner.Owner = this;
         }
 
@@ -262,7 +262,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     {
         _lookDelta = ctx.ReadValue<Vector2>();
     }
-    // ----- IShelfActions ------------------------------
+    // -------------------------------------------------
 
     private void GetTransparentItems()
     {
@@ -294,7 +294,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 }
 
 // Minimal MonoBehaviour used purely to run coroutines and forward Update
-public class CoroutineRunner : MonoBehaviour
+public class ShelfCoroutineRunner : MonoBehaviour
 {
     public StockingShelf Owner;
 

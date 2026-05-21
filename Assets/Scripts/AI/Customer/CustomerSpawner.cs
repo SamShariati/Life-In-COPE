@@ -14,7 +14,7 @@ public class CustomerSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current.xKey.wasPressedThisFrame)
         {
             Instantiate(prefab, spawnAgentPos.position, Quaternion.identity);
         }
