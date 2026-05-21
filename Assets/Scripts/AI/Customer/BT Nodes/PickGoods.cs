@@ -54,12 +54,16 @@ public class PickGoods : BTNode
 
     private void PickGoodsFromShelf(CustomerManager agent)
     {
+
         Shelf chosenShelf = agent.shelfIDPairs[agent.currentChosenGood.boxID];
+
 
         if (chosenShelf.remainingStockCount <= 0)
         {
             //Plockanimering
             agent.nrGoodsFound++;
+            agent.goodsGathered.Add(agent.currentChosenGood.placedPrefab);
         }
+        agent.remainingGoodsList.Remove(agent.currentChosenGood);
     }
 }

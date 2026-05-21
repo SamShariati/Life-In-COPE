@@ -9,6 +9,7 @@ public class CustomerManager : MonoBehaviour
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
     public CustomerFunctions C_Functions;
+    [HideInInspector] public CashRegister cashRegister;
 
     //-------------------FSM STATES-------------------------
 
@@ -26,6 +27,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
+    public List<GameObject> goodsGathered = new List<GameObject>();
     [HideInInspector] public Vector3 chosenShelfPosition;
     public int nrGoodsFound = 0;
     [HideInInspector] public bool BTActivated = false;

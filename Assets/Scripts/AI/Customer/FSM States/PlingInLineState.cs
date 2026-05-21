@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlingInLineState : FSMBaseState
 {
 
-
     public override void EnterState(CustomerManager agent)
     {
         agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
+        agent.cashRegister.customerFirstInLine = agent;
     }
     public override void UpdateState(CustomerManager agent)
     {

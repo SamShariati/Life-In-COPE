@@ -9,7 +9,8 @@ public class CashRegister : MonoBehaviour, IInteractable
     private ScanningGoods scanningGoods;
     [HideInInspector] public Vector3 registerPos;
 
-   [HideInInspector] public bool inScanningMode = false;
+    [HideInInspector] public bool inScanningMode = false;
+    [HideInInspector] public CustomerManager customerFirstInLine;
 
     private void Awake()
     {

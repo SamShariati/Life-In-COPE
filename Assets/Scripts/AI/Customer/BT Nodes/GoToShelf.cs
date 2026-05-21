@@ -22,7 +22,7 @@ public class GoToShelf : BTNode
         
         if (distanceTarget < 0.1f)
         {
-            RemoveItemFromGoodsList(agent);
+            //RemoveItemFromGoodsList(agent);
             agent.shelfRouteReached = true;
 
             return NodeState.SUCCESS;
