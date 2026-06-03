@@ -7,7 +7,7 @@ public class EnterStoreState : FSMBaseState
 
     public override void EnterState(CustomerManager agent)
     {
-        storePosition = agent.enterStorePos.transform.position;
+        storePosition = agent.enterStorePos;
         idleTime = Random.Range(agent.minIdleTime, agent.maxIdleTime);
     }
 
@@ -36,10 +36,6 @@ public class EnterStoreState : FSMBaseState
         agent.navigation.speed = agent.walkSpeed;
         agent.navigation.isStopped = false;
         agent.navigation.SetDestination(storePosition);
-
-
-
-
 
 
     }

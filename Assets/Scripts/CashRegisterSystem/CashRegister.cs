@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Shelf;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.PlayerSettings;
 
 public class CashRegister : MonoBehaviour, IInteractable
 {
@@ -16,7 +19,8 @@ public class CashRegister : MonoBehaviour, IInteractable
     [HideInInspector] public List<GameObject> itemsToScanList;
 
     private Transform goodsPositions;
-    public List<Vector3> goodsPosList = new List<Vector3>();
+    private Transform objectToStoreGoodsIn;
+    public List<Transform> goodsPosList = new List<Transform>();
 
     private void Awake()
     {
@@ -26,6 +30,7 @@ public class CashRegister : MonoBehaviour, IInteractable
         registerPos = transform.Find("cashRegister").position;
 
         goodsPositions = transform.Find("goodsPositions");
+        objectToStoreGoodsIn = transform.Find("goodsBank");
 
         scanningGoods = new ScanningGoods(this);
 
@@ -69,7 +74,21 @@ public class CashRegister : MonoBehaviour, IInteractable
     {
         foreach (Transform obj in goodsPositions)
         {
-            goodsPosList.Add(obj.position);
+            goodsPosList.Add(obj);
         }
+    }
+
+    public void PlaceGoodsOnRegister()
+    {
+
+        for (int i = 0; i < itemsToScanList.Count; i++)
+        {
+            GameObject item = Instantiate(itemsToScanList[i]);
+            item.transform.SetParent(objectToStoreGoodsIn);
+            item.transform.position = goodsPosList[i].position;
+            item.transform.rotation = goodsPosList[i].rotation;
+ 
+        }
+
     }
 }

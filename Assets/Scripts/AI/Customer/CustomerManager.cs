@@ -20,6 +20,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
     [HideInInspector] public GoToLineState goToLineState = new GoToLineState();
     [HideInInspector] public PlingInLineState plingInLineState = new PlingInLineState();
+    [HideInInspector] public ExitStoreState exitStoreState = new ExitStoreState();
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
@@ -44,9 +45,10 @@ public class CustomerManager : MonoBehaviour
     //-----------------------------------------------------------------
 
     [Header("Objects Needed")]
-    [HideInInspector] public GameObject spawnAgentPos;
-    [HideInInspector] public GameObject enterStorePos;
+    [HideInInspector] public Vector3 spawnAgentPos;
+    [HideInInspector] public Vector3 enterStorePos;
     [HideInInspector] public Vector3 walkToRegisterPos;
+    [HideInInspector] public Vector3 exitStorePos;
     [HideInInspector] public CustomerAnimator animator;
 
 
@@ -71,6 +73,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         nrGoodsNeeded = Random.Range(1, 6);
+        //nrGoodsNeeded = 1;
         C_Functions.GenerateSpecificGoods();
         C_Functions.GetCashRegister();
         currentState = enterStoreState;

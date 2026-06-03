@@ -67,9 +67,11 @@ public class CustomerFunctions
     public void GenerateNavPositions()
     {
         
-        agent.spawnAgentPos = GameObject.Find("spawnAgentPos");
-        agent.enterStorePos = GameObject.Find("enterStorePos");
+        agent.spawnAgentPos = GameObject.Find("spawnAgentPos").transform.position;
+        agent.enterStorePos = GameObject.Find("enterStorePos").transform.position;
+        agent.exitStorePos = GameObject.Find("exitStorePos").transform.position;
         agent.walkToRegisterPos = GameObject.Find("walkToRegisterPos").transform.position;
+
     }
     
 

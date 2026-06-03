@@ -5,9 +5,18 @@ public class StandInLineState : FSMBaseState
 {
     //bool firstInLine = false;
     float distanceToTarget;
+
     public override void EnterState(CustomerManager agent)
     {
-        QueueManager.Instance.JoinQueue(agent);
+        if (agent.goodsGathered.Count > 0)
+        {
+            QueueManager.Instance.JoinQueue(agent);
+        }
+        else
+        {
+            agent.SwitchState(agent.exitStoreState);
+        }
+     
     }
 
     public override void UpdateState(CustomerManager agent)
