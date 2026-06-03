@@ -61,7 +61,7 @@ public class PickGoods : BTNode
         if (chosenShelf.remainingStockCount <= 0)
         {
             //Plockanimering
-            agent.nrGoodsFound++;
+            //agent.nrGoodsFound++;
             agent.goodsGathered.Add(agent.currentChosenGood.placedPrefab);
         }
         agent.remainingGoodsList.Remove(agent.currentChosenGood);

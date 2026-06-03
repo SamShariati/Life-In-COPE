@@ -6,7 +6,9 @@ public class PlingInLineState : FSMBaseState
     public override void EnterState(CustomerManager agent)
     {
         agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
-        agent.cashRegister.customerFirstInLine = agent;
+        agent.cashRegister.customerFirstInLine = agent; //kan behöva ändras
+        agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
+        agent.cashRegister.itemsToScanList = agent.goodsGathered;
     }
     public override void UpdateState(CustomerManager agent)
     {

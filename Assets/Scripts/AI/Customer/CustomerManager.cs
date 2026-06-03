@@ -27,9 +27,9 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
-    public List<GameObject> goodsGathered = new List<GameObject>();
+    public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
     [HideInInspector] public Vector3 chosenShelfPosition;
-    public int nrGoodsFound = 0;
+    //public int nrGoodsFound = 0;
     [HideInInspector] public bool BTActivated = false;
     [HideInInspector] public bool shelfRouteChosen = false;
     [HideInInspector] public bool shelfRouteReached = false;
@@ -70,7 +70,9 @@ public class CustomerManager : MonoBehaviour
     }
     void Start()
     {
+        nrGoodsNeeded = Random.Range(1, 6);
         C_Functions.GenerateSpecificGoods();
+        C_Functions.GetCashRegister();
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();

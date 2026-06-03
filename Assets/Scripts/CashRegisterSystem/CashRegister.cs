@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Shelf;
 
@@ -11,6 +12,11 @@ public class CashRegister : MonoBehaviour, IInteractable
 
     [HideInInspector] public bool inScanningMode = false;
     [HideInInspector] public CustomerManager customerFirstInLine;
+    [HideInInspector] public int itemsLeftToScan;
+    [HideInInspector] public List<GameObject> itemsToScanList;
+
+    private Transform goodsPositions;
+    public List<Vector3> goodsPosList = new List<Vector3>();
 
     private void Awake()
     {
@@ -19,19 +25,12 @@ public class CashRegister : MonoBehaviour, IInteractable
 
         registerPos = transform.Find("cashRegister").position;
 
-
-
-
-
-
-
+        goodsPositions = transform.Find("goodsPositions");
 
         scanningGoods = new ScanningGoods(this);
+
+        GetGoodsPositions();
     }
-
-
-
-
 
 
     public string GetInteractPrompt(PlayerInteract player)
@@ -64,5 +63,13 @@ public class CashRegister : MonoBehaviour, IInteractable
             return false;
         }
 
+    }
+
+    private void GetGoodsPositions()
+    {
+        foreach (Transform obj in goodsPositions)
+        {
+            goodsPosList.Add(obj.position);
+        }
     }
 }

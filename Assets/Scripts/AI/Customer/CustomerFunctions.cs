@@ -7,6 +7,7 @@ public class CustomerFunctions
 
     private GameObject shelfObjectParent;
     private GameObject palletObject;
+    private GameObject cashRegisterObject;
     private GameObject customerPositions;
     private List<CardboardBoxData> palletDataList;
     public float idleTimer = 0f;
@@ -16,13 +17,21 @@ public class CustomerFunctions
         this.agent = agent;
     }
 
+    public void GetCashRegister()
+    {
+        cashRegisterObject = GameObject.Find("cashier");
+        agent.cashRegister = cashRegisterObject.GetComponent<CashRegister>();
+    }
+
+
     //Searches for specific objects in scene, and picks x random goods that the customer needs.
     public void GenerateSpecificGoods()
     {
         shelfObjectParent = GameObject.Find("Shelfs");
         palletObject = GameObject.Find("KolonialPallet");
+        
 
-        palletDataList = palletObject.GetComponent<KolonialPallet>().allBoxTypes;
+        palletDataList = new List<CardboardBoxData>(palletObject.GetComponent<KolonialPallet>().allBoxTypes);
 
         for (int i = 0; i < agent.nrGoodsNeeded; i++)
         {
