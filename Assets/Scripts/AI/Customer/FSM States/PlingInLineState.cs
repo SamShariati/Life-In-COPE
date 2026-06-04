@@ -9,7 +9,7 @@ public class PlingInLineState : FSMBaseState
         agent.cashRegister.customerFirstInLine = agent; //kan behöva ändras
         agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
         agent.cashRegister.itemsToScanList = agent.goodsGathered;
-        //agent.cashRegister.PlaceGoodsOnRegister();
+        agent.cashRegister.PlaceGoodsOnRegister();
     }
     public override void UpdateState(CustomerManager agent)
     {

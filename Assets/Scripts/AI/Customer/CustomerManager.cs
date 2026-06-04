@@ -72,8 +72,8 @@ public class CustomerManager : MonoBehaviour
     }
     void Start()
     {
-        nrGoodsNeeded = Random.Range(1, 6);
-        //nrGoodsNeeded = 1;
+        //nrGoodsNeeded = Random.Range(1, 6);
+        nrGoodsNeeded = 6;
         C_Functions.GenerateSpecificGoods();
         C_Functions.GetCashRegister();
         currentState = enterStoreState;

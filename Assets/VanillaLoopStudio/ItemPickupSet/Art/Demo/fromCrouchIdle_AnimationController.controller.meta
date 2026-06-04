@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 58d10a1a549afeb4ca0e8f586932a488
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321475
+  packageName: Item Pickup Set
+  packageVersion: 1.0
+  assetPath: Assets/VanillaLoopStudio/ItemPickupSet/Art/Demo/fromCrouchIdle_AnimationController.controller
+  uploadId: 835912

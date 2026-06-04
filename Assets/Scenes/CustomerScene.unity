@@ -28669,6 +28669,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4638961283911296, guid: d77f0ef770129a04ca103bd140210bc6, type: 3}
   m_PrefabInstance: {fileID: 316517084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &318361784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318361785}
+  m_Layer: 0
+  m_Name: bagPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318361785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318361784}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710593, z: 0, w: 0.7071076}
+  m_LocalPosition: {x: -1.981, y: 0.853, z: 0.188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1307479856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &319550694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129583,6 +129614,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8522921542865049015, guid: 9de2467b4f5b72e45a1e405f68824514, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1508094553}
+    - targetCorrespondingSourceObject: {fileID: 8522921542865049015, guid: 9de2467b4f5b72e45a1e405f68824514, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 318361785}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1601412072301717936, guid: 9de2467b4f5b72e45a1e405f68824514, type: 3}
       insertIndex: -1
@@ -129609,11 +129643,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CashRegister
   player: {fileID: 0}
+  bagPrefab: {fileID: 6048442947477662854, guid: d09818e99b61d71488ba5c4c953a2df6, type: 3}
   registerPos: {x: 0, y: 0, z: 0}
   inScanningMode: 0
   customerFirstInLine: {fileID: 0}
   itemsLeftToScan: 0
   itemsToScanList: []
+  bagPosition: {fileID: 0}
   goodsPosList: []
 --- !u!65 &1307479861
 BoxCollider:
@@ -157255,7 +157291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrBoxes
-      value: 13
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9020904457715676318, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: m_Layer

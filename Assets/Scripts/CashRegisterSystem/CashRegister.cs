@@ -10,6 +10,7 @@ public class CashRegister : MonoBehaviour, IInteractable
 
 
     [HideInInspector] public GameObject player;
+    public GameObject bagPrefab;
     private ScanningGoods scanningGoods;
     [HideInInspector] public Vector3 registerPos;
 
@@ -20,6 +21,7 @@ public class CashRegister : MonoBehaviour, IInteractable
 
     private Transform goodsPositions;
     private Transform objectToStoreGoodsIn;
+    [HideInInspector] public Transform bagPosition;
     public List<Transform> goodsPosList = new List<Transform>();
 
     private void Awake()
@@ -31,6 +33,7 @@ public class CashRegister : MonoBehaviour, IInteractable
 
         goodsPositions = transform.Find("goodsPositions");
         objectToStoreGoodsIn = transform.Find("goodsBank");
+        bagPosition = transform.Find("bagPosition");
 
         scanningGoods = new ScanningGoods(this);
 
