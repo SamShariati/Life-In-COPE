@@ -24,6 +24,8 @@ public class CashRegister : MonoBehaviour, IInteractable
     [HideInInspector] public Transform bagPosition;
     public List<Transform> goodsPosList = new List<Transform>();
 
+    public List<GameObject> itemsOnRegisterBand = new List<GameObject>();
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -90,7 +92,8 @@ public class CashRegister : MonoBehaviour, IInteractable
             item.transform.SetParent(objectToStoreGoodsIn);
             item.transform.position = goodsPosList[i].position;
             item.transform.rotation = goodsPosList[i].rotation;
- 
+            
+            itemsOnRegisterBand.Add(item);
         }
 
     }

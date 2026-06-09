@@ -5,7 +5,7 @@ public class PlingInLineState : FSMBaseState
     float distanceToTarget;
     public override void EnterState(CustomerManager agent)
     {
-        agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
+        //agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
         agent.cashRegister.customerFirstInLine = agent; //kan behöva ändras
         agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
         agent.cashRegister.itemsToScanList = agent.goodsGathered;
@@ -22,7 +22,7 @@ public class PlingInLineState : FSMBaseState
             RotateTowardsRegister(agent);
         }
 
-        if (agent.C_Functions.TickTimer(Time.deltaTime))
+        if (agent.transactionComplete)
         {
             QueueManager.Instance.AdvanceQueue();
             agent.SwitchState(agent.exitStoreState);
