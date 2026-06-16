@@ -10,8 +10,10 @@ public class CashRegister : MonoBehaviour, IInteractable
 
 
     [HideInInspector] public GameObject player;
-    public GameObject bagPrefab;
-    private ScanningGoods scanningGoods;
+    private Transform bagPrefab;
+    [HideInInspector] public bool placeBagOnRegister = false;
+
+    [HideInInspector] public ScanningGoods scanningGoods;
     [HideInInspector] public Vector3 registerPos;
 
     [HideInInspector] public bool inScanningMode = false;
@@ -36,12 +38,24 @@ public class CashRegister : MonoBehaviour, IInteractable
         goodsPositions = transform.Find("goodsPositions");
         objectToStoreGoodsIn = transform.Find("goodsBank");
         bagPosition = transform.Find("bagPosition");
+        bagPrefab = transform.Find("bag");
 
         scanningGoods = new ScanningGoods(this);
 
         GetGoodsPositions();
     }
 
+    private void Update()
+    {
+        if (itemsOnRegisterBand.Count > 0)
+        {
+            bagPrefab.gameObject.SetActive(true);         
+        }
+        else
+        {
+            bagPrefab.gameObject.SetActive(false);
+        }
+    }
 
     public string GetInteractPrompt(PlayerInteract player)
     {
@@ -56,7 +70,7 @@ public class CashRegister : MonoBehaviour, IInteractable
     {
         if (GetInteractConditions(player))
         {
-            scanningGoods.Activate(player);
+            scanningGoods.Activate();
         }
       
     }
@@ -72,7 +86,13 @@ public class CashRegister : MonoBehaviour, IInteractable
         {
             return false;
         }
-
+    }
+    public void StartCustomerGoodsScan()
+    {
+        if (scanningGoods.playerInPosition)
+        {
+            scanningGoods.Activate();
+        }
     }
 
     private void GetGoodsPositions()

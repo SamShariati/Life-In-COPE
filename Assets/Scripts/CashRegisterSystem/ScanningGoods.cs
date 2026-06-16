@@ -35,6 +35,8 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private const float StartDelay = 1f;
     private const float DelayBetweenScans = 0.25f;
 
+    public bool playerInPosition = false;
+
     // Coroutine runner
     private RegisterCoroutineRunner _runner;
 
@@ -44,9 +46,9 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _input = new PlayerInput();
     }
 
-    public void Activate(PlayerInteract pi)
+    public void Activate()
     {
-        _playerInteract = pi;
+        //_playerInteract = pi;
         _player = register.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
@@ -76,8 +78,11 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     {
         register.inScanningMode = true;
 
-        // --- Step 1: Move player into position ---
-        yield return _runner.StartCoroutine(MovePlayerToRegister());
+        if (!playerInPosition)
+        {
+            // --- Step 1: Move player into position ---
+            yield return _runner.StartCoroutine(MovePlayerToRegister());
+        }
 
         scanningStarted = true;
 
@@ -92,10 +97,10 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             }
         }
 
-        if (!_exitRequested)
+        if (!_exitRequested && register.customerFirstInLine != null)
         {
             register.customerFirstInLine.transactionComplete = true;
-            ExitScanning();
+            //ExitScanning();
 
         }
 
@@ -255,6 +260,8 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _shelfYaw = 0f;
         _shelfPitch = targetCamLocalRot.eulerAngles.x;
         if (_shelfPitch > 180f) _shelfPitch -= 360f;
+
+        playerInPosition = true;
     }
 
     // -------------------------------------------------------------------------
@@ -281,6 +288,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _input.CashRegister.RemoveCallbacks(this);
         _input.Player.Enable();
         _playerMovement.enabled = true;
+        playerInPosition = false;
     }
 
     // -------------------------------------------------------------------------

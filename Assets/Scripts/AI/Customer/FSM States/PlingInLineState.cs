@@ -6,10 +6,11 @@ public class PlingInLineState : FSMBaseState
     public override void EnterState(CustomerManager agent)
     {
         //agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
-        agent.cashRegister.customerFirstInLine = agent; //kan behöva ändras
+        agent.cashRegister.customerFirstInLine = agent; //Dålig arkitektur. Alla agenter kommer åt register, men register håller bara en
         agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
         agent.cashRegister.itemsToScanList = agent.goodsGathered;
         agent.cashRegister.PlaceGoodsOnRegister();
+        agent.cashRegister.StartCustomerGoodsScan();
     }
     public override void UpdateState(CustomerManager agent)
     {
