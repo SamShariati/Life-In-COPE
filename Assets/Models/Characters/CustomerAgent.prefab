@@ -1125,8 +1125,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6669142059831234407}
   - component: {fileID: 2048297290439289826}
-  - component: {fileID: 3985933204275392539}
   - component: {fileID: -870789391586482391}
+  - component: {fileID: 3985933204275392539}
   - component: {fileID: -4470825329941955998}
   m_Layer: 0
   m_Name: CustomerAgent
@@ -1182,6 +1182,56 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-870789391586482391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430471018003981037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf140f56c7fdccd459db1092c485ed29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerManager
+  navigation: {fileID: 0}
+  cashRegister: {fileID: 0}
+  player: {fileID: 0}
+  currentChosenGood: {fileID: 0}
+  remainingGoodsList: []
+  goodsGathered: []
+  chosenShelfPosition: {x: 0, y: 0, z: 0}
+  BTActivated: 0
+  shelfRouteChosen: 0
+  shelfRouteReached: 0
+  currentlyPickingGoods: 0
+  assignedQueueSlot: -1
+  currentQueuePos: {x: 0, y: 0, z: 0}
+  transactionComplete: 0
+  spawnAgentPos: {x: 0, y: 0, z: 0}
+  enterStorePos: {x: 0, y: 0, z: 0}
+  walkToRegisterPos: {x: 0, y: 0, z: 0}
+  exitStorePos: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+  headObject: {fileID: 0}
+  customerVision:
+    headTransform: {fileID: 0}
+    player: {fileID: 0}
+    viewDistance: 0
+    fieldOfViewAngle: 1
+    obstacleMask:
+      serializedVersion: 2
+      m_Bits: 2560
+    playerMask:
+      serializedVersion: 2
+      m_Bits: 64
+    drawDebugGizmos: 0
+    currentlyDetected: 0
+  walkSpeed: 2
+  runSpeed: 6
+  nrGoodsNeeded: 3
+  maxIdleTime: 5
+  minIdleTime: 2
 --- !u!195 &3985933204275392539
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1204,38 +1254,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-870789391586482391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3430471018003981037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf140f56c7fdccd459db1092c485ed29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CustomerManager
-  navigation: {fileID: 0}
-  currentChosenGood: {fileID: 0}
-  remainingGoodsList: []
-  chosenShelfPosition: {x: 0, y: 0, z: 0}
-  nrGoodsFound: 0
-  BTActivated: 0
-  shelfRouteChosen: 0
-  shelfRouteReached: 0
-  currentlyPickingGoods: 0
-  assignedQueueSlot: -1
-  currentQueuePos: {x: 0, y: 0, z: 0}
-  spawnAgentPos: {fileID: 0}
-  enterStorePos: {fileID: 0}
-  walkToRegisterPos: {x: 0, y: 0, z: 0}
-  animator: {fileID: 0}
-  walkSpeed: 2
-  runSpeed: 6
-  nrGoodsNeeded: 3
-  maxIdleTime: 5
-  minIdleTime: 2
 --- !u!114 &-4470825329941955998
 MonoBehaviour:
   m_ObjectHideFlags: 0

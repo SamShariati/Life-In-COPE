@@ -17,15 +17,35 @@ public class CustomerFunctions
         this.agent = agent;
     }
 
-    public void GetCashRegister()
+    public void GenerateAllComponents()
     {
-        cashRegisterObject = GameObject.Find("cashier");
-        agent.cashRegister = cashRegisterObject.GetComponent<CashRegister>();
+        GenerateNavPositions();
+        GenerateSpecificGoods();
+        GetCashRegister();
+        GetHead();
+        GetPlayerObject();
     }
 
 
+    private void GetCashRegister()
+    {
+        cashRegisterObject = GameObject.Find("cashier");
+        agent.cashRegister = cashRegisterObject.GetComponent<CashRegister>();
+
+    }
+
+    private void GetHead()
+    {
+        agent.headObject = agent.transform.Find("root/pelvis/spine_01/spine_02/spine_03/neck_01/head");
+    }
+
+    private void GetPlayerObject()
+    {
+        agent.player = GameObject.FindWithTag("Player").transform;
+    }
+
     //Searches for specific objects in scene, and picks x random goods that the customer needs.
-    public void GenerateSpecificGoods()
+    private void GenerateSpecificGoods()
     {
         shelfObjectParent = GameObject.Find("Shelfs");
         palletObject = GameObject.Find("KolonialPallet");
@@ -64,7 +84,7 @@ public class CustomerFunctions
         }
     }
 
-    public void GenerateNavPositions()
+    private void GenerateNavPositions()
     {
         
         agent.spawnAgentPos = GameObject.Find("spawnAgentPos").transform.position;

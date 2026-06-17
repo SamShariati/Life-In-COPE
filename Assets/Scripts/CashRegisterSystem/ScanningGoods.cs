@@ -26,7 +26,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     // Scanning state
     private bool scanningStarted = false;
-    private bool _scanningItems = false;          // true while the scan loop is running
     private GameObject _itemBeingMoved = null;    // the item currently flying to bagPosition
     private bool _exitRequested = false;
 
@@ -108,7 +107,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     private IEnumerator ScanLoop()
     {
-        _scanningItems = true;
 
         while (register.itemsOnRegisterBand.Count > 0 && !_exitRequested)
         {
@@ -139,7 +137,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             }
         }
 
-        _scanningItems = false;
     }
 
     // -------------------------------------------------------------------------
@@ -273,7 +270,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _exitRequested = true;
         register.inScanningMode = false;
         scanningStarted = false;
-        _scanningItems = false;
 
         // If an item was mid-flight, snap it back to slot 0 so the band
         // is in a clean state for next time the player steps in.

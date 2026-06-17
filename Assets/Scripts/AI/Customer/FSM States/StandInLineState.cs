@@ -31,7 +31,7 @@ public class StandInLineState : FSMBaseState
             agent.animator.SetState(AnimState.Idle);
             if (agent.assignedQueueSlot == 0)
             {
-                agent.SwitchState(agent.plingInLineState);
+                agent.SwitchState(agent.firstInLineState);
             }
         }
         else

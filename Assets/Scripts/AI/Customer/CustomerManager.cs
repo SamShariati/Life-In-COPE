@@ -10,6 +10,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public NavMeshAgent navigation;
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
+    [HideInInspector] public Transform player;
 
     //-------------------FSM STATES-------------------------
 
@@ -19,7 +20,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public IdleState idleState = new IdleState();
     [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
     [HideInInspector] public GoToLineState goToLineState = new GoToLineState();
-    [HideInInspector] public PlingInLineState plingInLineState = new PlingInLineState();
+    [HideInInspector] public FirstInLineState firstInLineState = new FirstInLineState();
     [HideInInspector] public ExitStoreState exitStoreState = new ExitStoreState();
 
     //-------------------SHELF BRANCH VARIABLES------------------------
@@ -42,8 +43,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Vector3 currentQueuePos;
     [HideInInspector] public bool transactionComplete = false;
 
-
     //-----------------------------------------------------------------
+
 
     [Header("Objects Needed")]
     [HideInInspector] public Vector3 spawnAgentPos;
@@ -52,7 +53,11 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Vector3 exitStorePos;
     [HideInInspector] public CustomerAnimator animator;
 
+    //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
 
+    public Transform headObject;
+    public CustomerVision customerVision;
+    
 
 
     [Header("Customer Stats")]
@@ -67,16 +72,15 @@ public class CustomerManager : MonoBehaviour
     {
         navigation = GetComponent<NavMeshAgent>();
         C_Functions = new CustomerFunctions(this);
-        C_Functions.GenerateNavPositions();
         animator = GetComponent<CustomerAnimator>();
 
     }
     void Start()
     {
+        C_Functions.GenerateAllComponents();
+        customerVision = new CustomerVision(headObject, player); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
         nrGoodsNeeded = 2;
-        C_Functions.GenerateSpecificGoods();
-        C_Functions.GetCashRegister();
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();
@@ -114,5 +118,13 @@ public class CustomerManager : MonoBehaviour
         Selector shelfState = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
 
         rootNode = new Selector(new List<BTNode> { shelfState});
+    }
+
+    private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts
+    {
+        if (customerVision == null || !customerVision.drawDebugGizmos)
+            return;
+
+        customerVision.DrawGizmos();
     }
 }

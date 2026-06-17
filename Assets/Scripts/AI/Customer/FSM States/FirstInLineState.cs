@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlingInLineState : FSMBaseState
+public class FirstInLineState : FSMBaseState
 {
     float distanceToTarget;
     public override void EnterState(CustomerManager agent)
@@ -40,3 +40,4 @@ public class PlingInLineState : FSMBaseState
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 60));
     }
 }
+
