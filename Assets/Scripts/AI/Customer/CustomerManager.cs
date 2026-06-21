@@ -10,7 +10,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public NavMeshAgent navigation;
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
-    [HideInInspector] public Transform player;
+    public Transform player;
 
     //-------------------FSM STATES-------------------------
 
@@ -57,7 +57,13 @@ public class CustomerManager : MonoBehaviour
 
     public Transform headObject;
     public CustomerVision customerVision;
-    
+    [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private LayerMask playerMask;
+    [HideInInspector] public bool playerSpotted = false;
+    [HideInInspector] public bool isCurrentlyChasing = false;
+    [HideInInspector] public bool isCurrentlyFollowing = false;
+    [HideInInspector] public bool isCurrentlyIdle = false; 
+
 
 
     [Header("Customer Stats")]
@@ -78,7 +84,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         C_Functions.GenerateAllComponents();
-        customerVision = new CustomerVision(headObject, player); //Behöver ändras, dålig arkitektur placering
+        customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
         nrGoodsNeeded = 2;
         currentState = enterStoreState;
@@ -97,6 +103,8 @@ public class CustomerManager : MonoBehaviour
         {
             currentState.UpdateState(this);
         }
+
+        customerVision.CanSeePlayer();
     }
 
     public void SwitchState(FSMBaseState state)

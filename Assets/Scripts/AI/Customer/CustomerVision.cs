@@ -1,5 +1,5 @@
 using UnityEngine;
-[System.Serializable]
+
 
 /// <summary>
 /// Attach this to your AI agent. Call CanSeePlayer() (or check the public bool)
@@ -32,10 +32,12 @@ public class CustomerVision
     public bool drawDebugGizmos = true;
     public bool currentlyDetected;
 
-    public CustomerVision(Transform headObject, Transform player)
+    public CustomerVision(Transform headObject, Transform player, LayerMask obstacleMask, LayerMask playerMask)
     {
         headTransform = headObject;
         this.player = player;
+        this.obstacleMask = obstacleMask;
+        this.playerMask = playerMask;
     }
 
     public bool CanSeePlayer()
@@ -69,7 +71,6 @@ public class CustomerVision
             {
                 currentlyDetected = true;
                 return true;
-                Debug.Log("JAG SER");
             }
         }
 
@@ -84,7 +85,7 @@ public class CustomerVision
 
         Transform origin = headTransform;
 
-        Gizmos.color = currentlyDetected ? Color.red : Color.green;
+        Gizmos.color = currentlyDetected ? Color.red : Color.green; 
 
         // View distance sphere (wire)
         Gizmos.DrawWireSphere(origin.position, viewDistance);
