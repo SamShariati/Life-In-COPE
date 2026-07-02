@@ -7,28 +7,28 @@ using UnityEngine;
 /// </summary>
 public class CustomerVision
 {
-    [Header("References")]
-    [Tooltip("The head/eye transform the raycast originates from. If left empty, this object's transform is used.")]
+    //[Header("References")]
+    //[Tooltip("The head/eye transform the raycast originates from. If left empty, this object's transform is used.")]
     public Transform headTransform;
 
-    [Tooltip("The player's transform. If left empty, will try to find an object tagged 'Player'.")]
+    //[Tooltip("The player's transform. If left empty, will try to find an object tagged 'Player'.")]
     public Transform player;
 
-    [Header("Vision Settings")]
-    [Tooltip("Maximum distance the AI can see.")]
+    //[Header("Vision Settings")]
+    //[Tooltip("Maximum distance the AI can see.")]
     public float viewDistance = 15f;
 
-    [Tooltip("Full field of view angle in degrees (e.g. 90 = 45 degrees left and right of forward).")]
-    [Range(1f, 360f)]
-    public float fieldOfViewAngle = 90f;
+    //[Tooltip("Full field of view angle in degrees (e.g. 90 = 45 degrees left and right of forward).")]
+    //[Range(1f, 360f)]
+    public float fieldOfViewAngle = 45f;
 
-    [Tooltip("Layers that block vision (walls, obstacles, etc).")]
+    //[Tooltip("Layers that block vision (walls, obstacles, etc).")]
     public LayerMask obstacleMask;
 
-    [Tooltip("Layer the player is on. The raycast must hit this layer to count as detected.")]
+    //[Tooltip("Layer the player is on. The raycast must hit this layer to count as detected.")]
     public LayerMask playerMask;
 
-    [Header("Debug")]
+    //[Header("Debug")]
     public bool drawDebugGizmos = true;
     public bool currentlyDetected;
 

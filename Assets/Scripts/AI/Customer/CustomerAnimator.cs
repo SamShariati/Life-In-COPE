@@ -4,7 +4,7 @@ public enum AnimState
 {
     Idle = 0,
     Walk = 1,
-    Run = 2,
+    Chase = 2,
     Attack = 3,
     Hurt = 4,
     Death = 5
@@ -17,6 +17,7 @@ public class CustomerAnimator : MonoBehaviour
 
     private static readonly int AnimStateHash = Animator.StringToHash("AnimState");
     private static readonly int IdleVariantHash = Animator.StringToHash("IdleVariant");
+    
 
     void Awake()
     {

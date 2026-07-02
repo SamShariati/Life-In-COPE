@@ -59,7 +59,7 @@ public class CustomerManager : MonoBehaviour
     public CustomerVision customerVision;
     [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private LayerMask playerMask;
-    [HideInInspector] public bool playerSpotted = false;
+    public bool playerSpotted = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyIdle = false; 
@@ -68,7 +68,7 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Customer Stats")]
     public float walkSpeed;
-    public float runSpeed;
+    public float runSpeed = 5f;
     public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
@@ -104,7 +104,7 @@ public class CustomerManager : MonoBehaviour
             currentState.UpdateState(this);
         }
 
-        customerVision.CanSeePlayer();
+        //customerVision.CanSeePlayer();
     }
 
     public void SwitchState(FSMBaseState state)
@@ -118,6 +118,9 @@ public class CustomerManager : MonoBehaviour
         GoToShelf goToShelf = new GoToShelf();
         PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
         PickGoods pickGoods = new PickGoods();
+        SearchConditions searchConditions = new SearchConditions();
+        ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
+        ChasePlayer chasePlayer = new ChasePlayer();
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
@@ -125,7 +128,17 @@ public class CustomerManager : MonoBehaviour
 
         Selector shelfState = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
 
-        rootNode = new Selector(new List<BTNode> { shelfState});
+        //SEARCHFORPLAYER BRANCH
+
+        Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
+        Sequence followPlayerState = new Sequence(new List<BTNode>() {  });
+        Sequence idleLookState = new Sequence(new List<BTNode>() {  });
+
+        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleLookState });
+        Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState});
+
+
+        rootNode = new Selector(new List<BTNode> { searchForPlayerState ,shelfState});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

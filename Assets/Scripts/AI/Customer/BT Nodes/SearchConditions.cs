@@ -7,6 +7,7 @@ public class SearchConditions : BTNode
         if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted)
         {
             agent.playerSpotted = true;
+            agent.C_Functions.ResetFlagVariables();
             return NodeState.SUCCESS;
         }
 

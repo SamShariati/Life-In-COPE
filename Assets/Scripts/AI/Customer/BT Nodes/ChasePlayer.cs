@@ -1,16 +1,28 @@
 using UnityEngine;
 
-public class ChasePlayer : MonoBehaviour
+public class ChasePlayer : BTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    float distanceToTarget;
 
-    // Update is called once per frame
-    void Update()
+    public override NodeState Evaluate(CustomerManager agent)
     {
-        
+        distanceToTarget = Vector3.Distance(agent.player.position, agent.transform.position);
+
+        agent.navigation.speed = agent.runSpeed;
+        agent.navigation.isStopped = false;
+        agent.navigation.SetDestination(agent.player.position);
+        agent.animator.SetState(AnimState.Chase);
+
+        if (distanceToTarget < 0.1f)
+        {
+            agent.isCurrentlyChasing = false;
+            agent.isCurrentlyFollowing = true;
+
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.RUNNING;
+        }
     }
 }

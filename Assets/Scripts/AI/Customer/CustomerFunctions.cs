@@ -26,6 +26,13 @@ public class CustomerFunctions
         GetPlayerObject();
     }
 
+    public void ResetFlagVariables()
+    {
+        //Shelf State
+        agent.shelfRouteReached = false;
+        agent.currentlyPickingGoods = false;
+
+    }
 
     private void GetCashRegister()
     {
