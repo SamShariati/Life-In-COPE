@@ -11,6 +11,7 @@ public class CustomerManager : MonoBehaviour
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
     public Transform player;
+    public PlayerMovement playerMovement;
 
     //-------------------FSM STATES-------------------------
 
@@ -121,6 +122,8 @@ public class CustomerManager : MonoBehaviour
         SearchConditions searchConditions = new SearchConditions();
         ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
         ChasePlayer chasePlayer = new ChasePlayer();
+        FollowPlayerConditions followPlayerConditions = new FollowPlayerConditions();
+        FollowPlayer followPlayer = new FollowPlayer();
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
@@ -131,10 +134,10 @@ public class CustomerManager : MonoBehaviour
         //SEARCHFORPLAYER BRANCH
 
         Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
-        Sequence followPlayerState = new Sequence(new List<BTNode>() {  });
-        Sequence idleLookState = new Sequence(new List<BTNode>() {  });
+        Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
+        //Sequence idleLookState = new Sequence(new List<BTNode>() {  });
 
-        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleLookState });
+        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState});
         Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState});
 
 

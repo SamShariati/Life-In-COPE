@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CustomerFunctions
 {
@@ -11,6 +12,9 @@ public class CustomerFunctions
     private GameObject customerPositions;
     private List<CardboardBoxData> palletDataList;
     public float idleTimer = 0f;
+
+    private const float destinationBuffer = 0.75f;
+    private const float sampleSearchRadius = 3f;
 
     public CustomerFunctions (CustomerManager agent)
     {
@@ -24,6 +28,29 @@ public class CustomerFunctions
         GetCashRegister();
         GetHead();
         GetPlayerObject();
+    }
+
+    public void CalculateDestination(CustomerManager agent)
+    {
+        Vector3 rawTarget = agent.player.position;
+        if (NavMesh.SamplePosition(rawTarget, out NavMeshHit hit, sampleSearchRadius, NavMesh.AllAreas))
+        {
+            Vector3 toHit = hit.position - agent.transform.position;
+            float distToHit = toHit.magnitude;
+
+            Vector3 destination = hit.position;
+            if (distToHit > destinationBuffer)
+            {
+                destination = hit.position - toHit.normalized * destinationBuffer;
+
+                if (NavMesh.SamplePosition(destination, out NavMeshHit bufferedHit, 1f, NavMesh.AllAreas))
+                {
+                    destination = bufferedHit.position;
+                }
+            }
+
+            agent.navigation.SetDestination(destination);
+        }
     }
 
     public void ResetFlagVariables()
@@ -49,6 +76,7 @@ public class CustomerFunctions
     private void GetPlayerObject()
     {
         agent.player = GameObject.FindWithTag("Player").transform;
+        agent.playerMovement = agent.player.GetComponent<PlayerMovement>();
     }
 
     //Searches for specific objects in scene, and picks x random goods that the customer needs.

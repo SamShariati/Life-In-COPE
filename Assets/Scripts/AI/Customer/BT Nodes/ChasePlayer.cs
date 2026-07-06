@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChasePlayer : BTNode
 {
@@ -10,10 +11,12 @@ public class ChasePlayer : BTNode
 
         agent.navigation.speed = agent.runSpeed;
         agent.navigation.isStopped = false;
-        agent.navigation.SetDestination(agent.player.position);
+
         agent.animator.SetState(AnimState.Chase);
 
-        if (distanceToTarget < 0.1f)
+        agent.C_Functions.CalculateDestination(agent);
+
+        if (distanceToTarget < 2f)
         {
             agent.isCurrentlyChasing = false;
             agent.isCurrentlyFollowing = true;
@@ -25,4 +28,6 @@ public class ChasePlayer : BTNode
             return NodeState.RUNNING;
         }
     }
+
+    
 }

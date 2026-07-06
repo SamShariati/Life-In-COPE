@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
 {
     [Header("Movement")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float sprintSpeed = 5f;
-    private float currentSpeed = 2.5f;
+    public float walkSpeed;
+    public float sprintSpeed = 5f;
+    public float currentSpeed = 2.5f;
 
     [Header("Mouse Look")]
     [SerializeField] private float mouseSensitivity = 0.1f;
