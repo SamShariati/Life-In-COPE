@@ -15,11 +15,14 @@ public class FollowPlayer : BTNode
             runOnce = true;
             CustomerDialogue.Instance.ShowMessage(agent.currentChosenGood.boxID);
             arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.currentChosenGood.boxID);
+            ShelfManager.Instance.DisableShelfArrow();
             ShelfManager.Instance.EnableShelfArrow(agent.currentChosenGood.boxID);
+            Debug.Log(arrowPosition);
         }
 
         distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
         distanceToChosenArrow = Vector3.Distance(agent.player.position, arrowPosition);
+        Debug.Log(distanceToChosenArrow);
 
         agent.navigation.speed = agent.playerMovement.currentSpeed;
 
@@ -27,10 +30,11 @@ public class FollowPlayer : BTNode
 
         SetAnimation(agent);
 
-        if (distanceToChosenArrow < 1f)
+        if (distanceToChosenArrow < 1.5f)
         {
             PlayerInventory.Instance.currentlyBeingFollowed = false;
             ShelfManager.Instance.DisableShelfArrow();
+            CustomerDialogue.Instance.HideMessage();
             agent.isCurrentlyFollowing = false;
             agent.isCurrentlyStaring = true;
             runOnce = false;

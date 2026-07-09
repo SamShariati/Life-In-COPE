@@ -10,8 +10,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public NavMeshAgent navigation;
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
-    public Transform player;
-    public PlayerMovement playerMovement;
+    [HideInInspector] public Transform player;
+    [HideInInspector] public PlayerMovement playerMovement;
 
     //-------------------FSM STATES-------------------------
 
@@ -26,7 +26,7 @@ public class CustomerManager : MonoBehaviour
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
-    [HideInInspector] public CardboardBoxData currentChosenGood;
+    public CardboardBoxData currentChosenGood;
     [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
@@ -60,7 +60,7 @@ public class CustomerManager : MonoBehaviour
     public CustomerVision customerVision;
     [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private LayerMask playerMask;
-    public bool playerSpotted = false;
+    [HideInInspector] public bool playerSpotted = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
@@ -77,6 +77,7 @@ public class CustomerManager : MonoBehaviour
     public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
+    public float chaseCooldown = 10;
 
 
     private void Awake()
@@ -91,7 +92,7 @@ public class CustomerManager : MonoBehaviour
         C_Functions.GenerateAllComponents();
         customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
-        nrGoodsNeeded = 4;
+        nrGoodsNeeded = 8;
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();
@@ -147,7 +148,7 @@ public class CustomerManager : MonoBehaviour
         Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState});
 
 
-        rootNode = new Selector(new List<BTNode> { searchForPlayerState ,shelfState});
+        rootNode = new Selector(new List<BTNode> { searchForPlayerState, shelfState});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

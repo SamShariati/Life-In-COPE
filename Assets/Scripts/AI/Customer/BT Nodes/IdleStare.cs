@@ -2,12 +2,32 @@ using UnityEngine;
 
 public class IdleStare : BTNode
 {
-
+    bool runOnce = false;
     public override NodeState Evaluate(CustomerManager agent)
     {
-        RotateTowardsPlayer(agent);
+        if (!runOnce)
+        {
+            runOnce = true;
+            agent.C_Functions.SetTimer(5);
+        }
 
-        return NodeState.RUNNING;
+        RotateTowardsPlayer(agent);
+        agent.navigation.isStopped = true;
+        agent.animator.SetState(AnimState.Idle);
+
+        if (agent.C_Functions.TickTimer(Time.deltaTime))
+        {
+            runOnce = false;
+            agent.isCurrentlyStaring = false;
+            agent.playerSpotted = false;
+            agent.C_Functions.StartSearchCooldown();
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.RUNNING;
+        }
+
     }
 
     private void RotateTowardsPlayer(CustomerManager agent)

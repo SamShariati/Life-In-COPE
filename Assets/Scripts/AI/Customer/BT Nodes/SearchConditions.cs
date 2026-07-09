@@ -9,10 +9,11 @@ public class SearchConditions : BTNode
         {
             agent.playerSpotted = true;
             agent.C_Functions.ResetFlagVariables();
+            CheckIfGoodChosen(agent);
             return NodeState.SUCCESS;
         }
 
-        else if (agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed) //!PlayerInventory.Instance.currentlyBeingFollowed
+        else if (agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed)
         {
             return NodeState.SUCCESS;
         }
@@ -31,7 +32,8 @@ public class SearchConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed) //!PlayerInventory.Instance.currentlyBeingFollowed
+        if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed
+            && agent.C_Functions.CheckSearchCooldown())
         {
             return true;
         }
@@ -40,5 +42,16 @@ public class SearchConditions : BTNode
             return false;
         }
 
+    }
+
+    public void CheckIfGoodChosen(CustomerManager agent)
+    {
+        if (agent.currentChosenGood == null)
+        {
+            int rand = Random.Range(0, agent.remainingGoodsList.Count);
+            agent.currentChosenGood = agent.remainingGoodsList[rand];
+
+            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
+        }
     }
 }

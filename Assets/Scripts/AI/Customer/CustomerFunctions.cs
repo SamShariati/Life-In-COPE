@@ -16,9 +16,12 @@ public class CustomerFunctions
     private const float destinationBuffer = 0.75f;
     private const float sampleSearchRadius = 3f;
 
+    private float lastChaseCooldown;
+
     public CustomerFunctions (CustomerManager agent)
     {
         this.agent = agent;
+        lastChaseCooldown = -agent.chaseCooldown;
     }
 
     public void GenerateAllComponents()
@@ -145,5 +148,24 @@ public class CustomerFunctions
     {
         idleTimer = 0;
     }
+
+    public bool CheckSearchCooldown()
+    {
+        if (Time.time > lastChaseCooldown + agent.chaseCooldown)
+        {
+            lastChaseCooldown = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public void StartSearchCooldown()
+    {
+        lastChaseCooldown = Time.time;
+    }
+
     //--------------------------------------
 }

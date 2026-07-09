@@ -6,7 +6,6 @@ public class IdleStareConditions : BTNode
     {
         if (StateConditions(agent))
         {
-            agent.isCurrentlyChasing = true;
             return NodeState.SUCCESS;
         }
 
