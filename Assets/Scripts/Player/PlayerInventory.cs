@@ -7,18 +7,24 @@ using UnityEngine.Windows;
 public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
 {
 
-    public bool currentlyHoldingBox;
+    public static PlayerInventory Instance { get; private set; }
+
+    [HideInInspector] public bool currentlyHoldingBox;
+    [HideInInspector] public bool currentlyBeingFollowed;
     public CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject boxPrefab;
-    [HideInInspector] public ShelfManager shelfManager;
+    //[HideInInspector] public ShelfManager shelfManager;
 
     private PlayerInput _input;
     private void Awake()
-    {   
+    {
+
+        Instance = this;
         _input = new PlayerInput();
         currentlyHoldingBox = false;
-        shelfManager = FindAnyObjectByType<ShelfManager>();
+        currentlyBeingFollowed = false;
+        //shelfManager = FindAnyObjectByType<ShelfManager>();
     }
 
     private void OnEnable()
@@ -74,7 +80,11 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.Initiate(data);
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
-        shelfManager.EnableShelfArrow(heldBox);
+
+        if (!currentlyBeingFollowed)
+        {
+            ShelfManager.Instance.EnableShelfArrow(heldBox.data.boxID);
+        }
     }
 
     //----------------HANDLING BOXES-------------------
@@ -85,7 +95,11 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = boxObject;
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
-        shelfManager.EnableShelfArrow(boxObject);
+        
+        if (!currentlyBeingFollowed)
+        {
+            ShelfManager.Instance.EnableShelfArrow(boxObject.data.boxID);
+        }      
     }
     public void DropBox()
     {
@@ -93,7 +107,11 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetDropped();
         heldBox = null;
         currentlyHoldingBox = false;
-        shelfManager.DisableShelfArrow();
+
+        if (!currentlyBeingFollowed)
+        {
+            ShelfManager.Instance.DisableShelfArrow();
+        }
     }
 
     public void ThrowBox()
@@ -102,7 +120,11 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetThrown();
         heldBox = null;
         currentlyHoldingBox = false;
-        shelfManager.DisableShelfArrow();
+
+        if (!currentlyBeingFollowed)
+        {
+            ShelfManager.Instance.DisableShelfArrow();
+        }
     }
 
     public void DestroyBox()
@@ -110,7 +132,8 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         GameObject.Destroy(heldBox.gameObject);
         heldBox = null;
         currentlyHoldingBox = false;
-        shelfManager.DisableShelfArrow();
+        //shelfManager.DisableShelfArrow();
+        ShelfManager.Instance.DisableShelfArrow();
     }
     //-------------------------------------------------
 }

@@ -63,7 +63,11 @@ public class CustomerManager : MonoBehaviour
     public bool playerSpotted = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
     [HideInInspector] public bool isCurrentlyFollowing = false;
-    [HideInInspector] public bool isCurrentlyIdle = false; 
+    [HideInInspector] public bool isCurrentlyStaring = false;
+
+    //-------------FOLLOW PLAYER VARIABLES-----------------------------
+
+    
 
 
 
@@ -87,7 +91,7 @@ public class CustomerManager : MonoBehaviour
         C_Functions.GenerateAllComponents();
         customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
-        nrGoodsNeeded = 2;
+        nrGoodsNeeded = 4;
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();
@@ -124,6 +128,8 @@ public class CustomerManager : MonoBehaviour
         ChasePlayer chasePlayer = new ChasePlayer();
         FollowPlayerConditions followPlayerConditions = new FollowPlayerConditions();
         FollowPlayer followPlayer = new FollowPlayer();
+        IdleStareConditions idleStareConditions = new IdleStareConditions();
+        IdleStare idleStare = new IdleStare();
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
@@ -135,9 +141,9 @@ public class CustomerManager : MonoBehaviour
 
         Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
         Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
-        //Sequence idleLookState = new Sequence(new List<BTNode>() {  });
+        Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
 
-        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState});
+        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState});
         Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState});
 
 

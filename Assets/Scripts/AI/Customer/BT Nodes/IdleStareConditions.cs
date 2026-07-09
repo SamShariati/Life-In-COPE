@@ -1,9 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class IdleLookConditions : BTNode
+public class IdleStareConditions : BTNode
 {
-
     public override NodeState Evaluate(CustomerManager agent)
     {
         if (StateConditions(agent))
@@ -12,7 +10,7 @@ public class IdleLookConditions : BTNode
             return NodeState.SUCCESS;
         }
 
-        else 
+        else
         {
             return NodeState.FAILURE;
         }
@@ -22,11 +20,9 @@ public class IdleLookConditions : BTNode
 
     }
 
-
-
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyChasing && agent.isCurrentlyFollowing && agent.isCurrentlyIdle)
+        if (!agent.isCurrentlyChasing && !agent.isCurrentlyFollowing && agent.isCurrentlyStaring)
         {
             return true;
         }

@@ -27,7 +27,7 @@ public class ChasePlayerConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyChasing && !agent.isCurrentlyFollowing && !agent.isCurrentlyIdle)
+        if (!agent.isCurrentlyChasing && !agent.isCurrentlyFollowing && !agent.isCurrentlyStaring)
         {
             return true;
         }

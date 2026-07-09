@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 //--------------------------------------------------------
@@ -7,6 +9,20 @@ using UnityEngine;
 //--------------------------------------------------------
 public class ShelfManager : MonoBehaviour
 {
+    public static ShelfManager Instance { get; private set; }
+
+    private void Awake()
+    {
+
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+    }
 
     private KolonialPallet pallet;
     private List<CardboardBoxData> goodsDataList;
@@ -95,14 +111,29 @@ public class ShelfManager : MonoBehaviour
 
     //----------------SHELF ARROWS--------------------------
 
-    public void EnableShelfArrow(CardboardBoxObject box)
+    public Vector3 GetArrowPosition(string id)
+    {
+        foreach (Shelf shelf in shelfList)
+        {
+            string shelfGoodsType = shelf.goodsType.ToString();
+            string shelfType = shelf.shelfType.ToString();
+            if (shelfGoodsType == id && shelfType != "decour")
+            {
+                return shelf.shelfArrow.position;
+            }
+        }
+        return new Vector3(0, 0, 0);
+
+    }
+
+    public void EnableShelfArrow(string id)
     {
         
         foreach (Shelf shelf in shelfList)
         {
             string shelfGoodsType = shelf.goodsType.ToString();
             string shelfType = shelf.shelfType.ToString();
-            if (shelfGoodsType == box.data.boxID && shelfType != "decour")
+            if (shelfGoodsType == id && shelfType != "decour")
             {
                 shelf.shelfArrow.gameObject.SetActive(true);
             }

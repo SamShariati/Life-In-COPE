@@ -3,16 +3,51 @@ using UnityEngine;
 public class FollowPlayer : BTNode
 {
 
-    float distanceToTarget;
+    float distanceToPlayer;
+    float distanceToChosenArrow;
+    bool runOnce = false;
+    Vector3 arrowPosition;
+
     public override NodeState Evaluate(CustomerManager agent)
     {
-        distanceToTarget = Vector3.Distance(agent.player.position, agent.transform.position);
+        if (!runOnce)
+        {
+            runOnce = true;
+            CustomerDialogue.Instance.ShowMessage(agent.currentChosenGood.boxID);
+            arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.currentChosenGood.boxID);
+            ShelfManager.Instance.EnableShelfArrow(agent.currentChosenGood.boxID);
+        }
+
+        distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
+        distanceToChosenArrow = Vector3.Distance(agent.player.position, arrowPosition);
 
         agent.navigation.speed = agent.playerMovement.currentSpeed;
 
         agent.C_Functions.CalculateDestination(agent);
 
-        if (distanceToTarget < 2.5f)
+        SetAnimation(agent);
+
+        if (distanceToChosenArrow < 1f)
+        {
+            PlayerInventory.Instance.currentlyBeingFollowed = false;
+            ShelfManager.Instance.DisableShelfArrow();
+            agent.isCurrentlyFollowing = false;
+            agent.isCurrentlyStaring = true;
+            runOnce = false;
+
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.RUNNING;
+        }
+
+    }
+
+
+    private void SetAnimation(CustomerManager agent)
+    {
+        if (distanceToPlayer < 2.5f)
         {
             agent.navigation.isStopped = true;
             agent.animator.SetState(AnimState.Idle);
@@ -35,8 +70,8 @@ public class FollowPlayer : BTNode
             }
 
         }
-        return NodeState.RUNNING;
     }
+
 
     private void RotateTowardsPlayer(CustomerManager agent)
     {

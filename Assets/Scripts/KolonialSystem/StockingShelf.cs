@@ -53,7 +53,8 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         GetTransparentItems();
         _playerInteract = pI;
-        _playerInteract.Inventory.shelfManager.DisableShelfArrow();
+        //_playerInteract.Inventory.shelfManager.DisableShelfArrow();
+        ShelfManager.Instance.DisableShelfArrow();
         _player = shelf.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
@@ -223,7 +224,8 @@ public class StockingShelf : PlayerInput.IShelfActions
         }
         if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
-            playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
+            //playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
+            ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
         }
         else
         {
