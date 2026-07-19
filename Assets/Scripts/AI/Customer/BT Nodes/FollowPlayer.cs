@@ -32,7 +32,7 @@ public class FollowPlayer : BTNode
 
         if (distanceToChosenArrow < 1.5f)
         {
-            PlayerInventory.Instance.currentlyBeingFollowed = false;
+            PlayerState.Instance.currentlyBeingFollowed = false;
             ShelfManager.Instance.DisableShelfArrow();
             CustomerDialogue.Instance.HideMessage();
             agent.isCurrentlyFollowing = false;

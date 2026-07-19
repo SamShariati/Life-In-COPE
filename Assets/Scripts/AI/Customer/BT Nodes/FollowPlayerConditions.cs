@@ -7,7 +7,7 @@ public class FollowPlayerConditions : BTNode
     {
         if (StateConditions(agent))
         {
-            PlayerInventory.Instance.currentlyBeingFollowed = true;
+            PlayerState.Instance.currentlyBeingFollowed = true;
 
             return NodeState.SUCCESS;
         }

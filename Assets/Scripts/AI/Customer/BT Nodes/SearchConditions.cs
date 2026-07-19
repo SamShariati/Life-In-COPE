@@ -13,7 +13,7 @@ public class SearchConditions : BTNode
             return NodeState.SUCCESS;
         }
 
-        else if (agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed)
+        else if (agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed)
         {
             return NodeState.SUCCESS;
         }
@@ -32,7 +32,7 @@ public class SearchConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerInventory.Instance.currentlyBeingFollowed
+        if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed
             && agent.C_Functions.CheckSearchCooldown())
         {
             return true;

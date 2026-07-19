@@ -10,7 +10,6 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     public static PlayerInventory Instance { get; private set; }
 
     [HideInInspector] public bool currentlyHoldingBox;
-    [HideInInspector] public bool currentlyBeingFollowed;
     public CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject boxPrefab;
@@ -23,7 +22,6 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         Instance = this;
         _input = new PlayerInput();
         currentlyHoldingBox = false;
-        currentlyBeingFollowed = false;
         //shelfManager = FindAnyObjectByType<ShelfManager>();
     }
 
@@ -81,7 +79,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
 
-        if (!currentlyBeingFollowed)
+        if (!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.EnableShelfArrow(heldBox.data.boxID);
         }
@@ -96,7 +94,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
         
-        if (!currentlyBeingFollowed)
+        if (!!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.EnableShelfArrow(boxObject.data.boxID);
         }      
@@ -108,7 +106,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = null;
         currentlyHoldingBox = false;
 
-        if (!currentlyBeingFollowed)
+        if (!!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.DisableShelfArrow();
         }
@@ -121,7 +119,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = null;
         currentlyHoldingBox = false;
 
-        if (!currentlyBeingFollowed)
+        if (!!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.DisableShelfArrow();
         }
