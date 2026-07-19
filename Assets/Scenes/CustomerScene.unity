@@ -110159,6 +110159,10 @@ PrefabInstance:
       propertyPath: chaseCooldown
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2048297290439289826, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
       value: CustomerAgent
