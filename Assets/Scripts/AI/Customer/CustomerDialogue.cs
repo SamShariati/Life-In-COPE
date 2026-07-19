@@ -26,6 +26,12 @@ public class CustomerDialogue : MonoBehaviour
         speechBubble.SetActive(false);
     }
 
+    public void ShowBubble()
+    {
+        speechBubble.SetActive(true);
+        text.text = "";
+    }
+
     public void ShowMessage(string msg)
     {
 

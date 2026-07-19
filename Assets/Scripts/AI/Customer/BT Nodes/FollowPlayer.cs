@@ -5,46 +5,105 @@ public class FollowPlayer : BTNode
 
     float distanceToPlayer;
     float distanceToChosenArrow;
-    bool runOnce = false;
     Vector3 arrowPosition;
+
+    private enum Phase { Instansiate, RotatePlayer, IdleTime, FollowPlayer}
+    private Phase phase = Phase.Instansiate;
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        if (!runOnce)
+        switch (phase)
         {
-            runOnce = true;
-            CustomerDialogue.Instance.ShowMessage(agent.currentChosenGood.boxID);
-            arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.currentChosenGood.boxID);
-            ShelfManager.Instance.DisableShelfArrow();
-            ShelfManager.Instance.EnableShelfArrow(agent.currentChosenGood.boxID);
-            Debug.Log(arrowPosition);
+
+            case Phase.Instansiate:
+
+                PlayerState.Instance.CaughtPlayer(agent.headObject);
+                agent.C_Functions.SetTimer(agent.WasteCustomerTime);
+
+                phase = Phase.RotatePlayer;
+
+                return NodeState.RUNNING;
+
+
+
+            case Phase.RotatePlayer:
+
+                distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
+
+                if (distanceToPlayer < 1f)
+                {
+                    agent.navigation.isStopped = true;
+                    //agent.animator.SetState(AnimState.Idle); -- Caught animation
+                    RotateTowardsPlayer(agent);
+                }
+
+                if (PlayerState.Instance._activeCaught.isFacingTarget)
+                {
+                    phase = Phase.IdleTime;
+                    arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.currentChosenGood.boxID);
+                    ShelfManager.Instance.DisableShelfArrow();
+                }
+                return NodeState.RUNNING;
+
+
+            case Phase.IdleTime:
+
+                CustomerDialogue.Instance.ShowBubble();
+
+                distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
+
+                agent.navigation.isStopped = true;
+                agent.animator.SetState(AnimState.Idle);
+                RotateTowardsPlayer(agent);
+
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    phase = Phase.FollowPlayer;
+                    ShelfManager.Instance.EnableShelfArrow(agent.currentChosenGood.boxID);
+                    PlayerState.Instance.ReleasePlayer();
+                }
+                return NodeState.RUNNING;
+
+
+            case Phase.FollowPlayer:
+
+                CustomerDialogue.Instance.ShowMessage(agent.currentChosenGood.boxID);
+
+                distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
+                distanceToChosenArrow = Vector3.Distance(agent.player.position, arrowPosition);
+
+                agent.navigation.speed = agent.playerMovement.currentSpeed;
+
+                agent.C_Functions.CalculatePlayerDestination(agent);
+
+                SetAnimation(agent);
+
+                if (distanceToChosenArrow < 1.5f)
+                {
+                    PlayerState.Instance.currentlyBeingFollowed = false;
+                    ShelfManager.Instance.DisableShelfArrow();
+                    CustomerDialogue.Instance.HideMessage();
+                    agent.isCurrentlyFollowing = false;
+                    agent.isCurrentlyStaring = true;
+                    phase = Phase.Instansiate;
+
+                    if (PlayerInventory.Instance.IsHoldingBox())
+                    {
+                        ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.GetHeldBoxID());
+                    }
+   
+
+                    return NodeState.SUCCESS;
+                }
+                else
+                {
+                    return NodeState.RUNNING;
+                }
+
         }
+        return NodeState.RUNNING;
 
-        distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
-        distanceToChosenArrow = Vector3.Distance(agent.player.position, arrowPosition);
-        Debug.Log(distanceToChosenArrow);
 
-        agent.navigation.speed = agent.playerMovement.currentSpeed;
-
-        agent.C_Functions.CalculateDestination(agent);
-
-        SetAnimation(agent);
-
-        if (distanceToChosenArrow < 1.5f)
-        {
-            PlayerState.Instance.currentlyBeingFollowed = false;
-            ShelfManager.Instance.DisableShelfArrow();
-            CustomerDialogue.Instance.HideMessage();
-            agent.isCurrentlyFollowing = false;
-            agent.isCurrentlyStaring = true;
-            runOnce = false;
-
-            return NodeState.SUCCESS;
-        }
-        else
-        {
-            return NodeState.RUNNING;
-        }
 
     }
 

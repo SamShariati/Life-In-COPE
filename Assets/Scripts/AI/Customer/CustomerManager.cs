@@ -78,6 +78,7 @@ public class CustomerManager : MonoBehaviour
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
     public float chaseCooldown = 10;
+    public float WasteCustomerTime = 1.5f;
 
 
     private void Awake()

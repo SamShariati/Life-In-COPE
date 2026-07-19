@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 8730861658143962153}
   - component: {fileID: 5180305180646827870}
   - component: {fileID: 2547403225775772655}
+  - component: {fileID: -2612313467465801669}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -296,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   walkSpeed: 5
   sprintSpeed: 10
+  currentSpeed: 2.5
   mouseSensitivity: 0.3
   cameraTransform: {fileID: 4383728770469239236}
 --- !u!114 &5180305180646827870
@@ -313,6 +315,9 @@ MonoBehaviour:
   interactRange: 5
   cameraTransform: {fileID: 4383728770469239236}
   interactText: {fileID: 0}
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2547403225775772655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +331,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   currentlyHoldingBox: 0
+  heldBox: {fileID: 0}
   holdPoint: {fileID: 5578784595230896801}
+  boxPrefab: {fileID: 0}
+--- !u!114 &-2612313467465801669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8394032781787490749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45c5ca914ef3c042920bdceb1c5cedb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerState
+  currentlyBeingFollowed: 0
 --- !u!1 &8618765183806788236
 GameObject:
   m_ObjectHideFlags: 0

@@ -86,6 +86,15 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     }
 
     //----------------HANDLING BOXES-------------------
+
+    public string GetHeldBoxID()
+    {
+        if (heldBox == null) return null;
+
+        return heldBox.data.boxID;
+
+
+    }
     public void PickUpBox(CardboardBoxObject boxObject)
     {
         if (currentlyHoldingBox) return;
@@ -94,7 +103,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox.GetPickedUp(holdPoint);
         currentlyHoldingBox = true;
         
-        if (!!PlayerState.Instance.currentlyBeingFollowed)
+        if (!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.EnableShelfArrow(boxObject.data.boxID);
         }      
@@ -106,7 +115,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = null;
         currentlyHoldingBox = false;
 
-        if (!!PlayerState.Instance.currentlyBeingFollowed)
+        if (!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.DisableShelfArrow();
         }
@@ -119,7 +128,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         heldBox = null;
         currentlyHoldingBox = false;
 
-        if (!!PlayerState.Instance.currentlyBeingFollowed)
+        if (!PlayerState.Instance.currentlyBeingFollowed)
         {
             ShelfManager.Instance.DisableShelfArrow();
         }

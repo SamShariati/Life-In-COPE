@@ -33,7 +33,7 @@ public class CustomerFunctions
         GetPlayerObject();
     }
 
-    public void CalculateDestination(CustomerManager agent)
+    public void CalculatePlayerDestination(CustomerManager agent)
     {
         Vector3 rawTarget = agent.player.position;
         if (NavMesh.SamplePosition(rawTarget, out NavMeshHit hit, sampleSearchRadius, NavMesh.AllAreas))
