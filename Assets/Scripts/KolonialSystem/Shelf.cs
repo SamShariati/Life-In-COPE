@@ -19,7 +19,7 @@ public class Shelf : MonoBehaviour, IInteractable
     Transform shelfLayers;
     [SerializeField] List<Transform> productPosList;
     [HideInInspector] public List<Transform> stockingPosList = new List<Transform>();
-    [HideInInspector] public bool inStockingMode = false;
+    
 
 
     public enum GoodsType
@@ -148,7 +148,7 @@ public class Shelf : MonoBehaviour, IInteractable
         if (player.Inventory.currentlyHoldingBox && remainingStockCount > 0)
         {
             string shelfGoodsType = goodsType.ToString();
-            if (shelfGoodsType == player.Inventory.heldBox.data.boxID)
+            if (shelfGoodsType == player.Inventory.heldBox.data.boxID && !PlayerState.Instance.currentlyBeingFollowed)
             {
                 stockingShelf.Activate(player);
             }
@@ -169,7 +169,7 @@ public class Shelf : MonoBehaviour, IInteractable
     {
 
         string shelfGoodsType = goodsType.ToString();
-        if (!inStockingMode && player.Inventory.currentlyHoldingBox && remainingStockCount > 0
+        if (!PlayerState.Instance.inStockingMode && player.Inventory.currentlyHoldingBox && remainingStockCount > 0
             && shelfGoodsType == player.Inventory.heldBox.data.boxID)
         {
             return true;

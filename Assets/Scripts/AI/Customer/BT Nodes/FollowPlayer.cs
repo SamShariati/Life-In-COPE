@@ -6,7 +6,7 @@ public class FollowPlayer : BTNode
     float distanceToPlayer;
     float distanceToChosenArrow;
     Vector3 arrowPosition;
-
+    private bool runOnce = false;
     private enum Phase { Instansiate, RotatePlayer, IdleTime, FollowPlayer}
     private Phase phase = Phase.Instansiate;
 
@@ -17,8 +17,12 @@ public class FollowPlayer : BTNode
 
             case Phase.Instansiate:
 
-                PlayerState.Instance.CaughtPlayer(agent.headObject);
+                
                 agent.C_Functions.SetTimer(agent.WasteCustomerTime);
+
+                PlayerState.Instance.CaughtPlayer(agent.headObject);
+
+                
 
                 phase = Phase.RotatePlayer;
 
@@ -28,12 +32,14 @@ public class FollowPlayer : BTNode
 
             case Phase.RotatePlayer:
 
+               
+
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
 
                 if (distanceToPlayer < 1f)
                 {
                     agent.navigation.isStopped = true;
-                    //agent.animator.SetState(AnimState.Idle); -- Caught animation
+                    agent.animator.SetState(AnimState.CaughtPlayer);
                     RotateTowardsPlayer(agent);
                 }
 
@@ -53,7 +59,7 @@ public class FollowPlayer : BTNode
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
 
                 agent.navigation.isStopped = true;
-                agent.animator.SetState(AnimState.Idle);
+                agent.animator.SetState(AnimState.CaughtPlayer);
                 RotateTowardsPlayer(agent);
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))

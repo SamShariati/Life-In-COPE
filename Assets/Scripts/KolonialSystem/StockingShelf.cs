@@ -82,7 +82,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     private IEnumerator StockingSequence(PlayerInteract playerInteract)
     {
-        shelf.inStockingMode = true;
+        PlayerState.Instance.inStockingMode = true;
 
         // --- Step 1: Smoothly move player to shelfArrow position & rotate camera toward shelf ---
         Transform arrowTransform = shelf.shelfArrow;
@@ -112,6 +112,12 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         while (elapsed < transitionDuration)
         {
+            if (PlayerState.Instance.currentlyBeingFollowed)
+            {
+                ExitStocking(playerInteract);
+                yield break;
+            }
+
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / transitionDuration);
 
@@ -149,6 +155,12 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
+            if (PlayerState.Instance.currentlyBeingFollowed)
+            {
+                ExitStocking(playerInteract);
+                yield break;
+            }
+
             Transform targetSlot = _stockingPositions[_currentStockIndex];
 
             // Spawn placedPrefab at box position and fly it to the shelf slot
@@ -202,15 +214,17 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     private void ExitStocking(PlayerInteract playerInteract)
     {
-        shelf.inStockingMode = false;
+        PlayerState.Instance.inStockingMode = false;
         _stockingStarted = false;
 
         _input.Shelf.Disable();
         _input.Shelf.RemoveCallbacks(this);
         _input.Player.Enable();
 
-
-        _playerMovement.enabled = true;
+        if (!PlayerState.Instance.currentlyBeingFollowed)
+        {
+            _playerMovement.enabled = true;
+        }
 
         if (_runner != null)
         {
@@ -237,7 +251,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     // Called every frame by the CoroutineRunner's Update so shelf-look works
     public void UpdateLook()
     {
-        if (!_stockingStarted || !shelf.inStockingMode) return;
+        if (!_stockingStarted || !PlayerState.Instance.inStockingMode) return;
         if (_cameraTransform == null) return;
 
         _shelfYaw += _lookDelta.x * ShelfLookSensitivity;
@@ -252,7 +266,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     // ----- IShelfActions ------------------------------
     public void OnStop(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && shelf.inStockingMode)
+        if (ctx.performed && PlayerState.Instance.inStockingMode)
         {
             _runner.StopAllCoroutines();
             ExitStocking(_playerInteract);

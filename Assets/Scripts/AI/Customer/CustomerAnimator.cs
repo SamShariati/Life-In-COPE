@@ -5,7 +5,7 @@ public enum AnimState
     Idle = 0,
     Walk = 1,
     Chase = 2,
-    Attack = 3,
+    CaughtPlayer = 3,
     Hurt = 4,
     Death = 5
 }

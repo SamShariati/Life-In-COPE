@@ -1197,6 +1197,7 @@ MonoBehaviour:
   navigation: {fileID: 0}
   cashRegister: {fileID: 0}
   player: {fileID: 0}
+  playerMovement: {fileID: 0}
   currentChosenGood: {fileID: 0}
   remainingGoodsList: []
   goodsGathered: []
@@ -1223,12 +1224,14 @@ MonoBehaviour:
   playerSpotted: 0
   isCurrentlyChasing: 0
   isCurrentlyFollowing: 0
-  isCurrentlyIdle: 0
+  isCurrentlyStaring: 0
   walkSpeed: 2
   runSpeed: 6
   nrGoodsNeeded: 3
   maxIdleTime: 5
   minIdleTime: 2
+  chaseCooldown: 10
+  WasteCustomerTime: 3
 --- !u!195 &3985933204275392539
 NavMeshAgent:
   m_ObjectHideFlags: 0

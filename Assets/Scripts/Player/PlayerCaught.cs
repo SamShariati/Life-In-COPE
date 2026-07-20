@@ -14,6 +14,9 @@ public class PlayerCaught
     public bool isFacingTarget = false;
 
     private const float RotateToTargetDuration = 0.6f;
+    private const float HeadTrackSmoothSpeed = 8f; // how snappy the camera follows head movement once locked on
+
+    private Transform _currentFaceTarget;
 
     public PlayerCaught()
     {
@@ -59,14 +62,18 @@ public class PlayerCaught
         }
 
         isFacingTarget = false;
+        _currentFaceTarget = null;
         playerMovement.enabled = true;
     }
 
     private IEnumerator RotateTowardsTarget(Transform faceTarget)
     {
         isFacingTarget = false;
+        _currentFaceTarget = faceTarget;
 
         // Flat (yaw-only) direction so the player body doesn't tilt up/down.
+        // The player's BODY only turns once, toward the target's starting position -
+        // it's the camera that keeps following afterward (e.g. a dancing customer's head).
         Vector3 dirToTargetFlat = faceTarget.position - player.transform.position;
         dirToTargetFlat.y = 0f;
 
@@ -77,11 +84,13 @@ public class PlayerCaught
 
         Quaternion startCamRot = cameraTransform.localRotation;
 
-        // Camera should look directly at the target (full 3D direction, e.g. the face height).
-        Vector3 dirToTarget = (faceTarget.position - cameraTransform.position).normalized;
-        Quaternion targetWorldCamRot = Quaternion.LookRotation(dirToTarget, Vector3.up);
-        Quaternion targetCamLocalRot = Quaternion.Inverse(targetPlayerRot) * targetWorldCamRot;
-
+        // -------------------------------------------------------------------
+        // PHASE 1: Ease-in. Player body turns to face the target's general
+        // direction over RotateToTargetDuration. The camera target is
+        // recalculated every frame from the target's CURRENT position (not
+        // a one-time snapshot), so if the target is already moving/dancing
+        // during the ease-in, the camera blends toward wherever it currently is.
+        // -------------------------------------------------------------------
         float elapsed = 0f;
         while (elapsed < RotateToTargetDuration)
         {
@@ -92,7 +101,11 @@ public class PlayerCaught
             player.transform.rotation = Quaternion.Slerp(startPlayerRot, targetPlayerRot, t);
             characterController.enabled = true;
 
-            cameraTransform.localRotation = Quaternion.Slerp(startCamRot, targetCamLocalRot, t);
+            Vector3 dirToTargetLive = (faceTarget.position - cameraTransform.position).normalized;
+            Quaternion targetWorldCamRotLive = Quaternion.LookRotation(dirToTargetLive, Vector3.up);
+            Quaternion targetCamLocalRotLive = Quaternion.Inverse(player.transform.rotation) * targetWorldCamRotLive;
+
+            cameraTransform.localRotation = Quaternion.Slerp(startCamRot, targetCamLocalRotLive, t);
 
             yield return null;
         }
@@ -100,11 +113,34 @@ public class PlayerCaught
         characterController.enabled = false;
         player.transform.rotation = targetPlayerRot;
         characterController.enabled = true;
-        cameraTransform.localRotation = targetCamLocalRot;
 
         isFacingTarget = true;
-        _rotateCoroutine = null;
         Debug.Log(isFacingTarget);
+
+        // -------------------------------------------------------------------
+        // PHASE 2: Continuous tracking. Runs indefinitely - keeps recomputing
+        // the camera's look-at rotation against the target's live position
+        // every frame, so head movement (dancing, looking around, etc.) is
+        // followed in real time. This only stops when ReleaseFromTarget()
+        // calls StopCoroutine on this routine.
+        // -------------------------------------------------------------------
+        while (true)
+        {
+            if (_currentFaceTarget != null)
+            {
+                Vector3 dirToTargetTrack = (_currentFaceTarget.position - cameraTransform.position).normalized;
+                Quaternion targetWorldCamRotTrack = Quaternion.LookRotation(dirToTargetTrack, Vector3.up);
+                Quaternion targetCamLocalRotTrack = Quaternion.Inverse(player.transform.rotation) * targetWorldCamRotTrack;
+
+                cameraTransform.localRotation = Quaternion.Slerp(
+                    cameraTransform.localRotation,
+                    targetCamLocalRotTrack,
+                    Time.deltaTime * HeadTrackSmoothSpeed
+                );
+            }
+
+            yield return null;
+        }
     }
 }
 
