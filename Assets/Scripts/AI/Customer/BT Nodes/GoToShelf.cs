@@ -20,7 +20,7 @@ public class GoToShelf : BTNode
 
         distanceTarget = Vector3.Distance(agent.transform.position, agent.chosenShelfPosition);
         
-        if (distanceTarget < 0.1f)
+        if (distanceTarget < 0.2f)
         {
             //RemoveItemFromGoodsList(agent);
             agent.shelfRouteReached = true;

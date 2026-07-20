@@ -6,6 +6,7 @@ public class StandInLineState : FSMBaseState
     //bool firstInLine = false;
     float distanceToTarget;
 
+
     public override void EnterState(CustomerManager agent)
     {
         if (agent.goodsGathered.Count > 0)
@@ -21,6 +22,12 @@ public class StandInLineState : FSMBaseState
 
     public override void UpdateState(CustomerManager agent)
     {
+
+        if (agent.assignedQueueSlot == -1)
+        {
+            QueueManager.Instance.JoinQueue(agent);
+        }
+
         distanceToTarget = Vector3.Distance(agent.transform.position, agent.currentQueuePos);
         agent.navigation.SetDestination(agent.currentQueuePos);
         agent.navigation.speed = agent.walkSpeed;
@@ -33,6 +40,7 @@ public class StandInLineState : FSMBaseState
             {
                 agent.SwitchState(agent.firstInLineState);
             }
+            
         }
         else
         {

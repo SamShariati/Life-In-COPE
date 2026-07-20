@@ -47,7 +47,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
     public GoodsType goodsType;
     public ShelfType shelfType;
-    [HideInInspector] public ShelfStatus shelfStatus;
+    public ShelfStatus shelfStatus;
 
     private void Awake()
     {

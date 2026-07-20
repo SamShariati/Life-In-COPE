@@ -188,6 +188,8 @@ public class StockingShelf : PlayerInput.IShelfActions
                 yield return new WaitForSeconds(TimeBetweenPlacements);
         }
 
+        shelf.shelfStatus = Shelf.ShelfStatus.stocked;
+
         // --- Step 4: Exit stocking mode ---
         ExitStocking(playerInteract);
     }

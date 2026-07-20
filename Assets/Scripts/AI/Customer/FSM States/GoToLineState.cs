@@ -16,7 +16,7 @@ public class GoToLineState : FSMBaseState
         distanceToTarget = Vector3.Distance(agent.transform.position, agent.walkToRegisterPos);
         agent.navigation.SetDestination(targetPos);
 
-        if (distanceToTarget < 0.4f)
+        if (distanceToTarget < 0.5f)
         {
             agent.SwitchState(agent.standInLineState);
         }
