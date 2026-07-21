@@ -8,6 +8,9 @@ public class PickGoods : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
+
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.pickGoods;
+
         agent.animator.SetState(AnimState.Idle);
         RotateTowardsShelf(agent);
 
@@ -27,6 +30,7 @@ public class PickGoods : BTNode
             case Phase.WaitingToExit:
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
+                    agent.allowedToChase = true;
                     PickGoodsFromShelf(agent);
                     phase = Phase.WaitingToPick;
                     agent.currentlyPickingGoods = false;

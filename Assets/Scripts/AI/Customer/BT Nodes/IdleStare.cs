@@ -2,31 +2,45 @@ using UnityEngine;
 
 public class IdleStare : BTNode
 {
-    bool runOnce = false;
+
+    private enum Phase { initiate, idle}
+    private Phase phase = Phase.initiate;
+
+
     public override NodeState Evaluate(CustomerManager agent)
     {
-        if (!runOnce)
-        {
-            runOnce = true;
-            agent.C_Functions.SetTimer(5);
-        }
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.idleStare;
 
-        RotateTowardsPlayer(agent);
-        agent.navigation.isStopped = true;
-        agent.animator.SetState(AnimState.Idle);
+        switch (phase)
+        {
+            case Phase.initiate:
 
-        if (agent.C_Functions.TickTimer(Time.deltaTime))
-        {
-            runOnce = false;
-            agent.isCurrentlyStaring = false;
-            agent.playerSpotted = false;
-            agent.C_Functions.StartSearchCooldown();
-            return NodeState.SUCCESS;
+                agent.C_Functions.SetTimer(5);
+                phase = Phase.idle;
+
+                return NodeState.RUNNING;
+
+
+            case Phase.idle:
+
+                RotateTowardsPlayer(agent);
+                agent.navigation.isStopped = true;
+                agent.animator.SetState(AnimState.Idle);
+
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    phase = Phase.initiate;
+                    agent.isCurrentlyStaring = false;
+                    agent.playerSpotted = false;
+                    agent.C_Functions.StartSearchCooldown();
+                    return NodeState.SUCCESS;
+                }
+                else
+                {
+                    return NodeState.RUNNING;
+                }
         }
-        else
-        {
-            return NodeState.RUNNING;
-        }
+        return NodeState.RUNNING;
 
     }
 

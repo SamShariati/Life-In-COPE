@@ -6,9 +6,10 @@ public class GoToShelfConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelfConditions;
         if (!agent.shelfRouteChosen)
         {
+
             agent.shelfRouteChosen = true;
             ChooseShelfRoute(agent);
 

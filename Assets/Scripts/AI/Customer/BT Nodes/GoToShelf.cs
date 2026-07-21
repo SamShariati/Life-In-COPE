@@ -7,11 +7,8 @@ public class GoToShelf : BTNode
     float distanceTarget;
     public override NodeState Evaluate(CustomerManager agent)
     {
-        if (!runOnce)
-        {
-            runOnce = true;
-            Debug.Log("Entered GoToShelf");
-        }
+        //agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelf;
+
         agent.animator.SetState(AnimState.Walk);
 
         agent.navigation.speed = agent.walkSpeed;
@@ -19,10 +16,13 @@ public class GoToShelf : BTNode
         agent.navigation.SetDestination(agent.chosenShelfPosition);
 
         distanceTarget = Vector3.Distance(agent.transform.position, agent.chosenShelfPosition);
-        
+        Debug.Log(distanceTarget);
+        Debug.Log("AI Position: " + agent.transform.position);
+        Debug.Log("chosenShelfPosition: " + agent.chosenShelfPosition);
+
         if (distanceTarget < 0.2f)
         {
-            //RemoveItemFromGoodsList(agent);
+            agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelf2;
             agent.shelfRouteReached = true;
 
             return NodeState.SUCCESS;

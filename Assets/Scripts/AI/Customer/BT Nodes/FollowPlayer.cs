@@ -6,12 +6,14 @@ public class FollowPlayer : BTNode
     float distanceToPlayer;
     float distanceToChosenArrow;
     Vector3 arrowPosition;
-    private bool runOnce = false;
     private enum Phase { Instansiate, RotatePlayer, IdleTime, FollowPlayer}
     private Phase phase = Phase.Instansiate;
 
     public override NodeState Evaluate(CustomerManager agent)
     {
+
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.followPlayer;
+
         switch (phase)
         {
 

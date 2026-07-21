@@ -115,6 +115,7 @@ public class CustomerFunctions
                 if (shelfGoodsType == box.boxID)
                 {
                     Transform shelfArrow = shelf.transform.Find("shelfArrow");
+                    
                     agent.shelfPosPairs[box] = shelfArrow.position;
                     agent.shelfIDPairs[box.boxID] = shelf;
                 }

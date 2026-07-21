@@ -8,10 +8,14 @@ public class PickGoodsConditions : BTNode
     {
         // Only enter picking phase after the shelf has been reached
         if (!agent.shelfRouteReached)
+        {
             return NodeState.FAILURE;
+        }
+            
 
         if (!agent.currentlyPickingGoods)
         {
+            agent.allowedToChase = false;
             agent.currentlyPickingGoods = true;
             agent.C_Functions.ResetTimer();
         }

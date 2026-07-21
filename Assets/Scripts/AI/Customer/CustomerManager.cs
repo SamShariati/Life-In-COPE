@@ -6,6 +6,15 @@ using UnityEngine.UIElements;
 
 public class CustomerManager : MonoBehaviour
 {
+
+    //-------------DEBUGGING VARIABLES-----------------------------
+
+    public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, goToShelf2, pickGoodsConditions, pickGoods, searchConditions,
+    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine}
+
+    public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
+
+
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
     public CustomerFunctions C_Functions;
@@ -60,12 +69,13 @@ public class CustomerManager : MonoBehaviour
     public CustomerVision customerVision;
     [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private LayerMask playerMask;
+    [HideInInspector] public bool allowedToChase = true;
     [HideInInspector] public bool playerSpotted = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
 
-    //-------------FOLLOW PLAYER VARIABLES-----------------------------
+    
 
     
 
@@ -93,7 +103,7 @@ public class CustomerManager : MonoBehaviour
         C_Functions.GenerateAllComponents();
         customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
-        nrGoodsNeeded = 8;
+        
         currentState = enterStoreState;
         currentState.EnterState(this);
         ConstructBT();

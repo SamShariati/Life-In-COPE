@@ -33,7 +33,7 @@ public class SearchConditions : BTNode
     private bool StateConditions(CustomerManager agent)
     {
         if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed
-            && agent.C_Functions.CheckSearchCooldown())
+            && agent.C_Functions.CheckSearchCooldown() && agent.allowedToChase)
         {
             return true;
         }

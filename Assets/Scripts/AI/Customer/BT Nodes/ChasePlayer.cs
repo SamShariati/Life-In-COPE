@@ -7,6 +7,8 @@ public class ChasePlayer : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.chasePlayer;
+
         distanceToTarget = Vector3.Distance(agent.player.position, agent.transform.position);
 
         agent.navigation.speed = agent.runSpeed;

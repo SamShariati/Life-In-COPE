@@ -5,8 +5,8 @@ public class PlayerState : MonoBehaviour
 {
     public static PlayerState Instance { get; private set; }
 
-    [HideInInspector] public bool currentlyBeingFollowed;
-    [HideInInspector] public bool inStockingMode;
+    public bool currentlyBeingFollowed;
+    public bool inStockingMode;
 
     public PlayerCaught _activeCaught;
 

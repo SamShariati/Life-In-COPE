@@ -40751,6 +40751,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 7646974221949579347, guid: 4837fe4239fc8be4f89fc0d6fc9831d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7754663239695904725, guid: 4837fe4239fc8be4f89fc0d6fc9831d4, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -110160,6 +110164,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
+      propertyPath: nrGoodsNeeded
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: WasteCustomerTime
       value: 3
       objectReference: {fileID: 0}
@@ -159502,25 +159510,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4619541648634562, guid: 8ff1366a0cf2b3944bb79b9b451c3f88, type: 3}
   m_PrefabInstance: {fileID: 1620903440}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1623526873 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8394032781787490749, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
-  m_PrefabInstance: {fileID: 1665556697}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1623526882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623526873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45c5ca914ef3c042920bdceb1c5cedb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerState
-  currentlyBeingFollowed: 0
-  inStockingMode: 0
 --- !u!1001 &1624818077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162371,10 +162360,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8394032781787490749, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1623526882}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
 --- !u!1001 &1665575284
 PrefabInstance:
