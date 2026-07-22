@@ -16,6 +16,11 @@ public class ShelfArrow : MonoBehaviour
     [Tooltip("How fast the object moves up and down")]
     public float floatSpeed = 1f;
 
+    private void OnDisable()
+    {
+        //transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+    }
+
     void Update()
     {
         // Rotate continuously around the Y-axis

@@ -116,7 +116,8 @@ public class CustomerFunctions
                 {
                     Transform shelfArrow = shelf.transform.Find("shelfArrow");
                     
-                    agent.shelfPosPairs[box] = shelfArrow.position;
+                    Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
+                    agent.shelfPosPairs[box] = shelfPos;
                     agent.shelfIDPairs[box.boxID] = shelf;
                 }
             }
