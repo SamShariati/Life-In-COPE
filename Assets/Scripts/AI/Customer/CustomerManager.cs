@@ -35,6 +35,8 @@ public class CustomerManager : MonoBehaviour
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
+    [HideInInspector] public bool shelfStateAllowed = true;
+
     public CardboardBoxData currentChosenGood;
     [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
@@ -131,10 +133,8 @@ public class CustomerManager : MonoBehaviour
     }
     private void ConstructBT()
     {
-        GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
-        GoToShelf goToShelf = new GoToShelf();
-        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
-        PickGoods pickGoods = new PickGoods();
+        
+        //------SearchForPlayer scripts ------
         SearchConditions searchConditions = new SearchConditions();
         ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
         ChasePlayer chasePlayer = new ChasePlayer();
@@ -142,12 +142,19 @@ public class CustomerManager : MonoBehaviour
         FollowPlayer followPlayer = new FollowPlayer();
         IdleStareConditions idleStareConditions = new IdleStareConditions();
         IdleStare idleStare = new IdleStare();
+        //------ShelfState scripts ------
+        ShelfStateConditions shelfStateConditions = new ShelfStateConditions();
+        GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
+        GoToShelf goToShelf = new GoToShelf();
+        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
+        PickGoods pickGoods = new PickGoods();
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
         Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
 
-        Selector shelfState = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
+        Selector shelfBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
+        Sequence shelfState = new Sequence(new List<BTNode>() { shelfStateConditions, shelfBehaviour });
 
         //SEARCHFORPLAYER BRANCH
 
