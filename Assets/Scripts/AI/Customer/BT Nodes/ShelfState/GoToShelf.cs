@@ -3,11 +3,10 @@ using UnityEngine.AI;
 
 public class GoToShelf : BTNode
 {
-    bool runOnce = false;
     float distanceTarget;
     public override NodeState Evaluate(CustomerManager agent)
     {
-        //agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelf;
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelf;
 
         agent.animator.SetState(AnimState.Walk);
 
@@ -22,7 +21,6 @@ public class GoToShelf : BTNode
 
         if (distanceTarget < 0.2f)
         {
-            agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelf2;
             agent.shelfRouteReached = true;
 
             return NodeState.SUCCESS;

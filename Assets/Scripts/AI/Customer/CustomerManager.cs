@@ -148,6 +148,15 @@ public class CustomerManager : MonoBehaviour
         GoToShelf goToShelf = new GoToShelf();
         PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
         PickGoods pickGoods = new PickGoods();
+        //------ConfusedState scripts ------
+        ConfusedConditions confusedConditions = new ConfusedConditions();
+        GoToAisleConditions goToSectionConditions = new GoToAisleConditions();
+        GoToAisle goToSection = new GoToAisle();
+        GoToSpotConditions goToSpotConditions = new GoToSpotConditions();
+        GoToSpot goToSpot = new GoToSpot();
+
+
+        //----------------------------------------------------------------------------------------------------------------------
 
         //SHELF BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
