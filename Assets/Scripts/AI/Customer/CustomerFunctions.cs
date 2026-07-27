@@ -9,8 +9,9 @@ public class CustomerFunctions
     private GameObject shelfObjectParent;
     private GameObject palletObject;
     private GameObject cashRegisterObject;
-    private GameObject customerPositions;
     private List<CardboardBoxData> palletDataList;
+    private GameObject aisles;
+
     public float idleTimer = 0f;
 
     private const float destinationBuffer = 0.75f;
@@ -31,6 +32,7 @@ public class CustomerFunctions
         GetCashRegister();
         GetHead();
         GetPlayerObject();
+        GetAllAislePositions();
     }
 
     public void CalculatePlayerDestination(CustomerManager agent)
@@ -63,6 +65,26 @@ public class CustomerFunctions
         agent.currentlyPickingGoods = false;
 
     }
+
+    private void GetAllAislePositions()
+    {
+        aisles = GameObject.Find("Aisles");
+
+        for (int i = 1; i<=4; i++)
+        {
+            Transform aisle = aisles.transform.Find("Aisle" + i);
+            agent.aisles[i] = aisle;
+            List<Transform> targetList = new List<Transform>();
+
+            foreach (Transform pos in aisle)
+            {
+                targetList.Add(pos);
+            }
+
+            agent.aislePosList[i] = targetList;
+        }
+    }
+
 
     private void GetCashRegister()
     {
@@ -133,7 +155,22 @@ public class CustomerFunctions
         agent.walkToRegisterPos = GameObject.Find("walkToRegisterPos").transform.position;
 
     }
-    
+
+    public bool ChooseShelfRoute(CustomerManager agent)
+    {
+        if (agent.remainingGoodsList.Count > 0)
+        {
+            int rand = Random.Range(0, agent.remainingGoodsList.Count);
+            agent.currentChosenGood = agent.remainingGoodsList[rand];
+
+            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     //Generalized Timer---------------------
     public bool TickTimer(float delta)

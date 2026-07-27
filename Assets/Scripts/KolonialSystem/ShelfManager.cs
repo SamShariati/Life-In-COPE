@@ -27,7 +27,7 @@ public class ShelfManager : MonoBehaviour
     private KolonialPallet pallet;
     private List<CardboardBoxData> goodsDataList;
     [SerializeField] List<CardboardBoxData> goodsOnPallet;
-    [SerializeField] List<Shelf> shelfList;
+    public List<Shelf> shelfList;
 
 
 

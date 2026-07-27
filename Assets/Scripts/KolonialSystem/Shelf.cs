@@ -32,6 +32,11 @@ public class Shelf : MonoBehaviour, IInteractable
         sauces, shampoo, soda, tacos,
         tea, toiletPaper, toys
     }
+
+    public enum Aisle
+    {
+        none, one, two, three, four
+    }
     
     public enum ShelfStatus
     {
@@ -46,6 +51,7 @@ public class Shelf : MonoBehaviour, IInteractable
     }
 
     public GoodsType goodsType;
+    public Aisle aisle;
     public ShelfType shelfType;
     public ShelfStatus shelfStatus;
 

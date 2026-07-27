@@ -11,7 +11,13 @@ public class GoToShelfConditions : BTNode
         {
 
             agent.shelfRouteChosen = true;
-            ChooseShelfRoute(agent);
+
+            if (!agent.C_Functions.ChooseShelfRoute(agent))
+            {
+                agent.SwitchState(agent.goToLineState);
+                agent.BTActivated = false;
+            }
+            //ChooseShelfRoute(agent);
 
             return NodeState.SUCCESS;
 

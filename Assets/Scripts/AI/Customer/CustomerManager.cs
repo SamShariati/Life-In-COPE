@@ -77,9 +77,21 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
 
-    
+    //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
 
-    
+    [HideInInspector] public bool confusedStateEnabled = true;
+    [HideInInspector] public int aisleID = 0;
+    [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();
+    [HideInInspector] public Dictionary<int, List<Transform>> aislePosList = new Dictionary<int, List<Transform>>();
+    //[HideInInspector] public Transform chosenAisle;
+    [HideInInspector] public Vector3 chosenAislePos;
+
+
+
+    //public List<Transform> aisle1PosList = new List<Transform>();
+    //public List<Transform> aisle2PosList = new List<Transform>();
+    //public List<Transform> aisle3PosList = new List<Transform>();
+    //public List<Transform> aisle4PosList = new List<Transform>();
 
 
 
