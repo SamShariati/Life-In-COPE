@@ -4,6 +4,46 @@ public class ConfusedConditions : BTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {
-        throw new System.NotImplementedException();
+        if (StateConditions(agent))
+        {
+            agent.confusedStateActivated = true;
+            agent.C_Functions.ChooseShelfRoute(agent);
+            RollConfusedType(agent);
+
+            return NodeState.SUCCESS;
+        }
+
+        else if (agent.confusedStateActivated)
+        {
+            
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
+    }
+
+    // Checking to see if the Confused State should be activated or not based on Customer Personality.
+    private bool RollConfusedChance(CustomerManager agent)
+    {
+        return true;
+    }
+
+    // Checking to see if AI enters PatroleAisle- or CheckWrongShelf State.
+    private void RollConfusedType(CustomerManager agent)
+    {
+        agent.isCurrentlyPatrolling = true; //ska slumpas sen.
+    }
+    private bool StateConditions(CustomerManager agent)
+    {
+        if (agent.confusedStateAllowed && !agent.confusedStateActivated) // +RollConfusedChance()
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

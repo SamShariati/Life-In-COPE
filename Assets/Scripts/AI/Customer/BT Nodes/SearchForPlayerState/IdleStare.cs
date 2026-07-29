@@ -32,7 +32,7 @@ public class IdleStare : BTNode
                     phase = Phase.initiate;
                     agent.isCurrentlyStaring = false;
                     agent.playerSpotted = false;
-                    agent.C_Functions.StartSearchCooldown();
+                    agent.C_Functions.StartSearchForPlayerCooldown();
                     return NodeState.SUCCESS;
                 }
                 else

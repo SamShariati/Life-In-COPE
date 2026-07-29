@@ -9,15 +9,8 @@ public class GoToShelfConditions : BTNode
         agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelfConditions;
         if (!agent.shelfRouteChosen)
         {
-
+            agent.C_Functions.ChooseShelfRoute(agent);
             agent.shelfRouteChosen = true;
-
-            if (!agent.C_Functions.ChooseShelfRoute(agent))
-            {
-                agent.SwitchState(agent.goToLineState);
-                agent.BTActivated = false;
-            }
-            //ChooseShelfRoute(agent);
 
             return NodeState.SUCCESS;
 
@@ -32,19 +25,5 @@ public class GoToShelfConditions : BTNode
         }
     }
 
-    private void ChooseShelfRoute(CustomerManager agent)
-    {
-        if (agent.remainingGoodsList.Count > 0)
-        {
-            int rand = Random.Range(0, agent.remainingGoodsList.Count);
-            agent.currentChosenGood = agent.remainingGoodsList[rand];
-
-            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
-        }
-        else
-        {
-            agent.SwitchState(agent.goToLineState);
-            agent.BTActivated = false;
-        }
-    }
+    
 }

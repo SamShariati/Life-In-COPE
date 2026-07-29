@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class GoToSpot : BTNode
+public class PatroleAisle : BTNode
 {
+
     public override NodeState Evaluate(CustomerManager agent)
     {
         throw new System.NotImplementedException();

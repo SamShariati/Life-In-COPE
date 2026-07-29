@@ -17,6 +17,7 @@ public class CustomerManager : MonoBehaviour
 
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
+    [HideInInspector] public InitiateAllComponents initiateAllComponents;
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
     [HideInInspector] public Transform player;
@@ -43,7 +44,6 @@ public class CustomerManager : MonoBehaviour
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
     public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
     [HideInInspector] public Vector3 chosenShelfPosition;
-    //public int nrGoodsFound = 0;
     [HideInInspector] public bool BTActivated = false;
     [HideInInspector] public bool shelfRouteChosen = false;
     [HideInInspector] public bool shelfRouteReached = false;
@@ -77,22 +77,19 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
 
-    //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
+    //-------------CONFUSED STATE VARIABLES-----------------------------
 
-    [HideInInspector] public bool confusedStateEnabled = true;
+    [HideInInspector] public bool confusedStateAllowed = true;
+    [HideInInspector] public bool confusedStateActivated = false;
+    [HideInInspector] public bool isCurrentlyPatrolling = false;
+    [HideInInspector] public bool isCurrentlyCheckingShelf = false;
+    [HideInInspector] public bool patroleRouteChosen = false;
+
     [HideInInspector] public int aisleID = 0;
     [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();
     [HideInInspector] public Dictionary<int, List<Transform>> aislePosList = new Dictionary<int, List<Transform>>();
     //[HideInInspector] public Transform chosenAisle;
     [HideInInspector] public Vector3 chosenAislePos;
-
-
-
-    //public List<Transform> aisle1PosList = new List<Transform>();
-    //public List<Transform> aisle2PosList = new List<Transform>();
-    //public List<Transform> aisle3PosList = new List<Transform>();
-    //public List<Transform> aisle4PosList = new List<Transform>();
-
 
 
     [Header("Customer Stats")]
@@ -108,13 +105,14 @@ public class CustomerManager : MonoBehaviour
     private void Awake()
     {
         navigation = GetComponent<NavMeshAgent>();
+        initiateAllComponents = new InitiateAllComponents(this);
         C_Functions = new CustomerFunctions(this);
         animator = GetComponent<CustomerAnimator>();
 
     }
     void Start()
     {
-        C_Functions.GenerateAllComponents();
+        initiateAllComponents.GenerateAllComponents();
         customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
         
@@ -162,10 +160,10 @@ public class CustomerManager : MonoBehaviour
         PickGoods pickGoods = new PickGoods();
         //------ConfusedState scripts ------
         ConfusedConditions confusedConditions = new ConfusedConditions();
-        GoToAisleConditions goToSectionConditions = new GoToAisleConditions();
-        GoToAisle goToSection = new GoToAisle();
-        GoToSpotConditions goToSpotConditions = new GoToSpotConditions();
-        GoToSpot goToSpot = new GoToSpot();
+        PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
+        PatroleAisle patroleAisle = new PatroleAisle();
+        CheckWrongShelfConditions checkWrongShelfConditions = new CheckWrongShelfConditions();
+        CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
 
 
         //----------------------------------------------------------------------------------------------------------------------
