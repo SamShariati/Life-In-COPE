@@ -19,7 +19,7 @@ public class FollowPlayer : BTNode
 
             case Phase.Instansiate:
 
-                agent.C_Functions.ChooseShelfRoute(agent);
+                agent.C_Functions.ChooseShelfRoute(agent); //Kan bli en framtid bug. Möjligt att BTActivated bli false?
                 agent.C_Functions.SetTimer(agent.WasteCustomerTime);
                 PlayerState.Instance.CaughtPlayer(agent.headObject);
 

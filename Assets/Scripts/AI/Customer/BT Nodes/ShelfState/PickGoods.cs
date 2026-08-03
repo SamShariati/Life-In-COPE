@@ -33,9 +33,14 @@ public class PickGoods : BTNode
                     agent.allowedToChase = true;
                     PickGoodsFromShelf(agent);
                     phase = Phase.WaitingToPick;
+
                     agent.currentlyPickingGoods = false;
                     agent.shelfRouteChosen = false;
                     agent.shelfRouteReached = false;
+                    agent.confusedStateAllowed = true;
+
+                    agent.C_Functions.ChooseShelfRoute(agent);
+
                     return NodeState.SUCCESS;
                 }
                 return NodeState.RUNNING;

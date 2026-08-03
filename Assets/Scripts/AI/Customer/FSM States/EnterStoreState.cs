@@ -24,6 +24,7 @@ public class EnterStoreState : FSMBaseState
 
             if (idleTime < 0)
             {
+                agent.C_Functions.ChooseShelfRoute(agent);
                 agent.SwitchState(agent.nothingState);
                 agent.BTActivated = true;
             }

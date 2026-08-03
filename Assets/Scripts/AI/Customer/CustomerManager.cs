@@ -10,7 +10,7 @@ public class CustomerManager : MonoBehaviour
     //-------------DEBUGGING VARIABLES-----------------------------
 
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, goToShelf2, pickGoodsConditions, pickGoods, searchConditions,
-    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine}
+    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle  }
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
@@ -102,6 +102,9 @@ public class CustomerManager : MonoBehaviour
     public float minIdleTime = 2;
     public float chaseCooldown = 10;
     public float WasteCustomerTime = 1.5f;
+
+    [Header("Behaviour Chance")]
+    public float confusedChance = 100f;
 
 
     private void Awake()

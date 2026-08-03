@@ -66,22 +66,18 @@ public class CustomerFunctions
 
     public void ChooseShelfRoute(CustomerManager agent)
     {
-        //if (agent.remainingGoodsList.Count > 0)
-        //{
-        //    int rand = Random.Range(0, agent.remainingGoodsList.Count);
-        //    agent.currentChosenGood = agent.remainingGoodsList[rand];
+        if (agent.remainingGoodsList.Count > 0)
+        {
+            int rand = Random.Range(0, agent.remainingGoodsList.Count);
+            agent.currentChosenGood = agent.remainingGoodsList[rand];
 
-        //    agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
-        //}
-        int rand = Random.Range(0, agent.remainingGoodsList.Count);
-        agent.currentChosenGood = agent.remainingGoodsList[rand];
-
-        agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
-        //else
-        //{
-        //    agent.SwitchState(agent.goToLineState);
-        //    agent.BTActivated = false;
-        //}
+            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
+        }
+        else
+        {
+            agent.SwitchState(agent.goToLineState);
+            agent.BTActivated = false;
+        }
     }
 
     //Generalized Timer---------------------
@@ -100,7 +96,7 @@ public class CustomerFunctions
         idleTimer = 0;
     }
 
-    public bool CheckSearchForPlayerCooldown()
+    public bool CheckSearchForPlayerStateCD()
     {
         if (Time.time > lastChaseCooldown + agent.chaseCooldown)
         {
@@ -112,6 +108,7 @@ public class CustomerFunctions
             return false;
         }
     }
+
     
     public void StartSearchForPlayerCooldown()
     {

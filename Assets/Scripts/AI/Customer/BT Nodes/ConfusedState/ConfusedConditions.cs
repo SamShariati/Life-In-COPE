@@ -27,7 +27,20 @@ public class ConfusedConditions : BTNode
     // Checking to see if the Confused State should be activated or not based on Customer Personality.
     private bool RollConfusedChance(CustomerManager agent)
     {
-        return true;
+        float randPercent = Random.Range(0, 100);
+
+        if (randPercent <= agent.confusedChance)
+        {
+            agent.confusedStateAllowed = true;
+            return true;
+
+        }
+        else
+        {
+            agent.confusedStateAllowed = false;
+            return false;
+        }
+
     }
 
     // Checking to see if AI enters PatroleAisle- or CheckWrongShelf State.
@@ -39,7 +52,16 @@ public class ConfusedConditions : BTNode
     {
         if (agent.confusedStateAllowed && !agent.confusedStateActivated) // +RollConfusedChance()
         {
-            return true;
+            if (RollConfusedChance(agent))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+
         }
         else
         {

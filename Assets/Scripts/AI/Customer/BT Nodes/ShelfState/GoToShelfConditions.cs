@@ -9,7 +9,6 @@ public class GoToShelfConditions : BTNode
         agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelfConditions;
         if (!agent.shelfRouteChosen)
         {
-            agent.C_Functions.ChooseShelfRoute(agent);
             agent.shelfRouteChosen = true;
 
             return NodeState.SUCCESS;

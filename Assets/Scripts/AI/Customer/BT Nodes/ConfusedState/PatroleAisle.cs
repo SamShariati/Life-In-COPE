@@ -8,6 +8,7 @@ public class PatroleAisle : BTNode
     private float distanceToTarget;
     public override NodeState Evaluate(CustomerManager agent)
     {
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.patroleAisle;
         switch (phase)
         {
 
