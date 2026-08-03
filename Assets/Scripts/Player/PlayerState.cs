@@ -27,7 +27,6 @@ public class PlayerState : MonoBehaviour
     public void ReleasePlayer()
     {
         if (_activeCaught == null) return;
-
         _activeCaught.ReleaseFromTarget();
         _activeCaught = null;
     }

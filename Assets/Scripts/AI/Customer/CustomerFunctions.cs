@@ -54,6 +54,12 @@ public class CustomerFunctions
         agent.shelfRouteReached = false;
         agent.currentlyPickingGoods = false;
 
+        //ConfusedState
+        agent.isCurrentlyPatrolling = false;
+        agent.patroleRouteChosen = false;
+        agent.confusedStateActivated = false;
+        agent.patroleAisle.phase = PatroleAisle.Phase.Initiate;
+
     }
 
     

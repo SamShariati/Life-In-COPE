@@ -79,6 +79,8 @@ public class CustomerManager : MonoBehaviour
 
     //-------------CONFUSED STATE VARIABLES-----------------------------
 
+    [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
+
     [HideInInspector] public bool confusedStateAllowed = true;
     [HideInInspector] public bool confusedStateActivated = false;
     [HideInInspector] public bool isCurrentlyPatrolling = false;
@@ -161,7 +163,7 @@ public class CustomerManager : MonoBehaviour
         //------ConfusedState scripts ------
         ConfusedConditions confusedConditions = new ConfusedConditions();
         PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
-        PatroleAisle patroleAisle = new PatroleAisle();
+        //PatroleAisle patroleAisle = new PatroleAisle();
         CheckWrongShelfConditions checkWrongShelfConditions = new CheckWrongShelfConditions();
         CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
 
