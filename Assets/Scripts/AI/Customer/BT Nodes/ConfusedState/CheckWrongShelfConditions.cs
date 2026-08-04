@@ -11,6 +11,8 @@ public class CheckWrongShelfConditions : BTNode
         if (StateConditions(agent))
         {
             agent.wrongShelfChosen = true;
+            agent.C_Functions.GetCorrectAisle();
+            ChooseWrongShelfPosition(agent);
 
             return NodeState.SUCCESS;
            
@@ -39,14 +41,10 @@ public class CheckWrongShelfConditions : BTNode
             return false;
         }
     }
-    private void ChooseAislePatrolePoint(CustomerManager agent)
+    private void ChooseWrongShelfPosition(CustomerManager agent)
     {
-        int randomIndex = Random.Range(0, agent.aislePosList[agent.aisleID].Count);
-        agent.chosenAislePos = agent.aislePosList[agent.aisleID][randomIndex].position;
-    }
-
-    private void ChooseWrongShelf(CustomerManager agent)
-    {
-
+        int randomIndex = Random.Range(0, ShelfManager.Instance.shelvesByAisle[agent.aisleID].Count);
+        Shelf shelf = ShelfManager.Instance.shelvesByAisle[agent.aisleID][randomIndex];
+        agent.wrongShelfPos = shelf.transform.position;
     }
 }

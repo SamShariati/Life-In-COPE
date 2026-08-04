@@ -92,6 +92,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public int aisleID = 0;
     [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();
     [HideInInspector] public Dictionary<int, List<Transform>> aislePosList = new Dictionary<int, List<Transform>>();
+    [HideInInspector] public Vector3 wrongShelfPos;
     //[HideInInspector] public Transform chosenAisle;
     public Vector3 chosenAislePos;
 
