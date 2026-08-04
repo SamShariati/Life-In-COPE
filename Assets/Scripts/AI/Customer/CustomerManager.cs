@@ -10,7 +10,8 @@ public class CustomerManager : MonoBehaviour
     //-------------DEBUGGING VARIABLES-----------------------------
 
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, goToShelf2, pickGoodsConditions, pickGoods, searchConditions,
-    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle  }
+    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
+    patroleAisleConditions}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
@@ -91,7 +92,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();
     [HideInInspector] public Dictionary<int, List<Transform>> aislePosList = new Dictionary<int, List<Transform>>();
     //[HideInInspector] public Transform chosenAisle;
-    [HideInInspector] public Vector3 chosenAislePos;
+    public Vector3 chosenAislePos;
 
 
     [Header("Customer Stats")]
@@ -166,31 +167,41 @@ public class CustomerManager : MonoBehaviour
         //------ConfusedState scripts ------
         ConfusedConditions confusedConditions = new ConfusedConditions();
         PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
-        //PatroleAisle patroleAisle = new PatroleAisle();
+        //PatroleAisle patroleAisle = new PatroleAisle(); - PUBLIC
         CheckWrongShelfConditions checkWrongShelfConditions = new CheckWrongShelfConditions();
         CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
 
 
         //----------------------------------------------------------------------------------------------------------------------
 
-        //SHELF BRANCH
+        //SEARCHFORPLAYER STATE BRANCH
+
+        Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
+        Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
+        Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
+
+        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState });
+        Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState });
+
+
+        //CONFUSED STATE BRANCH
+
+        Sequence patroleAisleState = new Sequence(new List<BTNode>() { patroleAisleConditions, patroleAisle });
+
+        Selector confusedTypeState = new Selector(new List<BTNode> { patroleAisleState});
+        Sequence confusedState = new Sequence(new List<BTNode>() { confusedConditions, confusedTypeState});
+
+
+        //SHELF STATE BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
         Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
 
         Selector shelfBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
         Sequence shelfState = new Sequence(new List<BTNode>() { shelfStateConditions, shelfBehaviour });
 
-        //SEARCHFORPLAYER BRANCH
-
-        Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
-        Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
-        Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
-
-        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState});
-        Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState});
 
 
-        rootNode = new Selector(new List<BTNode> { searchForPlayerState, shelfState});
+        rootNode = new Selector(new List<BTNode> { searchForPlayerState, confusedState, shelfState});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

@@ -9,6 +9,7 @@ public class EnterStoreState : FSMBaseState
     {
         storePosition = agent.enterStorePos;
         idleTime = Random.Range(agent.minIdleTime, agent.maxIdleTime);
+        
     }
 
     public override void UpdateState(CustomerManager agent)

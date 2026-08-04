@@ -31,7 +31,7 @@ public class PatroleAisle : BTNode
 
                 distanceToTarget = Vector3.Distance(agent.transform.position, agent.chosenAislePos);
 
-                if (distanceToTarget > 0.1f)
+                if (distanceToTarget < 0.25f)
                 {
                     phase = Phase.Idle;
                 }

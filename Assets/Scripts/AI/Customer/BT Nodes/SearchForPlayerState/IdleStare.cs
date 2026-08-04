@@ -17,6 +17,7 @@ public class IdleStare : BTNode
 
                 agent.C_Functions.SetTimer(5);
                 phase = Phase.idle;
+                agent.confusedStateAllowed = false;
 
                 return NodeState.RUNNING;
 
@@ -32,7 +33,7 @@ public class IdleStare : BTNode
                     phase = Phase.initiate;
                     agent.isCurrentlyStaring = false;
                     agent.playerSpotted = false;
-                    agent.C_Functions.StartSearchForPlayerCooldown();
+                    agent.C_Functions.StartSearchForPlayerStateCD();
                     return NodeState.SUCCESS;
                 }
                 else

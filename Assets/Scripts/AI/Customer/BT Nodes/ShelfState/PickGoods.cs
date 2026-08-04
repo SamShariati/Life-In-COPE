@@ -31,7 +31,7 @@ public class PickGoods : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     agent.allowedToChase = true;
-                    PickGoodsFromShelf(agent);
+                    PickGoodsFromShelf(agent); //Failsafe in case we don't enter ConfusedState right after.
                     phase = Phase.WaitingToPick;
 
                     agent.currentlyPickingGoods = false;

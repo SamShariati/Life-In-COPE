@@ -110,7 +110,7 @@ public class CustomerFunctions
     }
 
     
-    public void StartSearchForPlayerCooldown()
+    public void StartSearchForPlayerStateCD()
     {
         lastChaseCooldown = Time.time;
     }

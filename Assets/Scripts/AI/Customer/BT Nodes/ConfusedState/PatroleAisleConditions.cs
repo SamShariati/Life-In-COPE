@@ -7,10 +7,10 @@ public class PatroleAisleConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.patroleAisleConditions;
         if (StateConditions(agent))
         {
-            
+            agent.patroleRouteChosen = true;
             GetCorrectAisle(agent);
             ChooseAislePatrolePoint(agent);
 
