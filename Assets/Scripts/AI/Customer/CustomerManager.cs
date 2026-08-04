@@ -104,7 +104,7 @@ public class CustomerManager : MonoBehaviour
     public float chaseCooldown = 10;
     public float WasteCustomerTime = 1.5f;
 
-    [Header("Behaviour Chance")]
+    [Header("Behaviour Chance %")]
     public float confusedChance = 100f;
 
 
