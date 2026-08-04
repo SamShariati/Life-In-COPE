@@ -39,4 +39,14 @@ public class CheckWrongShelfConditions : BTNode
             return false;
         }
     }
+    private void ChooseAislePatrolePoint(CustomerManager agent)
+    {
+        int randomIndex = Random.Range(0, agent.aislePosList[agent.aisleID].Count);
+        agent.chosenAislePos = agent.aislePosList[agent.aisleID][randomIndex].position;
+    }
+
+    private void ChooseWrongShelf(CustomerManager agent)
+    {
+
+    }
 }

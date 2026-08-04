@@ -41,6 +41,7 @@ public class ShelfManager : MonoBehaviour
         SetShelfData();
         PlaceAllShelves();
         DisableShelfArrow();
+        SortShelvesByAisle();
     }
 
 
@@ -112,29 +113,21 @@ public class ShelfManager : MonoBehaviour
     {
         for (int i = 1;  i <= 4; i++)
         {
-            
+            List<Shelf> aisle = new List<Shelf>();
             foreach (Shelf shelf in shelfList)
             {
                 int shelfAisle = (int)shelf.aisle;
 
+                if (shelfAisle == i)
+                {
+                    aisle.Add(shelf);
+                }
+
             }
+            shelvesByAisle[i] = aisle;
         }
     }
 
-    private void GetCorrectAisle(CustomerManager agent)
-    {
-
-        foreach (Shelf shelf in ShelfManager.Instance.shelfList)
-        {
-            string shelfGoodsType = shelf.goodsType.ToString();
-
-            if (shelfGoodsType == agent.currentChosenGood.boxID)
-            {
-                agent.aisleID = (int)shelf.aisle;
-            }
-        }
-
-    }
 
     //----------------SHELF ARROWS--------------------------
 

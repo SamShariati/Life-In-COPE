@@ -11,7 +11,7 @@ public class PatroleAisleConditions : BTNode
         if (StateConditions(agent))
         {
             agent.patroleRouteChosen = true;
-            GetCorrectAisle(agent);
+            agent.C_Functions.GetCorrectAisle();
             ChooseAislePatrolePoint(agent);
 
             return NodeState.SUCCESS;
@@ -38,20 +38,6 @@ public class PatroleAisleConditions : BTNode
         }
     }
 
-    private void GetCorrectAisle(CustomerManager agent)
-    {
-
-        foreach (Shelf shelf in ShelfManager.Instance.shelfList)
-        {
-            string shelfGoodsType = shelf.goodsType.ToString();
-
-            if (shelfGoodsType == agent.currentChosenGood.boxID)
-            {
-                agent.aisleID = (int)shelf.aisle;
-            }
-        }
-
-    }
     private void ChooseAislePatrolePoint(CustomerManager agent)
     {
         int randomIndex = Random.Range(0, agent.aislePosList[agent.aisleID].Count);

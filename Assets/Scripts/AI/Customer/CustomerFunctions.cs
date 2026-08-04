@@ -62,7 +62,21 @@ public class CustomerFunctions
 
     }
 
-    
+    public void GetCorrectAisle()
+    {
+
+        foreach (Shelf shelf in ShelfManager.Instance.shelfList)
+        {
+
+            string shelfGoodsType = shelf.goodsType.ToString();
+
+            if (shelfGoodsType == agent.currentChosenGood.boxID)
+            {
+                agent.aisleID = (int)shelf.aisle;
+            }
+        }
+
+    }
 
     public void ChooseShelfRoute(CustomerManager agent)
     {

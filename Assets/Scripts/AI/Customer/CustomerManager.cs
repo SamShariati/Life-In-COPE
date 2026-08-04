@@ -107,6 +107,7 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Behaviour Chance %")]
     public float confusedChance = 100f;
+    public float chasePlayerChance = 100f;
 
 
     private void Awake()
