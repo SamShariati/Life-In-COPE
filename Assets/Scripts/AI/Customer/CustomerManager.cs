@@ -11,7 +11,7 @@ public class CustomerManager : MonoBehaviour
 
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, goToShelf2, pickGoodsConditions, pickGoods, searchConditions,
     chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
-    patroleAisleConditions}
+    patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
@@ -23,6 +23,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public CashRegister cashRegister;
     [HideInInspector] public Transform player;
     [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public CustomerAnimator animator;
 
     //-------------------FSM STATES-------------------------
 
@@ -56,15 +57,13 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Vector3 currentQueuePos;
     [HideInInspector] public bool transactionComplete = false;
 
-    //-----------------------------------------------------------------
 
-
-    [Header("Objects Needed")]
+    //---------------FSM VARIABLES------------------------------------
     [HideInInspector] public Vector3 spawnAgentPos;
     [HideInInspector] public Vector3 enterStorePos;
     [HideInInspector] public Vector3 walkToRegisterPos;
     [HideInInspector] public Vector3 exitStorePos;
-    [HideInInspector] public CustomerAnimator animator;
+    
 
     //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
 
@@ -85,8 +84,10 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool confusedStateAllowed = true;
     [HideInInspector] public bool confusedStateActivated = false;
     [HideInInspector] public bool isCurrentlyPatrolling = false;
-    [HideInInspector] public bool isCurrentlyCheckingShelf = false;
     [HideInInspector] public bool patroleRouteChosen = false;
+
+    [HideInInspector] public bool isCurrCheckingWrongShelf = false;
+    [HideInInspector] public bool wrongShelfChosen = false;
 
     [HideInInspector] public int aisleID = 0;
     [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();

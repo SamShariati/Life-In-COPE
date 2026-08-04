@@ -28,7 +28,7 @@ public class ShelfManager : MonoBehaviour
     private List<CardboardBoxData> goodsDataList;
     [SerializeField] List<CardboardBoxData> goodsOnPallet;
     public List<Shelf> shelfList;
-
+    [HideInInspector] public Dictionary<int, List<Shelf>> shelvesByAisle = new Dictionary<int, List<Shelf>>();
 
 
     void Start()
@@ -108,6 +108,33 @@ public class ShelfManager : MonoBehaviour
         }
     }
 
+    private void SortShelvesByAisle()
+    {
+        for (int i = 1;  i <= 4; i++)
+        {
+            
+            foreach (Shelf shelf in shelfList)
+            {
+                int shelfAisle = (int)shelf.aisle;
+
+            }
+        }
+    }
+
+    private void GetCorrectAisle(CustomerManager agent)
+    {
+
+        foreach (Shelf shelf in ShelfManager.Instance.shelfList)
+        {
+            string shelfGoodsType = shelf.goodsType.ToString();
+
+            if (shelfGoodsType == agent.currentChosenGood.boxID)
+            {
+                agent.aisleID = (int)shelf.aisle;
+            }
+        }
+
+    }
 
     //----------------SHELF ARROWS--------------------------
 
