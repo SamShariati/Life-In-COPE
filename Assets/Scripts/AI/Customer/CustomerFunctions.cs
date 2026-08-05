@@ -55,10 +55,14 @@ public class CustomerFunctions
         agent.currentlyPickingGoods = false;
 
         //ConfusedState
+        agent.confusedStateActivated = false;
         agent.isCurrentlyPatrolling = false;
         agent.patroleRouteChosen = false;
-        agent.confusedStateActivated = false;
+        
+        agent.isCurrCheckingWrongShelf = false;
+        agent.wrongShelfChosen = false;
         agent.patroleAisle.phase = PatroleAisle.Phase.Initiate;
+
 
     }
 
@@ -85,7 +89,7 @@ public class CustomerFunctions
             int rand = Random.Range(0, agent.remainingGoodsList.Count);
             agent.currentChosenGood = agent.remainingGoodsList[rand];
 
-            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
+            agent.chosenShelfPosition = agent.allShelfArrowPositions[agent.currentChosenGood.boxID];
         }
         else
         {

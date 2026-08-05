@@ -41,8 +41,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool shelfStateAllowed = true;
 
     public CardboardBoxData currentChosenGood;
-    [HideInInspector] public Dictionary<CardboardBoxData, Vector3> shelfPosPairs = new Dictionary<CardboardBoxData, Vector3>();
-    [HideInInspector] public Dictionary<string, Shelf> shelfIDPairs = new Dictionary<string, Shelf>();
+    [HideInInspector] public Dictionary<string, Vector3> allShelfArrowPositions = new Dictionary<string, Vector3>();
+    [HideInInspector] public Dictionary<string, Shelf> allShelfPositions = new Dictionary<string, Shelf>();
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
     public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
     [HideInInspector] public Vector3 chosenShelfPosition;
@@ -80,6 +80,7 @@ public class CustomerManager : MonoBehaviour
     //-------------CONFUSED STATE VARIABLES-----------------------------
 
     [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
+    [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
 
     [HideInInspector] public bool confusedStateAllowed = true;
     [HideInInspector] public bool confusedStateActivated = false;
@@ -89,12 +90,11 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrCheckingWrongShelf = false;
     [HideInInspector] public bool wrongShelfChosen = false;
 
-    [HideInInspector] public int aisleID = 0;
-    [HideInInspector] public Dictionary<int, Transform> aisles = new Dictionary<int, Transform>();
-    [HideInInspector] public Dictionary<int, List<Transform>> aislePosList = new Dictionary<int, List<Transform>>();
-    [HideInInspector] public Vector3 wrongShelfPos;
-    //[HideInInspector] public Transform chosenAisle;
-    public Vector3 chosenAislePos;
+    public int aisleID = 0;
+    [HideInInspector] public Dictionary<int, List<Transform>> allAislePositions = new Dictionary<int, List<Transform>>();
+    public Vector3 wrongShelfArrowPos;
+    [HideInInspector] public Shelf currentWrongShelf;
+    [HideInInspector] public Vector3 chosenAislePos;
 
 
     [Header("Customer Stats")]
@@ -172,7 +172,7 @@ public class CustomerManager : MonoBehaviour
         PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
         //PatroleAisle patroleAisle = new PatroleAisle(); - PUBLIC
         CheckWrongShelfConditions checkWrongShelfConditions = new CheckWrongShelfConditions();
-        CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
+        //CheckWrongShelf checkWrongShelf = new CheckWrongShelf(); - PUBLIC
 
 
         //----------------------------------------------------------------------------------------------------------------------
@@ -190,14 +190,16 @@ public class CustomerManager : MonoBehaviour
         //CONFUSED STATE BRANCH
 
         Sequence patroleAisleState = new Sequence(new List<BTNode>() { patroleAisleConditions, patroleAisle });
+        Sequence checkWrongShelfState = new Sequence(new List<BTNode>() { checkWrongShelfConditions, checkWrongShelf});
 
-        Selector confusedTypeState = new Selector(new List<BTNode> { patroleAisleState});
+        Selector confusedTypeState = new Selector(new List<BTNode> { patroleAisleState, checkWrongShelfState});
         Sequence confusedState = new Sequence(new List<BTNode>() { confusedConditions, confusedTypeState});
 
 
         //SHELF STATE BRANCH
         Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
         Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
+
 
         Selector shelfBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
         Sequence shelfState = new Sequence(new List<BTNode>() { shelfStateConditions, shelfBehaviour });

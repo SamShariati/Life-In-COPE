@@ -51,7 +51,7 @@ public class SearchConditions : BTNode
             int rand = Random.Range(0, agent.remainingGoodsList.Count);
             agent.currentChosenGood = agent.remainingGoodsList[rand];
 
-            agent.chosenShelfPosition = agent.shelfPosPairs[agent.currentChosenGood];
+            agent.chosenShelfPosition = agent.allShelfArrowPositions[agent.currentChosenGood.boxID];
         }
     }
 }

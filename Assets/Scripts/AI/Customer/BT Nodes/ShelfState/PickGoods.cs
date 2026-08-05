@@ -53,7 +53,7 @@ public class PickGoods : BTNode
 
     private void RotateTowardsShelf(CustomerManager agent)
     {
-        Shelf chosenShelf = agent.shelfIDPairs[agent.currentChosenGood.boxID];
+        Shelf chosenShelf = agent.allShelfPositions[agent.currentChosenGood.boxID];
         Vector3 direction = (chosenShelf.transform.position - agent.transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -64,7 +64,7 @@ public class PickGoods : BTNode
     private void PickGoodsFromShelf(CustomerManager agent)
     {
 
-        Shelf chosenShelf = agent.shelfIDPairs[agent.currentChosenGood.boxID];
+        Shelf chosenShelf = agent.allShelfPositions[agent.currentChosenGood.boxID];
 
 
         if (chosenShelf.remainingStockCount <= 0)

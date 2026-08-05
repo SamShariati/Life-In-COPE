@@ -15,9 +15,6 @@ public class GoToShelf : BTNode
         agent.navigation.SetDestination(agent.chosenShelfPosition);
 
         distanceTarget = Vector3.Distance(agent.transform.position, agent.chosenShelfPosition);
-        Debug.Log(distanceTarget);
-        Debug.Log("AI Position: " + agent.transform.position);
-        Debug.Log("chosenShelfPosition: " + agent.chosenShelfPosition);
 
         if (distanceTarget < 0.2f)
         {

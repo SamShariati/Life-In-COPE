@@ -40,7 +40,7 @@ public class PatroleAisleConditions : BTNode
 
     private void ChooseAislePatrolePoint(CustomerManager agent)
     {
-        int randomIndex = Random.Range(0, agent.aislePosList[agent.aisleID].Count);
-        agent.chosenAislePos = agent.aislePosList[agent.aisleID][randomIndex].position;
+        int randomIndex = Random.Range(0, agent.allAislePositions[agent.aisleID].Count);
+        agent.chosenAislePos = agent.allAislePositions[agent.aisleID][randomIndex].position;
     }
 }

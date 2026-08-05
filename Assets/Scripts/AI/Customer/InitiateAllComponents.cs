@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InitiateAllComponents 
 {
@@ -34,7 +35,6 @@ public class InitiateAllComponents
         for (int i = 1; i <= 4; i++)
         {
             Transform aisle = aisles.transform.Find("Aisle" + i);
-            agent.aisles[i] = aisle;
             List<Transform> targetList = new List<Transform>();
 
             foreach (Transform pos in aisle)
@@ -42,7 +42,7 @@ public class InitiateAllComponents
                 targetList.Add(pos);
             }
 
-            agent.aislePosList[i] = targetList;
+            agent.allAislePositions[i] = targetList;
         }
     }
 
@@ -89,23 +89,39 @@ public class InitiateAllComponents
     {
         Shelf[] shelves = shelfObjectParent.GetComponentsInChildren<Shelf>();
 
-        foreach (CardboardBoxData box in agent.remainingGoodsList)
+        foreach (Shelf shelf in shelves)
         {
-            foreach (Shelf shelf in shelves)
-            {
-                string shelfGoodsType = shelf.goodsType.ToString();
+            string shelfGoodsType = shelf.goodsType.ToString();
 
-                if (shelfGoodsType == box.boxID)
-                {
-                    Transform shelfArrow = shelf.transform.Find("shelfArrow");
+            Transform shelfArrow = shelf.transform.Find("shelfArrow");
 
-                    Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
-                    agent.shelfPosPairs[box] = shelfPos;
-                    agent.shelfIDPairs[box.boxID] = shelf;
-                }
-            }
+            Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
+            agent.allShelfArrowPositions[shelfGoodsType] = shelfPos;
+            agent.allShelfPositions[shelfGoodsType] = shelf;
         }
     }
+
+    //private void GetShelfPositions()
+    //{
+    //    Shelf[] shelves = shelfObjectParent.GetComponentsInChildren<Shelf>();
+
+    //    foreach (CardboardBoxData box in agent.remainingGoodsList)
+    //    {
+    //        foreach (Shelf shelf in shelves)
+    //        {
+    //            string shelfGoodsType = shelf.goodsType.ToString();
+
+    //            if (shelfGoodsType == box.boxID)
+    //            {
+    //                Transform shelfArrow = shelf.transform.Find("shelfArrow");
+
+    //                Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
+    //                agent.remainingGoodsArrowPositions[box.boxID] = shelfPos;
+    //                agent.remainingGoodsShelves[box.boxID] = shelf;
+    //            }
+    //        }
+    //    }
+    //}
     private void GenerateNavPositions()
     {
 

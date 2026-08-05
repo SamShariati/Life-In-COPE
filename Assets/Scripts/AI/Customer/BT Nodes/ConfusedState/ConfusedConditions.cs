@@ -70,6 +70,7 @@ public class ConfusedConditions : BTNode
 
     private void RollConfusedType(CustomerManager agent)
     {
-        agent.isCurrentlyPatrolling = true; //ska slumpas sen.
+        //agent.isCurrentlyPatrolling = true; //ska slumpas sen.
+        agent.isCurrCheckingWrongShelf = true;
     }
 }

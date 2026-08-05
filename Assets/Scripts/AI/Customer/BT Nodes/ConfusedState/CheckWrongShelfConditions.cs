@@ -44,7 +44,11 @@ public class CheckWrongShelfConditions : BTNode
     private void ChooseWrongShelfPosition(CustomerManager agent)
     {
         int randomIndex = Random.Range(0, ShelfManager.Instance.shelvesByAisle[agent.aisleID].Count);
-        Shelf shelf = ShelfManager.Instance.shelvesByAisle[agent.aisleID][randomIndex];
-        agent.wrongShelfPos = shelf.transform.position;
+        agent.currentWrongShelf = ShelfManager.Instance.shelvesByAisle[agent.aisleID][randomIndex];
+
+        string shelfGoodsType = agent.currentWrongShelf.goodsType.ToString();
+
+
+        agent.wrongShelfArrowPos = agent.allShelfArrowPositions[shelfGoodsType];
     }
 }
