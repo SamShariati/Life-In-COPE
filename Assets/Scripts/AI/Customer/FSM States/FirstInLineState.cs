@@ -11,6 +11,7 @@ public class FirstInLineState : FSMBaseState
         agent.cashRegister.itemsToScanList = agent.goodsGathered;
         agent.cashRegister.PlaceGoodsOnRegister();
         agent.cashRegister.StartCustomerGoodsScan();
+        agent.animator.SetState(AnimState.GrabItem);
     }
     public override void UpdateState(CustomerManager agent)
     {

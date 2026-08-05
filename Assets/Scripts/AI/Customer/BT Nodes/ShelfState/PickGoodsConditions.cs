@@ -17,7 +17,7 @@ public class PickGoodsConditions : BTNode
         {
             agent.allowedToChase = false;
             agent.currentlyPickingGoods = true;
-            agent.C_Functions.ResetTimer();
+            agent.C_Functions.SetTimer(3f);
         }
 
         return NodeState.SUCCESS;

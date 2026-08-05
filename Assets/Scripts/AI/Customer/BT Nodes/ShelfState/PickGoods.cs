@@ -6,30 +6,45 @@ public class PickGoods : BTNode
     private enum Phase { WaitingToPick, Picking, WaitingToExit}
     private Phase phase = Phase.WaitingToPick;
 
+    private float pickAnimationTime = 1.5f;
+    private float currentAnimationTime = 1.5f;
+
     public override NodeState Evaluate(CustomerManager agent)
     {
 
         agent.currentBehavior = CustomerManager.CurrentBehaviour.pickGoods;
 
-        agent.animator.SetState(AnimState.Idle);
+        
         RotateTowardsShelf(agent);
 
         switch (phase)
         {
             case Phase.WaitingToPick:
 
+                agent.animator.SetState(AnimState.Idle);
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     
                     agent.C_Functions.SetTimer(agent.maxIdleTime);
-                    phase = Phase.WaitingToExit;
+                    phase = Phase.Picking;
                 }
                 return NodeState.RUNNING;
 
 
+            case Phase.Picking:
+
+                agent.animator.SetState(AnimState.GrabItem);
+                phase = Phase.WaitingToExit;
+                return NodeState.RUNNING;
+
+
             case Phase.WaitingToExit:
+
+                CheckGrabAnimation(agent);
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
+                    currentAnimationTime = pickAnimationTime;
+
                     agent.allowedToChase = true;
                     PickGoodsFromShelf(agent); //Failsafe in case we don't enter ConfusedState right after.
                     phase = Phase.WaitingToPick;
@@ -50,6 +65,14 @@ public class PickGoods : BTNode
         return NodeState.RUNNING;
 
     }
+    private void CheckGrabAnimation(CustomerManager agent)
+    {
+        currentAnimationTime -= Time.deltaTime;
+        if (currentAnimationTime < 0)
+        {
+            agent.animator.SetState(AnimState.Idle);
+        }
+    }
 
     private void RotateTowardsShelf(CustomerManager agent)
     {
@@ -69,7 +92,7 @@ public class PickGoods : BTNode
 
         if (chosenShelf.remainingStockCount <= 0)
         {
-            //Plockanimering
+            
             //agent.nrGoodsFound++;
             agent.goodsGathered.Add(agent.currentChosenGood.placedPrefab);
         }

@@ -6,7 +6,7 @@ public enum AnimState
     Walk = 1,
     Chase = 2,
     CaughtPlayer = 3,
-    Hurt = 4,
+    GrabItem = 4,
     Death = 5
 }
 

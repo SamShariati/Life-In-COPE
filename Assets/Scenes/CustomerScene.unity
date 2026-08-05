@@ -110934,11 +110934,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: nrGoodsNeeded
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: WasteCustomerTime
@@ -163248,7 +163248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.218
+      value: 10.93
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.y
@@ -163256,7 +163256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.558
+      value: -5.78
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalRotation.w
