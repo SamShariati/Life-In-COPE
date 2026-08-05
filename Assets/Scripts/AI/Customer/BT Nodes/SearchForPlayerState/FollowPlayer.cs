@@ -143,11 +143,17 @@ public class FollowPlayer : BTNode
 
     private void RotateTowardsPlayer(CustomerManager agent)
     {
-        Vector3 playerPosition = agent.player.position;
-        Vector3 direction = (playerPosition - agent.transform.position).normalized;
+        Vector3 toPlayer = agent.player.position - agent.transform.position;
+        Vector3 flatDirection = new Vector3(toPlayer.x, 0, toPlayer.z);
 
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        // Skip rotation if the horizontal distance is (near) zero
+        if (flatDirection.sqrMagnitude < 0.0001f)
+            return;
 
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 60));
+        Quaternion lookRotation = Quaternion.LookRotation(flatDirection.normalized);
+        agent.transform.rotation = Quaternion.Slerp(
+            agent.transform.rotation,
+            lookRotation,
+            Time.deltaTime * (agent.navigation.angularSpeed / 60));
     }
 }

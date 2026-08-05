@@ -7,7 +7,7 @@ public class ConfusedConditions : BTNode
         if (StateConditions(agent))
         {
             agent.confusedStateActivated = true;
-            agent.C_Functions.ChooseShelfRoute(agent);
+            //agent.C_Functions.ChooseShelfRoute(agent);
             RollConfusedType(agent);
 
             return NodeState.SUCCESS;
@@ -70,7 +70,16 @@ public class ConfusedConditions : BTNode
 
     private void RollConfusedType(CustomerManager agent)
     {
-        //agent.isCurrentlyPatrolling = true; //ska slumpas sen.
-        agent.isCurrCheckingWrongShelf = true;
+        float randPercent = Random.Range(0, 100);
+
+        if (randPercent < 66.7f)
+        {
+            agent.isCurrentlyPatrolling = true;
+        }
+        else
+        {
+            agent.isCurrCheckingWrongShelf = true;
+        }
+            
     }
 }

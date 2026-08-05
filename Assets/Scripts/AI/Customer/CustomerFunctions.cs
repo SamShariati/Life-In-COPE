@@ -62,6 +62,7 @@ public class CustomerFunctions
         agent.isCurrCheckingWrongShelf = false;
         agent.wrongShelfChosen = false;
         agent.patroleAisle.phase = PatroleAisle.Phase.Initiate;
+        agent.checkWrongShelf.phase = CheckWrongShelf.Phase.Initiate;
 
 
     }

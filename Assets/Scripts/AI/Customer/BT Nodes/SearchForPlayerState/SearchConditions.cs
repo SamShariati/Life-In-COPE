@@ -35,7 +35,14 @@ public class SearchConditions : BTNode
         if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed
             && agent.C_Functions.CheckSearchForPlayerStateCD() && agent.allowedToChase)
         {
-            return true;
+            if (RollSearchForPlayerChance(agent))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -53,5 +60,21 @@ public class SearchConditions : BTNode
 
             agent.chosenShelfPosition = agent.allShelfArrowPositions[agent.currentChosenGood.boxID];
         }
+    }
+
+    private bool RollSearchForPlayerChance(CustomerManager agent)
+    {
+        float randPercent = Random.Range(0, 100);
+
+        if (randPercent <= agent.chasePlayerChance)
+        {
+            return true;
+        }
+        else
+        {
+            agent.C_Functions.StartSearchForPlayerStateCD();
+            return false;
+        }
+
     }
 }

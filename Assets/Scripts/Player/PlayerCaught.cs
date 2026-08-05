@@ -115,7 +115,7 @@ public class PlayerCaught
         characterController.enabled = true;
 
         isFacingTarget = true;
-        Debug.Log(isFacingTarget);
+        //Debug.Log(isFacingTarget);
 
         // -------------------------------------------------------------------
         // PHASE 2: Continuous tracking. Runs indefinitely - keeps recomputing
