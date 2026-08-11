@@ -27,6 +27,7 @@ public class CustomerManager : MonoBehaviour
 
     //-------------------FSM STATES-------------------------
 
+    [HideInInspector] public bool BTActivated = false;
     private FSMBaseState currentState;
     [HideInInspector] public EnterStoreState enterStoreState = new EnterStoreState();
     [HideInInspector] public NothingState nothingState = new NothingState();
@@ -39,14 +40,13 @@ public class CustomerManager : MonoBehaviour
     //-------------------SHELF BRANCH VARIABLES------------------------
 
     [HideInInspector] public bool shelfStateAllowed = true;
-
     public CardboardBoxData currentChosenGood;
     [HideInInspector] public Dictionary<string, Vector3> allShelfArrowPositions = new Dictionary<string, Vector3>();
     [HideInInspector] public Dictionary<string, Shelf> allShelfPositions = new Dictionary<string, Shelf>();
     public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
     public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
     [HideInInspector] public Vector3 chosenShelfPosition;
-    [HideInInspector] public bool BTActivated = false;
+    
     [HideInInspector] public bool shelfRouteChosen = false;
     [HideInInspector] public bool shelfRouteReached = false;
     [HideInInspector] public bool currentlyPickingGoods = false;
@@ -95,6 +95,20 @@ public class CustomerManager : MonoBehaviour
     public Vector3 wrongShelfArrowPos;
     [HideInInspector] public Shelf currentWrongShelf;
     [HideInInspector] public Vector3 chosenAislePos;
+
+    //-------------CONFUSED STATE VARIABLES-----------------------------
+
+    [HideInInspector] public bool GetHitStateAllowed = true;
+    [HideInInspector] public bool GetHitStateActivated = true;
+
+
+
+
+
+
+
+
+
 
 
     [Header("Customer Stats")]
