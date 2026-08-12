@@ -53,7 +53,7 @@ public class CustomerManager : MonoBehaviour
 
     //-------------CASH REGISTER VARIABLES-----------------------------
 
-    public int assignedQueueSlot = -1;
+    [HideInInspector] public int assignedQueueSlot = -1;
     [HideInInspector] public Vector3 currentQueuePos;
     [HideInInspector] public bool transactionComplete = false;
 
@@ -63,12 +63,12 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Vector3 enterStorePos;
     [HideInInspector] public Vector3 walkToRegisterPos;
     [HideInInspector] public Vector3 exitStorePos;
-    
+
 
     //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
 
-    public Transform headObject;
-    public CustomerVision customerVision;
+    [HideInInspector] public Transform headObject;
+    [HideInInspector] public CustomerVision customerVision;
     [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private LayerMask playerMask;
     [HideInInspector] public bool allowedToChase = true;
@@ -77,7 +77,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
 
-    //-------------CONFUSED STATE VARIABLES-----------------------------
+    //-------------CONFUSED VARIABLES-----------------------------
 
     [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
     [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
@@ -90,18 +90,23 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrCheckingWrongShelf = false;
     [HideInInspector] public bool wrongShelfChosen = false;
 
-    public int aisleID = 0;
+    [HideInInspector] public int aisleID = 0;
     [HideInInspector] public Dictionary<int, List<Transform>> allAislePositions = new Dictionary<int, List<Transform>>();
-    public Vector3 wrongShelfArrowPos;
+    [HideInInspector] public Vector3 wrongShelfArrowPos;
     [HideInInspector] public Shelf currentWrongShelf;
     [HideInInspector] public Vector3 chosenAislePos;
 
-    //-------------CONFUSED STATE VARIABLES-----------------------------
+    //-------------GET HIT VARIABLES-----------------------------
 
-    [HideInInspector] public bool GetHitStateAllowed = true;
-    [HideInInspector] public bool GetHitStateActivated = true;
-
-
+    [HideInInspector] public bool getHitStateAllowed = true;
+    [HideInInspector] public bool getHitStateActivated = false;
+    [HideInInspector] public bool gotHitByBox = false;
+    [HideInInspector] public Rigidbody collidingBoxRB;
+    [HideInInspector] public bool isCurrFallingForward = false;
+    [HideInInspector] public bool isCurrFallingBackward = false;
+    public float dotProduct;
+    public float forceRatio;
+    public float targetRotationAngle;
 
 
 
@@ -117,7 +122,8 @@ public class CustomerManager : MonoBehaviour
     public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
-    public float chaseCooldown = 10;
+    public float SearchForPlayerStateCD = 10;
+    public float GetHitStateCD = 10;
     public float WasteCustomerTime = 1.5f;
 
     [Header("Behaviour Chance %")]
@@ -144,7 +150,6 @@ public class CustomerManager : MonoBehaviour
         ConstructBT();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (BTActivated) // BT
@@ -156,7 +161,6 @@ public class CustomerManager : MonoBehaviour
             currentState.UpdateState(this);
         }
 
-        //customerVision.CanSeePlayer();
     }
 
     public void SwitchState(FSMBaseState state)
@@ -164,6 +168,20 @@ public class CustomerManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
+
+    // Agent got hit by a box
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("GoodsBox"))
+        {
+            gotHitByBox = true;
+            collidingBoxRB = other.gameObject.GetComponent<Rigidbody>();
+
+            C_Functions.CalculateImpactDotProduct();
+            C_Functions.CalculateRotationAngle();
+        }
+    }
+
     private void ConstructBT()
     {
         
@@ -175,12 +193,14 @@ public class CustomerManager : MonoBehaviour
         FollowPlayer followPlayer = new FollowPlayer();
         IdleStareConditions idleStareConditions = new IdleStareConditions();
         IdleStare idleStare = new IdleStare();
+
         //------ShelfState scripts ------
         ShelfStateConditions shelfStateConditions = new ShelfStateConditions();
         GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
         GoToShelf goToShelf = new GoToShelf();
         PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
         PickGoods pickGoods = new PickGoods();
+
         //------ConfusedState scripts ------
         ConfusedConditions confusedConditions = new ConfusedConditions();
         PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();

@@ -1128,6 +1128,8 @@ GameObject:
   - component: {fileID: -870789391586482391}
   - component: {fileID: 3985933204275392539}
   - component: {fileID: -4470825329941955998}
+  - component: {fileID: 8146197300611645803}
+  - component: {fileID: 7602679426528654276}
   m_Layer: 0
   m_Name: CustomerAgent
   m_TagString: Untagged
@@ -1200,12 +1202,12 @@ MonoBehaviour:
   player: {fileID: 0}
   playerMovement: {fileID: 0}
   animator: {fileID: 0}
+  BTActivated: 0
   shelfStateAllowed: 1
   currentChosenGood: {fileID: 0}
   remainingGoodsList: []
   goodsGathered: []
   chosenShelfPosition: {x: 0, y: 0, z: 0}
-  BTActivated: 0
   shelfRouteChosen: 0
   shelfRouteReached: 0
   currentlyPickingGoods: 0
@@ -1238,12 +1240,20 @@ MonoBehaviour:
   wrongShelfArrowPos: {x: 0, y: 0, z: 0}
   currentWrongShelf: {fileID: 0}
   chosenAislePos: {x: 0, y: 0, z: 0}
+  getHitStateAllowed: 1
+  getHitStateActivated: 0
+  gotHitByBox: 0
+  collidingBoxRB: {fileID: 0}
+  dotVector: 0
+  forceRatio: 0
+  targetRotationAngle: 0
   walkSpeed: 5
   runSpeed: 6
   nrGoodsNeeded: 4
   maxIdleTime: 5
   minIdleTime: 2
-  chaseCooldown: 10
+  SearchForPlayerStateCD: 10
+  GetHitStateCD: 10
   WasteCustomerTime: 3
   confusedChance: 50
   chasePlayerChance: 100
@@ -1281,6 +1291,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c594c699e777343b43efc845be64d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomerAnimator
+--- !u!136 &8146197300611645803
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430471018003981037}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 1.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!136 &7602679426528654276
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430471018003981037}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Height: 1.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &3441553779031292813
 GameObject:
   m_ObjectHideFlags: 0
