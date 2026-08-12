@@ -7,13 +7,13 @@ public class SearchConditions : BTNode
     {
         if (StateConditions(agent))
         {
-            agent.playerSpotted = true;
-            agent.C_Functions.ResetFlagVariables();
+            agent.spottedPlayer = true;
+            agent.C_Functions.SearchForPlayerResetFlags();
             CheckIfGoodChosen(agent);
             return NodeState.SUCCESS;
         }
 
-        else if (agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed)
+        else if (agent.spottedPlayer && !PlayerState.Instance.currentlyBeingFollowed)
         {
             return NodeState.SUCCESS;
         }
@@ -25,14 +25,14 @@ public class SearchConditions : BTNode
 
         else
         {
-            agent.playerSpotted = false;
+            agent.spottedPlayer = false;
             return NodeState.FAILURE;
         }
     }
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.customerVision.CanSeePlayer() && !agent.playerSpotted && !PlayerState.Instance.currentlyBeingFollowed
+        if (agent.customerVision.CanSeePlayer() && !agent.spottedPlayer && !PlayerState.Instance.currentlyBeingFollowed
             && agent.C_Functions.CheckSearchForPlayerStateCD() && agent.allowedToChase)
         {
             if (RollSearchForPlayerChance(agent))

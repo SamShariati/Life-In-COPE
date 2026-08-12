@@ -25,8 +25,8 @@ public class CustomerFunctions
     public CustomerFunctions (CustomerManager agent)
     {
         this.agent = agent;
-        lastSearchForPlayerStateCD = -agent.SearchForPlayerStateCD;
-        lastGetHitStateCD = -agent.GetHitStateCD;
+        lastSearchForPlayerStateCD = -agent.searchForPlayerStateCD;
+        lastGetHitStateCD = -agent.getHitStateCD;
     }
 
     public void CalculatePlayerDestination()
@@ -52,13 +52,25 @@ public class CustomerFunctions
         }
     }
 
-    public void ResetFlagVariables()
+    public void GetHitResetFlags()
+    {
+        //SearchForPlayer State
+        agent.spottedPlayer = false;
+        agent.isCurrentlyChasing = false;
+        agent.isCurrentlyFollowing = false;
+        agent.allowedToChase = true;
+        agent.confusedStateAllowed = true; //osäker på om denna ska finnas
+
+        SearchForPlayerResetFlags();
+    }
+
+    public void SearchForPlayerResetFlags()
     {
         //Shelf State
         agent.shelfRouteReached = false;
         agent.currentlyPickingGoods = false;
 
-        //ConfusedState
+        //Confused State
         agent.confusedStateActivated = false;
         agent.isCurrentlyPatrolling = false;
         agent.patroleRouteChosen = false;
@@ -67,6 +79,7 @@ public class CustomerFunctions
         agent.wrongShelfChosen = false;
         agent.patroleAisle.phase = PatroleAisle.Phase.Initiate;
         agent.checkWrongShelf.phase = CheckWrongShelf.Phase.Initiate;
+
 
 
     }
@@ -165,7 +178,7 @@ public class CustomerFunctions
     }
 
     //Rotation based on targetRotationAngle
-    public void RotateOnBoxImpact(CustomerManager agent)
+    public void RotateOnHitImpact()
     {
 
         Quaternion startRotation = agent.transform.rotation;
@@ -175,6 +188,22 @@ public class CustomerFunctions
         float duration = Mathf.Lerp(maxRotateDuration, minRotateDuration, agent.forceRatio);
 
         agent.transform.rotation = targetRotation;
+    }
+
+    public void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = agent.player.position - agent.transform.position;
+        Vector3 flatDirection = new Vector3(toPlayer.x, 0, toPlayer.z);
+
+        // Skip rotation if the horizontal distance is (near) zero
+        if (flatDirection.sqrMagnitude < 0.0001f)
+            return;
+
+        Quaternion lookRotation = Quaternion.LookRotation(flatDirection.normalized);
+        agent.transform.rotation = Quaternion.Slerp(
+            agent.transform.rotation,
+            lookRotation,
+            Time.deltaTime * (agent.navigation.angularSpeed / 60));
     }
 
     //--------------GENERAL TIMERS---------------------
@@ -198,7 +227,7 @@ public class CustomerFunctions
     //-------------SearchForPlayer State--------------
     public bool CheckSearchForPlayerStateCD()
     {
-        if (Time.time > lastSearchForPlayerStateCD + agent.SearchForPlayerStateCD)
+        if (Time.time > lastSearchForPlayerStateCD + agent.searchForPlayerStateCD)
         {
             lastSearchForPlayerStateCD = Time.time;
             return true;
@@ -218,7 +247,7 @@ public class CustomerFunctions
 
     public bool CheckGetHitStateCD()
     {
-        if (Time.time > lastGetHitStateCD + agent.GetHitStateCD)
+        if (Time.time > lastGetHitStateCD + agent.getHitStateCD)
         {
             lastGetHitStateCD = Time.time;
             return true;

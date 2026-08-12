@@ -32,8 +32,10 @@ public class IdleStare : BTNode
                 {
                     phase = Phase.initiate;
                     agent.isCurrentlyStaring = false;
-                    agent.playerSpotted = false;
+                    agent.spottedPlayer = false;
                     agent.C_Functions.StartSearchForPlayerStateCD();
+                    agent.getHitStateAllowed = true;
+
                     return NodeState.SUCCESS;
                 }
                 else

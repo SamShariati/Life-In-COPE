@@ -8,6 +8,7 @@ public class FollowPlayerConditions : BTNode
         if (StateConditions(agent))
         {
             PlayerState.Instance.currentlyBeingFollowed = true;
+            agent.getHitStateAllowed = false;
 
             return NodeState.SUCCESS;
         }

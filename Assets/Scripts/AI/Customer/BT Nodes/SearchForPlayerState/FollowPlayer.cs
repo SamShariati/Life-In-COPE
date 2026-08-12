@@ -20,7 +20,7 @@ public class FollowPlayer : BTNode
             case Phase.Instansiate:
 
                 agent.C_Functions.ChooseShelfRoute(agent); //Kan bli en framtid bug. Möjligt att BTActivated bli false?
-                agent.C_Functions.SetTimer(agent.WasteCustomerTime);
+                agent.C_Functions.SetTimer(agent.wasteCustomerTime);
                 PlayerState.Instance.CaughtPlayer(agent.headObject);
 
                 phase = Phase.RotatePlayer;
@@ -39,7 +39,7 @@ public class FollowPlayer : BTNode
                 {
                     agent.navigation.isStopped = true;
                     agent.animator.SetState(AnimState.CaughtPlayer);
-                    RotateTowardsPlayer(agent);
+                    agent.C_Functions.RotateTowardsPlayer();
                 }
 
                 if (PlayerState.Instance._activeCaught.isFacingTarget)
@@ -59,7 +59,7 @@ public class FollowPlayer : BTNode
 
                 agent.navigation.isStopped = true;
                 agent.animator.SetState(AnimState.CaughtPlayer);
-                RotateTowardsPlayer(agent);
+                agent.C_Functions.RotateTowardsPlayer();
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
@@ -119,7 +119,7 @@ public class FollowPlayer : BTNode
         {
             agent.navigation.isStopped = true;
             agent.animator.SetState(AnimState.Idle);
-            RotateTowardsPlayer(agent);
+            agent.C_Functions.RotateTowardsPlayer();
 
 
         }
@@ -141,19 +141,5 @@ public class FollowPlayer : BTNode
     }
 
 
-    private void RotateTowardsPlayer(CustomerManager agent)
-    {
-        Vector3 toPlayer = agent.player.position - agent.transform.position;
-        Vector3 flatDirection = new Vector3(toPlayer.x, 0, toPlayer.z);
-
-        // Skip rotation if the horizontal distance is (near) zero
-        if (flatDirection.sqrMagnitude < 0.0001f)
-            return;
-
-        Quaternion lookRotation = Quaternion.LookRotation(flatDirection.normalized);
-        agent.transform.rotation = Quaternion.Slerp(
-            agent.transform.rotation,
-            lookRotation,
-            Time.deltaTime * (agent.navigation.angularSpeed / 60));
-    }
+    
 }

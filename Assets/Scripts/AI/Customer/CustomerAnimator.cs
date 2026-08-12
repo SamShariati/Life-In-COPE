@@ -7,7 +7,10 @@ public enum AnimState
     Chase = 2,
     CaughtPlayer = 3,
     GrabItem = 4,
-    Death = 5
+    FallBackward = 5,
+    GetUpForward = 6,
+    FallForward = 7,
+    GetUpBackward = 8,
 }
 
 public class CustomerAnimator : MonoBehaviour

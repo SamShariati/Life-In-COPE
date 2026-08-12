@@ -72,7 +72,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private LayerMask playerMask;
     [HideInInspector] public bool allowedToChase = true;
-    [HideInInspector] public bool playerSpotted = false;
+    [HideInInspector] public bool spottedPlayer = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
     [HideInInspector] public bool isCurrentlyFollowing = false;
     [HideInInspector] public bool isCurrentlyStaring = false;
@@ -122,9 +122,11 @@ public class CustomerManager : MonoBehaviour
     public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
-    public float SearchForPlayerStateCD = 10;
-    public float GetHitStateCD = 10;
-    public float WasteCustomerTime = 1.5f;
+    public float wasteCustomerTime = 1.5f;
+    public float gettingStunnedTime = 4f;
+    public float searchForPlayerStateCD = 10;
+    public float getHitStateCD = 0;
+    
 
     [Header("Behaviour Chance %")]
     public float confusedChance = 100f;
@@ -177,15 +179,22 @@ public class CustomerManager : MonoBehaviour
             gotHitByBox = true;
             collidingBoxRB = other.gameObject.GetComponent<Rigidbody>();
 
-            C_Functions.CalculateImpactDotProduct();
-            C_Functions.CalculateRotationAngle();
+            
         }
     }
 
     private void ConstructBT()
     {
-        
-        //------SearchForPlayer scripts ------
+
+        //------GetHitState scripts ------
+
+        GetHitConditions getHitConditions = new GetHitConditions();
+        FallBackwardConditions fallBackwardConditions = new FallBackwardConditions();
+        FallBackward fallBackward = new FallBackward();
+
+
+
+        //------SearchForPlayerState scripts ------
         SearchConditions searchConditions = new SearchConditions();
         ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
         ChasePlayer chasePlayer = new ChasePlayer();
@@ -210,6 +219,14 @@ public class CustomerManager : MonoBehaviour
 
 
         //----------------------------------------------------------------------------------------------------------------------
+
+        //GETHIT STATE BRANCH
+
+        Sequence fallBackwardState = new Sequence(new List<BTNode>() { fallBackwardConditions, fallBackward });
+
+        Selector fallingDirectionState = new Selector(new List<BTNode> { fallBackwardState });
+        Sequence getHitState = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionState });
+
 
         //SEARCHFORPLAYER STATE BRANCH
 
@@ -240,7 +257,7 @@ public class CustomerManager : MonoBehaviour
 
 
 
-        rootNode = new Selector(new List<BTNode> { searchForPlayerState, confusedState, shelfState});
+        rootNode = new Selector(new List<BTNode> { getHitState, searchForPlayerState, confusedState, shelfState});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

@@ -6,9 +6,11 @@ public class GetHitConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
+
         if (StateConditions(agent))
         {
             agent.getHitStateActivated = true;
+            agent.C_Functions.GetHitResetFlags();
             CalculateImpactDotProduct(agent);
             agent.C_Functions.CalculateRotationAngle();
 
@@ -29,7 +31,7 @@ public class GetHitConditions : BTNode
     private bool StateConditions(CustomerManager agent)
     {
         if (agent.getHitStateAllowed && !agent.getHitStateActivated && agent.gotHitByBox &&
-            agent.C_Functions.CheckGetHitStateCD())
+            !agent.isCurrFallingBackward && !agent.isCurrFallingForward )
         {
             return true;
         }
@@ -60,7 +62,7 @@ public class GetHitConditions : BTNode
         }
         else
         {
-            agent.isCurrFallingForward = true;
+            //agent.isCurrFallingForward = true;
         }
     }
 

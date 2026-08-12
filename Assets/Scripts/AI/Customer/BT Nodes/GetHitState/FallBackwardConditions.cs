@@ -4,6 +4,14 @@ public class FallBackwardConditions : BTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {
-        throw new System.NotImplementedException();
+
+        if (agent.isCurrFallingBackward)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
     }
 }

@@ -163240,15 +163240,15 @@ PrefabInstance:
       objectReference: {fileID: 4961213287052928863, guid: 74659a208fdd1e441a4752c6e6337182, type: 3}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.x

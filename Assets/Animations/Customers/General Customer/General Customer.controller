@@ -129,13 +129,13 @@ AnimatorStateMachine:
     m_Position: {x: 610, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 279975960644947181}
-    m_Position: {x: 610, y: 220, z: 0}
+    m_Position: {x: 610, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1447254503933334043}
-    m_Position: {x: 610, y: 410, z: 0}
+    m_Position: {x: 610, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2975436739252106068}
-    m_Position: {x: 610, y: 350, z: 0}
+    m_Position: {x: 610, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1259890532176004250}
     m_Position: {x: 610, y: 290, z: 0}
@@ -215,7 +215,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GetHitBackward
+  m_Name: FallForward
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -387,7 +387,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: AnimState
-    m_EventTreshold: 5
+    m_EventTreshold: 8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 279975960644947181}
   m_Solo: 0
@@ -435,7 +435,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GetHitForward
+  m_Name: FallBackward
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -489,7 +489,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: AnimState
-    m_EventTreshold: 8
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1447254503933334043}
   m_Solo: 0
