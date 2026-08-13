@@ -1226,7 +1226,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   allowedToChase: 1
-  playerSpotted: 0
+  spottedPlayer: 0
   isCurrentlyChasing: 0
   isCurrentlyFollowing: 0
   isCurrentlyStaring: 0
@@ -1244,7 +1244,9 @@ MonoBehaviour:
   getHitStateActivated: 0
   gotHitByBox: 0
   collidingBoxRB: {fileID: 0}
-  dotVector: 0
+  isCurrFallingForward: 0
+  isCurrFallingBackward: 0
+  dotProduct: 0
   forceRatio: 0
   targetRotationAngle: 0
   walkSpeed: 5
@@ -1252,9 +1254,10 @@ MonoBehaviour:
   nrGoodsNeeded: 4
   maxIdleTime: 5
   minIdleTime: 2
-  SearchForPlayerStateCD: 10
-  GetHitStateCD: 10
-  WasteCustomerTime: 3
+  wasteCustomerTime: 1.5
+  gettingStunnedTime: 4
+  searchForPlayerStateCD: 10
+  getHitStateCD: 0
   confusedChance: 50
   chasePlayerChance: 100
 --- !u!195 &3985933204275392539
@@ -1327,7 +1330,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

@@ -6,11 +6,14 @@ public class FallBackward : BTNode
     private enum Phase {  Initiate, Falling, GettingUp, Idle}
     private Phase phase = Phase.Initiate;
     private float getUpAnimationTime = 1.5f;
+    private float idleAnimationTime = 4f;
 
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        
+
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.fallBackward;
+
         switch (phase)
         {
             case Phase.Initiate:
@@ -26,7 +29,7 @@ public class FallBackward : BTNode
             
             case Phase.Falling:
 
-                agent.C_Functions.RotateOnHitImpact();
+                //agent.C_Functions.RotateOnHitImpact();
                 agent.animator.SetState(AnimState.FallBackward);
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
@@ -46,15 +49,15 @@ public class FallBackward : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.Idle;
-                    agent.C_Functions.SetTimer(agent.minIdleTime);
+                    agent.C_Functions.SetTimer(idleAnimationTime);
                 }
                 return NodeState.RUNNING;
 
 
             case Phase.Idle:
 
-                agent.animator.SetState(AnimState.Idle);
-                agent.C_Functions.RotateTowardsPlayer();
+                agent.animator.SetState(AnimState.Dizzy);
+                //agent.C_Functions.RotateTowardsPlayer();
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {

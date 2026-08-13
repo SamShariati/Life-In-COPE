@@ -6,6 +6,7 @@ public class GetHitConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.getHitConditions;
 
         if (StateConditions(agent))
         {
@@ -62,8 +63,13 @@ public class GetHitConditions : BTNode
         }
         else
         {
-            //agent.isCurrFallingForward = true;
+            agent.isCurrFallingForward = true;
         }
+    }
+
+    private void CheckIfBoxOnGround(CustomerManager agent)
+    {
+
     }
 
 }

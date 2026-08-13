@@ -11,6 +11,7 @@ public enum AnimState
     GetUpForward = 6,
     FallForward = 7,
     GetUpBackward = 8,
+    Dizzy = 9
 }
 
 public class CustomerAnimator : MonoBehaviour
@@ -20,7 +21,8 @@ public class CustomerAnimator : MonoBehaviour
 
     private static readonly int AnimStateHash = Animator.StringToHash("AnimState");
     private static readonly int IdleVariantHash = Animator.StringToHash("IdleVariant");
-    
+    private static readonly int DizzyVariantHash = Animator.StringToHash("DizzyVariant");
+
 
     void Awake()
     {
@@ -38,8 +40,13 @@ public class CustomerAnimator : MonoBehaviour
             SetIdle();
             return; 
         }
+        else if (state == AnimState.Dizzy)
+        {
+            SetDizzy();
+            return;
+        }
 
-        _animator.SetInteger(AnimStateHash, (int)state);
+            _animator.SetInteger(AnimStateHash, (int)state);
     }
 
     private void SetIdle()
@@ -48,5 +55,13 @@ public class CustomerAnimator : MonoBehaviour
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Idle);
         _animator.SetFloat(IdleVariantHash, randomIdle);
+    }
+
+    private void SetDizzy()
+    {
+        float randomIdle = Random.Range(0, 2);
+
+        _animator.SetInteger(AnimStateHash, (int)AnimState.Dizzy);
+        _animator.SetFloat(DizzyVariantHash, randomIdle);
     }
 }

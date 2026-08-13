@@ -9,9 +9,10 @@ public class CustomerManager : MonoBehaviour
 
     //-------------DEBUGGING VARIABLES-----------------------------
 
-    public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, goToShelf2, pickGoodsConditions, pickGoods, searchConditions,
+    public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, pickGoodsConditions, pickGoods, searchConditions,
     chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
-    patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf}
+    patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf, getHitConditions, fallBackwardConditions, fallBackward,
+    fallForwardConditions, fallForward}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
@@ -98,12 +99,12 @@ public class CustomerManager : MonoBehaviour
 
     //-------------GET HIT VARIABLES-----------------------------
 
-    [HideInInspector] public bool getHitStateAllowed = true;
-    [HideInInspector] public bool getHitStateActivated = false;
-    [HideInInspector] public bool gotHitByBox = false;
-    [HideInInspector] public Rigidbody collidingBoxRB;
-    [HideInInspector] public bool isCurrFallingForward = false;
-    [HideInInspector] public bool isCurrFallingBackward = false;
+    public bool getHitStateAllowed = true;
+    public bool getHitStateActivated = false;
+    public bool gotHitByBox = false;
+    public Rigidbody collidingBoxRB;
+    public bool isCurrFallingForward = false;
+    public bool isCurrFallingBackward = false;
     public float dotProduct;
     public float forceRatio;
     public float targetRotationAngle;
@@ -174,12 +175,22 @@ public class CustomerManager : MonoBehaviour
     // Agent got hit by a box
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("GoodsBox"))
+        if (other.CompareTag("GoodsBox") && BTActivated)
         {
+
+            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+
+            float impactSpeedThreshold = 2f; //testing number
+            Vector3 boxVelocity = rb.linearVelocity;
+            boxVelocity.y = 0f;
+
+            if (boxVelocity.magnitude < impactSpeedThreshold)
+            {
+                return; // box is essentially stationary — not a throw, ignore it
+            }
             gotHitByBox = true;
             collidingBoxRB = other.gameObject.GetComponent<Rigidbody>();
 
-            
         }
     }
 
@@ -191,8 +202,8 @@ public class CustomerManager : MonoBehaviour
         GetHitConditions getHitConditions = new GetHitConditions();
         FallBackwardConditions fallBackwardConditions = new FallBackwardConditions();
         FallBackward fallBackward = new FallBackward();
-
-
+        FallForwardConditions fallForwardConditions = new FallForwardConditions();
+        FallForward fallForward = new FallForward();
 
         //------SearchForPlayerState scripts ------
         SearchConditions searchConditions = new SearchConditions();
@@ -223,8 +234,9 @@ public class CustomerManager : MonoBehaviour
         //GETHIT STATE BRANCH
 
         Sequence fallBackwardState = new Sequence(new List<BTNode>() { fallBackwardConditions, fallBackward });
+        Sequence fallForwardState = new Sequence(new List<BTNode>() { fallForwardConditions, fallForward });
 
-        Selector fallingDirectionState = new Selector(new List<BTNode> { fallBackwardState });
+        Selector fallingDirectionState = new Selector(new List<BTNode> { fallBackwardState, fallForwardState });
         Sequence getHitState = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionState });
 
 
