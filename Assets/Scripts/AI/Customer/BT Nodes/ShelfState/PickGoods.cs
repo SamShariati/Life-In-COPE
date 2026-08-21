@@ -25,7 +25,7 @@ public class PickGoods : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     
-                    agent.C_Functions.SetTimer(agent.maxIdleTime);
+                    agent.C_Functions.SetTimer(agent.minIdleTime);
                     phase = Phase.Picking;
                 }
                 return NodeState.RUNNING;

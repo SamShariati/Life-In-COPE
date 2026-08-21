@@ -38,9 +38,13 @@ public class CashRegister : MonoBehaviour, IInteractable
         bagPosition = transform.Find("bagPosition");
         bagPrefab = transform.Find("bag");
 
-        scanningGoods = new ScanningGoods(this);
 
         GetGoodsPositions();
+    }
+
+    private void Start()
+    {
+        scanningGoods = new ScanningGoods(this);
     }
 
     private void Update()

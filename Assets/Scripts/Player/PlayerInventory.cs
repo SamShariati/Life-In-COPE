@@ -18,9 +18,8 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
     private PlayerInput _input;
     private void Awake()
     {
-
+        _input = GetComponent<PlayerInteract>().Input;
         Instance = this;
-        _input = new PlayerInput();
         currentlyHoldingBox = false;
         //shelfManager = FindAnyObjectByType<ShelfManager>();
     }
@@ -36,6 +35,8 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
         _input.Player.Disable();
         _input.Player.RemoveCallbacks(this);
     }
+
+
 
 
     //-----------------------INPUT ACTIONS---------------------

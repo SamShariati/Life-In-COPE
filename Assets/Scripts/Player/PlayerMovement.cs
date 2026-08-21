@@ -25,11 +25,12 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
 
     void Awake()
     {
+        _input = GetComponent<PlayerInteract>().Input;
         currentSpeed = walkSpeed;
-        _input = new PlayerInput();
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
+
 
     private void OnEnable()
     {
@@ -101,5 +102,21 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
         }
         Vector3 verticalMovement = new Vector3(0, verticalVelocity, 0);
         controller.Move(verticalMovement * Time.deltaTime);
+    }
+
+    public void SetExternalControl(bool externallyControlled)
+    {
+        enabled = !externallyControlled;
+
+        if (externallyControlled)
+        {
+            moveInput = Vector2.zero;
+            mouseDelta = Vector2.zero;
+        }
+
+        if (controller != null)
+        {
+            controller.enabled = !externallyControlled;
+        }
     }
 }

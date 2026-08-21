@@ -42,7 +42,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     public ScanningGoods(CashRegister register)
     {
         this.register = register;
-        _input = new PlayerInput();
+        _input = register.player.GetComponent<PlayerInteract>().Input;
     }
 
     public void Activate()
@@ -53,7 +53,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _playerMovement = _player.GetComponent<PlayerMovement>();
         _characterController = _player.GetComponent<CharacterController>();
 
-        _playerMovement.enabled = false;
+        _playerMovement.SetExternalControl(true);
         _input.Player.Disable();
         _input.CashRegister.Enable();
         _input.CashRegister.AddCallbacks(this);
@@ -283,7 +283,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _input.CashRegister.Disable();
         _input.CashRegister.RemoveCallbacks(this);
         _input.Player.Enable();
-        _playerMovement.enabled = true;
+        _playerMovement.SetExternalControl(false);
         playerInPosition = false;
     }
 

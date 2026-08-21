@@ -29,7 +29,7 @@ public class PlayerCaught
 
     public void DisablePlayerMovement()
     {
-        playerMovement.enabled = false;
+        playerMovement.SetExternalControl(true);
     }
 
     // -------------------------------------------------------------------------
@@ -63,7 +63,7 @@ public class PlayerCaught
 
         isFacingTarget = false;
         _currentFaceTarget = null;
-        playerMovement.enabled = true;
+        playerMovement.SetExternalControl(false);
     }
 
     private IEnumerator RotateTowardsTarget(Transform faceTarget)

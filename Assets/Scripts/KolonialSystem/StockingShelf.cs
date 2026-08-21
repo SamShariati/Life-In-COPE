@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +14,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private GameObject flyingItem;
     private PlayerInteract _playerInteract;
     private List<Transform> transparentItemList = new List<Transform>();
-    
+
 
     // Camera look state
     private float _shelfYaw = 0f;       // left/right relative to shelf-facing direction
@@ -33,17 +33,17 @@ public class StockingShelf : PlayerInput.IShelfActions
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
     private const float TimeBetweenPlacements = 0f; // timer pause between placements
 
-    //Variabeln vi ändrar på för Speed Upgrades -> +1f = ca -20% av 10sec
+    //Variabeln vi ï¿½ndrar pï¿½ fï¿½r Speed Upgrades -> +1f = ca -20% av 10sec
     private const float MoveSpeed = 2f;             // speed of placedPrefab flying to shelf
 
-    // Coroutine host — a small persistent MonoBehaviour used to run coroutines
+    // Coroutine host ï¿½ a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour
     private ShelfCoroutineRunner _runner;
 
     public StockingShelf(Shelf _shelf)
     {
         shelf = _shelf;
-        _input = new PlayerInput();
+        _input = shelf.player.GetComponent<PlayerInteract>().Input;
         _currentStockIndex = 0;
     }
 
@@ -64,7 +64,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         _stockingPositions = shelf.stockingPosList;
 
         // Swap to Shelf action map
-        _playerMovement.enabled = false;
+        _playerMovement.SetExternalControl(true);
         _input.Player.Disable();
         _input.Shelf.Enable();
         _input.Shelf.AddCallbacks(this);
@@ -86,7 +86,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         // --- Step 1: Smoothly move player to shelfArrow position & rotate camera toward shelf ---
         Transform arrowTransform = shelf.shelfArrow;
-        arrowTransform.position = new Vector3(shelf.shelfArrow.position.x, StandingHeight, shelf.shelfArrow.position.z); 
+        arrowTransform.position = new Vector3(shelf.shelfArrow.position.x, StandingHeight, shelf.shelfArrow.position.z);
         //arrowTransform.position = _shelf.shelfArrow.position;
         Vector3 targetPos = arrowTransform.position;
 
@@ -225,7 +225,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         if (!PlayerState.Instance.currentlyBeingFollowed)
         {
-            _playerMovement.enabled = true;
+            _playerMovement.SetExternalControl(false);
         }
 
         if (_runner != null)
@@ -321,4 +321,3 @@ public class ShelfCoroutineRunner : MonoBehaviour
         Owner?.UpdateLook();
     }
 }
-

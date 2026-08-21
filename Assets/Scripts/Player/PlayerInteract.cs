@@ -10,25 +10,25 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerActions
 
     [SerializeField] private LayerMask interactLayerMask;
 
-    private PlayerInput _input;
+    public PlayerInput Input { get; private set; }
     public PlayerInventory Inventory { get; private set; }
 
     private void Awake()
     {
         Inventory = GetComponent<PlayerInventory>();
-        _input = new PlayerInput();
+        Input = new PlayerInput();
     }
 
     private void OnEnable()
     {
-        _input.Player.Enable();
-        _input.Player.AddCallbacks(this);
+        Input.Player.Enable();
+        Input.Player.AddCallbacks(this);
     }
 
     private void OnDisable()
     {
-        _input.Player.Disable();
-        _input.Player.RemoveCallbacks(this);
+        Input.Player.Disable();
+        Input.Player.RemoveCallbacks(this);
     }
 
 

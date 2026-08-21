@@ -74,8 +74,14 @@ public class Shelf : MonoBehaviour, IInteractable
         foreach (Transform pos in secondLayer) stockingPosList.Add(pos);
         foreach (Transform pos in thirdLayer) stockingPosList.Add(pos);
 
-        stockingShelf = new StockingShelf(this);
 
+
+    }
+
+    private void Start()
+    {
+
+        stockingShelf = new StockingShelf(this);
     }
 
     public void PlaceGoodsInShelves()
