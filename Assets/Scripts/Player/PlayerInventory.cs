@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour, PlayerInput.IPlayerActions
 
     public static PlayerInventory Instance { get; private set; }
 
-    [HideInInspector] public bool currentlyHoldingBox;
+    public bool currentlyHoldingBox;
     public CardboardBoxObject heldBox;
     [SerializeField] Transform holdPoint;
     [SerializeField] GameObject boxPrefab;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
+    private GameObject flyingItem;
     private PlayerInteract _playerInteract;
     private List<Transform> transparentItemList = new List<Transform>();
 
@@ -30,9 +32,12 @@ public class StockingShelf : PlayerInput.IShelfActions
     private List<Transform> _stockingPositions = new List<Transform>();
     private int _currentStockIndex = 0;
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
+    private const float TimeBetweenPlacements = 0f; // timer pause between placements
 
+    //Variabeln vi  ndrar p  f r Speed Upgrades -> +1f = ca -20% av 10sec
+    private const float MoveSpeed = 2f;             // speed of placedPrefab flying to shelf
 
-    // Coroutine host � a small persistent MonoBehaviour used to run coroutines
+    // Coroutine host   a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour
     private ShelfCoroutineRunner _runner;
 
@@ -49,6 +54,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         GetTransparentItems();
         _playerInteract = pI;
+        //_playerInteract.Inventory.shelfManager.DisableShelfArrow();
         ShelfManager.Instance.DisableShelfArrow();
         _player = shelf.player;
         _cameraTransform = _player.transform.Find("Main Camera");
@@ -148,7 +154,19 @@ public class StockingShelf : PlayerInput.IShelfActions
         // --- Step 3: Stocking loop ---
         Transform boxTransform = playerInteract.Inventory.heldBox.transform;
 
-        
+        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        {
+            if (PlayerState.Instance.currentlyBeingFollowed)
+            {
+                ExitStocking(playerInteract);
+                yield break;
+            }
+
+
+            yield return null;
+
+        }
+
     }
 
     private void ExitStocking(PlayerInteract playerInteract)
@@ -170,18 +188,25 @@ public class StockingShelf : PlayerInput.IShelfActions
             GameObject.Destroy(_runner.gameObject);
             _runner = null;
         }
+        if (flyingItem != null)
+        {
+            GameObject.Destroy(flyingItem);
+            flyingItem = null;
+        }
 
         if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
-            //playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
+            //if (PlayerInventory.Instance.heldBox != null)
+            //    ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
         }
-
-        //När man har packat upp allt
         else
         {
-            playerInteract.Inventory.DestroyBox(); 
+            playerInteract.Inventory.DestroyBox();
+            //if (PlayerInventory.Instance.heldBox != null)
+            //    playerInteract.Inventory.DestroyBox();
         }
+
 
     }
 
@@ -244,6 +269,14 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         }
     }
+
+
+
+
+    private void Backup()
+    {
+
+    }
 }
 
 // Minimal MonoBehaviour used purely to run coroutines and forward Update
@@ -256,3 +289,4 @@ public class ShelfCoroutineRunner : MonoBehaviour
         Owner?.UpdateLook();
     }
 }
+
