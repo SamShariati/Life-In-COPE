@@ -99,9 +99,10 @@ public class StockingShelf2 : MonoBehaviour, PlayerInput.IShelf2Actions
             Ray ray = cam.ScreenPointToRay(mousePos);
 
             // Check if the mouse is currently over a DropZone
+            // (spawnedObject's own collider is disabled while dragging, so it
+            // can't block or falsely trigger this raycast)
             if (Physics.Raycast(ray, out RaycastHit hit)
-                && hit.collider.CompareTag("DropZone")
-                && hit.collider.gameObject != spawnedObject)
+                && hit.collider.CompareTag("DropZone"))
             {
                 spawnedObject.transform.position = hit.collider.transform.position;
                 Destroy(hit.collider.gameObject);

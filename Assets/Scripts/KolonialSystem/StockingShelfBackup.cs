@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class StockingShelf : PlayerInput.IShelfActions
+public class StockingShelfBackup : PlayerInput.IShelfActions
 {
     private PlayerInput _input;
     private Shelf shelf;
@@ -11,6 +11,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
+    private GameObject flyingItem;
     private PlayerInteract _playerInteract;
     private List<Transform> transparentItemList = new List<Transform>();
 
@@ -30,13 +31,16 @@ public class StockingShelf : PlayerInput.IShelfActions
     private List<Transform> _stockingPositions = new List<Transform>();
     private int _currentStockIndex = 0;
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
+    private const float TimeBetweenPlacements = 0f; // timer pause between placements
 
+    //Variabeln vi �ndrar p� f�r Speed Upgrades -> +1f = ca -20% av 10sec
+    private const float MoveSpeed = 2f;             // speed of placedPrefab flying to shelf
 
     // Coroutine host � a small persistent MonoBehaviour used to run coroutines
     // since StockingShelf is not itself a MonoBehaviour
-    private ShelfCoroutineRunner _runner;
+    private ShelfCoroutineRunnerBackup _runner;
 
-    public StockingShelf(Shelf _shelf)
+    public StockingShelfBackup(Shelf _shelf)
     {
         shelf = _shelf;
         _input = shelf.player.GetComponent<PlayerInteract>().Input;
@@ -49,6 +53,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         GetTransparentItems();
         _playerInteract = pI;
+        //_playerInteract.Inventory.shelfManager.DisableShelfArrow();
         ShelfManager.Instance.DisableShelfArrow();
         _player = shelf.player;
         _cameraTransform = _player.transform.Find("Main Camera");
@@ -68,7 +73,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         if (_runner == null)
         {
             GameObject runnerGO = new GameObject("StockingShelfRunner");
-            _runner = runnerGO.AddComponent<ShelfCoroutineRunner>();
+            _runner = runnerGO.AddComponent<ShelfCoroutineRunnerBackup>();
             _runner.Owner = this;
         }
 
@@ -148,7 +153,65 @@ public class StockingShelf : PlayerInput.IShelfActions
         // --- Step 3: Stocking loop ---
         Transform boxTransform = playerInteract.Inventory.heldBox.transform;
 
-        
+        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        {
+            if (PlayerState.Instance.currentlyBeingFollowed)
+            {
+                ExitStocking(playerInteract);
+                yield break;
+            }
+
+            Transform targetSlot = _stockingPositions[_currentStockIndex];
+
+            // Spawn placedPrefab at box position and fly it to the shelf slot
+            flyingItem = GameObject.Instantiate(shelf.placedPrefab, boxTransform.position, Quaternion.identity);
+
+            yield return _runner.StartCoroutine(FlyToShelf(flyingItem, targetSlot));
+
+            // Remove flying item, place stockedPrefab permanently
+            GameObject.Destroy(flyingItem);
+            GameObject placed = GameObject.Instantiate(shelf.stockedPrefab);
+            placed.transform.SetParent(targetSlot.parent);
+            placed.transform.position = targetSlot.position;
+            placed.transform.rotation = targetSlot.rotation;
+
+            shelf.remainingStockCount--;
+            _currentStockIndex++;
+
+            // Removing the placeholder transparent prefab in that position
+            GameObject.Destroy(transparentItemList[0].gameObject);
+            transparentItemList.RemoveAt(0);
+
+
+            // Pause between placements (skip wait after last item)
+            if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+                yield return new WaitForSeconds(TimeBetweenPlacements);
+        }
+
+        shelf.shelfStatus = Shelf.ShelfStatus.stocked;
+
+        // --- Step 4: Exit stocking mode ---
+        ExitStocking(playerInteract);
+    }
+
+    private IEnumerator FlyToShelf(GameObject item, Transform target)
+    {
+        while (Vector3.Distance(item.transform.position, target.position) > 0.01f)
+        {
+            item.transform.position = Vector3.MoveTowards(
+                item.transform.position,
+                target.position,
+                MoveSpeed * Time.deltaTime
+            );
+            item.transform.rotation = Quaternion.Slerp(
+                item.transform.rotation,
+                target.rotation,
+                MoveSpeed * Time.deltaTime * 5f
+            );
+            yield return null;
+        }
+        item.transform.position = target.position;
+        item.transform.rotation = target.rotation;
     }
 
     private void ExitStocking(PlayerInteract playerInteract)
@@ -170,17 +233,19 @@ public class StockingShelf : PlayerInput.IShelfActions
             GameObject.Destroy(_runner.gameObject);
             _runner = null;
         }
-
+        if (flyingItem != null)
+        {
+            GameObject.Destroy(flyingItem);
+            flyingItem = null;
+        }
         if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
         {
             //playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
         }
-
-        //När man har packat upp allt
         else
         {
-            playerInteract.Inventory.DestroyBox(); 
+            playerInteract.Inventory.DestroyBox();
         }
 
     }
@@ -247,9 +312,9 @@ public class StockingShelf : PlayerInput.IShelfActions
 }
 
 // Minimal MonoBehaviour used purely to run coroutines and forward Update
-public class ShelfCoroutineRunner : MonoBehaviour
+public class ShelfCoroutineRunnerBackup : MonoBehaviour
 {
-    public StockingShelf Owner;
+    public StockingShelfBackup Owner;
 
     private void Update()
     {
