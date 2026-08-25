@@ -12,19 +12,15 @@ public class StockingShelf : PlayerInput.IShelfActions
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
-    private GameObject flyingItem;
     private PlayerInteract _playerInteract;
     private List<Transform> transparentItemList = new List<Transform>();
-
 
     // Camera look state
     private float _shelfYaw = 0f;       // left/right relative to shelf-facing direction
     private float _shelfPitch = 0f;     // up/down
-    private const float MaxYaw = 75f;
-    private const float MaxPitch = 30f;
-    private const float ShelfLookSensitivity = 0.1f;
+
     private const float StandingHeight = 1f;
-    private Vector2 _lookDelta;
+    private const float ShelfCenterOffset_y = 0.3f;
 
     // Stocking state
     //private bool _isStocking = false;
@@ -32,26 +28,44 @@ public class StockingShelf : PlayerInput.IShelfActions
     private List<Transform> _stockingPositions = new List<Transform>();
     private int _currentStockIndex = 0;
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
-    private const float TimeBetweenPlacements = 0f; // timer pause between placements
 
-    //Variabeln vi  ndrar p  f r Speed Upgrades -> +1f = ca -20% av 10sec
-    private const float MoveSpeed = 2f;             // speed of placedPrefab flying to shelf
-
-    // Coroutine host   a small persistent MonoBehaviour used to run coroutines
-    // since StockingShelf is not itself a MonoBehaviour
     private ShelfCoroutineRunner _runner;
+
+    //----------NEW STOCKINGSHELF---------------
+    public Vector2 mousePos;
+    private GameObject heldBoxObj;
+    private BoxCollider heldBoxCol;
+    private GameObject spawnedObject;
+    private Vector3 _spawnedCenterOffset;
+
+    bool isDragging;
+    Camera cam;
+    Plane dragPlane;
 
     public StockingShelf(Shelf _shelf)
     {
         shelf = _shelf;
         _input = shelf.player.GetComponent<PlayerInteract>().Input;
         _currentStockIndex = 0;
+        cam = Camera.main;
     }
 
     // Called from Shelf.Interact() to kick everything off
     public void Activate(PlayerInteract pI)
     {
+        //-----------INITIATE COMPONENTS-------------------
 
+        heldBoxObj = PlayerInventory.Instance.heldBox.gameObject;
+        heldBoxCol = heldBoxObj.GetComponent<BoxCollider>();
+        heldBoxCol.enabled = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+
+
+
+        //-------------------------------------------------
         GetTransparentItems();
         _playerInteract = pI;
         //_playerInteract.Inventory.shelfManager.DisableShelfArrow();
@@ -97,6 +111,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         // The shelf's pivot (center) is the shelf transform itself
         Vector3 shelfCenter = shelf.transform.position;
+        shelfCenter.y -= ShelfCenterOffset_y;
 
         float elapsed = 0f;
         float transitionDuration = 0.6f;
@@ -178,6 +193,9 @@ public class StockingShelf : PlayerInput.IShelfActions
         _input.Shelf.RemoveCallbacks(this);
         _input.Player.Enable();
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (!PlayerState.Instance.currentlyBeingFollowed)
         {
             _playerMovement.SetExternalControl(false);
@@ -187,11 +205,6 @@ public class StockingShelf : PlayerInput.IShelfActions
         {
             GameObject.Destroy(_runner.gameObject);
             _runner = null;
-        }
-        if (flyingItem != null)
-        {
-            GameObject.Destroy(flyingItem);
-            flyingItem = null;
         }
 
         if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
@@ -210,23 +223,35 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     }
 
-    // Called every frame by the CoroutineRunner's Update so shelf-look works
-    public void UpdateLook()
+    public void UpdateDrag()
     {
-        if (!_stockingStarted || !PlayerState.Instance.inStockingMode) return;
-        if (_cameraTransform == null) return;
+        if (isDragging && spawnedObject != null)
+        {
+            Ray ray = cam.ScreenPointToRay(mousePos);
 
-        _shelfYaw += _lookDelta.x * ShelfLookSensitivity;
-        _shelfYaw = Mathf.Clamp(_shelfYaw, -MaxYaw, MaxYaw);
+            // Check if the mouse is currently over a DropZone
+            // (spawnedObject's own collider is disabled while dragging, so it
+            // can't block or falsely trigger this raycast)
+            if (Physics.Raycast(ray, out RaycastHit hit)
+                && hit.collider.CompareTag("DropZone"))
+            {
+                spawnedObject.transform.position = hit.collider.transform.position;
 
-        _shelfPitch -= _lookDelta.y * ShelfLookSensitivity;
-        _shelfPitch = Mathf.Clamp(_shelfPitch, -MaxPitch, MaxPitch);
+                _runner.DestroyObject(hit.collider.gameObject);
+                
 
-        _cameraTransform.localRotation = Quaternion.Euler(_shelfPitch, _shelfYaw, 0f);
+                spawnedObject = null;
+                isDragging = false;
+            }
+            else if (dragPlane.Raycast(ray, out float enter))
+            {
+                spawnedObject.transform.position = ray.GetPoint(enter) - _spawnedCenterOffset;
+            }
+        }
     }
 
     // ----- IShelfActions ------------------------------
-    public void OnStop(InputAction.CallbackContext ctx)
+    public void OnExit(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && PlayerState.Instance.inStockingMode)
         {
@@ -236,9 +261,66 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     }
 
-    public void OnLook(InputAction.CallbackContext ctx)
+    public void OnMouse(InputAction.CallbackContext ctx)
     {
-        _lookDelta = ctx.ReadValue<Vector2>();
+        mousePos = ctx.ReadValue<Vector2>();
+        
+
+    }
+    public void OnLeftClick(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+
+            Debug.Log(shelf.stockedPrefab);
+            Ray ray = cam.ScreenPointToRay(mousePos);
+
+            // Only start dragging if we clicked THIS object's collider
+            // AND it's tagged "Product"
+            if (Physics.Raycast(ray, out RaycastHit hitInfo)
+                && hitInfo.collider == heldBoxCol
+                && hitInfo.collider.CompareTag("GoodsBox"))
+            {
+                isDragging = true;
+
+                // Plane facing the camera, positioned at the clicked object's depth,
+                // so the spawned object stays at the same depth while being dragged.
+                dragPlane = new Plane(-cam.transform.forward, heldBoxObj.transform.position);
+
+                // Spawn the new object with its center exactly at the mouse's
+                // position on the drag plane.
+                if (dragPlane.Raycast(ray, out float enter))
+                {
+                    Vector3 spawnPos = ray.GetPoint(enter);
+                    spawnedObject = _runner.SpawnObject(shelf.placingPrefab, spawnPos, Quaternion.identity);
+
+                    // Pivot is off-center on these prefabs, so record how far the
+                    // visual center sits from the pivot at spawn time.
+                    _spawnedCenterOffset = GetBoundsCenter(spawnedObject) - spawnedObject.transform.position;
+
+                    // Re-anchor so the CENTER (not the pivot) sits under the mouse immediately.
+                    spawnedObject.transform.position = spawnPos - _spawnedCenterOffset;
+                }
+            }
+        }
+        else if (ctx.canceled)
+        {
+            isDragging = false;
+
+            if (spawnedObject != null)
+            {
+                _runner.DestroyObject(spawnedObject);
+                spawnedObject = null;
+            }
+        }
+    }
+    public void OnLookLeft(InputAction.CallbackContext ctx)
+    {
+
+    }
+    public void OnLookRight(InputAction.CallbackContext ctx)
+    {
+
     }
     // -------------------------------------------------
 
@@ -270,12 +352,18 @@ public class StockingShelf : PlayerInput.IShelfActions
         }
     }
 
-
-
-
-    private void Backup()
+    private Vector3 GetBoundsCenter(GameObject obj)
     {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+            return obj.transform.position; // fallback: no renderers, treat pivot as center
 
+        Bounds bounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            bounds.Encapsulate(renderers[i].bounds);
+        }
+        return bounds.center;
     }
 }
 
@@ -284,9 +372,20 @@ public class ShelfCoroutineRunner : MonoBehaviour
 {
     public StockingShelf Owner;
 
+    public GameObject SpawnObject(GameObject prefab, Vector3 pos, Quaternion rot)
+    {
+        GameObject gameObj = Instantiate(prefab, pos, rot);
+        return gameObj;
+    }
+
+    public void DestroyObject(GameObject obj)
+    {
+        Destroy(obj);
+    }
     private void Update()
     {
-        Owner?.UpdateLook();
+        
+        Owner?.UpdateDrag();
     }
 }
 

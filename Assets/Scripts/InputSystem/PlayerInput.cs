@@ -265,18 +265,45 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""df775c26-46a7-486d-ac43-81f8aa3542b5"",
             ""actions"": [
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""Mouse"",
                     ""type"": ""Value"",
                     ""id"": ""4bec8e61-e883-4c13-93f0-aaaf23bbe542"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Stop"",
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""80751eb8-dcc9-4fb5-b479-641f42280afb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
                     ""type"": ""Button"",
                     ""id"": ""4d3c37d3-b5d3-4967-ae4f-4732517bb936"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fce80a1-a5a2-4d0c-bce1-cfab84f167ee"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""18b31255-48d1-4fb7-8ad1-c5db5fd987bf"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -287,11 +314,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c14d9f97-f893-4803-8b0f-2f51fd938a97"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -302,7 +329,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Stop"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b8c591a-04e5-4097-90aa-e44e0de9fbcb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14de41e6-3151-4203-bf0b-fd89770561a7"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37a3d28e-c1f8-44fe-8973-6eb63125409e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -377,6 +437,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""1fb23a2d-9545-4023-8753-c29aa839d7fe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5b03d09-f4fd-479e-ac4b-50564df2e1da"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""768ecaf4-af0b-4675-aca9-80f7d63da896"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -401,6 +488,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4f12ee2-52f5-4aeb-88eb-24c93c719f3c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9141d25-bc05-478d-bc32-61a01848818f"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5666c81-57b1-4581-8592-a3f9f33a6ff5"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -417,8 +537,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
         // Shelf
         m_Shelf = asset.FindActionMap("Shelf", throwIfNotFound: true);
-        m_Shelf_Look = m_Shelf.FindAction("Look", throwIfNotFound: true);
-        m_Shelf_Stop = m_Shelf.FindAction("Stop", throwIfNotFound: true);
+        m_Shelf_Mouse = m_Shelf.FindAction("Mouse", throwIfNotFound: true);
+        m_Shelf_LeftClick = m_Shelf.FindAction("LeftClick", throwIfNotFound: true);
+        m_Shelf_Exit = m_Shelf.FindAction("Exit", throwIfNotFound: true);
+        m_Shelf_LookLeft = m_Shelf.FindAction("LookLeft", throwIfNotFound: true);
+        m_Shelf_LookRight = m_Shelf.FindAction("LookRight", throwIfNotFound: true);
         // CashRegister
         m_CashRegister = asset.FindActionMap("CashRegister", throwIfNotFound: true);
         m_CashRegister_Look = m_CashRegister.FindAction("Look", throwIfNotFound: true);
@@ -427,6 +550,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Shelf2 = asset.FindActionMap("Shelf2", throwIfNotFound: true);
         m_Shelf2_Mouse = m_Shelf2.FindAction("Mouse", throwIfNotFound: true);
         m_Shelf2_LeftClick = m_Shelf2.FindAction("LeftClick", throwIfNotFound: true);
+        m_Shelf2_Exit = m_Shelf2.FindAction("Exit", throwIfNotFound: true);
+        m_Shelf2_LookLeft = m_Shelf2.FindAction("LookLeft", throwIfNotFound: true);
+        m_Shelf2_LookRight = m_Shelf2.FindAction("LookRight", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -661,8 +787,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Shelf
     private readonly InputActionMap m_Shelf;
     private List<IShelfActions> m_ShelfActionsCallbackInterfaces = new List<IShelfActions>();
-    private readonly InputAction m_Shelf_Look;
-    private readonly InputAction m_Shelf_Stop;
+    private readonly InputAction m_Shelf_Mouse;
+    private readonly InputAction m_Shelf_LeftClick;
+    private readonly InputAction m_Shelf_Exit;
+    private readonly InputAction m_Shelf_LookLeft;
+    private readonly InputAction m_Shelf_LookRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "Shelf".
     /// </summary>
@@ -675,13 +804,25 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public ShelfActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Shelf/Look".
+        /// Provides access to the underlying input action "Shelf/Mouse".
         /// </summary>
-        public InputAction @Look => m_Wrapper.m_Shelf_Look;
+        public InputAction @Mouse => m_Wrapper.m_Shelf_Mouse;
         /// <summary>
-        /// Provides access to the underlying input action "Shelf/Stop".
+        /// Provides access to the underlying input action "Shelf/LeftClick".
         /// </summary>
-        public InputAction @Stop => m_Wrapper.m_Shelf_Stop;
+        public InputAction @LeftClick => m_Wrapper.m_Shelf_LeftClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf/Exit".
+        /// </summary>
+        public InputAction @Exit => m_Wrapper.m_Shelf_Exit;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf/LookLeft".
+        /// </summary>
+        public InputAction @LookLeft => m_Wrapper.m_Shelf_LookLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf/LookRight".
+        /// </summary>
+        public InputAction @LookRight => m_Wrapper.m_Shelf_LookRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -708,12 +849,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ShelfActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ShelfActionsCallbackInterfaces.Add(instance);
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
-            @Stop.started += instance.OnStop;
-            @Stop.performed += instance.OnStop;
-            @Stop.canceled += instance.OnStop;
+            @Mouse.started += instance.OnMouse;
+            @Mouse.performed += instance.OnMouse;
+            @Mouse.canceled += instance.OnMouse;
+            @LeftClick.started += instance.OnLeftClick;
+            @LeftClick.performed += instance.OnLeftClick;
+            @LeftClick.canceled += instance.OnLeftClick;
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
+            @LookLeft.started += instance.OnLookLeft;
+            @LookLeft.performed += instance.OnLookLeft;
+            @LookLeft.canceled += instance.OnLookLeft;
+            @LookRight.started += instance.OnLookRight;
+            @LookRight.performed += instance.OnLookRight;
+            @LookRight.canceled += instance.OnLookRight;
         }
 
         /// <summary>
@@ -725,12 +875,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="ShelfActions" />
         private void UnregisterCallbacks(IShelfActions instance)
         {
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
-            @Stop.started -= instance.OnStop;
-            @Stop.performed -= instance.OnStop;
-            @Stop.canceled -= instance.OnStop;
+            @Mouse.started -= instance.OnMouse;
+            @Mouse.performed -= instance.OnMouse;
+            @Mouse.canceled -= instance.OnMouse;
+            @LeftClick.started -= instance.OnLeftClick;
+            @LeftClick.performed -= instance.OnLeftClick;
+            @LeftClick.canceled -= instance.OnLeftClick;
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
+            @LookLeft.started -= instance.OnLookLeft;
+            @LookLeft.performed -= instance.OnLookLeft;
+            @LookLeft.canceled -= instance.OnLookLeft;
+            @LookRight.started -= instance.OnLookRight;
+            @LookRight.performed -= instance.OnLookRight;
+            @LookRight.canceled -= instance.OnLookRight;
         }
 
         /// <summary>
@@ -877,6 +1036,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IShelf2Actions> m_Shelf2ActionsCallbackInterfaces = new List<IShelf2Actions>();
     private readonly InputAction m_Shelf2_Mouse;
     private readonly InputAction m_Shelf2_LeftClick;
+    private readonly InputAction m_Shelf2_Exit;
+    private readonly InputAction m_Shelf2_LookLeft;
+    private readonly InputAction m_Shelf2_LookRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "Shelf2".
     /// </summary>
@@ -896,6 +1058,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Shelf2/LeftClick".
         /// </summary>
         public InputAction @LeftClick => m_Wrapper.m_Shelf2_LeftClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf2/Exit".
+        /// </summary>
+        public InputAction @Exit => m_Wrapper.m_Shelf2_Exit;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf2/LookLeft".
+        /// </summary>
+        public InputAction @LookLeft => m_Wrapper.m_Shelf2_LookLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Shelf2/LookRight".
+        /// </summary>
+        public InputAction @LookRight => m_Wrapper.m_Shelf2_LookRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -928,6 +1102,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LeftClick.started += instance.OnLeftClick;
             @LeftClick.performed += instance.OnLeftClick;
             @LeftClick.canceled += instance.OnLeftClick;
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
+            @LookLeft.started += instance.OnLookLeft;
+            @LookLeft.performed += instance.OnLookLeft;
+            @LookLeft.canceled += instance.OnLookLeft;
+            @LookRight.started += instance.OnLookRight;
+            @LookRight.performed += instance.OnLookRight;
+            @LookRight.canceled += instance.OnLookRight;
         }
 
         /// <summary>
@@ -945,6 +1128,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LeftClick.started -= instance.OnLeftClick;
             @LeftClick.performed -= instance.OnLeftClick;
             @LeftClick.canceled -= instance.OnLeftClick;
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
+            @LookLeft.started -= instance.OnLookLeft;
+            @LookLeft.performed -= instance.OnLookLeft;
+            @LookLeft.canceled -= instance.OnLookLeft;
+            @LookRight.started -= instance.OnLookRight;
+            @LookRight.performed -= instance.OnLookRight;
+            @LookRight.canceled -= instance.OnLookRight;
         }
 
         /// <summary>
@@ -1036,19 +1228,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IShelfActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Mouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Stop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "LeftClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnStop(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Exit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LookLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLookLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LookRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLookRight(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CashRegister" which allows adding and removing callbacks.
@@ -1093,5 +1306,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLeftClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Exit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LookLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLookLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LookRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLookRight(InputAction.CallbackContext context);
     }
 }

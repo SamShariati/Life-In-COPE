@@ -155076,7 +155076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrBoxes
-      value: 5
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 9020904457715676318, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: m_Layer
@@ -156929,6 +156929,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 499208702368055967, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 2547403225775772655, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: boxPrefab
       value: 
@@ -157007,7 +157011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5578784595230896801, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.161
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5578784595230896801, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.z

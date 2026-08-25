@@ -179,18 +179,45 @@
             "id": "df775c26-46a7-486d-ac43-81f8aa3542b5",
             "actions": [
                 {
-                    "name": "Look",
+                    "name": "Mouse",
                     "type": "Value",
                     "id": "4bec8e61-e883-4c13-93f0-aaaf23bbe542",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Stop",
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "80751eb8-dcc9-4fb5-b479-641f42280afb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
                     "type": "Button",
                     "id": "4d3c37d3-b5d3-4967-ae4f-4732517bb936",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookLeft",
+                    "type": "Button",
+                    "id": "2fce80a1-a5a2-4d0c-bce1-cfab84f167ee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookRight",
+                    "type": "Button",
+                    "id": "18b31255-48d1-4fb7-8ad1-c5db5fd987bf",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -201,11 +228,11 @@
                 {
                     "name": "",
                     "id": "c14d9f97-f893-4803-8b0f-2f51fd938a97",
-                    "path": "<Mouse>/delta",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -216,7 +243,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Stop",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b8c591a-04e5-4097-90aa-e44e0de9fbcb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14de41e6-3151-4203-bf0b-fd89770561a7",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37a3d28e-c1f8-44fe-8973-6eb63125409e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -291,6 +351,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "1fb23a2d-9545-4023-8753-c29aa839d7fe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookLeft",
+                    "type": "Button",
+                    "id": "d5b03d09-f4fd-479e-ac4b-50564df2e1da",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookRight",
+                    "type": "Button",
+                    "id": "768ecaf4-af0b-4675-aca9-80f7d63da896",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -313,6 +400,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4f12ee2-52f5-4aeb-88eb-24c93c719f3c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9141d25-bc05-478d-bc32-61a01848818f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5666c81-57b1-4581-8592-a3f9f33a6ff5",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

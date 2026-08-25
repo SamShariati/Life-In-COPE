@@ -164,7 +164,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
             Transform targetSlot = _stockingPositions[_currentStockIndex];
 
             // Spawn placedPrefab at box position and fly it to the shelf slot
-            flyingItem = GameObject.Instantiate(shelf.placedPrefab, boxTransform.position, Quaternion.identity);
+            flyingItem = GameObject.Instantiate(shelf.placingPrefab, boxTransform.position, Quaternion.identity);
 
             yield return _runner.StartCoroutine(FlyToShelf(flyingItem, targetSlot));
 
@@ -266,7 +266,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
     }
 
     // ----- IShelfActions ------------------------------
-    public void OnStop(InputAction.CallbackContext ctx)
+    public void OnExit(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && PlayerState.Instance.inStockingMode)
         {
@@ -279,6 +279,23 @@ public class StockingShelf2 : PlayerInput.IShelfActions
     public void OnLook(InputAction.CallbackContext ctx)
     {
         _lookDelta = ctx.ReadValue<Vector2>();
+    }
+
+    public void OnMouse(InputAction.CallbackContext ctx)
+    {
+
+    }
+    public void OnLeftClick(InputAction.CallbackContext ctx)
+    {
+
+    }
+    public void OnLookLeft(InputAction.CallbackContext ctx)
+    {
+
+    }
+    public void OnLookRight(InputAction.CallbackContext ctx)
+    {
+
     }
     // -------------------------------------------------
 
