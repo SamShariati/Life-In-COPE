@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8208583065166548493}
   - component: {fileID: 8847373163878687328}
   - component: {fileID: 4641237500580227212}
+  - component: {fileID: 5939907641220509416}
   m_Layer: 0
   m_Name: energyDrink_transparent
-  m_TagString: Untagged
+  m_TagString: DropItemZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,3 +104,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5939907641220509416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138070442039823325}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20228487, y: 0.24743994, z: 0.11548828}
+  m_Center: {x: -0.0025000197, y: 0.12371997, z: 0.35318202}

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8660552304195733640}
   - component: {fileID: 3026709398491942879}
   - component: {fileID: 2056542286540637697}
+  - component: {fileID: 5143605766245382034}
   m_Layer: 0
   m_Name: alcohol_transparent
-  m_TagString: Untagged
+  m_TagString: DropItemZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +105,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5143605766245382034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280254981198242925}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0341, y: 0.0929, z: 0.021}
+  m_Center: {x: 0, y: 0.13915353, z: 0.16722056}
 --- !u!1001 &4382465883363564898
 PrefabInstance:
   m_ObjectHideFlags: 0

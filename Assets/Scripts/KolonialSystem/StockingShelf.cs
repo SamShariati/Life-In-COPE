@@ -61,6 +61,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        shelf.gameObject.GetComponent<BoxCollider>().enabled = false;
 
 
 
@@ -192,6 +193,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         _input.Shelf.Disable();
         _input.Shelf.RemoveCallbacks(this);
         _input.Player.Enable();
+        shelf.gameObject.GetComponent<BoxCollider>().enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -233,7 +235,7 @@ public class StockingShelf : PlayerInput.IShelfActions
             // (spawnedObject's own collider is disabled while dragging, so it
             // can't block or falsely trigger this raycast)
             if (Physics.Raycast(ray, out RaycastHit hit)
-                && hit.collider.CompareTag("DropZone"))
+                && hit.collider.CompareTag("DropItemZone"))
             {
                 spawnedObject.transform.position = hit.collider.transform.position;
 
