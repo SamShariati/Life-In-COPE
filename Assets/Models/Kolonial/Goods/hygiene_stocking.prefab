@@ -1,16 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1771756622191540720
+--- !u!1 &1289248521093938889
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1771756622191540720, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4140203083268314026}
-  - component: {fileID: 1175179978530311094}
-  - component: {fileID: 5890519506237521878}
+  - component: {fileID: 6745790279174801742}
+  - component: {fileID: 1445049475130657449}
+  - component: {fileID: 6579058464921060815}
   m_Layer: 0
   m_Name: SM_Item_Mouthwash_01 (6)
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &4140203083268314026
+--- !u!4 &6745790279174801742
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4140203083268314026, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771756622191540720}
+  m_GameObject: {fileID: 1289248521093938889}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.30880013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1381872698858087540}
+  m_Father: {fileID: 2082746644858579488}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!33 &1175179978530311094
+--- !u!33 &1445049475130657449
 MeshFilter:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1175179978530311094, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771756622191540720}
+  m_GameObject: {fileID: 1289248521093938889}
   m_Mesh: {fileID: 4300000, guid: ab84d324892d13740b1bed5ded0572c7, type: 3}
---- !u!23 &5890519506237521878
+--- !u!23 &6579058464921060815
 MeshRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5890519506237521878, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771756622191540720}
+  m_GameObject: {fileID: 1289248521093938889}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -90,18 +90,18 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2016161096737587490
+--- !u!1 &7601852662386496998
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2016161096737587490, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1381872698858087540}
-  - component: {fileID: 2393102835164090316}
-  - component: {fileID: 618627543416461211}
-  - component: {fileID: 912465711844345101}
+  - component: {fileID: 2082746644858579488}
+  - component: {fileID: 8332952409710590758}
+  - component: {fileID: 3490300573827795557}
+  - component: {fileID: 8172479366424129135}
   m_Layer: 0
   m_Name: hygiene_stocking
   m_TagString: Untagged
@@ -109,49 +109,49 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1381872698858087540
+--- !u!4 &2082746644858579488
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1381872698858087540, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016161096737587490}
+  m_GameObject: {fileID: 7601852662386496998}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.288, y: 4.631, z: -4.793}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 4140203083268314026}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2393102835164090316
+  - {fileID: 6745790279174801742}
+  m_Father: {fileID: 3904142996546142237}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &8332952409710590758
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2393102835164090316, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016161096737587490}
+  m_GameObject: {fileID: 7601852662386496998}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df123053af99a39488efa510851f0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeshCombiner
---- !u!33 &618627543416461211
+--- !u!33 &3490300573827795557
 MeshFilter:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 618627543416461211, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016161096737587490}
+  m_GameObject: {fileID: 7601852662386496998}
   m_Mesh: {fileID: 4300000, guid: c612f3a9495694340b6e5336313ad8a0, type: 2}
---- !u!23 &912465711844345101
+--- !u!23 &8172479366424129135
 MeshRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 912465711844345101, guid: 878a63ab298971d48887f89264503286, type: 3}
+  m_PrefabInstance: {fileID: 8940822548113138133}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016161096737587490}
+  m_GameObject: {fileID: 7601852662386496998}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -194,3 +194,92 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8677197104705578484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3904142996546142237}
+  m_Layer: 0
+  m_Name: hygiene_stocking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3904142996546142237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677197104705578484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.65176, y: 0, z: -2.27312}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2082746644858579488}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8940822548113138133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3904142996546142237}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: hygiene_stocking
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 0}
