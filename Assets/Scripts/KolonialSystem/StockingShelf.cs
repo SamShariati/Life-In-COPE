@@ -13,20 +13,14 @@ public class StockingShelf : PlayerInput.IShelfActions
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
     private PlayerInteract _playerInteract;
-    private List<Transform> transparentItemList = new List<Transform>();
 
     // Camera look state
-    private float _shelfYaw = 0f;       // left/right relative to shelf-facing direction
     private float _shelfPitch = 0f;     // up/down
 
     private const float StandingHeight = 1f;
     private const float ShelfCenterOffset_y = 0.3f;
 
     // Stocking state
-    //private bool _isStocking = false;
-    private bool _stockingStarted = false;
-    private List<Transform> _stockingPositions = new List<Transform>();
-    private int _currentStockIndex = 0;
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
 
     private ShelfCoroutineRunner _runner;
@@ -46,7 +40,6 @@ public class StockingShelf : PlayerInput.IShelfActions
     {
         shelf = _shelf;
         _input = shelf.player.GetComponent<PlayerInteract>().Input;
-        _currentStockIndex = 0;
         cam = Camera.main;
     }
 
@@ -58,26 +51,18 @@ public class StockingShelf : PlayerInput.IShelfActions
         heldBoxObj = PlayerInventory.Instance.heldBox.gameObject;
         heldBoxCol = heldBoxObj.GetComponent<BoxCollider>();
         heldBoxCol.enabled = true;
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         shelf.gameObject.GetComponent<BoxCollider>().enabled = false;
 
 
 
 
         //-------------------------------------------------
-        GetTransparentItems();
         _playerInteract = pI;
-        //_playerInteract.Inventory.shelfManager.DisableShelfArrow();
         ShelfManager.Instance.DisableShelfArrow();
         _player = shelf.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
         _characterController = _player.GetComponent<CharacterController>();
-
-        // Use the pre-built stocking positions from Shelf (captured before transparents were spawned)
-        _stockingPositions = shelf.stockingPosList;
 
         // Swap to Shelf action map
         _playerMovement.SetExternalControl(true);
@@ -158,37 +143,33 @@ public class StockingShelf : PlayerInput.IShelfActions
         _cameraTransform.localRotation = targetCamLocalRot;
 
         // Reset yaw/pitch for shelf look, relative to this new facing direction
-        _shelfYaw = 0f;
+        //_shelfYaw = 0f;
         _shelfPitch = targetCamLocalRot.eulerAngles.x;
         if (_shelfPitch > 180f) _shelfPitch -= 360f; // normalize
 
-        // --- Step 2: Wait half a second before stocking begins ---
-        yield return new WaitForSeconds(StockingDelay);
-
-        _stockingStarted = true;
-
         // --- Step 3: Stocking loop ---
-        Transform boxTransform = playerInteract.Inventory.heldBox.transform;
 
-        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        while (shelf.remainingGoodsToStock > 0)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             if (PlayerState.Instance.currentlyBeingFollowed)
             {
                 ExitStocking(playerInteract);
                 yield break;
             }
 
-
             yield return null;
 
         }
+        ExitStocking(playerInteract);
 
     }
 
     private void ExitStocking(PlayerInteract playerInteract)
     {
         PlayerState.Instance.inStockingMode = false;
-        _stockingStarted = false;
 
         _input.Shelf.Disable();
         _input.Shelf.RemoveCallbacks(this);
@@ -209,7 +190,7 @@ public class StockingShelf : PlayerInput.IShelfActions
             _runner = null;
         }
 
-        if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        if (shelf.remainingGoodsToStock > 0)
         {
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
             //if (PlayerInventory.Instance.heldBox != null)
@@ -237,13 +218,13 @@ public class StockingShelf : PlayerInput.IShelfActions
             if (Physics.Raycast(ray, out RaycastHit hit)
                 && hit.collider.CompareTag("DropItemZone"))
             {
+
                 spawnedObject.transform.position = hit.collider.transform.position;
-
-                _runner.DestroyObject(hit.collider.gameObject);
-                
-
+                _runner.DestroyObject(hit.collider.gameObject);               
                 spawnedObject = null;
                 isDragging = false;
+                shelf.remainingGoodsToStock -= 1;
+
             }
             else if (dragPlane.Raycast(ray, out float enter))
             {
@@ -274,7 +255,6 @@ public class StockingShelf : PlayerInput.IShelfActions
         if (ctx.performed)
         {
 
-            Debug.Log(shelf.stockedPrefab);
             Ray ray = cam.ScreenPointToRay(mousePos);
 
             // Only start dragging if we clicked THIS object's collider
@@ -326,33 +306,6 @@ public class StockingShelf : PlayerInput.IShelfActions
     }
     // -------------------------------------------------
 
-    private void GetTransparentItems()
-    {
-        Transform shelfLayers = shelf.transform.Find("layers");
-        Transform secondLayer = shelfLayers.GetChild(1);
-        Transform thirdLayer = shelfLayers.GetChild(2);
-
-        int index = 0;
-        foreach (Transform item in secondLayer)
-        {
-            if (index >= 10)
-            {
-                transparentItemList.Add(item);
-            }
-            index++;
-
-        }
-        index = 0;
-        foreach (Transform item in thirdLayer)
-        {
-            if (index >= 10)
-            {
-                transparentItemList.Add(item);
-            }
-            index++;
-
-        }
-    }
 
     private Vector3 GetBoundsCenter(GameObject obj)
     {

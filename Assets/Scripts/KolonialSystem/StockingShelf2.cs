@@ -153,7 +153,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
         // --- Step 3: Stocking loop ---
         Transform boxTransform = playerInteract.Inventory.heldBox.transform;
 
-        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        while (_currentStockIndex < _stockingPositions.Count && shelf.remainingGoodsToStock > 0)
         {
             if (PlayerState.Instance.currentlyBeingFollowed)
             {
@@ -175,7 +175,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
             placed.transform.position = targetSlot.position;
             placed.transform.rotation = targetSlot.rotation;
 
-            shelf.remainingStockCount--;
+            shelf.remainingGoodsToStock--;
             _currentStockIndex++;
 
             // Removing the placeholder transparent prefab in that position
@@ -184,7 +184,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
 
 
             // Pause between placements (skip wait after last item)
-            if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+            if (_currentStockIndex < _stockingPositions.Count && shelf.remainingGoodsToStock > 0)
                 yield return new WaitForSeconds(TimeBetweenPlacements);
         }
 
@@ -238,7 +238,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
             GameObject.Destroy(flyingItem);
             flyingItem = null;
         }
-        if (_currentStockIndex < _stockingPositions.Count && shelf.remainingStockCount > 0)
+        if (_currentStockIndex < _stockingPositions.Count && shelf.remainingGoodsToStock > 0)
         {
             //playerInteract.Inventory.shelfManager.EnableShelfArrow(playerInteract.Inventory.heldBox);
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);

@@ -90,7 +90,7 @@ public class PickGoods : BTNode
         Shelf chosenShelf = agent.allShelfPositions[agent.currentChosenGood.boxID];
 
 
-        if (chosenShelf.remainingStockCount <= 0)
+        if (chosenShelf.remainingGoodsToStock <= 0)
         {
             
             //agent.nrGoodsFound++;
