@@ -22,7 +22,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     // Stocking state
     private const float StockingDelay = 0.25f;       // delay before stocking phase begins
-
+    private float itemScale = 0.6f;
     private ShelfCoroutineRunner _runner;
 
     //----------NEW STOCKINGSHELF---------------
@@ -206,35 +206,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     }
 
-    public void UpdateDrag()
-    {
-        if (isDragging && spawnedObject != null)
-        {
-            Ray ray = cam.ScreenPointToRay(mousePos);
-
-            if (Physics.Raycast(ray, out RaycastHit hit)
-                && hit.collider.CompareTag("DropItemZone"))
-            {
-                
-                spawnedObject.transform.position = hit.collider.transform.position;
-
-                spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
-                //spawnedObject.transform.position = zoneTransform.position;
-
-                //_runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, Quaternion.identity);
-                _runner.DestroyObject(hit.collider.gameObject);
-                //_runner.DestroyObject(spawnedObject);
-                spawnedObject = null;
-                isDragging = false;
-                shelf.remainingGoodsToStock -= 1;
-
-            }
-            else if (dragPlane.Raycast(ray, out float enter))
-            {
-                spawnedObject.transform.position = ray.GetPoint(enter) - _spawnedCenterOffset;
-            }
-        }
-    }
+    
 
     // ----- IShelfActions ------------------------------
     public void OnExit(InputAction.CallbackContext ctx)
@@ -278,6 +250,8 @@ public class StockingShelf : PlayerInput.IShelfActions
                 {
                     Vector3 spawnPos = ray.GetPoint(enter);
                     spawnedObject = _runner.SpawnObject(shelf.placingPrefab, spawnPos, Quaternion.identity);
+                    Vector3 currentScale = spawnedObject.transform.localScale;
+                    spawnedObject.transform.localScale = new Vector3(currentScale.x * itemScale, currentScale.y * itemScale, currentScale.z * itemScale);
 
                     // Pivot is off-center on these prefabs, so record how far the
                     // visual center sits from the pivot at spawn time.
@@ -309,6 +283,37 @@ public class StockingShelf : PlayerInput.IShelfActions
     }
     // -------------------------------------------------
 
+
+    public void UpdateDrag()
+    {
+        if (isDragging && spawnedObject != null)
+        {
+            Ray ray = cam.ScreenPointToRay(mousePos);
+
+            if (Physics.Raycast(ray, out RaycastHit hit)
+                && hit.collider.CompareTag("DropItemZone"))
+            {
+                Vector3 currentScale = spawnedObject.transform.localScale;
+                spawnedObject.transform.localScale = new Vector3(currentScale.x / itemScale, currentScale.y / itemScale, currentScale.z / itemScale);
+                spawnedObject.transform.position = hit.collider.transform.position;
+
+                spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
+                //spawnedObject.transform.position = zoneTransform.position;
+
+                //_runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, Quaternion.identity);
+                _runner.DestroyObject(hit.collider.gameObject);
+                //_runner.DestroyObject(spawnedObject);
+                spawnedObject = null;
+                isDragging = false;
+                shelf.remainingGoodsToStock -= 1;
+
+            }
+            else if (dragPlane.Raycast(ray, out float enter))
+            {
+                spawnedObject.transform.position = ray.GetPoint(enter) - _spawnedCenterOffset;
+            }
+        }
+    }
 
     private Vector3 GetBoundsCenter(GameObject obj)
     {
