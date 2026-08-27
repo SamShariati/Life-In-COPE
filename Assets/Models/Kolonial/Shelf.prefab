@@ -1815,7 +1815,6 @@ GameObject:
   - component: {fileID: 8784757279375410424}
   - component: {fileID: 8264101398537302982}
   - component: {fileID: 4903057789989210512}
-  - component: {fileID: 1172346351995638470}
   m_Layer: 0
   m_Name: Module
   m_TagString: Untagged
@@ -1925,27 +1924,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1172346351995638470
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4057576524241229492}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.1000004, y: 6.5, z: 1.9780301}
-  m_Center: {x: 0, y: 0, z: 0.09901506}
 --- !u!1 &4110644399119775920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4589,6 +4567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8343862680210493590}
   - component: {fileID: 3552350929478041419}
+  - component: {fileID: 2484860651299413580}
   m_Layer: 0
   m_Name: Shelf
   m_TagString: Untagged
@@ -4628,15 +4607,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shelf
   stockedPrefab: {fileID: 0}
   transparentPrefab: {fileID: 0}
-  placedPrefab: {fileID: 0}
+  placingPrefab: {fileID: 0}
   shelfArrow: {fileID: 0}
-  remainingStockCount: 0
+  remainingGoodsToStock: 0
   player: {fileID: 0}
   productPosList: []
   stockingPosList: []
-  inStockingMode: 0
   goodsType: 0
+  aisle: 0
+  shelfType: 0
   shelfStatus: 0
+--- !u!65 &2484860651299413580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562832109724398246}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.1, y: 6.5, z: 1.97803}
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!1 &8618512617024154223
 GameObject:
   m_ObjectHideFlags: 0

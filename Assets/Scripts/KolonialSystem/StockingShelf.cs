@@ -212,15 +212,18 @@ public class StockingShelf : PlayerInput.IShelfActions
         {
             Ray ray = cam.ScreenPointToRay(mousePos);
 
-            // Check if the mouse is currently over a DropZone
-            // (spawnedObject's own collider is disabled while dragging, so it
-            // can't block or falsely trigger this raycast)
             if (Physics.Raycast(ray, out RaycastHit hit)
                 && hit.collider.CompareTag("DropItemZone"))
             {
-
+                
                 spawnedObject.transform.position = hit.collider.transform.position;
-                _runner.DestroyObject(hit.collider.gameObject);               
+
+                spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
+                //spawnedObject.transform.position = zoneTransform.position;
+
+                //_runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, Quaternion.identity);
+                _runner.DestroyObject(hit.collider.gameObject);
+                //_runner.DestroyObject(spawnedObject);
                 spawnedObject = null;
                 isDragging = false;
                 shelf.remainingGoodsToStock -= 1;
