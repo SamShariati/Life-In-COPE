@@ -17,6 +17,15 @@ public class StockingShelf : PlayerInput.IShelfActions
     // Camera look state
     private float _shelfPitch = 0f;     // up/down
 
+    // Hold-to-look-left/right state
+    private Quaternion _baseCamLocalRot;   // camera's "centered" local rotation while stocking
+    private float _currentLookYaw = 0f;    // current yaw offset applied on top of the base rotation
+    private bool _lookingLeft = false;
+    private bool _lookingRight = false;
+    private const float MaxLookYaw = 45f;      // max degrees left/right
+    private const float LookInSpeed = 12f;      // how fast it rotates toward the held direction
+    private const float LookReturnSpeed = 12f; // how fast it snaps back on release
+
     private const float StandingHeight = 1f;
     private const float ShelfCenterOffset_y = 0.3f;
 
@@ -142,6 +151,12 @@ public class StockingShelf : PlayerInput.IShelfActions
         _characterController.enabled = true;
         _cameraTransform.localRotation = targetCamLocalRot;
 
+        // Remember this as the "centered" look rotation for the hold-to-look feature
+        _baseCamLocalRot = targetCamLocalRot;
+        _currentLookYaw = 0f;
+        _lookingLeft = false;
+        _lookingRight = false;
+
         // Reset yaw/pitch for shelf look, relative to this new facing direction
         //_shelfYaw = 0f;
         _shelfPitch = targetCamLocalRot.eulerAngles.x;
@@ -206,7 +221,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     }
 
-    
+
 
     // ----- IShelfActions ------------------------------
     public void OnExit(InputAction.CallbackContext ctx)
@@ -222,7 +237,7 @@ public class StockingShelf : PlayerInput.IShelfActions
     public void OnMouse(InputAction.CallbackContext ctx)
     {
         mousePos = ctx.ReadValue<Vector2>();
-        
+
 
     }
     public void OnLeftClick(InputAction.CallbackContext ctx)
@@ -275,11 +290,17 @@ public class StockingShelf : PlayerInput.IShelfActions
     }
     public void OnLookLeft(InputAction.CallbackContext ctx)
     {
-
+        if (ctx.performed)
+            _lookingLeft = true;
+        else if (ctx.canceled)
+            _lookingLeft = false;
     }
     public void OnLookRight(InputAction.CallbackContext ctx)
     {
-
+        if (ctx.performed)
+            _lookingRight = true;
+        else if (ctx.canceled)
+            _lookingRight = false;
     }
     // -------------------------------------------------
 
@@ -298,11 +319,11 @@ public class StockingShelf : PlayerInput.IShelfActions
                 spawnedObject.transform.position = hit.collider.transform.position;
 
                 spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
-                //spawnedObject.transform.position = zoneTransform.position;
 
-                //_runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, Quaternion.identity);
+                new StockedGoodAnimation(spawnedObject).Play();
+
                 _runner.DestroyObject(hit.collider.gameObject);
-                //_runner.DestroyObject(spawnedObject);
+
                 spawnedObject = null;
                 isDragging = false;
                 shelf.remainingGoodsToStock -= 1;
@@ -313,6 +334,27 @@ public class StockingShelf : PlayerInput.IShelfActions
                 spawnedObject.transform.position = ray.GetPoint(enter) - _spawnedCenterOffset;
             }
         }
+    }
+
+    public void UpdateLook()
+    {
+        if (_cameraTransform == null) return;
+
+        // Figure out which way (if any) we're holding, and how far we should be rotated
+        float targetYaw = 0f;
+        if (_lookingLeft && !_lookingRight)
+            targetYaw = -MaxLookYaw;
+        else if (_lookingRight && !_lookingLeft)
+            targetYaw = MaxLookYaw;
+
+        // Rotate in quickly while held, snap back even quicker once released
+        bool returning = Mathf.Approximately(targetYaw, 0f);
+        float speed = returning ? LookReturnSpeed : LookInSpeed;
+
+        _currentLookYaw = Mathf.Lerp(_currentLookYaw, targetYaw, 1f - Mathf.Exp(-speed * Time.deltaTime));
+
+        Quaternion lookOffset = Quaternion.Euler(0f, _currentLookYaw, 0f);
+        _cameraTransform.localRotation = _baseCamLocalRot * lookOffset;
     }
 
     private Vector3 GetBoundsCenter(GameObject obj)
@@ -347,8 +389,8 @@ public class ShelfCoroutineRunner : MonoBehaviour
     }
     private void Update()
     {
-        
+
         Owner?.UpdateDrag();
+        Owner?.UpdateLook();
     }
 }
-
