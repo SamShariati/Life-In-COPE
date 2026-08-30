@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,35 +14,26 @@ public class StockingShelf : PlayerInput.IShelfActions
     private PlayerInteract _playerInteract;
 
     // Camera look state
-    private float _shelfPitch = 0f;     // up/down
+    private float _shelfPitch = 0f;
 
     // Hold-to-look-left/right state
-    private Quaternion _baseCamLocalRot;   // camera's "centered" local rotation while stocking
-    private float _currentLookYaw = 0f;    // current yaw offset applied on top of the base rotation
+    private Quaternion _baseCamLocalRot;
+    private float _currentLookYaw = 0f;
     private bool _lookingLeft = false;
     private bool _lookingRight = false;
-    private const float MaxLookYaw = 45f;      // max degrees left/right
-    private const float LookInSpeed = 12f;      // how fast it rotates toward the held direction
-    private const float LookReturnSpeed = 12f; // how fast it snaps back on release
+    private const float MaxLookYaw = 45f;
+    private const float LookInSpeed = 12f;
+    private const float LookReturnSpeed = 12f;
 
     private const float StandingHeight = 1f;
     private const float ShelfCenterOffset_y = 0.3f;
 
-    // Stocking state
-    private const float StockingDelay = 0.25f;       // delay before stocking phase begins
-    private float itemScale = 0.6f;
+    private const float ItemScale = 0.6f;
+    private const float MaxDragRange = 1f;
     private ShelfCoroutineRunner _runner;
 
-    //----------NEW STOCKINGSHELF---------------
-    public Vector2 mousePos;
-    private GameObject heldBoxObj;
-    private BoxCollider heldBoxCol;
-    private GameObject spawnedObject;
-    private Vector3 _spawnedCenterOffset;
-
-    bool isDragging;
-    Camera cam;
-    Plane dragPlane;
+    private Camera cam;
+    private ShelfDragController _dragController;
 
     public StockingShelf(Shelf _shelf)
     {
@@ -52,20 +42,10 @@ public class StockingShelf : PlayerInput.IShelfActions
         cam = Camera.main;
     }
 
-    // Called from Shelf.Interact() to kick everything off
     public void Activate(PlayerInteract pI)
     {
-        //-----------INITIATE COMPONENTS-------------------
-
-        heldBoxObj = PlayerInventory.Instance.heldBox.gameObject;
-        heldBoxCol = heldBoxObj.GetComponent<BoxCollider>();
-        heldBoxCol.enabled = true;
         shelf.gameObject.GetComponent<BoxCollider>().enabled = false;
 
-
-
-
-        //-------------------------------------------------
         _playerInteract = pI;
         ShelfManager.Instance.DisableShelfArrow();
         _player = shelf.player;
@@ -73,19 +53,20 @@ public class StockingShelf : PlayerInput.IShelfActions
         _playerMovement = _player.GetComponent<PlayerMovement>();
         _characterController = _player.GetComponent<CharacterController>();
 
-        // Swap to Shelf action map
         _playerMovement.SetExternalControl(true);
         _input.Player.Disable();
         _input.Shelf.Enable();
         _input.Shelf.AddCallbacks(this);
 
-        // Get or create the coroutine runner
         if (_runner == null)
         {
             GameObject runnerGO = new GameObject("StockingShelfRunner");
             _runner = runnerGO.AddComponent<ShelfCoroutineRunner>();
             _runner.Owner = this;
         }
+
+        _dragController = new ShelfDragController(shelf, cam, _runner, ItemScale, MaxDragRange);
+        _dragController.BeginSession(PlayerInventory.Instance.heldBox.gameObject);
 
         _runner.StartCoroutine(StockingSequence(_playerInteract));
     }
@@ -94,17 +75,14 @@ public class StockingShelf : PlayerInput.IShelfActions
     {
         PlayerState.Instance.inStockingMode = true;
 
-        // --- Step 1: Smoothly move player to shelfArrow position & rotate camera toward shelf ---
         Transform arrowTransform = shelf.shelfArrow;
         arrowTransform.position = new Vector3(shelf.shelfArrow.position.x, StandingHeight, shelf.shelfArrow.position.z);
-        //arrowTransform.position = _shelf.shelfArrow.position;
         Vector3 targetPos = arrowTransform.position;
 
         Vector3 dirToShelfFlat = (shelf.transform.position - arrowTransform.position);
-        dirToShelfFlat.y = 0f; // flatten so player doesn't tilt up/down
+        dirToShelfFlat.y = 0f;
         Quaternion targetPlayerRot = Quaternion.LookRotation(dirToShelfFlat.normalized);
 
-        // The shelf's pivot (center) is the shelf transform itself
         Vector3 shelfCenter = shelf.transform.position;
         shelfCenter.y -= ShelfCenterOffset_y;
 
@@ -115,10 +93,8 @@ public class StockingShelf : PlayerInput.IShelfActions
         Quaternion startPlayerRot = _player.transform.rotation;
         Quaternion startCamRot = _cameraTransform.localRotation;
 
-        // Compute the camera rotation that looks toward the shelf center from the arrow position
         Vector3 dirToShelf = (shelfCenter - arrowTransform.position).normalized;
         Quaternion targetWorldCamRot = Quaternion.LookRotation(dirToShelf, Vector3.up);
-        // Convert to local space relative to player at target rotation
         Quaternion targetCamLocalRot = Quaternion.Inverse(targetPlayerRot) * targetWorldCamRot;
 
         while (elapsed < transitionDuration)
@@ -132,37 +108,31 @@ public class StockingShelf : PlayerInput.IShelfActions
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / transitionDuration);
 
-            // Move player (disable CharacterController briefly to teleport smoothly)
             _characterController.enabled = false;
             _player.transform.position = Vector3.Lerp(startPos, targetPos, t);
             _player.transform.rotation = Quaternion.Slerp(startPlayerRot, targetPlayerRot, t);
             _characterController.enabled = true;
 
-            // Rotate camera toward shelf
             _cameraTransform.localRotation = Quaternion.Slerp(startCamRot, targetCamLocalRot, t);
 
             yield return null;
         }
 
-        // Snap to exact position/rotation
         _characterController.enabled = false;
         _player.transform.position = targetPos;
         _player.transform.rotation = targetPlayerRot;
         _characterController.enabled = true;
         _cameraTransform.localRotation = targetCamLocalRot;
 
-        // Remember this as the "centered" look rotation for the hold-to-look feature
         _baseCamLocalRot = targetCamLocalRot;
         _currentLookYaw = 0f;
         _lookingLeft = false;
         _lookingRight = false;
 
-        // Reset yaw/pitch for shelf look, relative to this new facing direction
-        //_shelfYaw = 0f;
         _shelfPitch = targetCamLocalRot.eulerAngles.x;
-        if (_shelfPitch > 180f) _shelfPitch -= 360f; // normalize
+        if (_shelfPitch > 180f) _shelfPitch -= 360f;
 
-        // --- Step 3: Stocking loop ---
+        _dragController.SetupDragPlane();
 
         while (shelf.remainingGoodsToStock > 0)
         {
@@ -176,10 +146,8 @@ public class StockingShelf : PlayerInput.IShelfActions
             }
 
             yield return null;
-
         }
         ExitStocking(playerInteract);
-
     }
 
     private void ExitStocking(PlayerInteract playerInteract)
@@ -208,20 +176,12 @@ public class StockingShelf : PlayerInput.IShelfActions
         if (shelf.remainingGoodsToStock > 0)
         {
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
-            //if (PlayerInventory.Instance.heldBox != null)
-            //    ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
         }
         else
         {
             playerInteract.Inventory.DestroyBox();
-            //if (PlayerInventory.Instance.heldBox != null)
-            //    playerInteract.Inventory.DestroyBox();
         }
-
-
     }
-
-
 
     // ----- IShelfActions ------------------------------
     public void OnExit(InputAction.CallbackContext ctx)
@@ -231,123 +191,46 @@ public class StockingShelf : PlayerInput.IShelfActions
             _runner.StopAllCoroutines();
             ExitStocking(_playerInteract);
         }
-
     }
 
     public void OnMouse(InputAction.CallbackContext ctx)
     {
-        mousePos = ctx.ReadValue<Vector2>();
-
-
+        _dragController.OnMouse(ctx.ReadValue<Vector2>());
     }
+
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-            Ray ray = cam.ScreenPointToRay(mousePos);
-
-            // Only start dragging if we clicked THIS object's collider
-            // AND it's tagged "Product"
-            if (Physics.Raycast(ray, out RaycastHit hitInfo)
-                && hitInfo.collider == heldBoxCol
-                && hitInfo.collider.CompareTag("GoodsBox"))
-            {
-                isDragging = true;
-
-                // Plane facing the camera, positioned at the clicked object's depth,
-                // so the spawned object stays at the same depth while being dragged.
-                dragPlane = new Plane(-cam.transform.forward, heldBoxObj.transform.position);
-
-                // Spawn the new object with its center exactly at the mouse's
-                // position on the drag plane.
-                if (dragPlane.Raycast(ray, out float enter))
-                {
-                    Vector3 spawnPos = ray.GetPoint(enter);
-                    spawnedObject = _runner.SpawnObject(shelf.placingPrefab, spawnPos, Quaternion.identity);
-                    Vector3 currentScale = spawnedObject.transform.localScale;
-                    spawnedObject.transform.localScale = new Vector3(currentScale.x * itemScale, currentScale.y * itemScale, currentScale.z * itemScale);
-
-                    // Pivot is off-center on these prefabs, so record how far the
-                    // visual center sits from the pivot at spawn time.
-                    _spawnedCenterOffset = GetBoundsCenter(spawnedObject) - spawnedObject.transform.position;
-
-                    // Re-anchor so the CENTER (not the pivot) sits under the mouse immediately.
-                    spawnedObject.transform.position = spawnPos - _spawnedCenterOffset;
-                }
-            }
-        }
-        else if (ctx.canceled)
-        {
-            isDragging = false;
-
-            if (spawnedObject != null)
-            {
-                _runner.DestroyObject(spawnedObject);
-                spawnedObject = null;
-            }
-        }
+        _dragController.OnLeftClick(ctx.performed, ctx.canceled);
     }
+
     public void OnLookLeft(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            _lookingLeft = true;
-        else if (ctx.canceled)
-            _lookingLeft = false;
+        if (ctx.performed) _lookingLeft = true;
+        else if (ctx.canceled) _lookingLeft = false;
     }
+
     public void OnLookRight(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            _lookingRight = true;
-        else if (ctx.canceled)
-            _lookingRight = false;
+        if (ctx.performed) _lookingRight = true;
+        else if (ctx.canceled) _lookingRight = false;
     }
     // -------------------------------------------------
 
-
     public void UpdateDrag()
     {
-        if (isDragging && spawnedObject != null)
-        {
-            Ray ray = cam.ScreenPointToRay(mousePos);
-
-            if (Physics.Raycast(ray, out RaycastHit hit)
-                && hit.collider.CompareTag("DropItemZone"))
-            {
-                Vector3 currentScale = spawnedObject.transform.localScale;
-                spawnedObject.transform.localScale = new Vector3(currentScale.x / itemScale, currentScale.y / itemScale, currentScale.z / itemScale);
-                spawnedObject.transform.position = hit.collider.transform.position;
-
-                spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
-
-                new StockedGoodAnimation(spawnedObject).Play();
-
-                _runner.DestroyObject(hit.collider.gameObject);
-
-                spawnedObject = null;
-                isDragging = false;
-                shelf.remainingGoodsToStock -= 1;
-
-            }
-            else if (dragPlane.Raycast(ray, out float enter))
-            {
-                spawnedObject.transform.position = ray.GetPoint(enter) - _spawnedCenterOffset;
-            }
-        }
+        _dragController?.UpdateDrag();
     }
 
     public void UpdateLook()
     {
         if (_cameraTransform == null) return;
 
-        // Figure out which way (if any) we're holding, and how far we should be rotated
         float targetYaw = 0f;
         if (_lookingLeft && !_lookingRight)
             targetYaw = -MaxLookYaw;
         else if (_lookingRight && !_lookingLeft)
             targetYaw = MaxLookYaw;
 
-        // Rotate in quickly while held, snap back even quicker once released
         bool returning = Mathf.Approximately(targetYaw, 0f);
         float speed = returning ? LookReturnSpeed : LookInSpeed;
 
@@ -355,20 +238,6 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         Quaternion lookOffset = Quaternion.Euler(0f, _currentLookYaw, 0f);
         _cameraTransform.localRotation = _baseCamLocalRot * lookOffset;
-    }
-
-    private Vector3 GetBoundsCenter(GameObject obj)
-    {
-        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0)
-            return obj.transform.position; // fallback: no renderers, treat pivot as center
-
-        Bounds bounds = renderers[0].bounds;
-        for (int i = 1; i < renderers.Length; i++)
-        {
-            bounds.Encapsulate(renderers[i].bounds);
-        }
-        return bounds.center;
     }
 }
 
@@ -379,17 +248,16 @@ public class ShelfCoroutineRunner : MonoBehaviour
 
     public GameObject SpawnObject(GameObject prefab, Vector3 pos, Quaternion rot)
     {
-        GameObject gameObj = Instantiate(prefab, pos, rot);
-        return gameObj;
+        return Instantiate(prefab, pos, rot);
     }
 
     public void DestroyObject(GameObject obj)
     {
         Destroy(obj);
     }
+
     private void Update()
     {
-
         Owner?.UpdateDrag();
         Owner?.UpdateLook();
     }
