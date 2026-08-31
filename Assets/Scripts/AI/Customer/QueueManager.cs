@@ -22,7 +22,7 @@ public class QueueManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        GameObject customerPositions = GameObject.Find("customerPositions");
+        GameObject customerPositions = GameObject.Find("customerQueuePos");
         foreach (Transform pos in customerPositions.transform)
         {
             queuePosList.Add(pos.gameObject);
