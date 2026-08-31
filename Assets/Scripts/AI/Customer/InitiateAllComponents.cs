@@ -101,27 +101,6 @@ public class InitiateAllComponents
         }
     }
 
-    //private void GetShelfPositions()
-    //{
-    //    Shelf[] shelves = shelfObjectParent.GetComponentsInChildren<Shelf>();
-
-    //    foreach (CardboardBoxData box in agent.remainingGoodsList)
-    //    {
-    //        foreach (Shelf shelf in shelves)
-    //        {
-    //            string shelfGoodsType = shelf.goodsType.ToString();
-
-    //            if (shelfGoodsType == box.boxID)
-    //            {
-    //                Transform shelfArrow = shelf.transform.Find("shelfArrow");
-
-    //                Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
-    //                agent.remainingGoodsArrowPositions[box.boxID] = shelfPos;
-    //                agent.remainingGoodsShelves[box.boxID] = shelf;
-    //            }
-    //        }
-    //    }
-    //}
     private void GenerateNavPositions()
     {
 

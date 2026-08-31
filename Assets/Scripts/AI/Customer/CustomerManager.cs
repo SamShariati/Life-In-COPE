@@ -97,7 +97,9 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Shelf currentWrongShelf;
     [HideInInspector] public Vector3 chosenAislePos;
 
+
     //-------------GET HIT VARIABLES-----------------------------
+
 
     public bool getHitStateAllowed = true;
     public bool getHitStateActivated = false;
@@ -108,13 +110,6 @@ public class CustomerManager : MonoBehaviour
     public float dotProduct;
     public float forceRatio;
     public float targetRotationAngle;
-
-
-
-
-
-
-
 
 
     [Header("Customer Stats")]
