@@ -178,7 +178,6 @@ public class CustomerManager : MonoBehaviour
             float impactSpeedThreshold = 0.5f; //testing number
             Vector3 boxVelocity = rb.linearVelocity;
             boxVelocity.y = 0f;
-            Debug.Log(boxVelocity.magnitude);
             if (boxVelocity.magnitude < impactSpeedThreshold)
             {
 
