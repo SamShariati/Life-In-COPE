@@ -100,13 +100,19 @@ public class ShelfDragController
         {
             Vector3 currentScale = spawnedObject.transform.localScale;
             spawnedObject.transform.localScale = new Vector3(currentScale.x / itemScale, currentScale.y / itemScale, currentScale.z / itemScale);
-            spawnedObject.transform.position = hit.collider.transform.position;
 
-            spawnedObject.transform.SetParent(shelf.transform, worldPositionStays: true);
+            GameObject stockedPrefab = runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, shelf.shelfItemRotation);
+            //spawnedObject.transform.position = hit.collider.transform.position;
 
-            new StockedGoodAnimation(spawnedObject).Play();
-
+            runner.DestroyObject(spawnedObject);
             runner.DestroyObject(hit.collider.gameObject);
+
+
+
+            stockedPrefab.transform.SetParent(shelf.transform, worldPositionStays: true);
+
+            new StockedGoodAnimation(stockedPrefab).Play();
+
 
             spawnedObject = null;
             isDragging = false;

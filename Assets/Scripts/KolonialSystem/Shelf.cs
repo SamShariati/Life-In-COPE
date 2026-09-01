@@ -12,6 +12,7 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public Transform shelfArrow;
     [HideInInspector] public int remainingGoodsToStock; //ATM if variable = 0 --> shelf stocked, else not
     [HideInInspector] private StockingShelf stockingShelf;
+    [HideInInspector] public Quaternion shelfItemRotation;
     //[HideInInspector] public List<CardboardBoxData> goodsDataList;
 
     [HideInInspector] public GameObject player;
@@ -73,7 +74,7 @@ public class Shelf : MonoBehaviour, IInteractable
         Transform thirdLayer = shelfLayers.GetChild(2);
         foreach (Transform pos in secondLayer) stockingPosList.Add(pos);
         foreach (Transform pos in thirdLayer) stockingPosList.Add(pos);
-
+        shelfItemRotation = stockingPosList[0].transform.rotation;
 
 
     }
