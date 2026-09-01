@@ -5627,6 +5627,7 @@ GameObject:
   - component: {fileID: 1120158671864202903}
   - component: {fileID: 7417590818607319825}
   - component: {fileID: 8994669244103032446}
+  - component: {fileID: -5552692494190706205}
   m_Layer: 0
   m_Name: KolonialPallet
   m_TagString: Untagged
@@ -5716,6 +5717,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1517a7f10a3caee49aa5bdb90d5d00cf, type: 2}
   maxNrBoxes: 26
   boxDataList: []
+--- !u!114 &-5552692494190706205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238614689587929952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &6394774064389275296
 GameObject:
   m_ObjectHideFlags: 0
