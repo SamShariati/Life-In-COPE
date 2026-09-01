@@ -175,12 +175,14 @@ public class CustomerManager : MonoBehaviour
 
             Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
-            float impactSpeedThreshold = 2f; //testing number
+            float impactSpeedThreshold = 0.5f; //testing number
             Vector3 boxVelocity = rb.linearVelocity;
             boxVelocity.y = 0f;
-
+            Debug.Log(boxVelocity.magnitude);
             if (boxVelocity.magnitude < impactSpeedThreshold)
             {
+
+                //Debug.Log(boxVelocity.magnitude);
                 return; // box is essentially stationary — not a throw, ignore it
             }
             gotHitByBox = true;

@@ -1249,8 +1249,8 @@ MonoBehaviour:
   dotProduct: 0
   forceRatio: 0
   targetRotationAngle: 0
-  walkSpeed: 5
-  runSpeed: 6
+  walkSpeed: 2
+  runSpeed: 5
   nrGoodsNeeded: 4
   maxIdleTime: 8
   minIdleTime: 4
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   gettingStunnedTime: 4
   searchForPlayerStateCD: 10
   getHitStateCD: 0
-  confusedChance: 50
+  confusedChance: 100
   chasePlayerChance: 100
 --- !u!195 &3985933204275392539
 NavMeshAgent:
