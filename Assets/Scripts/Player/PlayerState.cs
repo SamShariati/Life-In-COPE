@@ -7,6 +7,7 @@ public class PlayerState : MonoBehaviour
 
     public bool currentlyBeingFollowed;
     public bool inStockingMode;
+    public bool inScanningMode;
 
     public PlayerCaught _activeCaught;
 
@@ -16,6 +17,7 @@ public class PlayerState : MonoBehaviour
         Instance = this;
         currentlyBeingFollowed = false;
         inStockingMode = false;
+        inScanningMode = false;
     }
 
     public void CaughtPlayer(Transform customerHead)

@@ -1,48 +1,40 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 
-/// <summary>
-/// Attach this to your AI agent. Call CanSeePlayer() (or check the public bool)
-/// each frame/tick from your AI's behavior logic.
-/// </summary>
+
 public class CustomerVision
 {
-    //[Header("References")]
-    //[Tooltip("The head/eye transform the raycast originates from. If left empty, this object's transform is used.")]
-    public Transform headTransform;
 
-    //[Tooltip("The player's transform. If left empty, will try to find an object tagged 'Player'.")]
-    public Transform player;
-
-    //[Header("Vision Settings")]
-    //[Tooltip("Maximum distance the AI can see.")]
-    public float viewDistance = 15f;
-
-    //[Tooltip("Full field of view angle in degrees (e.g. 90 = 45 degrees left and right of forward).")]
-    //[Range(1f, 360f)]
-    public float fieldOfViewAngle = 45f;
-
-    //[Tooltip("Layers that block vision (walls, obstacles, etc).")]
-    public LayerMask obstacleMask;
-
-    //[Tooltip("Layer the player is on. The raycast must hit this layer to count as detected.")]
-    public LayerMask playerMask;
-
-    //[Header("Debug")]
+    Transform headTransform;
+    Transform player;
+    float viewDistance = 15f;
+    float fieldOfViewAngle = 45f;
+    LayerMask obstacleMask;
+    LayerMask playerMask;
     public bool drawDebugGizmos = true;
-    public bool currentlyDetected;
+    bool currentlyDetected;
+    CustomerManager agent;
 
-    public CustomerVision(Transform headObject, Transform player, LayerMask obstacleMask, LayerMask playerMask)
+    public CustomerVision(CustomerManager agent)
     {
-        headTransform = headObject;
-        this.player = player;
-        this.obstacleMask = obstacleMask;
-        this.playerMask = playerMask;
+        headTransform = agent.headObject;
+        this.player = agent.player;
+        this.obstacleMask = agent.obstacleMask;
+        this.playerMask = agent.playerMask;
+        this.agent = agent;
     }
 
     public bool CanSeePlayer()
     {
+
         currentlyDetected = false;
+
+        if (agent.currentlyTouchingPlayer)
+        {
+            return true;
+        }
+
 
         if (player == null || headTransform == null)
             return false;

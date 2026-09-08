@@ -287,18 +287,45 @@
             "id": "27815c5d-08be-48fc-9683-fee4cbf95df5",
             "actions": [
                 {
-                    "name": "Look",
+                    "name": "Mouse",
                     "type": "Value",
                     "id": "92aa059f-b906-4287-8f41-2d9e3a1ab7d4",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Stop",
+                    "name": "Exit",
                     "type": "Button",
                     "id": "997dd33b-48dc-4f20-84d1-896f78e8eb71",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "0056cf46-94a9-435e-8c95-52f486430f13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookLeft",
+                    "type": "Button",
+                    "id": "29629ab5-9032-4e0e-b6f9-215b34808fde",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LookRight",
+                    "type": "Button",
+                    "id": "326b21c3-4c6e-4fc1-aafd-f748b0501208",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -313,18 +340,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Stop",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "e5bf2877-75ca-4bfd-b732-93ae3fc91998",
-                    "path": "<Mouse>/delta",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f3c3b36-d365-4fea-82eb-c47f19b21ed0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91a1b3e1-0f47-4dff-a3bd-e0b1ad0dd4d2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d0c62db-4ab5-4833-8a3c-713e6cce70c0",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

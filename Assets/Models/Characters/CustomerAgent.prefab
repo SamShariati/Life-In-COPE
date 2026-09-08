@@ -1225,6 +1225,7 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 64
+  currentlyTouchingPlayer: 0
   allowedToChase: 1
   spottedPlayer: 0
   isCurrentlyChasing: 0

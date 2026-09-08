@@ -12,15 +12,15 @@ public class CashRegister : MonoBehaviour, IInteractable
     [HideInInspector] public bool placeBagOnRegister = false;
 
     [HideInInspector] public ScanningGoods scanningGoods;
-    [HideInInspector] public Vector3 registerPos;
+    [HideInInspector] public Vector3 customerRegisterPos;
 
-    [HideInInspector] public bool inScanningMode = false;
     [HideInInspector] public CustomerManager customerFirstInLine;
     [HideInInspector] public int itemsLeftToScan;
     [HideInInspector] public List<GameObject> itemsToScanList;
 
     private Transform goodsPositions;
-    private Transform objectToStoreGoodsIn;
+    private Transform registerInventory;
+    [HideInInspector] public Transform pointToLookAt;
     [HideInInspector] public Transform bagPosition;
     public List<Transform> goodsPosList = new List<Transform>();
 
@@ -31,10 +31,10 @@ public class CashRegister : MonoBehaviour, IInteractable
         player = GameObject.FindWithTag("Player");
         
 
-        registerPos = transform.Find("cashRegister").position;
-
+        customerRegisterPos = transform.Find("cashRegister").position;
+        pointToLookAt = transform.Find("pointToLookAt");
         goodsPositions = transform.Find("goodsPositions");
-        objectToStoreGoodsIn = transform.Find("goodsBank");
+        registerInventory = transform.Find("registerInventory");
         bagPosition = transform.Find("bagPosition");
         bagPrefab = transform.Find("bag");
 
@@ -61,10 +61,23 @@ public class CashRegister : MonoBehaviour, IInteractable
 
     public string GetInteractPrompt(PlayerInteract player)
     {
-        //float distance = Vector3.Distance(transform.position, player.transform.position);
-        //Debug.Log(distance);
-
-        return "Test";
+        
+        if (PlayerState.Instance.inScanningMode)
+        {
+            return "";
+        }
+        else if (PlayerState.Instance.currentlyBeingFollowed)
+        {
+            return "Help the customer first!";
+        }
+        else if (player.Inventory.currentlyHoldingBox)
+        {
+            return "Need to drop the box!";
+        }
+        else
+        {
+            return "Start Scanning";
+        }
 
     }
 
@@ -80,7 +93,8 @@ public class CashRegister : MonoBehaviour, IInteractable
     private bool GetInteractConditions(PlayerInteract player)
     {
 
-        if (!inScanningMode && !player.Inventory.currentlyHoldingBox)
+        if (!PlayerState.Instance.inScanningMode && !PlayerState.Instance.currentlyBeingFollowed && 
+            !player.Inventory.currentlyHoldingBox)
         {
             return true;
         }
@@ -111,7 +125,7 @@ public class CashRegister : MonoBehaviour, IInteractable
         for (int i = 0; i < itemsToScanList.Count; i++)
         {
             GameObject item = Instantiate(itemsToScanList[i]);
-            item.transform.SetParent(objectToStoreGoodsIn);
+            item.transform.SetParent(registerInventory);
             item.transform.position = goodsPosList[i].position;
             item.transform.rotation = goodsPosList[i].rotation;
             
