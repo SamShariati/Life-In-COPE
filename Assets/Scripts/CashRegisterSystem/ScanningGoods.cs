@@ -103,7 +103,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Only start scanning if there are items on the band
+        //// Auto Scanning
         if (register.itemsOnRegisterBand.Count > 0)
         {
             yield return new WaitForSeconds(StartDelay);
@@ -161,6 +161,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     // FLY ITEM TO BAG
     // -------------------------------------------------------------------------
 
+    // This is called after the player has scanned the goods.
     private IEnumerator FlyToBag(GameObject item, Transform bagTarget)
     {
         while (!_exitRequested &&

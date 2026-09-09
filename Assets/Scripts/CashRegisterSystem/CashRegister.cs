@@ -10,7 +10,7 @@ public class CashRegister : MonoBehaviour, IInteractable
     [HideInInspector] public GameObject player;
     private Transform bagPrefab;
     [HideInInspector] public bool placeBagOnRegister = false;
-
+    
     [HideInInspector] public ScanningGoods scanningGoods;
     [HideInInspector] public Vector3 customerRegisterPos;
 
