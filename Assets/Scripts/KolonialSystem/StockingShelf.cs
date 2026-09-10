@@ -218,7 +218,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
     public void UpdateDrag()
     {
-        _dragController?.UpdateDrag();
+        _dragController.UpdateDrag();
     }
 
     public void UpdateLook()

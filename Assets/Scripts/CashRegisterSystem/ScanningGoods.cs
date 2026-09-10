@@ -7,13 +7,12 @@ using UnityEngine.InputSystem;
 public class ScanningGoods : PlayerInput.ICashRegisterActions
 {
 
-    private PlayerInput _input;
-    private CashRegister register;
+    private PlayerInput _input;  
+    public CashRegister register;
     private GameObject _player;
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
-    private PlayerInteract _playerInteract;
 
     // Camera look state
     Quaternion targetCamLocalRot;
@@ -42,6 +41,17 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private const float LookInSpeed = 12f;
     private const float LookReturnSpeed = 6f;
 
+
+
+    //RegisterDragController
+    public Collider registerCollider;
+    public Collider interactCollider;
+    private RegisterDragController dragController;
+    public Transform scanningPlaneObj;
+
+
+
+
     // Coroutine runner
     private RegisterCoroutineRunner _runner;
 
@@ -50,11 +60,18 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     {
         this.register = register;
         _input = register.player.GetComponent<PlayerInteract>().Input;
+        registerCollider = register.GetComponent<Collider>();
+        interactCollider = register.transform.Find("interactCollider").GetComponent<Collider>();
+        scanningPlaneObj = register.transform.Find("scanningPlane");
+
+
     }
 
     public void Activate()
     {
-        //_playerInteract = pi;
+
+        dragController = new RegisterDragController(this);
+
         _player = register.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
@@ -64,6 +81,10 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _input.Player.Disable();
         _input.CashRegister.Enable();
         _input.CashRegister.AddCallbacks(this);
+
+        registerCollider.enabled = false;
+        interactCollider.enabled = false;
+        
 
         if (_runner == null)
         {
@@ -132,14 +153,18 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             GameObject frontItem = register.itemsOnRegisterBand[0];
             _itemBeingMoved = frontItem;
 
-            // Fly the front item to bagPosition
-            yield return _runner.StartCoroutine(FlyToBag(frontItem, register.bagPosition));
 
-            if (_exitRequested)
+            //------------------Logik för registerDragController------------------------
+
+            while (!_exitRequested)
             {
-                // Player exited mid-flight — item was already teleported back in ExitScanning()
-                break;
+                yield return null;
             }
+
+
+
+
+            //--------------------------------------------------------------
 
             // Item reached bag — destroy it and remove from list
             GameObject.Destroy(frontItem);
@@ -231,7 +256,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     private IEnumerator MovePlayerToRegister()
     {
-        Vector3 registerPos = register.customerRegisterPos;
+        Vector3 registerPos = register.interactColliderPos;
         registerPos = new Vector3(registerPos.x, StandingHeight, registerPos.z);
         Vector3 targetPos = registerPos;
 
@@ -289,6 +314,9 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        registerCollider.enabled = true;
+        interactCollider.enabled = true;
+
         _exitRequested = true;
 
         // If an item was mid-flight, snap it back to slot 0 so the band
@@ -318,7 +346,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     // -------------------------------------------------------------------------
 
 
-    public void UpdateLook2()
+    public void UpdateLook()
     {
         if (_cameraTransform == null) return;
 
@@ -356,28 +384,32 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     public void OnMouse(InputAction.CallbackContext ctx)
     {
-
+        dragController.OnMouse(ctx.ReadValue<Vector2>());
     }
 
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {
-
+        dragController.OnLeftClick(ctx.performed, ctx.canceled);
     }
 
     public void OnLookLeft(InputAction.CallbackContext ctx)
     {
-        Debug.Log("vänster");
         if (ctx.performed) _lookingLeft = true;
         else if (ctx.canceled) _lookingLeft = false;
     }
 
     public void OnLookRight(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Höger");
         if (ctx.performed) _lookingRight = true;
         else if (ctx.canceled) _lookingRight = false;
     }
     // -------------------------------------------------
+
+
+    public void UpdateDrag()
+    {
+        dragController.DragObject();
+    }
 
 }
 
@@ -388,7 +420,7 @@ public class RegisterCoroutineRunner : MonoBehaviour
 
     private void Update()
     {
-        //Owner?.UpdateLook();
-        Owner?.UpdateLook2();
+        Owner?.UpdateDrag();
+        Owner?.UpdateLook();
     }
 }

@@ -12,7 +12,7 @@ public class CashRegister : MonoBehaviour, IInteractable
     [HideInInspector] public bool placeBagOnRegister = false;
     
     [HideInInspector] public ScanningGoods scanningGoods;
-    [HideInInspector] public Vector3 customerRegisterPos;
+    [HideInInspector] public Vector3 interactColliderPos;
 
     [HideInInspector] public CustomerManager customerFirstInLine;
     [HideInInspector] public int itemsLeftToScan;
@@ -31,7 +31,7 @@ public class CashRegister : MonoBehaviour, IInteractable
         player = GameObject.FindWithTag("Player");
         
 
-        customerRegisterPos = transform.Find("cashRegister").position;
+        interactColliderPos = transform.Find("interactCollider").position;
         pointToLookAt = transform.Find("pointToLookAt");
         goodsPositions = transform.Find("goodsPositions");
         registerInventory = transform.Find("registerInventory");

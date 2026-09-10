@@ -34,7 +34,7 @@ public class FirstInLineState : FSMBaseState
 
     private void RotateTowardsRegister(CustomerManager agent)
     {
-        Vector3 direction = (agent.cashRegister.customerRegisterPos - agent.transform.position).normalized;
+        Vector3 direction = (agent.cashRegister.interactColliderPos - agent.transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 

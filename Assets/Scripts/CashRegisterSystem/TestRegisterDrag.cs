@@ -6,8 +6,8 @@ public class TestRegisterDrag : MonoBehaviour, PlayerInput.ICashRegister2Actions
 {
     public Transform planeCenter;
     public float squareHalfSize;
-    private float maxClampValueX = 1f;
-    private float maxClampValueZ = 0.35f;
+    private float maxClampValueX = 0.75f;
+    private float maxClampValueZ = 0.2f;
     private GameObject draggingObject;
     public Transform itemDestination;
     public Transform originalDraggedObjectPos;
@@ -18,14 +18,20 @@ public class TestRegisterDrag : MonoBehaviour, PlayerInput.ICashRegister2Actions
     private Plane dragPlane;
     private bool isDragging;
     private bool itemReachedScanner = false;
-
+    public Collider registerCollider;
+    public Collider interactCollider;
 
     void Start()
     {
         dragPlane = new Plane(planeCenter.up, planeCenter.position);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        
+        registerCollider = GetComponent<Collider>();
+        interactCollider = transform.Find("interactCollider").GetComponent<Collider>();
+
+        registerCollider.enabled = false;
+        interactCollider.enabled = false; 
+
     }
 
     void OnEnable()
@@ -42,7 +48,6 @@ public class TestRegisterDrag : MonoBehaviour, PlayerInput.ICashRegister2Actions
         if (isDragging)
         {
             DragObject();
-            ScanningObject();
         }
 
         
@@ -70,24 +75,20 @@ public class TestRegisterDrag : MonoBehaviour, PlayerInput.ICashRegister2Actions
                 + planeCenter.forward * localZ;
 
             draggingObject.transform.position = clampedPosition;
-        }
-    }
 
-    private void ScanningObject()
-    {
 
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-
-        if (Physics.Raycast(ray, out RaycastHit hit)
+            if (Physics.Raycast(ray, out RaycastHit hit)
             && hit.collider.CompareTag("DropItemZone"))
-        {
+            {
 
-            draggingObject.transform.position = itemDestination.position;
-            itemReachedScanner = true;
-            isDragging = false;
-            draggingObject = null;
+                draggingObject.transform.position = itemDestination.position;
+                itemReachedScanner = true;
+                isDragging = false;
+                draggingObject = null;
+            }
         }
     }
+
 
     public void OnLookAround(InputAction.CallbackContext ctx)
     {

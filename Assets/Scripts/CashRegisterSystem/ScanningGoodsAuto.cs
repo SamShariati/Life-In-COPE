@@ -213,7 +213,7 @@ public class ScanningGoodsAuto : PlayerInput.ICashRegisterActions
 
     private IEnumerator MovePlayerToRegister()
     {
-        Vector3 registerPos = register.customerRegisterPos;
+        Vector3 registerPos = register.interactColliderPos;
         registerPos = new Vector3(registerPos.x, StandingHeight, registerPos.z);
         Vector3 targetPos = registerPos;
 
