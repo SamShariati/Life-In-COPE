@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: peanutButter
   stockedPrefab: {fileID: 4703614337923397114, guid: 66f697aeac81ba94081b22114c630dec, type: 3}
-  placedPrefab: {fileID: 4929618109822135421, guid: bb89e2c8400dc004aaab0db338e2ceb8, type: 3}
+  placedPrefab: {fileID: 4192676408611673395, guid: bb89e2c8400dc004aaab0db338e2ceb8, type: 3}
   transparentPrefab: {fileID: 5461512091917027599, guid: dd8d5c60b91216149a968a42f53f2aba, type: 3}

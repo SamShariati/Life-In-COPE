@@ -1,17 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5114885489441063197
+--- !u!1 &4341227597793298406
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7176678345792947052, guid: 3ec971382cc098540a09f7241e3d1ed4, type: 3}
-  m_PrefabInstance: {fileID: 7452628700100798902}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7678767773250294952}
-  - component: {fileID: 461513377622184320}
-  - component: {fileID: 3282916584126085744}
-  - component: {fileID: 7111244103038019026}
+  - component: {fileID: 7333314670836656586}
+  - component: {fileID: 2918556593748693379}
+  - component: {fileID: 1088974627404224503}
+  - component: {fileID: 4983126971127271802}
   m_Layer: 0
   m_Name: animalFood_stocking
   m_TagString: Untagged
@@ -19,48 +19,48 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7678767773250294952
+--- !u!4 &7333314670836656586
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7074094093448093173, guid: 3ec971382cc098540a09f7241e3d1ed4, type: 3}
-  m_PrefabInstance: {fileID: 7452628700100798902}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114885489441063197}
+  m_GameObject: {fileID: 4341227597793298406}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.25207996}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8882573005973611940}
+  m_Father: {fileID: 8185432053751483159}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &461513377622184320
+--- !u!114 &2918556593748693379
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 3305833101969455619, guid: 3ec971382cc098540a09f7241e3d1ed4, type: 3}
-  m_PrefabInstance: {fileID: 7452628700100798902}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114885489441063197}
+  m_GameObject: {fileID: 4341227597793298406}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df123053af99a39488efa510851f0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeshCombiner
---- !u!33 &3282916584126085744
+--- !u!33 &1088974627404224503
 MeshFilter:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 8244652596341214807, guid: 3ec971382cc098540a09f7241e3d1ed4, type: 3}
-  m_PrefabInstance: {fileID: 7452628700100798902}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114885489441063197}
+  m_GameObject: {fileID: 4341227597793298406}
   m_Mesh: {fileID: 4300000, guid: fcd16fd5bacdee84089671effffbc3fc, type: 2}
---- !u!23 &7111244103038019026
+--- !u!23 &4983126971127271802
 MeshRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 2111687290368398383, guid: 3ec971382cc098540a09f7241e3d1ed4, type: 3}
-  m_PrefabInstance: {fileID: 7452628700100798902}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114885489441063197}
+  m_GameObject: {fileID: 4341227597793298406}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -103,7 +103,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5694871357347252744
+--- !u!1 &7660554885754261758
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8882573005973611940}
+  - component: {fileID: 8185432053751483159}
   m_Layer: 0
   m_Name: animalFood_stocking
   m_TagString: Untagged
@@ -119,76 +119,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8882573005973611940
+--- !u!4 &8185432053751483159
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5694871357347252744}
+  m_GameObject: {fileID: 7660554885754261758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.278414, y: 0, z: -3.1632185}
+  m_LocalPosition: {x: 16.82104, y: 0, z: -9.1717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7678767773250294952}
+  - {fileID: 7333314670836656586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7452628700100798902
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8882573005973611940}
-    m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Name
-      value: animalFood_stocking
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 0}

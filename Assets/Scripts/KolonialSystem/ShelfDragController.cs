@@ -61,12 +61,15 @@ public class ShelfDragController
             {
                 isDragging = true;
 
+                
                 if (dragPlane.Raycast(ray, out float enter))
                 {
                     Vector3 spawnPos = ClampToDragRange(ray.GetPoint(enter));
-                    spawnedObject = runner.SpawnObject(shelf.placingPrefab, spawnPos, Quaternion.identity);
+                    spawnedObject = runner.SpawnObject(shelf.stockingGoodsPrefab, spawnPos, Quaternion.identity);
                     Vector3 currentScale = spawnedObject.transform.localScale;
                     spawnedObject.transform.localScale = new Vector3(currentScale.x * itemScale, currentScale.y * itemScale, currentScale.z * itemScale);
+                    Quaternion correctRotation = hitInfo.transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+                    spawnedObject.transform.rotation = correctRotation;
 
                     // Pivot is off-center on these prefabs, so record how far the
                     // visual center sits from the pivot at spawn time.
@@ -101,7 +104,7 @@ public class ShelfDragController
             Vector3 currentScale = spawnedObject.transform.localScale;
             spawnedObject.transform.localScale = new Vector3(currentScale.x / itemScale, currentScale.y / itemScale, currentScale.z / itemScale);
 
-            GameObject stockedPrefab = runner.SpawnObject(shelf.stockedPrefab, hit.collider.transform.position, shelf.shelfItemRotation);
+            GameObject stockedPrefab = runner.SpawnObject(shelf.stockedGoodsPrefab, hit.collider.transform.position, shelf.shelfItemRotation);
             //spawnedObject.transform.position = hit.collider.transform.position;
 
             runner.DestroyObject(spawnedObject);

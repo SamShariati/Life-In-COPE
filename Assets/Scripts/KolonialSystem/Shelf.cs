@@ -6,9 +6,9 @@ using UnityEngine;
 public class Shelf : MonoBehaviour, IInteractable
 {
 
-    [HideInInspector] public GameObject stockedPrefab;
-    [HideInInspector] public GameObject transparentPrefab;
-    [HideInInspector] public GameObject placingPrefab;
+    [HideInInspector] public GameObject stockedGoodsPrefab;
+    [HideInInspector] public GameObject transparentGoodsPrefab;
+    [HideInInspector] public GameObject stockingGoodsPrefab;
     [HideInInspector] public Transform shelfArrow;
     [HideInInspector] public int remainingGoodsToStock; //ATM if variable = 0 --> shelf stocked, else not
     [HideInInspector] private StockingShelf stockingShelf;
@@ -109,14 +109,14 @@ public class Shelf : MonoBehaviour, IInteractable
 
                         if (layer == firstLayer || layer == fourthLayer)
                         {
-                            GameObject product = Instantiate(stockedPrefab);
+                            GameObject product = Instantiate(stockedGoodsPrefab);
                             product.transform.SetParent(layer);
                             product.transform.position = pos.position;
                             product.transform.rotation = pos.rotation;
                         }
                         else
                         {
-                            GameObject product = Instantiate(transparentPrefab);
+                            GameObject product = Instantiate(transparentGoodsPrefab);
                             product.transform.SetParent(layer);
                             product.transform.position = pos.position;
                             product.transform.rotation = pos.rotation;
@@ -140,7 +140,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
                     foreach (Transform pos in positions)
                     {
-                        GameObject product = Instantiate(stockedPrefab);
+                        GameObject product = Instantiate(stockedGoodsPrefab);
                         product.transform.SetParent(layer);
                         product.transform.position = pos.position;
                         product.transform.rotation = pos.rotation;

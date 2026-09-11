@@ -56,9 +56,9 @@ public class ShelfManager : MonoBehaviour
             {
                 if (shelfGoodsType == boxData.boxID)
                 {
-                    shelf.stockedPrefab = boxData.stockedPrefab;
-                    shelf.placingPrefab = boxData.placedPrefab;
-                    shelf.transparentPrefab = boxData.transparentPrefab;
+                    shelf.stockedGoodsPrefab = boxData.stockedPrefab;
+                    shelf.stockingGoodsPrefab = boxData.placedPrefab;
+                    shelf.transparentGoodsPrefab = boxData.transparentPrefab;
 
                 }
             }
