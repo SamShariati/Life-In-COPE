@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2359968930332744282}
   - component: {fileID: 7742777190621686909}
   - component: {fileID: 6105623405105380132}
+  - component: {fileID: 7013603194114421283}
   m_Layer: 0
   m_Name: cereal_stocking
   m_TagString: Untagged
@@ -104,6 +105,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7013603194114421283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590145819465578934}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.12255408, y: 0.236824, z: 0.07108155}
+  m_Center: {x: -0.00000008940697, y: 0.47364798, z: 0.7529998}
 --- !u!1 &2660794763178752281
 GameObject:
   m_ObjectHideFlags: 0

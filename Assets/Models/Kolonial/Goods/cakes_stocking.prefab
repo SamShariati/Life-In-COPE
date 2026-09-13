@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 435293377398056954}
   - component: {fileID: 1931215920199665023}
   - component: {fileID: 7566893626232742020}
+  - component: {fileID: 7166986212060386371}
   m_Layer: 0
   m_Name: cakes_stocking
   m_TagString: Untagged
@@ -135,3 +136,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7166986212060386371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177658204049193508}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.09784977, y: 0.20612966, z: 0.22207566}
+  m_Center: {x: -0.0034148768, y: 0.41225928, z: 0.45373112}

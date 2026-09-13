@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 622377592673858320}
   - component: {fileID: 8934589822891573122}
   - component: {fileID: 3350619488776308736}
+  - component: {fileID: 8823427911207988828}
   m_Layer: 0
   m_Name: soda_stocking
   m_TagString: Untagged
@@ -226,3 +227,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8823427911207988828
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252423205352860656}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.088687465, y: 0.25713915, z: 0.088687465}
+  m_Center: {x: -0.000000113621354, y: 0.12863472, z: 0.13440013}

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 9205565631274877471}
   - component: {fileID: 7431866588339103025}
   - component: {fileID: 3087257122455384896}
+  - component: {fileID: 6016378690695525294}
   m_Layer: 0
   m_Name: chips_stocking
   m_TagString: Untagged
@@ -226,3 +227,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6016378690695525294
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9220077347715608796}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.020228282, y: 0.057896424, z: 0.020228375}
+  m_Center: {x: 0.0010750517, y: 0.11585788, z: 0.13036877}

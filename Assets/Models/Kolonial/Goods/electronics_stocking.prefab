@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3055381014563743662}
   - component: {fileID: 916004136332153320}
   - component: {fileID: 4287604759350155014}
+  - component: {fileID: 2811710218870999312}
   m_Layer: 0
   m_Name: electronics_stocking
   m_TagString: Untagged
@@ -136,6 +137,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2811710218870999312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4983139272227255105}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.14190675, y: 0.12572758, z: 0.20020998}
+  m_Center: {x: 0, y: 0.25145516, z: 0.6090002}
 --- !u!1 &7221752522713734742
 GameObject:
   m_ObjectHideFlags: 0

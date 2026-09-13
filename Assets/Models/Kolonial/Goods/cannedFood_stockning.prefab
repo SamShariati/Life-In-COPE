@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 2957707962577782805}
   - component: {fileID: 8613501385384602834}
   - component: {fileID: 6507434057561160752}
+  - component: {fileID: 4788585044672471691}
   m_Layer: 0
   m_Name: cannedFood_stocking
   m_TagString: Untagged
@@ -287,6 +288,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4788585044672471691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2413938247205561633}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.11792255, y: 0.17160106, z: 0.10068257}
+  m_Center: {x: -0.017184973, y: 0.3432021, z: 0.67174006}
 --- !u!1 &7417618387615667262
 GameObject:
   m_ObjectHideFlags: 0

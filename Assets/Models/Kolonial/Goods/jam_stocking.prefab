@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 1994815769426400913}
   - component: {fileID: 8931188163319892661}
   - component: {fileID: 5441852532415691124}
+  - component: {fileID: 8148838513145958763}
   m_Layer: 0
   m_Name: jam_stocking
   m_TagString: Untagged
@@ -409,6 +410,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8148838513145958763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696022774634477595}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.094719, y: 0.12129922, z: 0.0415918}
+  m_Center: {x: -0.007499695, y: 0.24259834, z: 0.7710001}
 --- !u!1 &8867944069020320227
 GameObject:
   m_ObjectHideFlags: 0
