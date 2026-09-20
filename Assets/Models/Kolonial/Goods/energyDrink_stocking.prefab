@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7406717981109513773}
   m_Layer: 0
   m_Name: energyDrink_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2822259930550518573}
   m_Layer: 0
   m_Name: energyDrink_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

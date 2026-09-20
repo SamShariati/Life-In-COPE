@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 786037484612230609}
   m_Layer: 0
   m_Name: tacos_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 859972167296418110}
   m_Layer: 0
   m_Name: tacos_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

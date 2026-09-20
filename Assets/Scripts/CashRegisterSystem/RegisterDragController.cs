@@ -21,7 +21,9 @@ public class RegisterDragController
     private bool isDragging;
     private bool itemReachedScanner = false;
     private Transform planeCenter;
-    
+    private Vector3 itemCenterOffset;
+    private Vector3 itemBottomCenterOffset;
+
 
 
     public RegisterDragController(ScanningGoods _scanningGoods)
@@ -62,7 +64,9 @@ public class RegisterDragController
                 + planeCenter.right * localX
                 + planeCenter.forward * localZ;
 
-            draggingObject.transform.position = clampedPosition;
+            clampedPosition.y = hitPoint.y;
+
+            draggingObject.transform.position = clampedPosition - itemCenterOffset;
 
             if (Physics.Raycast(ray, out RaycastHit hit)
             && hit.collider.CompareTag("DropItemZone"))
@@ -89,12 +93,35 @@ public class RegisterDragController
             if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, ~0, QueryTriggerInteraction.Collide)
                 && hit.collider.CompareTag("Product"))
             {
-                if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position)
-                {
-                    itemReachedScanner = false;
-                    draggingObject = hit.collider.gameObject;
-                    isDragging = true;
-                }
+
+                itemReachedScanner = false;
+                draggingObject = hit.collider.gameObject;
+                isDragging = true;
+                // Distance from the pivot to the visual center
+
+                Vector3 center = GetBoundsCenter(draggingObject);
+                Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
+                itemCenterOffset = center - draggingObject.transform.position;
+                itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
+
+                dragPlane = new Plane(planeCenter.up,
+                    new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
+
+                //if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position)
+                //{
+                //    itemReachedScanner = false;
+                //    draggingObject = hit.collider.gameObject;
+                //    isDragging = true;
+                //    // Distance from the pivot to the visual center
+
+                //    Vector3 center = GetBoundsCenter(draggingObject);
+                //    Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
+                //    itemCenterOffset = center - draggingObject.transform.position;
+                //    itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
+
+                //    dragPlane = new Plane(planeCenter.up,
+                //        new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
+                //}
 
             }
         }
@@ -106,12 +133,42 @@ public class RegisterDragController
 
             if (!itemReachedScanner && draggingObject != null)
             {
-                draggingObject.transform.position = scanningGoods.register.goodsPosList[0].transform.position;
+                draggingObject.transform.position = scanningGoods.register.goodsPosList[0].transform.position - itemBottomCenterOffset;
             }
 
         }
 
 
+    }
+
+    private Vector3 GetBoundsCenter(GameObject obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+            return obj.transform.position;
+
+        Bounds bounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            bounds.Encapsulate(renderers[i].bounds);
+        }
+        return bounds.center;
+    }
+
+    private Vector3 GetBoundsBottomCenter(GameObject obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+            return obj.transform.position;
+
+        Bounds bounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            bounds.Encapsulate(renderers[i].bounds);
+        }
+
+        // Same x/z as the center, but y at the bottom of the box
+        return new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
     }
 }
 

@@ -132,5 +132,16 @@ public class CashRegister : MonoBehaviour, IInteractable
             itemsOnRegisterBand.Add(item);
         }
 
+        EnableGoodsColliders();
+
+
+    }
+
+    public void EnableGoodsColliders()
+    {
+        foreach (GameObject item in itemsOnRegisterBand)
+        {
+            item.GetComponentInChildren<Collider>().enabled = true;
+        }
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8987083971085473160}
   m_Layer: 0
   m_Name: toiletPaper_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 4589165029129643988}
   m_Layer: 0
   m_Name: toiletPaper_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

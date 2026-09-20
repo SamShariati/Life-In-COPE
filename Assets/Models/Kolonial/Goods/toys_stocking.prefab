@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 1534245635254707941}
   m_Layer: 0
   m_Name: toys_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 2474601222320982348}
   m_Layer: 0
   m_Name: toys_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

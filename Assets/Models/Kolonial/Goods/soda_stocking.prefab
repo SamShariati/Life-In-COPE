@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8575312546189097900}
   m_Layer: 0
   m_Name: soda_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 8823427911207988828}
   m_Layer: 0
   m_Name: soda_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,5 +246,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.088687465, y: 0.25713915, z: 0.088687465}
+  m_Size: {x: 0.022171864, y: 0.06428477, z: 0.022171864}
   m_Center: {x: -0.000000113621354, y: 0.12863472, z: 0.13440013}

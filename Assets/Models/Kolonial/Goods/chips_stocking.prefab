@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 2519924680506203422}
   m_Layer: 0
   m_Name: chips_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6016378690695525294}
   m_Layer: 0
   m_Name: chips_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2175400109970135431}
   m_Layer: 0
   m_Name: shampoo_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 3849265155473887858}
   m_Layer: 0
   m_Name: shampoo_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

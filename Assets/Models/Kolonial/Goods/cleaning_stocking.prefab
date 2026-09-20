@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 24801873406599319}
   m_Layer: 0
   m_Name: cleaning_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4498148247463726936}
   m_Layer: 0
   m_Name: cleaning_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

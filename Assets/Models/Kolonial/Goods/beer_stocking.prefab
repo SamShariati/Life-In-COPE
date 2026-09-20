@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7702550856697332223}
   m_Layer: 0
   m_Name: beer_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 8009456057084374422}
   m_Layer: 0
   m_Name: beer_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

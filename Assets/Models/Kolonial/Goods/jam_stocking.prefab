@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1800691808087163312}
   m_Layer: 0
   m_Name: jam_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 8148838513145958763}
   m_Layer: 0
   m_Name: jam_stocking
-  m_TagString: Untagged
+  m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
