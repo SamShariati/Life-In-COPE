@@ -72,10 +72,11 @@ public class RegisterDragController
             && hit.collider.CompareTag("DropItemZone"))
             {
 
-                draggingObject.transform.position = scanningGoods.register.bagPosition.position; //Kommer tas bort sen
+                GameObject scannedItem = draggingObject;
                 itemReachedScanner = true;
                 isDragging = false;
                 draggingObject = null;
+                scanningGoods.OnItemScanned(scannedItem);
             }
         }
     }
@@ -94,20 +95,7 @@ public class RegisterDragController
                 && hit.collider.CompareTag("Product"))
             {
 
-                //itemReachedScanner = false;
-                //draggingObject = hit.collider.gameObject;
-                //isDragging = true;
-                //// Distance from the pivot to the visual center
-
-                //Vector3 center = GetBoundsCenter(draggingObject);
-                //Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
-                //itemCenterOffset = center - draggingObject.transform.position;
-                //itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
-
-                //dragPlane = new Plane(planeCenter.up,
-                //    new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
-
-                if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position)
+                if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position) //kommer behöva ändras om vi ska randomiza item placering på bandet.
                 {
                     itemReachedScanner = false;
                     draggingObject = hit.collider.gameObject;

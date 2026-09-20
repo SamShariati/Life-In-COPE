@@ -3,6 +3,11 @@ using UnityEngine;
 public class FirstInLineState : FSMBaseState
 {
     float distanceToTarget;
+    private enum Phase { IdleStanding, ThankAnimation, Exit}
+    private Phase phase = Phase.IdleStanding;
+    private bool thankStarted = false;
+
+
     public override void EnterState(CustomerManager agent)
     {
         //agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
@@ -15,20 +20,56 @@ public class FirstInLineState : FSMBaseState
     }
     public override void UpdateState(CustomerManager agent)
     {
-        distanceToTarget = Vector3.Distance(agent.currentQueuePos, agent.transform.position);
-        agent.animator.SetState(AnimState.Idle);
-        agent.navigation.SetDestination(agent.currentQueuePos);
 
-        if (distanceToTarget < 0.2f)
+        switch (phase)
         {
-            RotateTowardsRegister(agent);
+
+            case Phase.IdleStanding:
+
+                distanceToTarget = Vector3.Distance(agent.currentQueuePos, agent.transform.position);
+                agent.animator.SetState(AnimState.Idle);
+                agent.navigation.SetDestination(agent.currentQueuePos);
+
+                if (distanceToTarget < 0.2f)
+                {
+                    RotateTowardsRegister(agent);
+                }
+
+                if (agent.transactionComplete)
+                {
+                    phase = Phase.ThankAnimation;            
+                }
+
+                break;
+
+            case Phase.ThankAnimation:
+
+                agent.C_Functions.RotateTowardsPlayer();
+
+                if (!thankStarted)
+                {
+                    agent.animator.SetState(AnimState.Thank);
+                    thankStarted = true;
+                    break;
+                }
+
+                if (agent.animator.IsStateFinished("Thank"))
+                {
+                    phase = Phase.Exit;
+                }
+                break;
+
+            case Phase.Exit:
+
+
+                QueueManager.Instance.AdvanceQueue();
+                agent.SwitchState(agent.exitStoreState);
+
+                break;
+
         }
 
-        if (agent.transactionComplete)
-        {
-            QueueManager.Instance.AdvanceQueue();
-            agent.SwitchState(agent.exitStoreState);
-        }
+
     }
 
 

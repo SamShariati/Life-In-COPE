@@ -20,7 +20,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private const float StandingHeight = 1.28f;
 
     // Scanning state
-    private GameObject _itemBeingMoved = null;    // the item currently flying to bagPosition
     private bool _exitRequested = false;
 
     private const float MoveSpeed = 2f;
@@ -42,14 +41,15 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private const float LookReturnSpeed = 6f;
 
 
-
     //RegisterDragController
     public Collider registerCollider;
     public Collider interactCollider;
     private RegisterDragController dragController;
     public Transform scanningPlaneObj;
 
-
+    private RegisterAnimationRunner _animationRunner;   // survives exiting scan mode
+    private Coroutine _slideRoutine;
+    private int _itemsFlying = 0;
 
 
     // Coroutine runner
@@ -93,6 +93,12 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             _runner.Owner = this;
         }
 
+        if (_animationRunner == null)
+        {
+            GameObject animGO = new GameObject("RegisterAnimationRunner");
+            _animationRunner = animGO.AddComponent<RegisterAnimationRunner>();
+        }
+
         _exitRequested = false;
         _runner.StartCoroutine(ScanningSequence());
     }
@@ -110,8 +116,6 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             // --- Step 1: Move player into position ---
             yield return _runner.StartCoroutine(MovePlayerToRegister());
         }
-
-        
 
         _baseCamLocalRot = targetCamLocalRot;
         _basePlayerRot = _player.transform.rotation;
@@ -147,49 +151,21 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private IEnumerator ScanLoop()
     {
 
+        //Active as long as player is active on register.
+
         while (register.itemsOnRegisterBand.Count > 0 && !_exitRequested)
         {
-            // The front item is always index 0
-            GameObject frontItem = register.itemsOnRegisterBand[0];
-            _itemBeingMoved = frontItem;
-
-
-            //------------------Logik för registerDragController------------------------
-
-            while (!_exitRequested)
-            {
-                yield return null;
-            }
-
-
-
-
-            //--------------------------------------------------------------
-
-            // Item reached bag — destroy it and remove from list
-            GameObject.Destroy(frontItem);
-            register.itemsOnRegisterBand.RemoveAt(0);
-            _itemBeingMoved = null;
-
-            // Slide all remaining items forward simultaneously
-            if (register.itemsOnRegisterBand.Count > 0)
-            {
-                yield return _runner.StartCoroutine(SlideItemsForward());
-
-                yield return new WaitForSeconds(DelayBetweenScans);
-            }
+            yield return null;
         }
 
     }
 
-    // -------------------------------------------------------------------------
-    // FLY ITEM TO BAG
-    // -------------------------------------------------------------------------
 
-    // This is called after the player has scanned the goods.
     private IEnumerator FlyToBag(GameObject item, Transform bagTarget)
     {
-        while (!_exitRequested &&
+        _itemsFlying++;
+
+        while (item != null &&
                Vector3.Distance(item.transform.position, bagTarget.position) > 0.01f)
         {
             item.transform.position = Vector3.MoveTowards(
@@ -200,45 +176,31 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             yield return null;
         }
 
-        if (!_exitRequested)
-        {
-            item.transform.position = bagTarget.position;
-        }
+        if (item != null) GameObject.Destroy(item);
+        _itemsFlying--;
     }
 
-    // -------------------------------------------------------------------------
-    // SLIDE ALL REMAINING ITEMS FORWARD SIMULTANEOUSLY
-    // Each item moves to the goodsPosList slot one index lower than its current one.
-    // Item that was at slot 1 → slot 0, slot 2 → slot 1, etc.
-    // -------------------------------------------------------------------------
 
     private IEnumerator SlideItemsForward()
     {
-        int count = register.itemsOnRegisterBand.Count;
-
-        // Build target positions: item[i] moves to goodsPosList[i] (which is one step forward)
-        Vector3[] targets = new Vector3[count];
-        for (int i = 0; i < count; i++)
-        {
+        List<GameObject> items = new List<GameObject>(register.itemsOnRegisterBand);
+        Vector3[] targets = new Vector3[items.Count];
+        for (int i = 0; i < items.Count; i++)
             targets[i] = register.goodsPosList[i].position;
-        }
 
         bool allArrived = false;
-        while (!allArrived && !_exitRequested)
+        while (!allArrived)
         {
             allArrived = true;
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                GameObject item = register.itemsOnRegisterBand[i];
+                GameObject item = items[i];
                 if (item == null) continue;
 
                 if (Vector3.Distance(item.transform.position, targets[i]) > 0.01f)
                 {
                     item.transform.position = Vector3.MoveTowards(
-                        item.transform.position,
-                        targets[i],
-                        BandMoveSpeed * Time.deltaTime
-                    );
+                        item.transform.position, targets[i], BandMoveSpeed * Time.deltaTime);
                     allArrived = false;
                 }
                 else
@@ -248,11 +210,10 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             }
             yield return null;
         }
+
+        _slideRoutine = null;
     }
 
-    // -------------------------------------------------------------------------
-    // MOVE PLAYER INTO POSITION
-    // -------------------------------------------------------------------------
 
     private IEnumerator MovePlayerToRegister()
     {
@@ -303,9 +264,24 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         playerInPosition = true;
     }
 
-    // -------------------------------------------------------------------------
-    // EXIT
-    // -------------------------------------------------------------------------
+    public void OnItemScanned(GameObject item)
+    {
+        // Remove first, so the list matches the slots before the slide starts
+        register.itemsOnRegisterBand.Remove(item);
+
+        // A slide from a previous scan may still be running. Replace it, so two slides never fight over the same items.
+        if (_slideRoutine != null)
+        {
+            _animationRunner.StopCoroutine(_slideRoutine);
+            _slideRoutine = null;
+        }
+
+        _animationRunner.StartCoroutine(FlyToBag(item, register.bagPosition));
+
+        if (register.itemsOnRegisterBand.Count > 0)
+            _slideRoutine = _animationRunner.StartCoroutine(SlideItemsForward());
+    }
+
 
     private void ExitScanning()
     {
@@ -319,14 +295,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
         _exitRequested = true;
 
-        // If an item was mid-flight, snap it back to slot 0 so the band
-        // is in a clean state for next time the player steps in.
-        if (_itemBeingMoved != null && register.itemsOnRegisterBand.Count > 0
-            && register.itemsOnRegisterBand[0] == _itemBeingMoved)
-        {
-            _itemBeingMoved.transform.position = register.goodsPosList[0].position;
-            _itemBeingMoved = null;
-        }
+  
 
         _input.CashRegister.Disable();
         _input.CashRegister.RemoveCallbacks(this);
@@ -424,3 +393,5 @@ public class RegisterCoroutineRunner : MonoBehaviour
         Owner?.UpdateLook();
     }
 }
+
+public class RegisterAnimationRunner : MonoBehaviour { }
