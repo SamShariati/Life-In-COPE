@@ -94,34 +94,34 @@ public class RegisterDragController
                 && hit.collider.CompareTag("Product"))
             {
 
-                itemReachedScanner = false;
-                draggingObject = hit.collider.gameObject;
-                isDragging = true;
-                // Distance from the pivot to the visual center
+                //itemReachedScanner = false;
+                //draggingObject = hit.collider.gameObject;
+                //isDragging = true;
+                //// Distance from the pivot to the visual center
 
-                Vector3 center = GetBoundsCenter(draggingObject);
-                Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
-                itemCenterOffset = center - draggingObject.transform.position;
-                itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
+                //Vector3 center = GetBoundsCenter(draggingObject);
+                //Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
+                //itemCenterOffset = center - draggingObject.transform.position;
+                //itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
 
-                dragPlane = new Plane(planeCenter.up,
-                    new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
+                //dragPlane = new Plane(planeCenter.up,
+                //    new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
 
-                //if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position)
-                //{
-                //    itemReachedScanner = false;
-                //    draggingObject = hit.collider.gameObject;
-                //    isDragging = true;
-                //    // Distance from the pivot to the visual center
+                if (hit.collider.gameObject.transform.position == scanningGoods.register.itemsOnRegisterBand[0].transform.position)
+                {
+                    itemReachedScanner = false;
+                    draggingObject = hit.collider.gameObject;
+                    isDragging = true;
+                    // Distance from the pivot to the visual center
 
-                //    Vector3 center = GetBoundsCenter(draggingObject);
-                //    Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
-                //    itemCenterOffset = center - draggingObject.transform.position;
-                //    itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
+                    Vector3 center = GetBoundsCenter(draggingObject);
+                    Vector3 bottomCenter = GetBoundsBottomCenter(draggingObject);
+                    itemCenterOffset = center - draggingObject.transform.position;
+                    itemBottomCenterOffset = bottomCenter - draggingObject.transform.position;
 
-                //    dragPlane = new Plane(planeCenter.up,
-                //        new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
-                //}
+                    dragPlane = new Plane(planeCenter.up,
+                        new Vector3(planeCenter.position.x, center.y, planeCenter.position.z));
+                }
 
             }
         }
