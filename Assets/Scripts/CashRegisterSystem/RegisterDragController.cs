@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -77,6 +78,7 @@ public class RegisterDragController
                 isDragging = false;
                 draggingObject = null;
                 scanningGoods.OnItemScanned(scannedItem);
+                new StockedGoodAnimation(scannedItem, 40f).Play();
             }
         }
     }

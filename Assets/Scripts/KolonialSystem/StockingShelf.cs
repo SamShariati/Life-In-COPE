@@ -134,6 +134,9 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         _dragController.SetupDragPlane();
 
+
+        //-----------------LOOP----------------------------
+
         while (shelf.remainingGoodsToStock > 0)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -147,6 +150,8 @@ public class StockingShelf : PlayerInput.IShelfActions
 
             yield return null;
         }
+
+        //-------------------------------------------------
         ExitStocking(playerInteract);
     }
 
@@ -179,6 +184,7 @@ public class StockingShelf : PlayerInput.IShelfActions
         }
         else
         {
+            shelf.FillStockedShelves();
             playerInteract.Inventory.DestroyBox();
         }
     }

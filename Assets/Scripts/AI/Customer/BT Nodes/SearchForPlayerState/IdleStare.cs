@@ -26,7 +26,7 @@ public class IdleStare : BTNode
 
                 RotateTowardsPlayer(agent);
                 agent.navigation.isStopped = true;
-                agent.animator.SetState(AnimState.Idle);
+                agent.animator.SetState(AnimState.Thank);
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {

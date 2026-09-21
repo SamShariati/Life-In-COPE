@@ -114,7 +114,7 @@ public class ShelfDragController
 
             stockedPrefab.transform.SetParent(shelf.transform, worldPositionStays: true);
 
-            new StockedGoodAnimation(stockedPrefab).Play();
+            new StockedGoodAnimation(stockedPrefab, 30f).Play();
 
 
             spawnedObject = null;

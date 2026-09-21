@@ -1,6 +1,7 @@
+using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using NUnit.Framework;
 using UnityEngine;
 
 public class Shelf : MonoBehaviour, IInteractable
@@ -95,10 +96,11 @@ public class Shelf : MonoBehaviour, IInteractable
                 foreach (Transform layer in shelfLayers)
                 {
 
-                    Transform firstLayer = shelfLayers.GetChild(0);
-                    Transform fourthLayer = shelfLayers.GetChild(3);
+                    Transform secondLayer = shelfLayers.GetChild(1);
+                    Transform thirdLayer = shelfLayers.GetChild(2);
 
                     List<Transform> positions = new List<Transform>();
+
                     foreach (Transform pos in layer)
                     {
                         positions.Add(pos);
@@ -107,14 +109,7 @@ public class Shelf : MonoBehaviour, IInteractable
                     foreach (Transform pos in positions)
                     {
 
-                        if (layer == firstLayer || layer == fourthLayer)
-                        {
-                            GameObject product = Instantiate(stockedGoodsPrefab);
-                            product.transform.SetParent(layer);
-                            product.transform.position = pos.position;
-                            product.transform.rotation = pos.rotation;
-                        }
-                        else
+                        if (layer == secondLayer || layer == thirdLayer)
                         {
                             GameObject product = Instantiate(transparentGoodsPrefab);
                             product.transform.SetParent(layer);
@@ -192,5 +187,38 @@ public class Shelf : MonoBehaviour, IInteractable
             return false;
         }
 
+    }
+
+    public void FillStockedShelves()
+    {
+        StartCoroutine(FillStockedShelvesRoutine());
+    }
+
+    private IEnumerator FillStockedShelvesRoutine()
+    {
+        Transform firstLayer = shelfLayers.GetChild(0);
+        Transform fourthLayer = shelfLayers.GetChild(3);
+
+        foreach (Transform layer in shelfLayers)
+        {
+            if (layer != firstLayer && layer != fourthLayer)
+            {
+                continue;
+            }
+
+            List<Transform> positions = new List<Transform>();
+            foreach (Transform pos in layer)
+                positions.Add(pos);
+
+            foreach (Transform pos in positions)
+            {
+                GameObject product = Instantiate(stockedGoodsPrefab);
+                product.transform.SetParent(layer);
+                product.transform.SetPositionAndRotation(pos.position, pos.rotation);
+                new StockedGoodAnimation(product, 40f).Play();
+
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
     }
 }
