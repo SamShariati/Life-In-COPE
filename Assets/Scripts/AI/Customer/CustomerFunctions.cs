@@ -113,8 +113,7 @@ public class CustomerFunctions
 
     public void CalculateImpactRotation()
     {
-        // dotProduct < 0 -> hit from front -> falls backward -> face AWAY from throw
-        // dotProduct >= 0 -> hit from behind -> falls forward -> face SAME as throw
+
         Vector3 dir = agent.dotProduct < 0f ? -agent.thrownDirection : agent.thrownDirection;
 
         dir.y = 0f;
@@ -123,15 +122,14 @@ public class CustomerFunctions
             dir = agent.transform.forward; // fallback, e.g. near-vertical throw
 
         agent.impactTargetRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
-    }
-
-    
+    }   
 
     public void RotateOnHitImpact()
     {
         agent.transform.rotation = Quaternion.RotateTowards(agent.transform.rotation,
             agent.impactTargetRotation, rotateSpeedDegPerSec * Time.deltaTime);
     }
+
 
     public void RotateTowardsPlayer()
     {
