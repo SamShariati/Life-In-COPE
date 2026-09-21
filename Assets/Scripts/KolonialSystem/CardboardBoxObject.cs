@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +13,10 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
     [SerializeField] private TextMeshProUGUI textIDBack;
     [SerializeField] private Transform textPosFront;
     [SerializeField] private Transform textPosBack;
-    
+
+    public bool IsInFlight { get; private set; }
+    public Vector3 ThrownDirection { get; private set; }
+
     //ÄNDRA SÅ ATT ETT PARENTOBJEKT INNEHÅLLER: closedBoxPrefab, openBoxPrefab, OCH ALLA 4 OBJEKT OVAN
     //SKAPA TVÅ METODER: EnableClosedBox, EnableOpenBox. DESSA AKTIVERAS FRÅN SHELF (TROR JAG)
     private void Awake()
@@ -54,6 +58,7 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
 
     public void GetDropped()
     {
+        ClearThrow();
         rb.isKinematic = false; // re-enable physics
         coll.enabled = true;
         transform.SetParent(null);
@@ -66,7 +71,34 @@ public class CardboardBoxObject : MonoBehaviour, IInteractable
         transform.SetParent(null);
         Vector3 throwDirection = (transform.forward + transform.up * 0.4f).normalized;
         rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+
+        Vector3 flat = new Vector3(throwDirection.x, 0f, throwDirection.z);
+        ThrownDirection = flat.normalized;
+        IsInFlight = true;
     }
+
+
+    public void ClearThrow()
+    {
+        IsInFlight = false;
+        ThrownDirection = Vector3.zero;
+    }
+
+
+    // also call ClearThrow() at the top of GetPickedUp()
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!IsInFlight) return;
+
+        // let the customer consume the throw, and ignore the thrower
+        if (collision.gameObject.CompareTag("Customer AI") ||
+            collision.gameObject.CompareTag("Player")) return;
+
+        ClearThrow(); // ground, wall, shelf, another box - no longer a valid projectile
+    }
+
+
 
 
     // IInteractable---------------------------------------

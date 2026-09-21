@@ -38,6 +38,13 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public FirstInLineState firstInLineState = new FirstInLineState();
     [HideInInspector] public ExitStoreState exitStoreState = new ExitStoreState();
 
+    //-------------------PUBLIC BT NODES---------------------------------
+
+    [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
+    [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
+    [HideInInspector] public FallBackward fallBackward = new FallBackward();
+    [HideInInspector] public FallForward fallForward = new FallForward();
+
     //-------------------SHELF BRANCH VARIABLES------------------------
 
     [HideInInspector] public bool shelfStateAllowed = true;
@@ -81,9 +88,6 @@ public class CustomerManager : MonoBehaviour
 
     //-------------CONFUSED VARIABLES-----------------------------
 
-    [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
-    [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
-
     [HideInInspector] public bool confusedStateAllowed = true;
     [HideInInspector] public bool confusedStateActivated = false;
     [HideInInspector] public bool isCurrentlyPatrolling = false;
@@ -111,6 +115,9 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public float dotProduct;
     [HideInInspector] public float forceRatio;
     [HideInInspector] public float targetRotationAngle;
+    public Vector3 thrownDirection;
+    public CardboardBoxObject thrownBox;
+    public Quaternion impactTargetRotation;
 
 
     [Header("Customer Stats")]
@@ -173,21 +180,12 @@ public class CustomerManager : MonoBehaviour
     {
         if (other.CompareTag("GoodsBox") && BTActivated)
         {
+            var box = other.GetComponentInParent<CardboardBoxObject>();
+            if (box == null || !box.IsInFlight) return;
 
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-
-            float impactSpeedThreshold = 0.5f; //testing number
-            Vector3 boxVelocity = rb.linearVelocity;
-            boxVelocity.y = 0f;
-            if (boxVelocity.magnitude < impactSpeedThreshold)
-            {
-
-                //Debug.Log(boxVelocity.magnitude);
-                return; // box is essentially stationary — not a throw, ignore it
-            }
             gotHitByBox = true;
-            collidingBoxRB = other.gameObject.GetComponent<Rigidbody>();
-
+            thrownBox = box;                 // store the box, not just its RB
+            thrownDirection = box.ThrownDirection;
         }
         else if (other.CompareTag("Player"))
         {
@@ -210,9 +208,9 @@ public class CustomerManager : MonoBehaviour
 
         GetHitConditions getHitConditions = new GetHitConditions();
         FallBackwardConditions fallBackwardConditions = new FallBackwardConditions();
-        FallBackward fallBackward = new FallBackward();
+        //FallBackward fallBackward = new FallBackward(); - PUBLIC
         FallForwardConditions fallForwardConditions = new FallForwardConditions();
-        FallForward fallForward = new FallForward();
+        //FallForward fallForward = new FallForward(); - PUBLIC
 
         //------SearchForPlayerState scripts ------
         SearchConditions searchConditions = new SearchConditions();

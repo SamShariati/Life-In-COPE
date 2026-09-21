@@ -14,13 +14,7 @@ public class CustomerFunctions
     private float lastSearchForPlayerStateCD;
     private float lastGetHitStateCD;
 
-    //----------GET HIT STATE--------------------
-    private float minMomentumThreshold = 2f;   // momentum below this = negligible reaction
-    private float maxMomentumReference = 15f;  // momentum at/above this = full-force reaction
-    [Range(0f, 1f)] public float minForceRatio = 0.2f; // ensures even weak hits produce some visible turn
-
-    private float minRotateDuration = 0.1f;  // fastest possible turn (strong hit)
-    private float maxRotateDuration = 0.4f;  // slowest possible turn (weak hit)
+    private float rotateSpeedDegPerSec = 720f;
 
     public CustomerFunctions (CustomerManager agent)
     {
@@ -54,6 +48,7 @@ public class CustomerFunctions
 
     public void GetHitResetFlags()
     {
+
         //SearchForPlayer State
         agent.spottedPlayer = false;
         agent.isCurrentlyChasing = false;
@@ -116,78 +111,26 @@ public class CustomerFunctions
         }
     }
 
-    public void CalculateImpactDotProduct()
+    public void CalculateImpactRotation()
     {
+        // dotProduct < 0 -> hit from front -> falls backward -> face AWAY from throw
+        // dotProduct >= 0 -> hit from behind -> falls forward -> face SAME as throw
+        Vector3 dir = agent.dotProduct < 0f ? -agent.thrownDirection : agent.thrownDirection;
 
-        Vector3 boxVelocity = agent.collidingBoxRB.linearVelocity;
-        boxVelocity.y = 0f;
+        dir.y = 0f;
 
-        Vector3 agentForward = agent.transform.forward;
-        agentForward.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f)
+            dir = agent.transform.forward; // fallback, e.g. near-vertical throw
 
-        boxVelocity.Normalize();
-        agentForward.Normalize();
-
-        agent.dotProduct = Vector3.Dot(boxVelocity, agentForward);
-
-        if (agent.dotProduct < 0) // - är träffad framifrån, + är träffad bakifrån
-        {
-            agent.isCurrFallingBackward = true;
-        }
-        else
-        {
-            agent.isCurrFallingForward = true;
-        }
+        agent.impactTargetRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
     }
 
-    //Calculate the correct rotation when getting hit with a box.
-    public void CalculateRotationAngle()
-    {
-        Vector3 flatBoxVelocity = agent.collidingBoxRB.linearVelocity;
-        flatBoxVelocity.y = 0f;
+    
 
-        Vector3 flatAgentForward = agent.transform.forward;
-        flatAgentForward.y = 0f;
-
-        // Directional component: signed angle between agent facing and box direction
-        float signedAngle = Vector3.SignedAngle(flatAgentForward, flatBoxVelocity.normalized, Vector3.up);
-
-        float targetFacingAngle;
-
-        if (agent.dotProduct >= 0f)
-        {
-            // Hit from behind -> falls forward.
-            // Rotate TOWARD the box's direction (no offset).
-            targetFacingAngle = signedAngle;
-        }
-        else
-        {
-            // Hit from front -> falls backward.
-            // Rotate AWAY from the box's direction (180 degree offset),
-            // kept within the -180 to 180 range.
-            targetFacingAngle = signedAngle > 0 ? signedAngle - 180f : signedAngle + 180f;
-        }
-
-        // Force component: momentum-based ratio
-        float boxMomentum = agent.collidingBoxRB.mass * flatBoxVelocity.magnitude;
-        float forceRatio = Mathf.InverseLerp(minMomentumThreshold, maxMomentumReference, boxMomentum);
-        forceRatio = Mathf.Clamp(forceRatio, minForceRatio, 1f);
-
-        agent.forceRatio = forceRatio;
-        agent.targetRotationAngle = targetFacingAngle * forceRatio;
-    }
-
-    //Rotation based on targetRotationAngle
     public void RotateOnHitImpact()
     {
-
-        Quaternion startRotation = agent.transform.rotation;
-        Quaternion targetRotation = startRotation * Quaternion.Euler(0f, agent.targetRotationAngle, 0f);
-
-        // Stronger hits rotate faster (inverse lerp between max and min duration)
-        float duration = Mathf.Lerp(maxRotateDuration, minRotateDuration, agent.forceRatio);
-
-        agent.transform.rotation = targetRotation;
+        agent.transform.rotation = Quaternion.RotateTowards(agent.transform.rotation,
+            agent.impactTargetRotation, rotateSpeedDegPerSec * Time.deltaTime);
     }
 
     public void RotateTowardsPlayer()

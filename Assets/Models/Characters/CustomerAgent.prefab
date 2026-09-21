@@ -1250,6 +1250,9 @@ MonoBehaviour:
   dotProduct: 0
   forceRatio: 0
   targetRotationAngle: 0
+  thrownDirection: {x: 0, y: 0, z: 0}
+  thrownBox: {fileID: 0}
+  impactTargetRotation: {x: 0, y: 0, z: 0, w: 0}
   walkSpeed: 2
   runSpeed: 5
   nrGoodsNeeded: 4
@@ -1260,7 +1263,7 @@ MonoBehaviour:
   searchForPlayerStateCD: 10
   getHitStateCD: 0
   confusedChance: 100
-  chasePlayerChance: 100
+  chasePlayerChance: 0
 --- !u!195 &3985933204275392539
 NavMeshAgent:
   m_ObjectHideFlags: 0

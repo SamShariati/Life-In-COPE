@@ -13,7 +13,7 @@ public class GetHitConditions : BTNode
             agent.getHitStateActivated = true;
             agent.C_Functions.GetHitResetFlags();
             CalculateImpactDotProduct(agent);
-            agent.C_Functions.CalculateRotationAngle();
+            
 
             return NodeState.SUCCESS;
         }
@@ -46,16 +46,11 @@ public class GetHitConditions : BTNode
     private void CalculateImpactDotProduct(CustomerManager agent)
     {
 
-        Vector3 boxVelocity = agent.collidingBoxRB.linearVelocity;
-        boxVelocity.y = 0f;
-
         Vector3 agentForward = agent.transform.forward;
         agentForward.y = 0f;
-
-        boxVelocity.Normalize();
         agentForward.Normalize();
 
-        agent.dotProduct = Vector3.Dot(boxVelocity, agentForward);
+        agent.dotProduct = Vector3.Dot(agent.thrownDirection, agentForward);
 
         if (agent.dotProduct < 0) // - är träffad framifrån, + är träffad bakifrån
         {

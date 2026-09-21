@@ -8,6 +8,7 @@ TagManager:
   - Product
   - DropZone
   - DropItemZone
+  - Customer AI
   layers:
   - Default
   - TransparentFX

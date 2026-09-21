@@ -64,7 +64,7 @@ public class SearchConditions : BTNode
 
     private bool RollSearchForPlayerChance(CustomerManager agent)
     {
-        float randPercent = Random.Range(0, 100);
+        float randPercent = Random.Range(0f, 100f);
 
         if (randPercent <= agent.chasePlayerChance)
         {
