@@ -61,9 +61,31 @@ public class PlayerCaught
             _rotateCoroutine = null;
         }
 
+        // Keep the camera exactly where the sequence left it instead of letting
+        // PlayerMovement snap it back to its old stored look angle.
+        SyncLookToCurrentCamera();
+
         isFacingTarget = false;
         _currentFaceTarget = null;
         playerMovement.SetExternalControl(false);
+    }
+
+    // Bakes the camera's current orientation into the normal look state:
+    //  - local yaw   -> folded into the player body's rotation
+    //  - local pitch -> written back into PlayerMovement so it resumes from here
+    // The camera's world orientation stays identical, so nothing visibly changes.
+    private void SyncLookToCurrentCamera()
+    {
+        Vector3 localEuler = cameraTransform.localEulerAngles;
+        float pitch = Mathf.DeltaAngle(0f, localEuler.x);
+        float localYaw = Mathf.DeltaAngle(0f, localEuler.y);
+
+        characterController.enabled = false;
+        player.transform.Rotate(0f, localYaw, 0f, Space.Self);
+        characterController.enabled = true;
+
+        cameraTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        playerMovement.SetLookPitch(pitch);
     }
 
     private IEnumerator RotateTowardsTarget(Transform faceTarget)

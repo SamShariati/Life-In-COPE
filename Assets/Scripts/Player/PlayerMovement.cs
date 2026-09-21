@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -102,6 +101,13 @@ public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerActions
         }
         Vector3 verticalMovement = new Vector3(0, verticalVelocity, 0);
         controller.Move(verticalMovement * Time.deltaTime);
+    }
+
+    // Lets external scripts (e.g. PlayerCaught) tell the controller where the camera
+    // is currently pitched, so it resumes from there instead of the old stored angle.
+    public void SetLookPitch(float pitch)
+    {
+        xRotation = Mathf.Clamp(pitch, -25f, 50f);
     }
 
     public void SetExternalControl(bool externallyControlled)

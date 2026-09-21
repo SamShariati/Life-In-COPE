@@ -9,11 +9,16 @@ public class FollowPlayer : BTNode
     private enum Phase { Instansiate, RotatePlayer, IdleTime, FollowPlayer}
     private Phase phase = Phase.Instansiate;
 
+
+    // Push away settings
+    private const float minPlayerDistance = 1f; // AI gets pushed back until it is this far from the player
+    private const float pushSpeed = 3f;           // Minimum push speed (units/sec); player's speed is used if higher
+
     public override NodeState Evaluate(CustomerManager agent)
     {
 
         agent.currentBehavior = CustomerManager.CurrentBehaviour.followPlayer;
-
+        
         switch (phase)
         {
 
@@ -32,7 +37,7 @@ public class FollowPlayer : BTNode
             case Phase.RotatePlayer:
 
                
-
+                PushAwayFromPlayer(agent);
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
 
                 if (distanceToPlayer < 1f)
@@ -53,6 +58,7 @@ public class FollowPlayer : BTNode
 
             case Phase.IdleTime:
 
+                PushAwayFromPlayer(agent);
                 CustomerDialogue.Instance.ShowBubble();
 
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
@@ -141,5 +147,31 @@ public class FollowPlayer : BTNode
     }
 
 
+    /// <summary>
+    /// Smoothly moves the agent away from the player if they are overlapping.
+    /// Uses NavMeshAgent.Move so the agent stays on the NavMesh and it works even while isStopped = true.
+    /// </summary>
+    private void PushAwayFromPlayer(CustomerManager agent)
+    {
+        Vector3 away = agent.transform.position - agent.player.position;
+        away.y = 0f;
+
+        float dist = away.magnitude;
+        if (dist >= minPlayerDistance) return;
+
+        // If perfectly overlapping, fall back to pushing backwards
+        away = dist > 0.001f ? away / dist : -agent.transform.forward;
+
+        // Constant speed, but never further than needed to reach the minimum distance (no overshoot/jitter)
+        float speed = Mathf.Max(pushSpeed, agent.playerMovement.currentSpeed);
+        float step = Mathf.Min(speed * Time.deltaTime, minPlayerDistance - dist);
+
+        agent.navigation.Move(away * step);
+    }
+
+
     
+
+
+
 }

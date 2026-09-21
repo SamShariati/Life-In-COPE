@@ -34783,11 +34783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: chasePlayerChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
@@ -54594,11 +54594,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: chasePlayerChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
@@ -107388,11 +107388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: chasePlayerChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
@@ -119442,11 +119442,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: chasePlayerChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
@@ -135998,11 +135998,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: confusedChance
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: chasePlayerChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3430471018003981037, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: m_Name
@@ -190996,7 +190996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.435
+      value: 12.746
       objectReference: {fileID: 0}
     - target: {fileID: 4300019374622834426, guid: 67ff0f0e38a44c6448b8a9fac2727490, type: 3}
       propertyPath: m_LocalPosition.y
