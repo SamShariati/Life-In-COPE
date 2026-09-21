@@ -7,26 +7,19 @@ using UnityEngine.InputSystem;
 public class ScanningGoods : PlayerInput.ICashRegisterActions
 {
 
-    private PlayerInput _input;
-    private CashRegister register;
+    private PlayerInput _input;  
+    public CashRegister register;
     private GameObject _player;
     private Transform _cameraTransform;
     private PlayerMovement _playerMovement;
     private CharacterController _characterController;
-    private PlayerInteract _playerInteract;
 
     // Camera look state
-    private float _shelfYaw = 0f;
-    private float _shelfPitch = 0f;
-    private const float MaxYaw = 75f;
-    private const float MaxPitch = 30f;
-    private const float ShelfLookSensitivity = 0.1f;
+    Quaternion targetCamLocalRot;
+
     private const float StandingHeight = 1.28f;
-    private Vector2 _lookDelta;
 
     // Scanning state
-    private bool scanningStarted = false;
-    private GameObject _itemBeingMoved = null;    // the item currently flying to bagPosition
     private bool _exitRequested = false;
 
     private const float MoveSpeed = 2f;
@@ -36,18 +29,49 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     public bool playerInPosition = false;
 
+    // Hold-to-look-left/right state
+    private Quaternion _baseCamLocalRot;
+    private Quaternion _basePlayerRot;
+    private float _currentLookYaw = 0f;
+    private bool _lookingLeft = false;
+    private bool _lookingRight = false;
+    private const float maxLookRightDegrees = 30f;
+    private const float maxLookLeftDegrees = 90f;
+    private const float LookInSpeed = 12f;
+    private const float LookReturnSpeed = 6f;
+
+
+    //RegisterDragController
+    public Collider registerCollider;
+    public Collider interactCollider;
+    private RegisterDragController dragController;
+    public Transform scanningPlaneObj;
+
+    private RegisterAnimationRunner _animationRunner;   // survives exiting scan mode
+    private Coroutine _slideRoutine;
+    private int _itemsFlying = 0;
+
+
     // Coroutine runner
     private RegisterCoroutineRunner _runner;
+
 
     public ScanningGoods(CashRegister register)
     {
         this.register = register;
         _input = register.player.GetComponent<PlayerInteract>().Input;
+        registerCollider = register.GetComponent<Collider>();
+        interactCollider = register.transform.Find("interactCollider").GetComponent<Collider>();
+        scanningPlaneObj = register.transform.Find("scanningPlane");
+
+
     }
 
     public void Activate()
     {
-        //_playerInteract = pi;
+
+        dragController = new RegisterDragController(this);
+
         _player = register.player;
         _cameraTransform = _player.transform.Find("Main Camera");
         _playerMovement = _player.GetComponent<PlayerMovement>();
@@ -58,11 +82,21 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _input.CashRegister.Enable();
         _input.CashRegister.AddCallbacks(this);
 
+        registerCollider.enabled = false;
+        interactCollider.enabled = false;
+        
+
         if (_runner == null)
         {
             GameObject runnerGO = new GameObject("RegisterCoroutineRunner");
             _runner = runnerGO.AddComponent<RegisterCoroutineRunner>();
             _runner.Owner = this;
+        }
+
+        if (_animationRunner == null)
+        {
+            GameObject animGO = new GameObject("RegisterAnimationRunner");
+            _animationRunner = animGO.AddComponent<RegisterAnimationRunner>();
         }
 
         _exitRequested = false;
@@ -75,7 +109,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
     private IEnumerator ScanningSequence()
     {
-        register.inScanningMode = true;
+        PlayerState.Instance.inScanningMode = true;
 
         if (!playerInPosition)
         {
@@ -83,9 +117,18 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             yield return _runner.StartCoroutine(MovePlayerToRegister());
         }
 
-        scanningStarted = true;
+        _baseCamLocalRot = targetCamLocalRot;
+        _basePlayerRot = _player.transform.rotation;
+        _currentLookYaw = 0f;
+        _lookingLeft = false;
+        _lookingRight = false;
 
-        // Only start scanning if there are items on the band
+
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        //// Auto Scanning
         if (register.itemsOnRegisterBand.Count > 0)
         {
             yield return new WaitForSeconds(StartDelay);
@@ -108,44 +151,21 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
     private IEnumerator ScanLoop()
     {
 
+        //Active as long as player is active on register.
+
         while (register.itemsOnRegisterBand.Count > 0 && !_exitRequested)
         {
-            // The front item is always index 0
-            GameObject frontItem = register.itemsOnRegisterBand[0];
-            _itemBeingMoved = frontItem;
-
-            // Fly the front item to bagPosition
-            yield return _runner.StartCoroutine(FlyToBag(frontItem, register.bagPosition));
-
-            if (_exitRequested)
-            {
-                // Player exited mid-flight — item was already teleported back in ExitScanning()
-                break;
-            }
-
-            // Item reached bag — destroy it and remove from list
-            GameObject.Destroy(frontItem);
-            register.itemsOnRegisterBand.RemoveAt(0);
-            _itemBeingMoved = null;
-
-            // Slide all remaining items forward simultaneously
-            if (register.itemsOnRegisterBand.Count > 0)
-            {
-                yield return _runner.StartCoroutine(SlideItemsForward());
-
-                yield return new WaitForSeconds(DelayBetweenScans);
-            }
+            yield return null;
         }
 
     }
 
-    // -------------------------------------------------------------------------
-    // FLY ITEM TO BAG
-    // -------------------------------------------------------------------------
 
     private IEnumerator FlyToBag(GameObject item, Transform bagTarget)
     {
-        while (!_exitRequested &&
+        _itemsFlying++;
+
+        while (item != null &&
                Vector3.Distance(item.transform.position, bagTarget.position) > 0.01f)
         {
             item.transform.position = Vector3.MoveTowards(
@@ -156,45 +176,31 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             yield return null;
         }
 
-        if (!_exitRequested)
-        {
-            item.transform.position = bagTarget.position;
-        }
+        if (item != null) GameObject.Destroy(item);
+        _itemsFlying--;
     }
 
-    // -------------------------------------------------------------------------
-    // SLIDE ALL REMAINING ITEMS FORWARD SIMULTANEOUSLY
-    // Each item moves to the goodsPosList slot one index lower than its current one.
-    // Item that was at slot 1 → slot 0, slot 2 → slot 1, etc.
-    // -------------------------------------------------------------------------
 
     private IEnumerator SlideItemsForward()
     {
-        int count = register.itemsOnRegisterBand.Count;
-
-        // Build target positions: item[i] moves to goodsPosList[i] (which is one step forward)
-        Vector3[] targets = new Vector3[count];
-        for (int i = 0; i < count; i++)
-        {
+        List<GameObject> items = new List<GameObject>(register.itemsOnRegisterBand);
+        Vector3[] targets = new Vector3[items.Count];
+        for (int i = 0; i < items.Count; i++)
             targets[i] = register.goodsPosList[i].position;
-        }
 
         bool allArrived = false;
-        while (!allArrived && !_exitRequested)
+        while (!allArrived)
         {
             allArrived = true;
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                GameObject item = register.itemsOnRegisterBand[i];
+                GameObject item = items[i];
                 if (item == null) continue;
 
                 if (Vector3.Distance(item.transform.position, targets[i]) > 0.01f)
                 {
                     item.transform.position = Vector3.MoveTowards(
-                        item.transform.position,
-                        targets[i],
-                        BandMoveSpeed * Time.deltaTime
-                    );
+                        item.transform.position, targets[i], BandMoveSpeed * Time.deltaTime);
                     allArrived = false;
                 }
                 else
@@ -204,15 +210,14 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
             }
             yield return null;
         }
+
+        _slideRoutine = null;
     }
 
-    // -------------------------------------------------------------------------
-    // MOVE PLAYER INTO POSITION
-    // -------------------------------------------------------------------------
 
     private IEnumerator MovePlayerToRegister()
     {
-        Vector3 registerPos = register.registerPos;
+        Vector3 registerPos = register.interactColliderPos;
         registerPos = new Vector3(registerPos.x, StandingHeight, registerPos.z);
         Vector3 targetPos = registerPos;
 
@@ -220,7 +225,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         dirToRegisterFlat.y = 0f;
         Quaternion targetPlayerRot = Quaternion.LookRotation(dirToRegisterFlat.normalized);
 
-        Vector3 registerCenter = register.transform.position;
+        Vector3 registerCenter = register.pointToLookAt.position;
 
         float elapsed = 0f;
         float transitionDuration = 0.6f;
@@ -231,7 +236,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
         Vector3 dirToRegister = (registerCenter - registerPos).normalized;
         Quaternion targetWorldCamRot = Quaternion.LookRotation(dirToRegister, Vector3.up);
-        Quaternion targetCamLocalRot = Quaternion.Inverse(targetPlayerRot) * targetWorldCamRot;
+        targetCamLocalRot = Quaternion.Inverse(targetPlayerRot) * targetWorldCamRot;
 
         while (elapsed < transitionDuration)
         {
@@ -254,74 +259,127 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
         _characterController.enabled = true;
         _cameraTransform.localRotation = targetCamLocalRot;
 
-        _shelfYaw = 0f;
-        _shelfPitch = targetCamLocalRot.eulerAngles.x;
-        if (_shelfPitch > 180f) _shelfPitch -= 360f;
+        
 
         playerInPosition = true;
     }
 
-    // -------------------------------------------------------------------------
-    // EXIT
-    // -------------------------------------------------------------------------
+    public void OnItemScanned(GameObject item)
+    {
+        // Remove first, so the list matches the slots before the slide starts
+        register.itemsOnRegisterBand.Remove(item);
+
+        // A slide from a previous scan may still be running. Replace it, so two slides never fight over the same items.
+        if (_slideRoutine != null)
+        {
+            _animationRunner.StopCoroutine(_slideRoutine);
+            _slideRoutine = null;
+        }
+
+        _animationRunner.StartCoroutine(FlyToBag(item, register.bagPosition));
+
+        if (register.itemsOnRegisterBand.Count > 0)
+            _slideRoutine = _animationRunner.StartCoroutine(SlideItemsForward());
+    }
+
 
     private void ExitScanning()
     {
-        _exitRequested = true;
-        register.inScanningMode = false;
-        scanningStarted = false;
+        PlayerState.Instance.inScanningMode = false;
 
-        // If an item was mid-flight, snap it back to slot 0 so the band
-        // is in a clean state for next time the player steps in.
-        if (_itemBeingMoved != null && register.itemsOnRegisterBand.Count > 0
-            && register.itemsOnRegisterBand[0] == _itemBeingMoved)
-        {
-            _itemBeingMoved.transform.position = register.goodsPosList[0].position;
-            _itemBeingMoved = null;
-        }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        registerCollider.enabled = true;
+        interactCollider.enabled = true;
+
+        _exitRequested = true;
+
+  
 
         _input.CashRegister.Disable();
         _input.CashRegister.RemoveCallbacks(this);
         _input.Player.Enable();
         _playerMovement.SetExternalControl(false);
         playerInPosition = false;
+
+        if (_runner != null)
+        {
+            GameObject.Destroy(_runner.gameObject);
+            _runner = null;
+        }
     }
 
     // -------------------------------------------------------------------------
     // LOOK
     // -------------------------------------------------------------------------
 
+
     public void UpdateLook()
     {
-        if (!scanningStarted || !register.inScanningMode) return;
         if (_cameraTransform == null) return;
 
-        _shelfYaw += _lookDelta.x * ShelfLookSensitivity;
-        _shelfYaw = Mathf.Clamp(_shelfYaw, -MaxYaw, MaxYaw);
+        float targetYaw = 0f;
+        if (_lookingLeft && !_lookingRight)
+            targetYaw = -maxLookLeftDegrees;
+        else if (_lookingRight && !_lookingLeft)
+            targetYaw = maxLookRightDegrees;
 
-        _shelfPitch -= _lookDelta.y * ShelfLookSensitivity;
-        _shelfPitch = Mathf.Clamp(_shelfPitch, -MaxPitch, MaxPitch);
+        bool returning = Mathf.Approximately(targetYaw, 0f);
+        float speed = returning ? LookReturnSpeed : LookInSpeed;
 
-        _cameraTransform.localRotation = Quaternion.Euler(_shelfPitch, _shelfYaw, 0f);
+        _currentLookYaw = Mathf.Lerp(_currentLookYaw, targetYaw, 1f - Mathf.Exp(-speed * Time.deltaTime));
+
+        Quaternion lookOffset = Quaternion.Euler(0f, _currentLookYaw, 0f);
+
+        _characterController.enabled = false;
+        _player.transform.rotation = _basePlayerRot * lookOffset;
+        _characterController.enabled = true;
+
+        _cameraTransform.localRotation = _baseCamLocalRot;
     }
 
     // -------------------------------------------------------------------------
     // INPUT CALLBACKS
     // -------------------------------------------------------------------------
-
-    public void OnStop(InputAction.CallbackContext ctx)
+    public void OnExit(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && register.inScanningMode)
+        if (ctx.performed && PlayerState.Instance.inScanningMode)
         {
             _runner.StopAllCoroutines();
             ExitScanning();
         }
     }
 
-    public void OnLook(InputAction.CallbackContext ctx)
+    public void OnMouse(InputAction.CallbackContext ctx)
     {
-        _lookDelta = ctx.ReadValue<Vector2>();
+        dragController.OnMouse(ctx.ReadValue<Vector2>());
     }
+
+    public void OnLeftClick(InputAction.CallbackContext ctx)
+    {
+        dragController.OnLeftClick(ctx.performed, ctx.canceled);
+    }
+
+    public void OnLookLeft(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) _lookingLeft = true;
+        else if (ctx.canceled) _lookingLeft = false;
+    }
+
+    public void OnLookRight(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) _lookingRight = true;
+        else if (ctx.canceled) _lookingRight = false;
+    }
+    // -------------------------------------------------
+
+
+    public void UpdateDrag()
+    {
+        dragController.DragObject();
+    }
+
 }
 
 // Minimal MonoBehaviour used purely to run coroutines and forward Update
@@ -331,6 +389,9 @@ public class RegisterCoroutineRunner : MonoBehaviour
 
     private void Update()
     {
+        Owner?.UpdateDrag();
         Owner?.UpdateLook();
     }
 }
+
+public class RegisterAnimationRunner : MonoBehaviour { }

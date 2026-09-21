@@ -164,13 +164,13 @@ public class StockingShelf2 : PlayerInput.IShelfActions
             Transform targetSlot = _stockingPositions[_currentStockIndex];
 
             // Spawn placedPrefab at box position and fly it to the shelf slot
-            flyingItem = GameObject.Instantiate(shelf.placingPrefab, boxTransform.position, Quaternion.identity);
+            flyingItem = GameObject.Instantiate(shelf.stockingGoodsPrefab, boxTransform.position, Quaternion.identity);
 
             yield return _runner.StartCoroutine(FlyToShelf(flyingItem, targetSlot));
 
             // Remove flying item, place stockedPrefab permanently
             GameObject.Destroy(flyingItem);
-            GameObject placed = GameObject.Instantiate(shelf.stockedPrefab);
+            GameObject placed = GameObject.Instantiate(shelf.stockedGoodsPrefab);
             placed.transform.SetParent(targetSlot.parent);
             placed.transform.position = targetSlot.position;
             placed.transform.rotation = targetSlot.rotation;

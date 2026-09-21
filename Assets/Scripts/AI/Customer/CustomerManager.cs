@@ -70,8 +70,9 @@ public class CustomerManager : MonoBehaviour
 
     [HideInInspector] public Transform headObject;
     [HideInInspector] public CustomerVision customerVision;
-    [SerializeField] private LayerMask obstacleMask;
-    [SerializeField] private LayerMask playerMask;
+    [SerializeField] public LayerMask obstacleMask;
+    [SerializeField] public LayerMask playerMask;
+    [HideInInspector] public bool currentlyTouchingPlayer = false;
     [HideInInspector] public bool allowedToChase = true;
     [HideInInspector] public bool spottedPlayer = false;
     [HideInInspector] public bool isCurrentlyChasing = false;
@@ -101,15 +102,15 @@ public class CustomerManager : MonoBehaviour
     //-------------GET HIT VARIABLES-----------------------------
 
 
-    public bool getHitStateAllowed = true;
-    public bool getHitStateActivated = false;
-    public bool gotHitByBox = false;
-    public Rigidbody collidingBoxRB;
-    public bool isCurrFallingForward = false;
-    public bool isCurrFallingBackward = false;
-    public float dotProduct;
-    public float forceRatio;
-    public float targetRotationAngle;
+    [HideInInspector] public bool getHitStateAllowed = true;
+    [HideInInspector] public bool getHitStateActivated = false;
+    [HideInInspector] public bool gotHitByBox = false;
+    [HideInInspector] public Rigidbody collidingBoxRB;
+    [HideInInspector] public bool isCurrFallingForward = false;
+    [HideInInspector] public bool isCurrFallingBackward = false;
+    [HideInInspector] public float dotProduct;
+    [HideInInspector] public float forceRatio;
+    [HideInInspector] public float targetRotationAngle;
 
 
     [Header("Customer Stats")]
@@ -140,7 +141,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         initiateAllComponents.GenerateAllComponents();
-        customerVision = new CustomerVision(headObject, player, obstacleMask, playerMask); //Behöver ändras, dålig arkitektur placering
+        customerVision = new CustomerVision(this); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
         
         currentState = enterStoreState;
@@ -187,6 +188,18 @@ public class CustomerManager : MonoBehaviour
             gotHitByBox = true;
             collidingBoxRB = other.gameObject.GetComponent<Rigidbody>();
 
+        }
+        else if (other.CompareTag("Player"))
+        {
+            currentlyTouchingPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            currentlyTouchingPlayer = false;
         }
     }
 

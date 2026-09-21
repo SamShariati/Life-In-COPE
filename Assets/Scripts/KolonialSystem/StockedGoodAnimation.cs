@@ -6,15 +6,16 @@ public class StockedGoodAnimation
     GameObject objToDeform;
 
     // Animation tuning
-    private const float ShrinkFactor = 0.7f;   // 40% smaller than original (1 - 0.4)
+    private float ShrinkFactor;   // 40% smaller than original (1 - 0.4)
     private const float ShrinkDuration = 0.15f;
     private const float GrowDuration = 0.15f;
 
     private StockedGoodAnimationRunner _runner;
 
-    public StockedGoodAnimation(GameObject gameObj)
+    public StockedGoodAnimation(GameObject gameObj, float shrinkAmountPercent)
     {
         objToDeform = gameObj;
+        ShrinkFactor = 1 - (shrinkAmountPercent/100f);
     }
 
     // Call this to kick off the deform animation

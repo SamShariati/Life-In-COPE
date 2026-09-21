@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
   boxID: hygiene
   stockedPrefab: {fileID: 4264357063956399626, guid: 14455155f689db34e8aa8e4cef689b7d, type: 3}
-  placedPrefab: {fileID: 8677197104705578484, guid: 878a63ab298971d48887f89264503286, type: 3}
+  placedPrefab: {fileID: 2984964192621416237, guid: 878a63ab298971d48887f89264503286, type: 3}
   transparentPrefab: {fileID: 2016161096737587490, guid: 50531af42dd6fb140b4c29e837cd42ed, type: 3}
