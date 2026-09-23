@@ -12,7 +12,7 @@ public class CustomerManager : MonoBehaviour
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, pickGoodsConditions, pickGoods, searchConditions,
     chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
     patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf, getHitConditions, fallBackwardConditions, fallBackward,
-    fallForwardConditions, fallForward}
+    fallForwardConditions, fallForward, idle}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
@@ -29,6 +29,7 @@ public class CustomerManager : MonoBehaviour
     //-------------------FSM STATES-------------------------
 
     [HideInInspector] public bool BTActivated = false;
+    [HideInInspector] public bool FSMStateActivated = false;
     private FSMBaseState currentState;
     [HideInInspector] public EnterStoreState enterStoreState = new EnterStoreState();
     [HideInInspector] public NothingState nothingState = new NothingState();
@@ -42,8 +43,11 @@ public class CustomerManager : MonoBehaviour
 
     [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
     [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
+    //-------------------------------------------------------------------------------
     [HideInInspector] public FallBackward fallBackward = new FallBackward();
     [HideInInspector] public FallForward fallForward = new FallForward();
+    //-------------------------------------------------------------------------------
+    [HideInInspector] public PickGoods pickGoods = new PickGoods();
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
@@ -55,7 +59,6 @@ public class CustomerManager : MonoBehaviour
     public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
     [HideInInspector] public Vector3 chosenShelfPosition;
     
-    [HideInInspector] public bool shelfRouteChosen = false;
     [HideInInspector] public bool shelfRouteReached = false;
     [HideInInspector] public bool currentlyPickingGoods = false;
 
@@ -115,9 +118,15 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public float dotProduct;
     [HideInInspector] public float forceRatio;
     [HideInInspector] public float targetRotationAngle;
-    public Vector3 thrownDirection;
-    public CardboardBoxObject thrownBox;
-    public Quaternion impactTargetRotation;
+    [HideInInspector] public Vector3 thrownDirection;
+    [HideInInspector] public CardboardBoxObject thrownBox;
+    [HideInInspector] public Quaternion impactTargetRotation;
+    
+
+    //-------------IDLE VARIABLES-----------------------------
+
+    [HideInInspector] public bool idleStateAllowed = false;
+    [HideInInspector] public bool idleStateActivated = false;
 
 
     [Header("Customer Stats")]
@@ -178,7 +187,7 @@ public class CustomerManager : MonoBehaviour
     // Agent got hit by a box
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("GoodsBox") && BTActivated)
+        if (other.CompareTag("GoodsBox"))
         {
             var box = other.GetComponentInParent<CardboardBoxObject>();
             if (box == null || !box.IsInFlight) return;
@@ -204,6 +213,11 @@ public class CustomerManager : MonoBehaviour
     private void ConstructBT()
     {
 
+        //------IdleState scripts ------
+
+        IdleConditions idleConditions = new IdleConditions();
+        Idle idle = new Idle();
+
         //------GetHitState scripts ------
 
         GetHitConditions getHitConditions = new GetHitConditions();
@@ -213,6 +227,7 @@ public class CustomerManager : MonoBehaviour
         //FallForward fallForward = new FallForward(); - PUBLIC
 
         //------SearchForPlayerState scripts ------
+
         SearchConditions searchConditions = new SearchConditions();
         ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
         ChasePlayer chasePlayer = new ChasePlayer();
@@ -222,13 +237,15 @@ public class CustomerManager : MonoBehaviour
         IdleStare idleStare = new IdleStare();
 
         //------ShelfState scripts ------
+
         ShelfStateConditions shelfStateConditions = new ShelfStateConditions();
         GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
         GoToShelf goToShelf = new GoToShelf();
         PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
-        PickGoods pickGoods = new PickGoods();
+        //PickGoods pickGoods = new PickGoods(); - PUBLIC
 
         //------ConfusedState scripts ------
+
         ConfusedConditions confusedConditions = new ConfusedConditions();
         PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
         //PatroleAisle patroleAisle = new PatroleAisle(); - PUBLIC
@@ -237,6 +254,10 @@ public class CustomerManager : MonoBehaviour
 
 
         //----------------------------------------------------------------------------------------------------------------------
+
+        //IDLE STATE BRANCH
+
+        Sequence standIdleState = new Sequence(new List<BTNode>() { idleConditions, idle });
 
         //GETHIT STATE BRANCH
 
@@ -276,7 +297,7 @@ public class CustomerManager : MonoBehaviour
 
 
 
-        rootNode = new Selector(new List<BTNode> { getHitState, searchForPlayerState, confusedState, shelfState});
+        rootNode = new Selector(new List<BTNode> { standIdleState, getHitState, searchForPlayerState, confusedState, shelfState});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

@@ -1130,7 +1130,7 @@ GameObject:
   - component: {fileID: -4470825329941955998}
   - component: {fileID: 8146197300611645803}
   - component: {fileID: 7602679426528654276}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CustomerAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1253,6 +1253,8 @@ MonoBehaviour:
   thrownDirection: {x: 0, y: 0, z: 0}
   thrownBox: {fileID: 0}
   impactTargetRotation: {x: 0, y: 0, z: 0, w: 0}
+  idleStateAllowed: 0
+  idleStateActivated: 0
   walkSpeed: 2
   runSpeed: 5
   nrGoodsNeeded: 4

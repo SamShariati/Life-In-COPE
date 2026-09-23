@@ -23,6 +23,14 @@ public class GetHitConditions : BTNode
 
             return NodeState.SUCCESS;
         }
+
+        // Used to make sure that once FSM states are activated, GetHitState can still be activated, But will disable BT again once it is finished.
+        else if (agent.FSMStateActivated)
+        {
+            agent.BTActivated = false;
+            return NodeState.FAILURE;
+        }
+
         else
         {
             return NodeState.FAILURE;

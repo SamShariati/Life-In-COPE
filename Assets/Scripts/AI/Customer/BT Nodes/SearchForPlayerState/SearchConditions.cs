@@ -51,6 +51,7 @@ public class SearchConditions : BTNode
 
     }
 
+    // In case AI enters BT and instantly detects player. Shouldn't normally happen.
     public void CheckIfGoodChosen(CustomerManager agent)
     {
         if (agent.currentChosenGood == null)

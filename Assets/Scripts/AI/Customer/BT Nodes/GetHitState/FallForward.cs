@@ -62,6 +62,9 @@ public class FallForward : BTNode
 
                     agent.getHitStateActivated = false;
                     agent.isCurrFallingForward = false;
+                    agent.gotHitByBox = false;
+                    agent.idleStateAllowed = true;
+
                     phase = Phase.Initiate;
                     return NodeState.SUCCESS;
 

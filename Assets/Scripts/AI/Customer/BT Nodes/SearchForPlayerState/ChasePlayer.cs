@@ -18,7 +18,7 @@ public class ChasePlayer : BTNode
 
         agent.C_Functions.CalculatePlayerDestination();
 
-        if (distanceToTarget < 2f)
+        if (distanceToTarget < 1.25f)
         {
             agent.isCurrentlyChasing = false;
             agent.isCurrentlyFollowing = true;

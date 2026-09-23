@@ -9,6 +9,7 @@ public class GoToLineState : FSMBaseState
     public override void EnterState(CustomerManager agent)
     {
         targetPos = agent.walkToRegisterPos;
+        agent.FSMStateActivated = true;
 
     }
     public override void UpdateState(CustomerManager agent)
@@ -23,6 +24,12 @@ public class GoToLineState : FSMBaseState
         if (distanceToTarget < 0.5f)
         {
             agent.SwitchState(agent.standInLineState);
+        }
+
+        // In case agent needs to enter GetHitState when FSM is activated.
+        else if (distanceToTarget > 0.5f && agent.gotHitByBox)
+        {
+            agent.BTActivated = true;
         }
 
     }

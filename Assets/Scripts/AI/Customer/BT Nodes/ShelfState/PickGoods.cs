@@ -3,8 +3,8 @@ using UnityEngine;
 public class PickGoods : BTNode
 {
 
-    private enum Phase { WaitingToPick, Picking, WaitingToExit}
-    private Phase phase = Phase.WaitingToPick;
+    public enum Phase { WaitingToPick, Picking, WaitingToExit}
+    public Phase phase = Phase.WaitingToPick;
 
     private float pickAnimationTime = 1.5f;
     private float currentAnimationTime = 1.5f;
@@ -47,12 +47,11 @@ public class PickGoods : BTNode
 
                     agent.allowedToChase = true;
                     PickGoodsFromShelf(agent); //Failsafe in case we don't enter ConfusedState right after.
-                    phase = Phase.WaitingToPick;
-
+                    
+                    phase = Phase.WaitingToPick; 
                     agent.currentlyPickingGoods = false;
-                    agent.shelfRouteChosen = false;
-                    agent.shelfRouteReached = false;
-                    agent.confusedStateAllowed = true;
+                    agent.shelfRouteReached = false; 
+                    agent.confusedStateAllowed = true; 
 
                     agent.C_Functions.ChooseShelfRoute(agent);
 

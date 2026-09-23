@@ -54,7 +54,7 @@ public class CustomerFunctions
         agent.isCurrentlyChasing = false;
         agent.isCurrentlyFollowing = false;
         agent.allowedToChase = true;
-        agent.confusedStateAllowed = true; //osäker på om denna ska finnas
+        //agent.confusedStateAllowed = true; //osäker på om denna ska finnas
 
         SearchForPlayerResetFlags();
     }
@@ -64,6 +64,7 @@ public class CustomerFunctions
         //Shelf State
         agent.shelfRouteReached = false;
         agent.currentlyPickingGoods = false;
+        agent.pickGoods.phase = PickGoods.Phase.WaitingToPick;
 
         //Confused State
         agent.confusedStateActivated = false;

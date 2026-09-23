@@ -7,14 +7,8 @@ public class GoToShelfConditions : BTNode
     {
 
         agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelfConditions;
-        if (!agent.shelfRouteChosen)
-        {
-            agent.shelfRouteChosen = true;
 
-            return NodeState.SUCCESS;
-
-        }
-        else if (agent.shelfRouteChosen && !agent.shelfRouteReached)
+        if (!agent.shelfRouteReached)
         {
             return NodeState.SUCCESS;
         }
