@@ -15,8 +15,8 @@ public class CustomerManager : MonoBehaviour
     fallForwardConditions, fallForward, idle}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
-
-
+    
+    
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
     [HideInInspector] public InitiateAllComponents initiateAllComponents;
@@ -170,6 +170,7 @@ public class CustomerManager : MonoBehaviour
         if (BTActivated) // BT
         {
             rootNode.Evaluate(this);
+            
         }
         else //FSM
         {
