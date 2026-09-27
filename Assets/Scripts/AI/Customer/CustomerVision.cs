@@ -8,8 +8,6 @@ public class CustomerVision
 
     Transform headTransform;
     Transform player;
-    float viewDistance = 15f;
-    float fieldOfViewAngle = 45f;
     LayerMask obstacleMask;
     LayerMask playerMask;
     public bool drawDebugGizmos = true;
@@ -43,19 +41,19 @@ public class CustomerVision
         float distanceToPlayer = directionToPlayer.magnitude;
 
         // 1. Distance check
-        if (distanceToPlayer > viewDistance)
+        if (distanceToPlayer > agent.viewDistanceRange)
             return false;
 
         // 2. Field of view check (angle between facing direction and direction to player)
         float angleToPlayer = Vector3.Angle(headTransform.forward, directionToPlayer);
-        if (angleToPlayer > fieldOfViewAngle * 0.5f)
+        if (angleToPlayer > agent.FOVAngleRange * 0.5f)
             return false;
 
         // 3. Line of sight check via raycast — must hit the player layer to count
         Ray ray = new Ray(headTransform.position, directionToPlayer.normalized);
         LayerMask combinedMask = obstacleMask | playerMask;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, viewDistance, combinedMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, agent.viewDistanceRange, combinedMask))
         {
             bool hitIsPlayer = ((1 << hit.collider.gameObject.layer) & playerMask) != 0;
 
@@ -80,12 +78,12 @@ public class CustomerVision
         Gizmos.color = currentlyDetected ? Color.red : Color.green; 
 
         // View distance sphere (wire)
-        Gizmos.DrawWireSphere(origin.position, viewDistance);
+        Gizmos.DrawWireSphere(origin.position, agent.viewDistanceRange);
 
         // FOV cone edges
-        Vector3 forward = origin.forward * viewDistance;
-        Quaternion leftRotation = Quaternion.AngleAxis(-fieldOfViewAngle * 0.5f, origin.up);
-        Quaternion rightRotation = Quaternion.AngleAxis(fieldOfViewAngle * 0.5f, origin.up);
+        Vector3 forward = origin.forward * agent.viewDistanceRange;
+        Quaternion leftRotation = Quaternion.AngleAxis(-agent.FOVAngleRange * 0.5f, origin.up);
+        Quaternion rightRotation = Quaternion.AngleAxis(agent.FOVAngleRange * 0.5f, origin.up);
 
         Vector3 leftEdge = leftRotation * forward;
         Vector3 rightEdge = rightRotation * forward;

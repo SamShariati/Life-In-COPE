@@ -17,28 +17,35 @@ public class CustomerIKRigging
     private float chestWeightVelocity;
     private float headWeightVelocity;
 
+    private float targetWeight01;
+
     public CustomerIKRigging(CustomerManager agent)
     {
         this.agent = agent;
     }
 
-    /// <summary>
-    /// Call this once per frame (e.g. from CustomerManager.Update()).
-    /// CustomerIKRigging is a plain class, not a MonoBehaviour, so nothing calls
-    /// this automatically - the hub has to drive it.
-    /// </summary>
+
+    private bool IKRiggingAllowed()
+    {
+        float distance = Vector3.Distance(agent.transform.position, agent.player.transform.position);
+
+        if (agent.IKRiggingAllowed2 && distance < agent.playerAwernessRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+
     public void UpdateIK()
     {
-        if (agent.chestRig == null || agent.headRig == null) return;
 
-        // Uses agent.CalculatePlayerDotProduct() as currently written, where:
-        // dot == 1  -> player considered "behind"          -> weight should be 0
-        // dot <= 0  -> player considered "in front/to the side" -> weight should be 1
-        //
-        // If you switch to the position-based dot product instead (1 = front, -1 = behind),
-        // use: float targetWeight01 = Mathf.Clamp01(dot); (no "1 - ")
-        float dot = CalculatePlayerDotProduct();
-        float targetWeight01 = 1f - Mathf.Clamp01(dot/ DeadZoneDot);
+        targetWeight01 = IKRiggingAllowed() ? 1f - Mathf.Clamp01(CalculatePlayerDotProduct() / DeadZoneDot) : 0f;
+
 
         agent.chestRig.weight = Mathf.SmoothDamp(
             agent.chestRig.weight,

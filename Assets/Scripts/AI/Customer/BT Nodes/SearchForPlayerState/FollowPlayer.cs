@@ -121,7 +121,7 @@ public class FollowPlayer : BTNode
 
     private void SetAnimation(CustomerManager agent)
     {
-        if (distanceToPlayer < 2.5f)
+        if (distanceToPlayer < 1.5f)
         {
             agent.navigation.isStopped = true;
             agent.animator.SetState(AnimState.Idle);

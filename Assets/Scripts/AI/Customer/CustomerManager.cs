@@ -34,7 +34,6 @@ public class CustomerManager : MonoBehaviour
     private FSMBaseState currentState;
     [HideInInspector] public EnterStoreState enterStoreState = new EnterStoreState();
     [HideInInspector] public NothingState nothingState = new NothingState();
-    [HideInInspector] public IdleState idleState = new IdleState();
     [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
     [HideInInspector] public GoToLineState goToLineState = new GoToLineState();
     [HideInInspector] public FirstInLineState firstInLineState = new FirstInLineState();
@@ -133,7 +132,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] CustomerIKRigging IKRigging;
     [HideInInspector] public MultiAimConstraint chestRig;
     [HideInInspector] public MultiAimConstraint headRig;
-
+    [HideInInspector] public bool IKRiggingAllowed2 = true;
     //----------------------------------------------------
 
     [Header("Customer Stats")]
@@ -142,6 +141,9 @@ public class CustomerManager : MonoBehaviour
     public int nrGoodsNeeded = 2;
     public float maxIdleTime = 5f;
     public float minIdleTime = 2;
+    public float viewDistanceRange = 10f;
+    public float FOVAngleRange = 45f;
+    public float playerAwernessRange = 10f;
     public float wasteCustomerTime = 1.5f;
     public float gettingStunnedTime = 4f;
     public float searchForPlayerStateCD = 10;
