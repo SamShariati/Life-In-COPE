@@ -70,9 +70,5 @@ public class GetHitConditions : BTNode
         }
     }
 
-    private void CheckIfBoxOnGround(CustomerManager agent)
-    {
-
-    }
 
 }

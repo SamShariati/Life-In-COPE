@@ -148,6 +148,7 @@ public class CustomerFunctions
             Time.deltaTime * (agent.navigation.angularSpeed / 60));
     }
 
+
     //--------------GENERAL TIMERS---------------------
     public bool TickTimer(float delta)
     {

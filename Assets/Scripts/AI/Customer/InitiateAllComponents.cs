@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
 
 public class InitiateAllComponents 
@@ -26,6 +27,7 @@ public class InitiateAllComponents
         GetHeadObject();
         GetPlayerObject();
         GetAllAislePositions();
+        GetIKRiggingObjects();
     }
 
     private void GetAllAislePositions()
@@ -57,6 +59,14 @@ public class InitiateAllComponents
     private void GetHeadObject()
     {
         agent.headObject = agent.transform.Find("root/pelvis/spine_01/spine_02/spine_03/neck_01/head");
+    }
+
+    private void GetIKRiggingObjects()
+    {
+        Transform chestObj = agent.transform.Find("Rig 1/ChestRig");
+        Transform headObj = agent.transform.Find("Rig 1/HeadRig");
+        agent.chestRig = chestObj.GetComponent<MultiAimConstraint>();
+        agent.headRig = headObj.GetComponent<MultiAimConstraint>();
     }
 
     private void GetPlayerObject()

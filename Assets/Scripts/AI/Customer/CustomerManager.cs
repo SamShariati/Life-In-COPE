@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
 
 public class CustomerManager : MonoBehaviour
@@ -108,7 +109,6 @@ public class CustomerManager : MonoBehaviour
 
     //-------------GET HIT VARIABLES-----------------------------
 
-
     [HideInInspector] public bool getHitStateAllowed = true;
     [HideInInspector] public bool getHitStateActivated = false;
     [HideInInspector] public bool gotHitByBox = false;
@@ -121,13 +121,20 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public Vector3 thrownDirection;
     [HideInInspector] public CardboardBoxObject thrownBox;
     [HideInInspector] public Quaternion impactTargetRotation;
-    
+
 
     //-------------IDLE VARIABLES-----------------------------
 
-    [HideInInspector] public bool idleStateAllowed = false;
+    [HideInInspector] public bool idleStateAllowed = true;
     [HideInInspector] public bool idleStateActivated = false;
 
+    //-------------IK RIGGING-----------------------------
+
+    [HideInInspector] CustomerIKRigging IKRigging;
+    [HideInInspector] public MultiAimConstraint chestRig;
+    [HideInInspector] public MultiAimConstraint headRig;
+
+    //----------------------------------------------------
 
     [Header("Customer Stats")]
     public float walkSpeed;
@@ -151,6 +158,7 @@ public class CustomerManager : MonoBehaviour
         navigation = GetComponent<NavMeshAgent>();
         initiateAllComponents = new InitiateAllComponents(this);
         C_Functions = new CustomerFunctions(this);
+        IKRigging = new CustomerIKRigging(this);
         animator = GetComponent<CustomerAnimator>();
 
     }
@@ -167,6 +175,9 @@ public class CustomerManager : MonoBehaviour
 
     void Update()
     {
+
+        IKRigging.UpdateIK();
+
         if (BTActivated) // BT
         {
             rootNode.Evaluate(this);

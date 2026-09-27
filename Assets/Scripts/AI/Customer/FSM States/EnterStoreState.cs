@@ -14,31 +14,22 @@ public class EnterStoreState : FSMBaseState
 
     public override void UpdateState(CustomerManager agent)
     {
-        
-
-        distanceToTarget = Vector3.Distance(agent.transform.position, storePosition);
-
-        if (distanceToTarget < 0.5f)
-        {
-            agent.animator.SetState(AnimState.Idle);
-            idleTime -= Time.deltaTime;
-
-            if (idleTime < 0)
-            {
-                agent.C_Functions.ChooseShelfRoute(agent);
-                agent.SwitchState(agent.nothingState);
-                agent.BTActivated = true;
-            }
-        }
-        else
-        {
-            agent.animator.SetState(AnimState.Walk);
-        }
+        agent.animator.SetState(AnimState.Walk);
 
         agent.navigation.speed = agent.walkSpeed;
         agent.navigation.isStopped = false;
         agent.navigation.SetDestination(storePosition);
 
+        distanceToTarget = Vector3.Distance(agent.transform.position, storePosition);
+
+        if (distanceToTarget < 0.5f)
+        {
+
+            agent.C_Functions.ChooseShelfRoute(agent);
+            agent.SwitchState(agent.nothingState);
+            agent.BTActivated = true;
+
+        }
 
     }
 }
