@@ -15,6 +15,7 @@ public class PickGoodsConditions : BTNode
 
         if (!agent.currentlyPickingGoods)
         {
+            agent.IKRiggingEnabled = false;
             agent.allowedToChase = false;
             agent.currentlyPickingGoods = true;
             agent.C_Functions.SetTimer(3f);

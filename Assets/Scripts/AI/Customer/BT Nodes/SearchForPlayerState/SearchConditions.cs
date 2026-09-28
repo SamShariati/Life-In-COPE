@@ -7,6 +7,7 @@ public class SearchConditions : BTNode
     {
         if (StateConditions(agent))
         {
+            agent.IKRiggingEnabled = false;
             agent.spottedPlayer = true;
             agent.C_Functions.SearchForPlayerResetFlags();
             CheckIfGoodChosen(agent);

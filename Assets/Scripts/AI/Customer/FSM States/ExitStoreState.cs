@@ -7,6 +7,8 @@ public class ExitStoreState : FSMBaseState
 
     public override void EnterState(CustomerManager agent)
     {
+        agent.IKRiggingEnabled = true;
+
         targetPosition = agent.exitStorePos;
     }
 

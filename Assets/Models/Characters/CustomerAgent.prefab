@@ -714,8 +714,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2467230220877420774}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 21.833, y: 0, z: 4.174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1218,6 +1218,7 @@ Transform:
   - {fileID: 9084225635580834183}
   - {fileID: 187477092525934837}
   - {fileID: 3439253475987293481}
+  - {fileID: 4422392597059060864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &2048297290439289826
@@ -1315,11 +1316,12 @@ MonoBehaviour:
   idleStateActivated: 0
   chestRig: {fileID: 0}
   headRig: {fileID: 0}
+  IKRiggingEnabled: 1
   walkSpeed: 2
   runSpeed: 5
   nrGoodsNeeded: 5
-  maxIdleTime: 10
   minIdleTime: 5
+  maxIdleTime: 10
   viewDistanceRange: 10
   FOVAngleRange: 45
   playerAwernessRange: 10
@@ -1700,7 +1702,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 4422392597059060864}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -2431,7 +2433,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 4422392597059060864}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -2498,6 +2500,37 @@ Transform:
   m_Children:
   - {fileID: 6308211150041458178}
   m_Father: {fileID: 594866390549512740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7477190614134360703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4422392597059060864}
+  m_Layer: 12
+  m_Name: aimTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4422392597059060864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7477190614134360703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6669142059831234407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7620372227778831238
 GameObject:

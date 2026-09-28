@@ -13,7 +13,7 @@ public class CustomerManager : MonoBehaviour
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, pickGoodsConditions, pickGoods, searchConditions,
     chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
     patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf, getHitConditions, fallBackwardConditions, fallBackward,
-    fallForwardConditions, fallForward, idle}
+    fallForwardConditions, fallForward, idle, enterStore}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
     
@@ -41,6 +41,8 @@ public class CustomerManager : MonoBehaviour
 
     //-------------------PUBLIC BT NODES---------------------------------
 
+    [HideInInspector] public IdleStare idleStare = new IdleStare();
+    //-------------------------------------------------------------------------------
     [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
     [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
     //-------------------------------------------------------------------------------
@@ -132,15 +134,17 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] CustomerIKRigging IKRigging;
     [HideInInspector] public MultiAimConstraint chestRig;
     [HideInInspector] public MultiAimConstraint headRig;
-    [HideInInspector] public bool IKRiggingAllowed2 = true;
+    [HideInInspector] public bool IKRiggingEnabled = true;
+    public Transform IKAimTarget;
+    public Transform cameraTransform;
     //----------------------------------------------------
 
     [Header("Customer Stats")]
     public float walkSpeed;
     public float runSpeed = 5f;
     public int nrGoodsNeeded = 2;
-    public float maxIdleTime = 5f;
     public float minIdleTime = 2;
+    public float maxIdleTime = 5f;
     public float viewDistanceRange = 10f;
     public float FOVAngleRange = 45f;
     public float playerAwernessRange = 10f;
@@ -248,7 +252,7 @@ public class CustomerManager : MonoBehaviour
         FollowPlayerConditions followPlayerConditions = new FollowPlayerConditions();
         FollowPlayer followPlayer = new FollowPlayer();
         IdleStareConditions idleStareConditions = new IdleStareConditions();
-        IdleStare idleStare = new IdleStare();
+        //IdleStare idleStare = new IdleStare(); - PUBLIC
 
         //------ShelfState scripts ------
 

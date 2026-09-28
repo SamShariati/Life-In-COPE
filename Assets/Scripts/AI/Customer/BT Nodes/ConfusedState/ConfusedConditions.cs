@@ -6,8 +6,8 @@ public class ConfusedConditions : BTNode
     {
         if (StateConditions(agent))
         {
+            agent.IKRiggingEnabled = true;
             agent.confusedStateActivated = true;
-            //agent.C_Functions.ChooseShelfRoute(agent);
             RollConfusedType(agent);
 
             return NodeState.SUCCESS;
@@ -30,7 +30,7 @@ public class ConfusedConditions : BTNode
     
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.confusedStateAllowed && !agent.confusedStateActivated) // +RollConfusedChance()
+        if (agent.confusedStateAllowed && !agent.confusedStateActivated)
         {
             if (RollConfusedChance(agent))
             {

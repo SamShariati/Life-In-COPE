@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class InitiateAllComponents 
 {
@@ -28,6 +29,7 @@ public class InitiateAllComponents
         GetPlayerObject();
         GetAllAislePositions();
         GetIKRiggingObjects();
+
     }
 
     private void GetAllAislePositions()
@@ -63,11 +65,16 @@ public class InitiateAllComponents
 
     private void GetIKRiggingObjects()
     {
+        agent.IKAimTarget = agent.transform.Find("aimTarget");
+        agent.cameraTransform = agent.player.transform.Find("Main Camera");
+
         Transform chestObj = agent.transform.Find("Rig 1/ChestRig");
         Transform headObj = agent.transform.Find("Rig 1/HeadRig");
         agent.chestRig = chestObj.GetComponent<MultiAimConstraint>();
         agent.headRig = headObj.GetComponent<MultiAimConstraint>();
     }
+
+
 
     private void GetPlayerObject()
     {

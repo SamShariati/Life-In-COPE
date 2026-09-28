@@ -8,8 +8,12 @@ public class GoToLineState : FSMBaseState
     Vector3 targetPos;
     public override void EnterState(CustomerManager agent)
     {
+        agent.IKRiggingEnabled = true;
+
         targetPos = agent.walkToRegisterPos;
         agent.FSMStateActivated = true;
+
+        
 
     }
     public override void UpdateState(CustomerManager agent)

@@ -3,8 +3,8 @@ using UnityEngine;
 public class IdleStare : BTNode
 {
 
-    private enum Phase { initiate, idle}
-    private Phase phase = Phase.initiate;
+    public enum Phase { initiate, idle}
+    public Phase phase = Phase.initiate;
 
 
     public override NodeState Evaluate(CustomerManager agent)
@@ -15,9 +15,11 @@ public class IdleStare : BTNode
         {
             case Phase.initiate:
 
-                agent.C_Functions.SetTimer(5);
+                agent.C_Functions.SetTimer(4);
                 phase = Phase.idle;
                 agent.confusedStateAllowed = false;
+                agent.getHitStateAllowed = true;
+                agent.C_Functions.StartSearchForPlayerStateCD();
 
                 return NodeState.RUNNING;
 
@@ -33,8 +35,7 @@ public class IdleStare : BTNode
                     phase = Phase.initiate;
                     agent.isCurrentlyStaring = false;
                     agent.spottedPlayer = false;
-                    agent.C_Functions.StartSearchForPlayerStateCD();
-                    agent.getHitStateAllowed = true;
+                                 
 
                     return NodeState.SUCCESS;
                 }

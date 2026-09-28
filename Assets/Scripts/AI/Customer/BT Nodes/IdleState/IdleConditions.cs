@@ -8,7 +8,7 @@ public class IdleConditions : BTNode
 
         if (agent.idleStateAllowed && !agent.idleStateActivated)
         {
-
+            agent.IKRiggingEnabled = true;
             agent.idleStateActivated = true;
             agent.C_Functions.SetTimer(agent.minIdleTime);
 

@@ -10,6 +10,7 @@ public class GoToShelfConditions : BTNode
 
         if (!agent.shelfRouteReached)
         {
+            agent.IKRiggingEnabled = true;
             return NodeState.SUCCESS;
         }
         else

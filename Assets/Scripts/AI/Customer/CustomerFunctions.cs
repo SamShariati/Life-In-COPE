@@ -53,8 +53,11 @@ public class CustomerFunctions
         agent.spottedPlayer = false;
         agent.isCurrentlyChasing = false;
         agent.isCurrentlyFollowing = false;
+        agent.isCurrentlyStaring = false;
+        agent.idleStare.phase = IdleStare.Phase.initiate;
         agent.allowedToChase = true;
-        //agent.confusedStateAllowed = true; //osäker på om denna ska finnas
+
+        
 
         SearchForPlayerResetFlags();
     }

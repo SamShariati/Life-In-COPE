@@ -14,9 +14,6 @@ public class IdleStareConditions : BTNode
             return NodeState.FAILURE;
         }
 
-
-
-
     }
 
     private bool StateConditions(CustomerManager agent)

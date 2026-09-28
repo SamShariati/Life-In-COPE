@@ -11,6 +11,8 @@ public class FirstInLineState : FSMBaseState
     public override void EnterState(CustomerManager agent)
     {
         //agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
+        agent.IKRiggingEnabled = true;
+
         agent.cashRegister.customerFirstInLine = agent; //Dålig arkitektur. Alla agenter kommer åt register, men register håller bara en
         agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
         agent.cashRegister.itemsToScanList = agent.goodsGathered;

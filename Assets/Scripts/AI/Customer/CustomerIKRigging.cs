@@ -3,7 +3,7 @@ using UnityEngine.Animations.Rigging;
 
 public class CustomerIKRigging
 {
-    private readonly CustomerManager agent;
+    private CustomerManager agent;
 
     // "Full" weight each constraint should reach when the player isn't behind the agent.
     // Pull these from CustomerManager instead if you want them tunable per-customer/in the Inspector.
@@ -29,7 +29,7 @@ public class CustomerIKRigging
     {
         float distance = Vector3.Distance(agent.transform.position, agent.player.transform.position);
 
-        if (agent.IKRiggingAllowed2 && distance < agent.playerAwernessRange)
+        if (agent.IKRiggingEnabled && distance < agent.playerAwernessRange)
         {
             return true;
         }
@@ -44,6 +44,7 @@ public class CustomerIKRigging
     public void UpdateIK()
     {
 
+        agent.IKAimTarget.position = agent.cameraTransform.position;
         targetWeight01 = IKRiggingAllowed() ? 1f - Mathf.Clamp01(CalculatePlayerDotProduct() / DeadZoneDot) : 0f;
 
 

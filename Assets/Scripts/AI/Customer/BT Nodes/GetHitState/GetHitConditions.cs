@@ -10,6 +10,7 @@ public class GetHitConditions : BTNode
 
         if (StateConditions(agent))
         {
+            agent.IKRiggingEnabled = false;
             agent.getHitStateActivated = true;
             agent.C_Functions.GetHitResetFlags();
             CalculateImpactDotProduct(agent);
