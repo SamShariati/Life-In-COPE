@@ -10,7 +10,7 @@ public class IdleConditions : BTNode
         {
             agent.IKRiggingEnabled = true;
             agent.idleStateActivated = true;
-            agent.C_Functions.SetTimer(agent.minIdleTime);
+            agent.C_Functions.SetTimer(Random.Range(2f, 3f));
 
             return NodeState.SUCCESS;
 
