@@ -30,5 +30,9 @@ public class ExitStoreState : FSMBaseState
             agent.animator.SetState(AnimState.Walk);
         }
 
+        if (agent.gotHitByBox)
+        {
+            agent.BTActivated = true;
+        }
     }
 }

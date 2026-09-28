@@ -23,6 +23,8 @@ public class StandInLineState : FSMBaseState
     public override void UpdateState(CustomerManager agent)
     {
 
+
+
         if (agent.assignedQueueSlot == -1)
         {
             QueueManager.Instance.JoinQueue(agent);
@@ -45,6 +47,11 @@ public class StandInLineState : FSMBaseState
         else
         {
             agent.animator.SetState(AnimState.Walk);
+        }
+
+        if (agent.gotHitByBox)
+        {
+            agent.BTActivated = true;
         }
 
     }

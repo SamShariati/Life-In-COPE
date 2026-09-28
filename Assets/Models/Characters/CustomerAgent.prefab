@@ -1317,9 +1317,11 @@ MonoBehaviour:
   chestRig: {fileID: 0}
   headRig: {fileID: 0}
   IKRiggingEnabled: 1
+  IKAimTarget: {fileID: 0}
+  cameraTransform: {fileID: 0}
   walkSpeed: 2
   runSpeed: 5
-  nrGoodsNeeded: 5
+  nrGoodsNeeded: 2
   minIdleTime: 5
   maxIdleTime: 10
   viewDistanceRange: 10
@@ -1330,7 +1332,7 @@ MonoBehaviour:
   searchForPlayerStateCD: 10
   getHitStateCD: 0
   confusedChance: 0
-  chasePlayerChance: 100
+  chasePlayerChance: 0
 --- !u!195 &3985933204275392539
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1989,7 +1991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &642287689549250057
 Transform:
   m_ObjectHideFlags: 0
@@ -2849,7 +2851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &494919841422178469
 Transform:
   m_ObjectHideFlags: 0

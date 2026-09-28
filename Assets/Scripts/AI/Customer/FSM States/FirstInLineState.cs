@@ -70,6 +70,10 @@ public class FirstInLineState : FSMBaseState
                 break;
 
         }
+        if (agent.gotHitByBox)
+        {
+            agent.BTActivated = true;
+        }
 
 
     }
