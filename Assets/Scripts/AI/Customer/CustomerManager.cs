@@ -17,7 +17,6 @@ public class CustomerManager : MonoBehaviour
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
     
-    
     private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
     [HideInInspector] public InitiateAllComponents initiateAllComponents;

@@ -33,14 +33,13 @@ public class FollowPlayer : BTNode
                 return NodeState.RUNNING;
 
 
-
             case Phase.RotatePlayer:
 
                
                 PushAwayFromPlayer(agent);
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
 
-                if (distanceToPlayer < 1f)
+                if (distanceToPlayer < 1.5f)
                 {
                     agent.navigation.isStopped = true;
                     agent.animator.SetState(AnimState.CaughtPlayer);
@@ -57,6 +56,7 @@ public class FollowPlayer : BTNode
 
 
             case Phase.IdleTime:
+
 
                 PushAwayFromPlayer(agent);
                 CustomerDialogue.Instance.ShowBubble();
