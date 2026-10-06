@@ -31,7 +31,7 @@ public class Shelf : MonoBehaviour, IInteractable
         cannedFood, cereal, chips, cleaning,
         coffee, cookies, electronics, energyDrink, 
         hygiene, jam, peanutButter, proteinDrink,
-        sauces, shampoo, soda, tacos,
+        sauces, shampoo, soda, supplement, tacos,
         tea, toiletPaper, toys
     }
 
