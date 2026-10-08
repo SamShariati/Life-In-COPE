@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2056542286540637697}
   - component: {fileID: 5143605766245382034}
   m_Layer: 0
-  m_Name: alcohol_transparent
+  m_Name: liquor_transparent
   m_TagString: DropItemZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

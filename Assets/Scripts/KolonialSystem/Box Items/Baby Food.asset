@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e4e920eaefee746b27e8193b06d774, type: 3}
+  m_Name: Baby Food
+  m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
+  boxID: babyFood
+  stockedPrefab: {fileID: 4226745091553022981, guid: 107d001f6955d1b45b9933a8017dfb4f, type: 3}
+  placedPrefab: {fileID: 7058969866738015921, guid: ccaed1c87d276434391ac9ba29a28824, type: 3}
+  transparentPrefab: {fileID: 4709347539712411971, guid: d4bb8e33f76a2c44f865e491dc262ef3, type: 3}

@@ -5715,6 +5715,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9121f6560c90ebf4d9acbc77d91c694d, type: 2}
   - {fileID: 11400000, guid: 76f017ff3ddb76c4290f846c312fac57, type: 2}
   - {fileID: 11400000, guid: 1517a7f10a3caee49aa5bdb90d5d00cf, type: 2}
+  - {fileID: 11400000, guid: 8b9aa52606e2aac47ad3c9da0637709b, type: 2}
+  - {fileID: 11400000, guid: 62ecd630b8768244996f10db36e95762, type: 2}
   maxNrBoxes: 26
   boxDataList: []
 --- !u!114 &-5552692494190706205

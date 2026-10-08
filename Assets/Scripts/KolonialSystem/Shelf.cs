@@ -26,12 +26,12 @@ public class Shelf : MonoBehaviour, IInteractable
 
     public enum GoodsType
     {
-        none, alcohol, animalFood, bakingGoods,
+        none, animalFood, babyFood, bakingGoods,
         beer, bread, cakes, candy,
         cannedFood, cereal, chips, cleaning,
-        coffee, cookies, electronics, energyDrink, 
-        hygiene, jam, peanutButter, proteinDrink,
-        sauces, shampoo, soda, supplement, tacos,
+        coffee, cookies, electronics, energyDrinks, 
+        hygiene, jam, liquor, peanutButter, proteinDrinks,
+        sauces, shampoo, soda, supplements, tacos,
         tea, toiletPaper, toys
     }
 

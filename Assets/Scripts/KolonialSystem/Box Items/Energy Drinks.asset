@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e4e920eaefee746b27e8193b06d774, type: 3}
-  m_Name: Alcohol
+  m_Name: Energy Drinks
   m_EditorClassIdentifier: Assembly-CSharp::CardboardBoxData
-  boxID: alcohol
-  stockedPrefab: {fileID: 3986247227988741735, guid: cde2d9e4a96da124d91ed16052f9c8ab, type: 3}
-  placedPrefab: {fileID: 4045465327172909631, guid: 1e1ef3935a938fc409a6ef2447e73155, type: 3}
-  transparentPrefab: {fileID: 5280254981198242925, guid: 5c0062f845303694d9e8492cf222de2e, type: 3}
+  boxID: energyDrinks
+  stockedPrefab: {fileID: 1485298061996951270, guid: fb89872059f158745b0aa6ca8503db53, type: 3}
+  placedPrefab: {fileID: 1992594908780992813, guid: 81bf02eb83ff94d428d9c9a747e9e29a, type: 3}
+  transparentPrefab: {fileID: 138070442039823325, guid: 33a85dac61b1dde4abde30b496164688, type: 3}

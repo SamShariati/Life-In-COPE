@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8261421211126696535}
   - component: {fileID: 5522917302207163959}
   m_Layer: 0
-  m_Name: alcohol_stocked
+  m_Name: liquor_stocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

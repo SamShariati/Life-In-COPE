@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 8883311489395019730}
   - component: {fileID: 731149880075820596}
   m_Layer: 0
-  m_Name: proteinDrink_stocked
+  m_Name: proteinDrinks_stocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

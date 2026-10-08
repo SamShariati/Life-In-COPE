@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 623954764500517160}
   - component: {fileID: -3427357782930751551}
   m_Layer: 0
-  m_Name: proteinDrink_stocking
+  m_Name: proteinDrinks_stocking
   m_TagString: Product
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
