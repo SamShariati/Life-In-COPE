@@ -43,6 +43,13 @@ public class GetHitConditions : BTNode
         if (agent.getHitStateAllowed && !agent.getHitStateActivated && agent.gotHitByBox &&
             !agent.isCurrFallingBackward && !agent.isCurrFallingForward )
         {
+
+            //Completely disables the sabotage behaviour if agent gets hit while sabotaging.
+            if (agent.recentlyHitFood)
+            {
+                agent.sabotageStateDisabledByHit = true;
+            }
+
             return true;
         }
         else

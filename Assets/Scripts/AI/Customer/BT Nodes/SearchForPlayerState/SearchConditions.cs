@@ -67,6 +67,7 @@ public class SearchConditions : BTNode
     private bool RollSearchForPlayerChance(CustomerManager agent)
     {
         float randPercent = Random.Range(0f, 100f);
+        agent.C_Functions.ResetSearchForPlayerStateCD();
 
         if (randPercent <= agent.chasePlayerChance)
         {
@@ -74,7 +75,6 @@ public class SearchConditions : BTNode
         }
         else
         {
-            agent.C_Functions.StartSearchForPlayerStateCD();
             return false;
         }
 

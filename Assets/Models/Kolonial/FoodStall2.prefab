@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 316235799956406530}
   m_Layer: 13
-  m_Name: StallPositions
+  m_Name: stallPositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 3892874532976876542}
   - component: {fileID: 4878167566786614354}
   - component: {fileID: -2387341041716731722}
+  - component: {fileID: -5442734918093959388}
   m_Layer: 13
   m_Name: FoodStall2
   m_TagString: Untagged
@@ -531,7 +532,32 @@ MonoBehaviour:
   - {fileID: 925268348768746122, guid: 482fa4a34021e2646bb1888b72b93388, type: 3}
   - {fileID: 1305569148411856176, guid: 15aa70dbcd96dec4cbd39c7d7289862e, type: 3}
   - {fileID: 3493044839840414913, guid: a5276505a01ccc541b9289e899714ee3, type: 3}
+  prefabPosList: []
+  minForce: 3
+  maxForce: 8
+  minLaunchAngle: 30
+  maxLaunchAngle: 70
   stallPosList: []
+--- !u!114 &-5442734918093959388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725948511744323300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &4974957023561386914
 GameObject:
   m_ObjectHideFlags: 0

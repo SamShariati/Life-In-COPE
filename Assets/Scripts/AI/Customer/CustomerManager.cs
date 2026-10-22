@@ -122,6 +122,18 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public CardboardBoxObject thrownBox;
     [HideInInspector] public Quaternion impactTargetRotation;
 
+    //-------------SABOTAGE VARIABLES-----------------------------
+
+    [HideInInspector] public bool sabotageStateAllowed = false;
+    [HideInInspector] public bool sabotageStateDisabledByHit = false;
+    [HideInInspector] public bool sabotageStateActivated = false;
+    [HideInInspector] public bool recentlyHitFood = false;
+    [HideInInspector] public bool isCurrentlyGoingToStall = false;
+    [HideInInspector] public bool isCurrentlyHittingStall = false;
+    [HideInInspector] public bool isCurrentlyLookingAround = false;
+    public Transform chosenFoodStallPos;
+
+    public List<Transform> foodStallList = new List<Transform>();
 
     //-------------IDLE VARIABLES-----------------------------
 
@@ -134,8 +146,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public MultiAimConstraint chestRig;
     [HideInInspector] public MultiAimConstraint headRig;
     [HideInInspector] public bool IKRiggingEnabled = true;
-    public Transform IKAimTarget;
-    public Transform cameraTransform;
+    [HideInInspector] public Transform IKAimTarget;
+    [HideInInspector] public Transform cameraTransform;
     //----------------------------------------------------
 
     [Header("Customer Stats")]
@@ -151,11 +163,13 @@ public class CustomerManager : MonoBehaviour
     public float gettingStunnedTime = 4f;
     public float searchForPlayerStateCD = 10;
     public float getHitStateCD = 0;
+    public float sabotageStateCD = 30;
     
 
     [Header("Behaviour Chance %")]
     public float confusedChance = 100f;
     public float chasePlayerChance = 100f;
+    public float sabotageChance = 100f;
 
 
     private void Awake()

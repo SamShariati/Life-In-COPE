@@ -11,12 +11,10 @@ public class FoodStall : MonoBehaviour
     [SerializeField] private float maxForce = 8f;
     [SerializeField, Range(10f, 80f)] private float minLaunchAngle = 30f; // degrees above horizontal
     [SerializeField, Range(10f, 80f)] private float maxLaunchAngle = 70f;
-    [SerializeField] private float spawnDelayBetweenItems = 0.1f;
 
     public List<Transform> stallPosList = new List<Transform>();
     public Dictionary<Transform, GameObject> stallPositionsDictionary = new Dictionary<Transform, GameObject>();
     public Dictionary<GameObject, Transform> prefabPositionsDictionary = new Dictionary<GameObject, Transform>();
-
 
     void Awake()
     {
@@ -25,6 +23,7 @@ public class FoodStall : MonoBehaviour
 
     private void GenerateStallDictionaries()
     {
+
         Transform stallPositions = transform.Find("stallPositions");
         Transform prefabPositions = transform.Find("prefabPositions");
 
@@ -42,10 +41,12 @@ public class FoodStall : MonoBehaviour
 
         for (int i = 0; i < stallPosList.Count; i++)
         {
+
             if (i >= prefabList.Count || prefabList[i] == null) { continue; }
 
             stallPositionsDictionary[stallPosList[i]] = prefabList[i];
             prefabPositionsDictionary[prefabList[i]] = prefabPosList[i];
+
         }
     }
 

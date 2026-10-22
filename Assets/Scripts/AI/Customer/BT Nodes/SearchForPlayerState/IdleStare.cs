@@ -19,7 +19,7 @@ public class IdleStare : BTNode
                 phase = Phase.idle;
                 agent.confusedStateAllowed = false;
                 agent.getHitStateAllowed = true;
-                agent.C_Functions.StartSearchForPlayerStateCD();
+                agent.C_Functions.ResetSearchForPlayerStateCD();
 
                 return NodeState.RUNNING;
 

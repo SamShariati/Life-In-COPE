@@ -13,6 +13,7 @@ public class CustomerFunctions
 
     private float lastSearchForPlayerStateCD;
     private float lastGetHitStateCD;
+    private float lastSabotageStateCD;
 
     private float rotateSpeedDegPerSec = 720f;
 
@@ -21,6 +22,7 @@ public class CustomerFunctions
         this.agent = agent;
         lastSearchForPlayerStateCD = -agent.searchForPlayerStateCD;
         lastGetHitStateCD = -agent.getHitStateCD;
+        lastSabotageStateCD = -agent.sabotageStateCD;
     }
 
     public void CalculatePlayerDestination()
@@ -175,7 +177,7 @@ public class CustomerFunctions
     {
         if (Time.time > lastSearchForPlayerStateCD + agent.searchForPlayerStateCD)
         {
-            lastSearchForPlayerStateCD = Time.time;
+
             return true;
         }
         else
@@ -184,18 +186,19 @@ public class CustomerFunctions
         }
     }
  
-    public void StartSearchForPlayerStateCD()
+    public void ResetSearchForPlayerStateCD()
     {
         lastSearchForPlayerStateCD = Time.time;
     }
 
-    //-------------GetHit State--------------------------
 
-    public bool CheckGetHitStateCD()
+    //-------------Sabotage State--------------------------
+
+    public bool CheckSabotageCD()
     {
-        if (Time.time > lastGetHitStateCD + agent.getHitStateCD)
+        if (Time.time > lastSabotageStateCD + agent.sabotageStateCD)
         {
-            lastGetHitStateCD = Time.time;
+
             return true;
         }
         else
@@ -204,8 +207,8 @@ public class CustomerFunctions
         }
     }
 
-    public void StartGetHitStateCD()
+    public void ResetSabotageStateCD()
     {
-        lastGetHitStateCD = Time.time;
+        lastSabotageStateCD = Time.time;
     }
 }

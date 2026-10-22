@@ -29,6 +29,7 @@ public class InitiateAllComponents
         GetPlayerObject();
         GetAllAislePositions();
         GetIKRiggingObjects();
+        GetAllFoodStalls();
 
     }
 
@@ -47,6 +48,17 @@ public class InitiateAllComponents
             }
 
             agent.allAislePositions[i] = targetList;
+        }
+    }
+
+    private void GetAllFoodStalls()
+    {
+
+        GameObject foodStalls = GameObject.Find("FoodStalls");
+
+        foreach (Transform child in foodStalls.transform)
+        {
+            agent.foodStallList.Add(child);
         }
     }
 
