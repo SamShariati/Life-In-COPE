@@ -130,7 +130,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool recentlyHitFood = false;
     [HideInInspector] public bool isCurrentlyGoingToStall = false;
     [HideInInspector] public bool isCurrentlyHittingStall = false;
-    [HideInInspector] public bool isCurrentlyLookingAround = false;
+    [HideInInspector] public bool isCurrentlyTaunting = false;
+    [HideInInspector] public bool seenPlayerDuringSabotage = false;
     public Transform chosenFoodStallPos;
 
     public List<Transform> foodStallList = new List<Transform>();

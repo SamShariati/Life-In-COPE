@@ -52,11 +52,13 @@ public class FoodStall : MonoBehaviour
 
     public void SpawnFood(Transform stallPos, int sabotageLevel)
     {
-        if (!stallPositionsDictionary.TryGetValue(stallPos, out GameObject chosenPrefab)) { return; }
+        //if (!stallPositionsDictionary.TryGetValue(stallPos, out GameObject chosenPrefab)) { return; }
+        GameObject chosenPrefab = stallPositionsDictionary[stallPos];
+        Vector3 spawnPrefabPos = prefabPositionsDictionary[chosenPrefab].position;
 
         for (int i = 0; i < sabotageLevel; i++)
         {
-            GameObject item = Instantiate(chosenPrefab, stallPos.position, Random.rotation);
+            GameObject item = Instantiate(chosenPrefab, spawnPrefabPos, Random.rotation);
 
             if (item.TryGetComponent(out Rigidbody rb))
             {

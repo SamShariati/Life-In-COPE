@@ -6,7 +6,7 @@ public class GoToStallConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        if (!agent.isCurrentlyGoingToStall)
+        if (StateConditions(agent))
         {
 
             agent.isCurrentlyGoingToStall = true;
@@ -25,6 +25,18 @@ public class GoToStallConditions : BTNode
             return NodeState.FAILURE;
         }
 
+    }
+
+    private bool StateConditions(CustomerManager agent)
+    {
+        if (!agent.isCurrentlyGoingToStall && !agent.isCurrentlyHittingStall && !agent.isCurrentlyTaunting)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void ChooseFoodStallPosition(CustomerManager agent)

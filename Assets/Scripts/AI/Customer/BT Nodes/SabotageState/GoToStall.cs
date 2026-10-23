@@ -1,16 +1,24 @@
 using UnityEngine;
 
-public class GoToStall : MonoBehaviour
+public class GoToStall : BTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    float distanceToTarget;
 
-    // Update is called once per frame
-    void Update()
+    public override NodeState Evaluate(CustomerManager agent)
     {
-        
+        agent.animator.SetState(AnimState.Walk);
+        agent.navigation.isStopped = false;
+        agent.navigation.speed = agent.walkSpeed;
+        agent.navigation.SetDestination(agent.chosenFoodStallPos.position);
+
+        distanceToTarget = Vector3.Distance(agent.transform.position, agent.chosenFoodStallPos.position);
+
+        if (distanceToTarget < 0.25f)
+        {
+            agent.isCurrentlyGoingToStall = false;
+            agent.isCurrentlyHittingStall = true;
+            return NodeState.SUCCESS;
+        }
+        return NodeState.RUNNING;
     }
 }
