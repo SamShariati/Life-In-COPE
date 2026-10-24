@@ -12,7 +12,11 @@ public enum AnimState
     FallForward = 7,
     GetUpBackward = 8,
     Dizzy = 9,
-    Thank = 10
+    Thank = 10,
+    LookAround = 11,
+    Attack,
+    Pleased,
+    Taunt
 
 }
 
@@ -25,6 +29,10 @@ public class CustomerAnimator : MonoBehaviour
     private static readonly int IdleVariantHash = Animator.StringToHash("IdleVariant");
     private static readonly int DizzyVariantHash = Animator.StringToHash("DizzyVariant");
     private static readonly int ThankVariantHash = Animator.StringToHash("ThankVariant");
+    private static readonly int LookAroundVariantHash = Animator.StringToHash("LookAroundVariant");
+    private static readonly int AttackVariantHash = Animator.StringToHash("AttackVariant");
+    private static readonly int PleasedVariantHash = Animator.StringToHash("PleasedVariant");
+    private static readonly int TauntVariantHash = Animator.StringToHash("TauntVariant");
 
 
     void Awake()
@@ -51,6 +59,26 @@ public class CustomerAnimator : MonoBehaviour
         else if (state == AnimState.Thank)
         {
             SetThank();
+            return;
+        }
+        else if (state == AnimState.LookAround)
+        {
+            SetLookAround();
+            return;
+        }
+        else if (state == AnimState.Attack)
+        {
+            SetAttack();
+            return;
+        }
+        else if (state == AnimState.Pleased)
+        {
+            SetPleased();
+            return;
+        }
+        else if (state == AnimState.Taunt)
+        {
+            SetTaunt();
             return;
         }
 
@@ -80,6 +108,40 @@ public class CustomerAnimator : MonoBehaviour
         _animator.SetInteger(AnimStateHash, (int)AnimState.Thank);
         _animator.SetFloat(ThankVariantHash, randomIdle);
     }
+
+    private void SetLookAround()
+    {
+        float randomIdle = Random.Range(0, 3);
+
+        _animator.SetInteger(AnimStateHash, (int)AnimState.LookAround);
+        _animator.SetFloat(LookAroundVariantHash, randomIdle);
+    }
+
+    private void SetAttack()
+    {
+        float randomIdle = Random.Range(0, 4);
+
+        _animator.SetInteger(AnimStateHash, (int)AnimState.Attack);
+        _animator.SetFloat(AttackVariantHash, randomIdle);
+    }
+
+    private void SetPleased()
+    {
+        float randomIdle = Random.Range(0, 3);
+
+        _animator.SetInteger(AnimStateHash, (int)AnimState.Pleased);
+        _animator.SetFloat(PleasedVariantHash, randomIdle);
+    }
+
+    private void SetTaunt()
+    {
+        float randomIdle = Random.Range(0, 4);
+
+        _animator.SetInteger(AnimStateHash, (int)AnimState.Taunt);
+        _animator.SetFloat(TauntVariantHash, randomIdle);
+    }
+
+
 
     public bool IsStateFinished(string tag, int layer = 0)
     {

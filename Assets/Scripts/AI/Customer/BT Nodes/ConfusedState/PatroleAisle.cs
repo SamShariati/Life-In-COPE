@@ -47,6 +47,9 @@ public class PatroleAisle : BTNode
                     agent.isCurrentlyPatrolling = false;
                     agent.patroleRouteChosen = false;
                     agent.confusedStateActivated = false;
+
+                    agent.sabotageStateAllowed = true;
+
                     phase = Phase.Initiate;
 
                     return NodeState.SUCCESS;

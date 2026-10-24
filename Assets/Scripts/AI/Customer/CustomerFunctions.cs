@@ -51,6 +51,18 @@ public class CustomerFunctions
     public void GetHitResetFlags()
     {
 
+        //Sabotage State
+        agent.sabotageStateActivated = false;
+        agent.recentlyHitFood = false;
+        agent.isCurrentlyGoingToStall = false;
+        agent.isCurrentlyHittingStall = false;
+        agent.isCurrentlyTaunting = false;
+        agent.seenPlayerDuringSabotage = false;
+        agent.hitFood.phase = HitFood.Phase.Initiate;
+        agent.tauntPlayer.phase = TauntPlayer.Phase.Initiate;
+
+
+
         //SearchForPlayer State
         agent.spottedPlayer = false;
         agent.isCurrentlyChasing = false;

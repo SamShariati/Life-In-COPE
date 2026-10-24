@@ -54,6 +54,8 @@ public class CheckWrongShelf : BTNode
                     agent.confusedStateActivated = false;
                     phase = Phase.Initiate;
 
+                    agent.sabotageStateAllowed = true;
+
                     return NodeState.SUCCESS;
                 }
 

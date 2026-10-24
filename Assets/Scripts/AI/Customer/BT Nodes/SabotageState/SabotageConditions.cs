@@ -8,7 +8,7 @@ public class SabotageConditions : BTNode
         
         if (Stateconditions(agent))
         {
-
+            agent.sabotageStateActivated = true;
             return NodeState.SUCCESS;
 
         }
@@ -42,6 +42,7 @@ public class SabotageConditions : BTNode
             }
             else
             {
+                agent.sabotageStateAllowed = false;
                 return false;
             }
 

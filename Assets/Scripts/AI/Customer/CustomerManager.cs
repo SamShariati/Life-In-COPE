@@ -49,6 +49,10 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public FallForward fallForward = new FallForward();
     //-------------------------------------------------------------------------------
     [HideInInspector] public PickGoods pickGoods = new PickGoods();
+    //-------------------------------------------------------------------------------
+    [HideInInspector] public HitFood hitFood = new HitFood();
+    [HideInInspector] public TauntPlayer tauntPlayer = new TauntPlayer();
+
 
     //-------------------SHELF BRANCH VARIABLES------------------------
 
@@ -124,7 +128,7 @@ public class CustomerManager : MonoBehaviour
 
     //-------------SABOTAGE VARIABLES-----------------------------
 
-    [HideInInspector] public bool sabotageStateAllowed = false;
+    [HideInInspector] public bool sabotageStateAllowed = true;
     [HideInInspector] public bool sabotageStateDisabledByHit = false;
     [HideInInspector] public bool sabotageStateActivated = false;
     [HideInInspector] public bool recentlyHitFood = false;
@@ -132,7 +136,8 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrentlyHittingStall = false;
     [HideInInspector] public bool isCurrentlyTaunting = false;
     [HideInInspector] public bool seenPlayerDuringSabotage = false;
-    public Transform chosenFoodStallPos;
+    [HideInInspector] public Transform chosenFoodStallPos;
+    [HideInInspector] public FoodStall chosenFoodStall;
 
     public List<Transform> foodStallList = new List<Transform>();
 
@@ -250,6 +255,7 @@ public class CustomerManager : MonoBehaviour
         IdleConditions idleConditions = new IdleConditions();
         Idle idle = new Idle();
 
+
         //------GetHitState scripts ------
 
         GetHitConditions getHitConditions = new GetHitConditions();
@@ -257,6 +263,18 @@ public class CustomerManager : MonoBehaviour
         //FallBackward fallBackward = new FallBackward(); - PUBLIC
         FallForwardConditions fallForwardConditions = new FallForwardConditions();
         //FallForward fallForward = new FallForward(); - PUBLIC
+
+
+        //------SabotageState scripts -------
+
+        SabotageConditions sabotageConditions = new SabotageConditions();
+        GoToStallConditions goToStallConditions = new GoToStallConditions();
+        GoToStall goToStall = new GoToStall();
+        HitFoodConditions hitFoodConditions = new HitFoodConditions();
+        //HitFood hitFood = new HitFood(); - PUBLIC
+        TauntPlayerConditions tauntPlayerConditions = new TauntPlayerConditions();
+        //TauntPlayer tauntPlayer = new TauntPlayer(); - PUBLIC
+
 
         //------SearchForPlayerState scripts ------
 
@@ -267,14 +285,7 @@ public class CustomerManager : MonoBehaviour
         FollowPlayer followPlayer = new FollowPlayer();
         IdleStareConditions idleStareConditions = new IdleStareConditions();
         //IdleStare idleStare = new IdleStare(); - PUBLIC
-
-        //------ShelfState scripts ------
-
-        ShelfStateConditions shelfStateConditions = new ShelfStateConditions();
-        GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
-        GoToShelf goToShelf = new GoToShelf();
-        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
-        //PickGoods pickGoods = new PickGoods(); - PUBLIC
+   
 
         //------ConfusedState scripts ------
 
@@ -285,19 +296,38 @@ public class CustomerManager : MonoBehaviour
         //CheckWrongShelf checkWrongShelf = new CheckWrongShelf(); - PUBLIC
 
 
+        //------ShelfState scripts ------
+
+        GrabItemConditions grabItemConditions = new GrabItemConditions();
+        GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
+        GoToShelf goToShelf = new GoToShelf();
+        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
+        //PickGoods pickGoods = new PickGoods(); - PUBLIC
+
+
         //----------------------------------------------------------------------------------------------------------------------
 
         //IDLE STATE BRANCH
 
-        Sequence standIdleState = new Sequence(new List<BTNode>() { idleConditions, idle });
+        Sequence standIdle = new Sequence(new List<BTNode>() { idleConditions, idle });
 
         //GETHIT STATE BRANCH
 
         Sequence fallBackwardState = new Sequence(new List<BTNode>() { fallBackwardConditions, fallBackward });
         Sequence fallForwardState = new Sequence(new List<BTNode>() { fallForwardConditions, fallForward });
 
-        Selector fallingDirectionState = new Selector(new List<BTNode> { fallBackwardState, fallForwardState });
-        Sequence getHitState = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionState });
+        Selector fallingDirectionBehaviour = new Selector(new List<BTNode> { fallBackwardState, fallForwardState });
+        Sequence getHit = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionBehaviour });
+
+
+        //SABOTAGE BRANCH
+
+        Sequence goToStallState = new Sequence(new List<BTNode>() { goToStallConditions, goToStall });
+        Sequence hitFoodState = new Sequence(new List<BTNode>() { hitFoodConditions, hitFood });
+        Sequence tauntPlayerState = new Sequence(new List<BTNode>() { tauntPlayerConditions, tauntPlayer });
+
+        Selector sabotageBehaviour = new Selector(new List<BTNode>() { goToStallState, hitFoodState, tauntPlayerState });
+        Sequence sabotage = new Sequence(new List<BTNode>() { sabotageConditions, sabotageBehaviour });
 
 
         //SEARCHFORPLAYER STATE BRANCH
@@ -306,8 +336,8 @@ public class CustomerManager : MonoBehaviour
         Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
         Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
 
-        Selector playerSpottedState = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState });
-        Sequence searchForPlayerState = new Sequence(new List<BTNode>() { searchConditions, playerSpottedState });
+        Selector playerSpottedBehaviour = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState });
+        Sequence searchForPlayer = new Sequence(new List<BTNode>() { searchConditions, playerSpottedBehaviour });
 
 
         //CONFUSED STATE BRANCH
@@ -315,8 +345,8 @@ public class CustomerManager : MonoBehaviour
         Sequence patroleAisleState = new Sequence(new List<BTNode>() { patroleAisleConditions, patroleAisle });
         Sequence checkWrongShelfState = new Sequence(new List<BTNode>() { checkWrongShelfConditions, checkWrongShelf});
 
-        Selector confusedTypeState = new Selector(new List<BTNode> { patroleAisleState, checkWrongShelfState});
-        Sequence confusedState = new Sequence(new List<BTNode>() { confusedConditions, confusedTypeState});
+        Selector confusedBehaviour = new Selector(new List<BTNode> { patroleAisleState, checkWrongShelfState});
+        Sequence confused = new Sequence(new List<BTNode>() { confusedConditions, confusedBehaviour});
 
 
         //SHELF STATE BRANCH
@@ -324,12 +354,12 @@ public class CustomerManager : MonoBehaviour
         Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
 
 
-        Selector shelfBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
-        Sequence shelfState = new Sequence(new List<BTNode>() { shelfStateConditions, shelfBehaviour });
+        Selector grabItemBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
+        Sequence grabItem = new Sequence(new List<BTNode>() { grabItemConditions, grabItemBehaviour });
 
 
 
-        rootNode = new Selector(new List<BTNode> { standIdleState, getHitState, searchForPlayerState, confusedState, shelfState});
+        rootNode = new Selector(new List<BTNode> { standIdle, getHit, searchForPlayer, confused, grabItem});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

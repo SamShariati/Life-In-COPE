@@ -55,6 +55,8 @@ public class PickGoods : BTNode
 
                     agent.C_Functions.ChooseShelfRoute(agent);
 
+                    agent.sabotageStateAllowed = true;
+
                     return NodeState.SUCCESS;
                 }
                 return NodeState.RUNNING;

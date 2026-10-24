@@ -8,7 +8,7 @@ public class GoToStallConditions : BTNode
     {
         if (StateConditions(agent))
         {
-
+            agent.IKRiggingEnabled = true;
             agent.isCurrentlyGoingToStall = true;
             ChooseFoodStallPosition(agent);
 
@@ -43,9 +43,9 @@ public class GoToStallConditions : BTNode
     {
         int randInt = Random.Range(0, agent.foodStallList.Count);
 
-        FoodStall foodStall = agent.foodStallList[randInt].GetComponent<FoodStall>();
+        agent.chosenFoodStall = agent.foodStallList[randInt].GetComponent<FoodStall>();
 
-        agent.chosenFoodStallPos = foodStall.stallPosList[Random.Range(0, foodStall.stallPosList.Count)];
+        agent.chosenFoodStallPos = agent.chosenFoodStall.stallPosList[Random.Range(0, agent.chosenFoodStall.stallPosList.Count)];
 
     }
 
