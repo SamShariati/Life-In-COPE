@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.UIElements;
+
 
 public class CustomerManager : MonoBehaviour
 {
