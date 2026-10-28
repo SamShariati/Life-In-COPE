@@ -35,7 +35,8 @@ public class IdleStare : BTNode
                     phase = Phase.initiate;
                     agent.isCurrentlyStaring = false;
                     agent.spottedPlayer = false;
-                                 
+                    agent.sabotageStateAllowed = true;
+
 
                     return NodeState.SUCCESS;
                 }

@@ -7,6 +7,7 @@ public class GrabItemConditions : BTNode
 
         if (agent.shelfStateAllowed)
         {
+            agent.sabotageStateAllowed = false;
             return NodeState.SUCCESS;
         }
         else

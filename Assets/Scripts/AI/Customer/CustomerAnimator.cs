@@ -14,9 +14,9 @@ public enum AnimState
     Dizzy = 9,
     Thank = 10,
     LookAround = 11,
-    Attack,
-    Pleased,
-    Taunt
+    Attack = 12,
+    Pleased = 13,
+    Taunt = 14
 
 }
 
@@ -87,58 +87,58 @@ public class CustomerAnimator : MonoBehaviour
 
     private void SetIdle()
     {
-        float randomIdle = Random.Range(0, 5);
+        float animationIndex = Random.Range(0, 5);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Idle);
-        _animator.SetFloat(IdleVariantHash, randomIdle);
+        _animator.SetFloat(IdleVariantHash, animationIndex);
     }
 
     private void SetDizzy()
     {
-        float randomIdle = Random.Range(0, 2);
+        float animationIndex = Random.Range(0, 2);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Dizzy);
-        _animator.SetFloat(DizzyVariantHash, randomIdle);
+        _animator.SetFloat(DizzyVariantHash, animationIndex);
     }
 
     private void SetThank()
     {
-        float randomIdle = Random.Range(0, 11);
+        float animationIndex = Random.Range(0, 11);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Thank);
-        _animator.SetFloat(ThankVariantHash, randomIdle);
+        _animator.SetFloat(ThankVariantHash, animationIndex);
     }
 
     private void SetLookAround()
     {
-        float randomIdle = Random.Range(0, 3);
+        float animationIndex = Random.Range(0, 3);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.LookAround);
-        _animator.SetFloat(LookAroundVariantHash, randomIdle);
+        _animator.SetFloat(LookAroundVariantHash, animationIndex);
     }
 
     private void SetAttack()
     {
-        float randomIdle = Random.Range(0, 4);
+        float animationIndex = Random.Range(0, 2);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Attack);
-        _animator.SetFloat(AttackVariantHash, randomIdle);
+        _animator.SetFloat(AttackVariantHash, animationIndex);
     }
 
     private void SetPleased()
     {
-        float randomIdle = Random.Range(0, 3);
+        float animationIndex = Random.Range(0, 3);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Pleased);
-        _animator.SetFloat(PleasedVariantHash, randomIdle);
+        _animator.SetFloat(PleasedVariantHash, animationIndex);
     }
 
     private void SetTaunt()
     {
-        float randomIdle = Random.Range(0, 4);
+        float animationIndex = Random.Range(0, 4);
 
         _animator.SetInteger(AnimStateHash, (int)AnimState.Taunt);
-        _animator.SetFloat(TauntVariantHash, randomIdle);
+        _animator.SetFloat(TauntVariantHash, animationIndex);
     }
 
 

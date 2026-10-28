@@ -12,7 +12,7 @@ public class CustomerFunctions
     private const float sampleSearchRadius = 3f;
 
     private float lastSearchForPlayerStateCD;
-    private float lastGetHitStateCD;
+    //private float lastGetHitStateCD;
     private float lastSabotageStateCD;
 
     private float rotateSpeedDegPerSec = 720f;
@@ -21,7 +21,7 @@ public class CustomerFunctions
     {
         this.agent = agent;
         lastSearchForPlayerStateCD = -agent.searchForPlayerStateCD;
-        lastGetHitStateCD = -agent.getHitStateCD;
+        //lastGetHitStateCD = -agent.getHitStateCD;
         lastSabotageStateCD = -agent.sabotageStateCD;
     }
 
@@ -53,13 +53,14 @@ public class CustomerFunctions
 
         //Sabotage State
         agent.sabotageStateActivated = false;
+        agent.sabotageStateAllowed = true;
         agent.recentlyHitFood = false;
         agent.isCurrentlyGoingToStall = false;
         agent.isCurrentlyHittingStall = false;
         agent.isCurrentlyTaunting = false;
         agent.seenPlayerDuringSabotage = false;
         agent.hitFood.phase = HitFood.Phase.Initiate;
-        agent.tauntPlayer.phase = TauntPlayer.Phase.Initiate;
+        agent.tauntPlayer.phase = TauntPlayer.Phase.Idle;
 
 
 
@@ -162,7 +163,7 @@ public class CustomerFunctions
         agent.transform.rotation = Quaternion.Slerp(
             agent.transform.rotation,
             lookRotation,
-            Time.deltaTime * (agent.navigation.angularSpeed / 60));
+            Time.deltaTime * (agent.navigation.angularSpeed / 120));
     }
 
 

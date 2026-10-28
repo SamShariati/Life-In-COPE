@@ -8,6 +8,8 @@ public class ConfusedConditions : BTNode
         {
             agent.IKRiggingEnabled = true;
             agent.confusedStateActivated = true;
+            agent.sabotageStateAllowed = false;
+
             RollConfusedType(agent);
 
             return NodeState.SUCCESS;

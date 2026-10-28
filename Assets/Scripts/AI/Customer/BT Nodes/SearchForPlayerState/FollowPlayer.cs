@@ -96,6 +96,7 @@ public class FollowPlayer : BTNode
                     CustomerDialogue.Instance.HideMessage();
                     agent.isCurrentlyFollowing = false;
                     agent.isCurrentlyStaring = true;
+
                     phase = Phase.Instansiate;
 
                     if (PlayerInventory.Instance.IsHoldingBox())

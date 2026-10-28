@@ -7,6 +7,8 @@ public class GoToStall : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.goToStall;
+
         agent.animator.SetState(AnimState.Walk);
         agent.navigation.isStopped = false;
         agent.navigation.speed = agent.walkSpeed;

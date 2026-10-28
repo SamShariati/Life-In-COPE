@@ -12,11 +12,11 @@ public class CustomerManager : MonoBehaviour
     public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, pickGoodsConditions, pickGoods, searchConditions,
     chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
     patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf, getHitConditions, fallBackwardConditions, fallBackward,
-    fallForwardConditions, fallForward, idle, enterStore}
+    fallForwardConditions, fallForward, idle, enterStore, goToStall, hitFood, tauntPlayer}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
-    
-    private BTNode rootNode;
+
+    [HideInInspector] private BTNode rootNode;
     [HideInInspector] public NavMeshAgent navigation;
     [HideInInspector] public InitiateAllComponents initiateAllComponents;
     public CustomerFunctions C_Functions;
@@ -134,7 +134,7 @@ public class CustomerManager : MonoBehaviour
     [HideInInspector] public bool isCurrentlyGoingToStall = false;
     [HideInInspector] public bool isCurrentlyHittingStall = false;
     [HideInInspector] public bool isCurrentlyTaunting = false;
-    [HideInInspector] public bool seenPlayerDuringSabotage = false;
+    public bool seenPlayerDuringSabotage = false;
     [HideInInspector] public Transform chosenFoodStallPos;
     [HideInInspector] public FoodStall chosenFoodStall;
 
@@ -167,8 +167,8 @@ public class CustomerManager : MonoBehaviour
     public float wasteCustomerTime = 1.5f;
     public float gettingStunnedTime = 4f;
     public float searchForPlayerStateCD = 10;
-    public float getHitStateCD = 0;
-    public float sabotageStateCD = 30;
+    //public float getHitStateCD = 0;
+    public float sabotageStateCD = 0;
     
 
     [Header("Behaviour Chance %")]
@@ -358,7 +358,7 @@ public class CustomerManager : MonoBehaviour
 
 
 
-        rootNode = new Selector(new List<BTNode> { standIdle, getHit, searchForPlayer, confused, grabItem});
+        rootNode = new Selector(new List<BTNode> { standIdle, getHit, sabotage, searchForPlayer, confused, grabItem});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts

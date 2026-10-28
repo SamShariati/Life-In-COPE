@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TauntPlayer : BTNode
 {
-    public enum Phase { Initiate, Act}
+    public enum Phase { Idle, Initiate, Act}
     public enum Scenario { A, B, C}
 
     public Phase phase = Phase.Initiate;
@@ -11,7 +11,9 @@ public class TauntPlayer : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        
+
+
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.tauntPlayer;
         //  Three different branches:
 
         //  A. If SPDS = true and RHF = true, ik-rigging is disabled and agent rotates towards player, and swaps to taunting animation.
@@ -22,6 +24,19 @@ public class TauntPlayer : BTNode
 
         switch (phase)
         {
+
+            case Phase.Idle:
+
+                agent.animator.SetState(AnimState.Idle);
+
+
+                //Timer for this statement is set in HitFood.
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    phase = Phase.Initiate;
+                }
+                return NodeState.RUNNING;
+
 
             case Phase.Initiate:
 

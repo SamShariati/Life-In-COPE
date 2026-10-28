@@ -9,8 +9,10 @@ public class SearchConditions : BTNode
         {
             agent.IKRiggingEnabled = false;
             agent.spottedPlayer = true;
+            agent.sabotageStateAllowed = false;
             agent.C_Functions.SearchForPlayerResetFlags();
             CheckIfGoodChosen(agent);
+
             return NodeState.SUCCESS;
         }
 

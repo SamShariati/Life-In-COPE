@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class HitFood : BTNode
 {
-    public enum Phase { Initiate, LookAround, HitFood}
+    public enum Phase { Initiate, LookAround, Idle, HitFood}
     public Phase phase = Phase.Initiate;
+    private bool runOnce = false;
 
     Vector3 foodStallPrefabPos;
 
@@ -25,6 +26,9 @@ public class HitFood : BTNode
         //  RecentlyHitFood = true
         //  Immediately hits the food of the chosen position, and SpawnFood() is activated. Phase is active during animation + 0.5-1s. If SPDS = true, enable head ik-rigging.
         //  If SPDS = false;, keep head ik-rigging disabled.
+        agent.currentBehavior = CustomerManager.CurrentBehaviour.hitFood;
+
+
 
         switch (phase)
         {
@@ -34,11 +38,15 @@ public class HitFood : BTNode
                 foodStallPrefabPos = agent.chosenFoodStall.prefabPositionsDictionary[key].position;
 
                 agent.IKRiggingEnabled = false;
-                agent.C_Functions.SetTimer(4f);
+                agent.C_Functions.SetTimer(5f);
                 phase = Phase.LookAround;
+                runOnce = false;
+
                 return NodeState.RUNNING;
 
 
+
+                 
             case Phase.LookAround:
 
                 RotateTowardsFoodStallPosition(agent, foodStallPrefabPos);
@@ -68,6 +76,8 @@ public class HitFood : BTNode
                         if (RollSabotageChance(agent))
                         {
                             phase = Phase.HitFood;
+                            agent.C_Functions.SetTimer(1f);
+
                             return NodeState.RUNNING;
                         }
                         else
@@ -82,6 +92,7 @@ public class HitFood : BTNode
                     else
                     {
                         phase = Phase.HitFood;
+                        agent.C_Functions.SetTimer(1f);
                         return NodeState.RUNNING;
                     }
                 }
@@ -89,20 +100,43 @@ public class HitFood : BTNode
                 return NodeState.RUNNING;
 
 
+
+            case Phase.Idle:
+
+                agent.animator.SetState(AnimState.Idle);
+
+                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                {
+                    phase = Phase.HitFood;
+                }
+                return NodeState.RUNNING;
+
+
             case Phase.HitFood:
 
-                agent.animator.SetState(AnimState.Attack);
+
                 agent.recentlyHitFood = true;
-                agent.chosenFoodStall.SpawnFood(agent.chosenFoodStallPos, 3);
+
+                if (!runOnce)
+                {
+                    agent.animator.SetState(AnimState.Attack);
+                    runOnce = true;
+                    agent.chosenFoodStall.SpawnFood(agent.chosenFoodStallPos, 3);
+                }
 
                 if (agent.animator.IsStateFinished("Attack"))
                 {
                     agent.isCurrentlyHittingStall = false;
                     agent.isCurrentlyTaunting = true;
+                    runOnce = false;
                     phase = Phase.Initiate;
+
+                    //Prepare an idle time for TauntPlayer
+                    agent.C_Functions.SetTimer(1f);
 
                     return NodeState.SUCCESS;
                 }
+
 
                 return NodeState.RUNNING;
 
@@ -135,6 +169,6 @@ public class HitFood : BTNode
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 60));
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 120));
     }
 }
