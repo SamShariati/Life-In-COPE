@@ -8,7 +8,7 @@ public class FollowPlayerConditions : BTNode
         if (StateConditions(agent))
         {
             PlayerState.Instance.currentlyBeingFollowed = true;
-            agent.getHitStateAllowed = false;
+            agent.BB.GetHit.getHitStateAllowed = false;
 
             return NodeState.SUCCESS;
         }
@@ -22,7 +22,7 @@ public class FollowPlayerConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyChasing && agent.isCurrentlyFollowing && !agent.isCurrentlyStaring)
+        if (!agent.BB.SFP.isCurrentlyChasing && agent.BB.SFP.isCurrentlyFollowing && !agent.BB.SFP.isCurrentlyStaring)
         {
             return true;
         }

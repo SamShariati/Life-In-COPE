@@ -8,14 +8,14 @@ public class GoToStallConditions : BTNode
     {
         if (StateConditions(agent))
         {
-            agent.IKRiggingEnabled = true;
-            agent.isCurrentlyGoingToStall = true;
+            agent.BB.IKRigging.IKRiggingEnabled = true;
+            agent.BB.Sabotage.isCurrentlyGoingToStall = true;
             ChooseFoodStallPosition(agent);
 
             return NodeState.SUCCESS;
         }
 
-        else if (agent.isCurrentlyGoingToStall)
+        else if (agent.BB.Sabotage.isCurrentlyGoingToStall)
         {
             return NodeState.SUCCESS;
         }
@@ -29,7 +29,7 @@ public class GoToStallConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyGoingToStall && !agent.isCurrentlyHittingStall && !agent.isCurrentlyTaunting)
+        if (!agent.BB.Sabotage.isCurrentlyGoingToStall && !agent.BB.Sabotage.isCurrentlyHittingStall && !agent.BB.Sabotage.isCurrentlyTaunting)
         {
             return true;
         }
@@ -41,11 +41,11 @@ public class GoToStallConditions : BTNode
 
     private void ChooseFoodStallPosition(CustomerManager agent)
     {
-        int randInt = Random.Range(0, agent.foodStallList.Count);
+        int randInt = Random.Range(0, agent.BB.Sabotage.foodStallList.Count);
 
-        agent.chosenFoodStall = agent.foodStallList[randInt].GetComponent<FoodStall>();
+        agent.BB.Sabotage.chosenFoodStall = agent.BB.Sabotage.foodStallList[randInt].GetComponent<FoodStall>();
 
-        agent.chosenFoodStallPos = agent.chosenFoodStall.stallPosList[Random.Range(0, agent.chosenFoodStall.stallPosList.Count)];
+        agent.BB.Sabotage.chosenFoodStallPos = agent.BB.Sabotage.chosenFoodStall.stallPosList[Random.Range(0, agent.BB.Sabotage.chosenFoodStall.stallPosList.Count)];
 
     }
 

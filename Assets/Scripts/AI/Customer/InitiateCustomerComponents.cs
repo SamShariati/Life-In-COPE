@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.UIElements;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class InitiateAllComponents 
+public class InitiateCustomerComponents
 {
-
     CustomerManager agent;
 
     private GameObject shelfObjectParent;
@@ -15,7 +12,7 @@ public class InitiateAllComponents
     private List<CardboardBoxData> palletDataList;
     private GameObject aisles;
 
-    public InitiateAllComponents(CustomerManager agent)
+    public InitiateCustomerComponents(CustomerManager agent)
     {
         this.agent = agent;
     }
@@ -47,7 +44,7 @@ public class InitiateAllComponents
                 targetList.Add(pos);
             }
 
-            agent.allAislePositions[i] = targetList;
+            agent.BB.Confused.allAislePositions[i] = targetList;
         }
     }
 
@@ -58,7 +55,7 @@ public class InitiateAllComponents
 
         foreach (Transform child in foodStalls.transform)
         {
-            agent.foodStallList.Add(child);
+            agent.BB.Sabotage.foodStallList.Add(child);
         }
     }
 
@@ -72,18 +69,18 @@ public class InitiateAllComponents
 
     private void GetHeadObject()
     {
-        agent.headObject = agent.transform.Find("root/pelvis/spine_01/spine_02/spine_03/neck_01/head");
+        agent.BB.SFP.headObject = agent.transform.Find("root/pelvis/spine_01/spine_02/spine_03/neck_01/head");
     }
 
     private void GetIKRiggingObjects()
     {
-        agent.IKAimTarget = agent.transform.Find("aimTarget");
-        agent.cameraTransform = agent.player.transform.Find("Main Camera");
+        agent.BB.IKRigging.IKAimTarget = agent.transform.Find("aimTarget");
+        agent.BB.IKRigging.cameraTransform = agent.player.transform.Find("Main Camera");
 
         Transform chestObj = agent.transform.Find("Rig 1/ChestRig");
         Transform headObj = agent.transform.Find("Rig 1/HeadRig");
-        agent.chestRig = chestObj.GetComponent<MultiAimConstraint>();
-        agent.headRig = headObj.GetComponent<MultiAimConstraint>();
+        agent.BB.IKRigging.chestRig = chestObj.GetComponent<MultiAimConstraint>();
+        agent.BB.IKRigging.headRig = headObj.GetComponent<MultiAimConstraint>();
     }
 
 
@@ -106,7 +103,7 @@ public class InitiateAllComponents
         for (int i = 0; i < agent.nrGoodsNeeded; i++)
         {
             int rand = Random.Range(0, palletDataList.Count);
-            agent.remainingGoodsList.Add(palletDataList[rand]);
+            agent.BB.GSI.remainingGoodsList.Add(palletDataList[rand]);
             palletDataList.RemoveAt(rand);
         }
         GetShelfPositions();
@@ -125,18 +122,18 @@ public class InitiateAllComponents
             Transform shelfArrow = shelf.transform.Find("shelfArrow");
 
             Vector3 shelfPos = new Vector3(shelfArrow.position.x, 0, shelfArrow.position.z);
-            agent.allShelfArrowPositions[shelfGoodsType] = shelfPos;
-            agent.allShelfPositions[shelfGoodsType] = shelf;
+            agent.BB.GSI.allShelfArrowPositions[shelfGoodsType] = shelfPos;
+            agent.BB.GSI.allShelfPositions[shelfGoodsType] = shelf;
         }
     }
 
     private void GenerateNavPositions()
     {
 
-        agent.spawnAgentPos = GameObject.Find("spawnAgentPos").transform.position;
-        agent.enterStorePos = GameObject.Find("enterStorePos").transform.position;
-        agent.exitStorePos = GameObject.Find("exitStorePos").transform.position;
-        agent.walkToRegisterPos = GameObject.Find("walkToRegisterPos").transform.position;
+        agent.BB.Store.spawnAgentPos = GameObject.Find("spawnAgentPos").transform.position;
+        agent.BB.Store.enterStorePos = GameObject.Find("enterStorePos").transform.position;
+        agent.BB.Store.exitStorePos = GameObject.Find("exitStorePos").transform.position;
+        agent.BB.Store.walkToRegisterPos = GameObject.Find("walkToRegisterPos").transform.position;
 
     }
 }

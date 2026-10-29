@@ -11,11 +11,11 @@ public class FirstInLineState : FSMBaseState
     public override void EnterState(CustomerManager agent)
     {
         //agent.C_Functions.SetTimer(7); //Detta blir patienceTimer sen.
-        agent.IKRiggingEnabled = true;
+        agent.BB.IKRigging.IKRiggingEnabled = true;
 
         agent.cashRegister.customerFirstInLine = agent; //Dålig arkitektur. Alla agenter kommer åt register, men register håller bara en
-        agent.cashRegister.itemsLeftToScan = agent.goodsGathered.Count;
-        agent.cashRegister.itemsToScanList = agent.goodsGathered;
+        agent.cashRegister.itemsLeftToScan = agent.BB.GSI.goodsGathered.Count;
+        agent.cashRegister.itemsToScanList = agent.BB.GSI.goodsGathered;
         agent.cashRegister.PlaceGoodsOnRegister();
         agent.cashRegister.StartCustomerGoodsScan();
         agent.animator.SetState(AnimState.GrabItem);
@@ -28,16 +28,16 @@ public class FirstInLineState : FSMBaseState
 
             case Phase.IdleStanding:
 
-                distanceToTarget = Vector3.Distance(agent.currentQueuePos, agent.transform.position);
+                distanceToTarget = Vector3.Distance(agent.BB.CashRegister.currentQueuePos, agent.transform.position);
                 agent.animator.SetState(AnimState.Idle);
-                agent.navigation.SetDestination(agent.currentQueuePos);
+                agent.navigation.SetDestination(agent.BB.CashRegister.currentQueuePos);
 
                 if (distanceToTarget < 0.2f)
                 {
                     RotateTowardsRegister(agent);
                 }
 
-                if (agent.transactionComplete)
+                if (agent.BB.CashRegister.transactionComplete)
                 {
                     phase = Phase.ThankAnimation;            
                 }
@@ -65,14 +65,14 @@ public class FirstInLineState : FSMBaseState
 
 
                 QueueManager.Instance.AdvanceQueue();
-                agent.SwitchState(agent.exitStoreState);
+                agent.SwitchState(agent.AI.FSM.exitStoreState);
 
                 break;
 
         }
-        if (agent.gotHitByBox)
+        if (agent.BB.GetHit.gotHitByBox)
         {
-            agent.BTActivated = true;
+            agent.AI.BTActivated = true;
         }
 
 

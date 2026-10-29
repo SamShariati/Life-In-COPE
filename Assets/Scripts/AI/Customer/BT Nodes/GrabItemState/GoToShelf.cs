@@ -12,13 +12,13 @@ public class GoToShelf : BTNode
 
         agent.navigation.speed = agent.walkSpeed;
         agent.navigation.isStopped = false;
-        agent.navigation.SetDestination(agent.chosenShelfPosition);
+        agent.navigation.SetDestination(agent.BB.GSI.chosenShelfPosition);
 
-        distanceTarget = Vector3.Distance(agent.transform.position, agent.chosenShelfPosition);
+        distanceTarget = Vector3.Distance(agent.transform.position, agent.BB.GSI.chosenShelfPosition);
 
         if (distanceTarget < 0.2f)
         {
-            agent.shelfRouteReached = true;
+            agent.BB.GSI.shelfRouteReached = true;
 
             return NodeState.SUCCESS;
         }
@@ -30,7 +30,7 @@ public class GoToShelf : BTNode
     private void RemoveItemFromGoodsList(CustomerManager agent)
     {
 
-        agent.remainingGoodsList.Remove(agent.currentChosenGood);
+        agent.BB.GSI.remainingGoodsList.Remove(agent.BB.GSI.currentChosenGood);
 
         //foreach (CardboardBoxData goods in agent.remainingGoodsList)
         //{

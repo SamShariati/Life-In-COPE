@@ -18,7 +18,7 @@ public class TauntPlayerConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyGoingToStall && !agent.isCurrentlyHittingStall && agent.isCurrentlyTaunting)
+        if (!agent.BB.Sabotage.isCurrentlyGoingToStall && !agent.BB.Sabotage.isCurrentlyHittingStall && agent.BB.Sabotage.isCurrentlyTaunting)
         {
             return true;
         }

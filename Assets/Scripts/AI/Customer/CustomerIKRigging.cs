@@ -29,7 +29,7 @@ public class CustomerIKRigging
     {
         float distance = Vector3.Distance(agent.transform.position, agent.player.transform.position);
 
-        if (agent.IKRiggingEnabled && distance < agent.playerAwernessRange)
+        if (agent.BB.IKRigging.IKRiggingEnabled && distance < agent.playerAwernessRange)
         {
             return true;
         }
@@ -44,18 +44,18 @@ public class CustomerIKRigging
     public void UpdateIK()
     {
 
-        agent.IKAimTarget.position = agent.cameraTransform.position;
+        agent.BB.IKRigging.IKAimTarget.position = agent.BB.IKRigging.cameraTransform.position;
         targetWeight01 = IKRiggingAllowed() ? 1f - Mathf.Clamp01(CalculatePlayerDotProduct() / DeadZoneDot) : 0f;
 
 
-        agent.chestRig.weight = Mathf.SmoothDamp(
-            agent.chestRig.weight,
+        agent.BB.IKRigging.chestRig.weight = Mathf.SmoothDamp(
+            agent.BB.IKRigging.chestRig.weight,
             targetWeight01 * ChestBaseWeight,
             ref chestWeightVelocity,
             SmoothTime);
 
-        agent.headRig.weight = Mathf.SmoothDamp(
-            agent.headRig.weight,
+        agent.BB.IKRigging.headRig.weight = Mathf.SmoothDamp(
+            agent.BB.IKRigging.headRig.weight,
             targetWeight01 * HeadBaseWeight,
             ref headWeightVelocity,
             SmoothTime);

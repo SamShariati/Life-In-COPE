@@ -20,8 +20,8 @@ public class ChasePlayer : BTNode
 
         if (distanceToTarget < 1.5f)
         {
-            agent.isCurrentlyChasing = false;
-            agent.isCurrentlyFollowing = true;
+            agent.BB.SFP.isCurrentlyChasing = false;
+            agent.BB.SFP.isCurrentlyFollowing = true;
 
             return NodeState.SUCCESS;
         }

@@ -6,10 +6,10 @@ public class IdleConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        if (agent.idleStateAllowed && !agent.idleStateActivated)
+        if (agent.BB.Idle.idleStateAllowed && !agent.BB.Idle.idleStateActivated)
         {
-            agent.IKRiggingEnabled = true;
-            agent.idleStateActivated = true;
+            agent.BB.IKRigging.IKRiggingEnabled = true;
+            agent.BB.Idle.idleStateActivated = true;
             agent.C_Functions.SetTimer(Random.Range(2f, 3f));
 
             return NodeState.SUCCESS;
@@ -23,8 +23,8 @@ public class IdleConditions : BTNode
 
         else
         {
-            agent.idleStateAllowed = false;
-            agent.idleStateActivated = false;
+            agent.BB.Idle.idleStateAllowed = false;
+            agent.BB.Idle.idleStateActivated = false;
             return NodeState.FAILURE;
         }
 
@@ -37,7 +37,7 @@ public class IdleConditions : BTNode
     private bool StateConditions(CustomerManager agent)
     {
 
-        if (agent.idleStateActivated && !agent.gotHitByBox)
+        if (agent.BB.Idle.idleStateActivated && !agent.BB.GetHit.gotHitByBox)
         {
             return true;
         }

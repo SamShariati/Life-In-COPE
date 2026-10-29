@@ -45,8 +45,8 @@ public class QueueManager : MonoBehaviour
             if (queue[i].occupant == null)
             {
                 queue[i].occupant = agent;
-                agent.assignedQueueSlot = i;
-                agent.currentQueuePos = queue[i].queuePos.transform.position;
+                agent.BB.CashRegister.assignedQueueSlot = i;
+                agent.BB.CashRegister.currentQueuePos = queue[i].queuePos.transform.position;
                 //agent.navigation.SetDestination(queue[i].position.transform.position); //ska flyttas in till FSM
                 return true;
             }
@@ -65,8 +65,8 @@ public class QueueManager : MonoBehaviour
                 CustomerManager customer = queue[i].occupant;
                 queue[i].occupant = null;
                 queue[i - 1].occupant = customer;
-                customer.assignedQueueSlot = i - 1;
-                customer.currentQueuePos = queue[i - 1].queuePos.transform.position;
+                customer.BB.CashRegister.assignedQueueSlot = i - 1;
+                customer.BB.CashRegister.currentQueuePos = queue[i - 1].queuePos.transform.position;
                 //customer.navigation.SetDestination(queue[i - 1].position.transform.position); //ska flyttas in till FSM
             }
         }

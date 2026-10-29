@@ -7,17 +7,17 @@ public class PickGoodsConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
         // Only enter picking phase after the shelf has been reached
-        if (!agent.shelfRouteReached)
+        if (!agent.BB.GSI.shelfRouteReached)
         {
             return NodeState.FAILURE;
         }
             
 
-        if (!agent.currentlyPickingGoods)
+        if (!agent.BB.GSI.currentlyPickingGoods)
         {
-            agent.IKRiggingEnabled = false;
-            agent.allowedToChase = false;
-            agent.currentlyPickingGoods = true;
+            agent.BB.IKRigging.IKRiggingEnabled = false;
+            agent.BB.SFP.allowedToChase = false;
+            agent.BB.GSI.currentlyPickingGoods = true;
             agent.C_Functions.SetTimer(3f);
         }
 

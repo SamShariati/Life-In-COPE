@@ -17,8 +17,8 @@ public class IdleStare : BTNode
 
                 agent.C_Functions.SetTimer(4);
                 phase = Phase.idle;
-                agent.confusedStateAllowed = false;
-                agent.getHitStateAllowed = true;
+                agent.BB.Confused.confusedStateAllowed = false;
+                agent.BB.GetHit.getHitStateAllowed = true;
                 agent.C_Functions.ResetSearchForPlayerStateCD();
 
                 return NodeState.RUNNING;
@@ -33,9 +33,9 @@ public class IdleStare : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.initiate;
-                    agent.isCurrentlyStaring = false;
-                    agent.spottedPlayer = false;
-                    agent.sabotageStateAllowed = true;
+                    agent.BB.SFP.isCurrentlyStaring = false;
+                    agent.BB.SFP.spottedPlayer = false;
+                    agent.BB.Sabotage.sabotageStateAllowed = true;
 
 
                     return NodeState.SUCCESS;

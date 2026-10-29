@@ -60,10 +60,10 @@ public class FallForward : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
 
-                    agent.getHitStateActivated = false;
-                    agent.isCurrFallingForward = false;
-                    agent.gotHitByBox = false;
-                    agent.idleStateAllowed = true;
+                    agent.BB.GetHit.getHitStateActivated = false;
+                    agent.BB.GetHit.isCurrFallingForward = false;
+                    agent.BB.GetHit.gotHitByBox = false;
+                    agent.BB.Idle.idleStateAllowed = true;
 
                     phase = Phase.Initiate;
                     return NodeState.SUCCESS;

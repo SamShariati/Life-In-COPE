@@ -34,10 +34,10 @@ public class HitFood : BTNode
         {
             case Phase.Initiate:
 
-                GameObject key = agent.chosenFoodStall.stallPositionsDictionary[agent.chosenFoodStallPos];
-                foodStallPrefabPos = agent.chosenFoodStall.prefabPositionsDictionary[key].position;
+                GameObject key = agent.BB.Sabotage.chosenFoodStall.stallPositionsDictionary[agent.BB.Sabotage.chosenFoodStallPos];
+                foodStallPrefabPos = agent.BB.Sabotage.chosenFoodStall.prefabPositionsDictionary[key].position;
 
-                agent.IKRiggingEnabled = false;
+                agent.BB.IKRigging.IKRiggingEnabled = false;
                 agent.C_Functions.SetTimer(5f);
                 phase = Phase.LookAround;
                 runOnce = false;
@@ -51,14 +51,14 @@ public class HitFood : BTNode
 
                 RotateTowardsFoodStallPosition(agent, foodStallPrefabPos);
 
-                if (agent.customerVision.CanSeePlayer())
+                if (agent.BB.SFP.customerVision.CanSeePlayer())
                 {
-                    agent.seenPlayerDuringSabotage = true;
-                    agent.IKRiggingEnabled = true;
+                    agent.BB.Sabotage.seenPlayerDuringSabotage = true;
+                    agent.BB.IKRigging.IKRiggingEnabled = true;
                 }
 
 
-                if (agent.seenPlayerDuringSabotage)
+                if (agent.BB.Sabotage.seenPlayerDuringSabotage)
                 {
                     agent.animator.SetState(AnimState.Idle);
                 }
@@ -71,7 +71,7 @@ public class HitFood : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
 
-                    if (agent.seenPlayerDuringSabotage)
+                    if (agent.BB.Sabotage.seenPlayerDuringSabotage)
                     {
                         if (RollSabotageChance(agent))
                         {
@@ -83,8 +83,8 @@ public class HitFood : BTNode
                         else
                         {
                             phase = Phase.Initiate;
-                            agent.isCurrentlyHittingStall = false;
-                            agent.isCurrentlyTaunting = true;
+                            agent.BB.Sabotage.isCurrentlyHittingStall = false;
+                            agent.BB.Sabotage.isCurrentlyTaunting = true;
 
                             return NodeState.SUCCESS;
                         }
@@ -115,19 +115,19 @@ public class HitFood : BTNode
             case Phase.HitFood:
 
 
-                agent.recentlyHitFood = true;
+                agent.BB.Sabotage.recentlyHitFood = true;
 
                 if (!runOnce)
                 {
                     agent.animator.SetState(AnimState.Attack);
                     runOnce = true;
-                    agent.chosenFoodStall.SpawnFood(agent.chosenFoodStallPos, 3);
+                    agent.BB.Sabotage.chosenFoodStall.SpawnFood(agent.BB.Sabotage.chosenFoodStallPos, 3);
                 }
 
                 if (agent.animator.IsStateFinished("Attack"))
                 {
-                    agent.isCurrentlyHittingStall = false;
-                    agent.isCurrentlyTaunting = true;
+                    agent.BB.Sabotage.isCurrentlyHittingStall = false;
+                    agent.BB.Sabotage.isCurrentlyTaunting = true;
                     runOnce = false;
                     phase = Phase.Initiate;
 

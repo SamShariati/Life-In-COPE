@@ -29,9 +29,9 @@ public class CheckWrongShelf : BTNode
 
                 agent.navigation.speed = agent.walkSpeed;
                 agent.navigation.isStopped = false;
-                agent.navigation.SetDestination(agent.wrongShelfArrowPos);
+                agent.navigation.SetDestination(agent.BB.Confused.wrongShelfArrowPos);
 
-                distanceTarget = Vector3.Distance(agent.transform.position, agent.wrongShelfArrowPos);
+                distanceTarget = Vector3.Distance(agent.transform.position, agent.BB.Confused.wrongShelfArrowPos);
 
                 if (distanceTarget < 0.2f)
                 {
@@ -49,12 +49,12 @@ public class CheckWrongShelf : BTNode
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
-                    agent.isCurrCheckingWrongShelf = false;
-                    agent.wrongShelfChosen = false;
-                    agent.confusedStateActivated = false;
+                    agent.BB.Confused.isCurrCheckingWrongShelf = false;
+                    agent.BB.Confused.wrongShelfChosen = false;
+                    agent.BB.Confused.confusedStateActivated = false;
                     phase = Phase.Initiate;
 
-                    agent.sabotageStateAllowed = true;
+                    agent.BB.Sabotage.sabotageStateAllowed = true;
 
                     return NodeState.SUCCESS;
                 }
@@ -68,10 +68,10 @@ public class CheckWrongShelf : BTNode
     private void RotateTowardsWrongShelf(CustomerManager agent)
     {
         
-        Vector3 direction = (agent.currentWrongShelf.transform.position - agent.transform.position).normalized;
+        Vector3 direction = (agent.BB.Confused.currentWrongShelf.transform.position - agent.transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 60));
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * (agent.navigation.angularSpeed / 120f));
     }
 }

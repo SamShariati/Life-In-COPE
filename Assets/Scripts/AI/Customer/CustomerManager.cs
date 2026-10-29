@@ -9,154 +9,27 @@ public class CustomerManager : MonoBehaviour
 
     //-------------DEBUGGING VARIABLES-----------------------------
 
-    public enum CurrentBehaviour { nothing, goToShelfConditions, goToShelf, pickGoodsConditions, pickGoods, searchConditions,
-    chasePlayerConditions, chasePlayer, followPlayerConditions, followPlayer, idleStareConditions, idleStare, goToLine, patroleAisle,
-    patroleAisleConditions, checkWrongShelfConditions, checkWrongShelf, getHitConditions, fallBackwardConditions, fallBackward,
-    fallForwardConditions, fallForward, idle, enterStore, goToStall, hitFood, tauntPlayer}
+    public enum CurrentBehaviour { nothing, goToShelf, pickGoods, 
+    chasePlayer, followPlayer, idleStare, goToLine, patroleAisle,
+    checkWrongShelfConditions, checkWrongShelf, fallBackward,
+    fallForward, idle, enterStore, goToStall, hitFood, tauntPlayer}
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.nothing;
 
-    [HideInInspector] private BTNode rootNode;
+    [HideInInspector] public CustomerBlackboard BB = new CustomerBlackboard();
+    [HideInInspector] public CustomerAIBuilder AI = new CustomerAIBuilder();
+
     [HideInInspector] public NavMeshAgent navigation;
-    [HideInInspector] public InitiateAllComponents initiateAllComponents;
+    [HideInInspector] public InitiateCustomerComponents initiateComponents;
     public CustomerFunctions C_Functions;
     [HideInInspector] public CashRegister cashRegister;
     [HideInInspector] public Transform player;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public CustomerAnimator animator;
-
-    //-------------------FSM STATES-------------------------
-
-    [HideInInspector] public bool BTActivated = false;
-    [HideInInspector] public bool FSMStateActivated = false;
-    private FSMBaseState currentState;
-    [HideInInspector] public EnterStoreState enterStoreState = new EnterStoreState();
-    [HideInInspector] public NothingState nothingState = new NothingState();
-    [HideInInspector] public StandInLineState standInLineState = new StandInLineState();
-    [HideInInspector] public GoToLineState goToLineState = new GoToLineState();
-    [HideInInspector] public FirstInLineState firstInLineState = new FirstInLineState();
-    [HideInInspector] public ExitStoreState exitStoreState = new ExitStoreState();
-
-    //-------------------PUBLIC BT NODES---------------------------------
-
-    [HideInInspector] public IdleStare idleStare = new IdleStare();
-    //-------------------------------------------------------------------------------
-    [HideInInspector] public PatroleAisle patroleAisle = new PatroleAisle();
-    [HideInInspector] public CheckWrongShelf checkWrongShelf = new CheckWrongShelf();
-    //-------------------------------------------------------------------------------
-    [HideInInspector] public FallBackward fallBackward = new FallBackward();
-    [HideInInspector] public FallForward fallForward = new FallForward();
-    //-------------------------------------------------------------------------------
-    [HideInInspector] public PickGoods pickGoods = new PickGoods();
-    //-------------------------------------------------------------------------------
-    [HideInInspector] public HitFood hitFood = new HitFood();
-    [HideInInspector] public TauntPlayer tauntPlayer = new TauntPlayer();
-
-
-    //-------------------SHELF BRANCH VARIABLES------------------------
-
-    [HideInInspector] public bool shelfStateAllowed = true;
-    public CardboardBoxData currentChosenGood;
-    [HideInInspector] public Dictionary<string, Vector3> allShelfArrowPositions = new Dictionary<string, Vector3>();
-    [HideInInspector] public Dictionary<string, Shelf> allShelfPositions = new Dictionary<string, Shelf>();
-    public List<CardboardBoxData> remainingGoodsList = new List<CardboardBoxData>();
-    public List<GameObject> goodsGathered = new List<GameObject>(); //används i CashRegister
-    [HideInInspector] public Vector3 chosenShelfPosition;
-    
-    [HideInInspector] public bool shelfRouteReached = false;
-    [HideInInspector] public bool currentlyPickingGoods = false;
-
-    //-------------CASH REGISTER VARIABLES-----------------------------
-
-    [HideInInspector] public int assignedQueueSlot = -1;
-    [HideInInspector] public Vector3 currentQueuePos;
-    [HideInInspector] public bool transactionComplete = false;
-
-
-    //---------------FSM VARIABLES------------------------------------
-    [HideInInspector] public Vector3 spawnAgentPos;
-    [HideInInspector] public Vector3 enterStorePos;
-    [HideInInspector] public Vector3 walkToRegisterPos;
-    [HideInInspector] public Vector3 exitStorePos;
-
-
-    //-------------SEARCH FOR PLAYER VARIABLES-----------------------------
-
-    [HideInInspector] public Transform headObject;
-    [HideInInspector] public CustomerVision customerVision;
-    [SerializeField] public LayerMask obstacleMask;
-    [SerializeField] public LayerMask playerMask;
-    [HideInInspector] public bool currentlyTouchingPlayer = false;
-    [HideInInspector] public bool allowedToChase = true;
-    [HideInInspector] public bool spottedPlayer = false;
-    [HideInInspector] public bool isCurrentlyChasing = false;
-    [HideInInspector] public bool isCurrentlyFollowing = false;
-    [HideInInspector] public bool isCurrentlyStaring = false;
-
-    //-------------CONFUSED VARIABLES-----------------------------
-
-    [HideInInspector] public bool confusedStateAllowed = true;
-    [HideInInspector] public bool confusedStateActivated = false;
-    [HideInInspector] public bool isCurrentlyPatrolling = false;
-    [HideInInspector] public bool patroleRouteChosen = false;
-
-    [HideInInspector] public bool isCurrCheckingWrongShelf = false;
-    [HideInInspector] public bool wrongShelfChosen = false;
-
-    [HideInInspector] public int aisleID = 0;
-    [HideInInspector] public Dictionary<int, List<Transform>> allAislePositions = new Dictionary<int, List<Transform>>();
-    [HideInInspector] public Vector3 wrongShelfArrowPos;
-    [HideInInspector] public Shelf currentWrongShelf;
-    [HideInInspector] public Vector3 chosenAislePos;
-
-
-    //-------------GET HIT VARIABLES-----------------------------
-
-    [HideInInspector] public bool getHitStateAllowed = true;
-    [HideInInspector] public bool getHitStateActivated = false;
-    [HideInInspector] public bool gotHitByBox = false;
-    [HideInInspector] public Rigidbody collidingBoxRB;
-    [HideInInspector] public bool isCurrFallingForward = false;
-    [HideInInspector] public bool isCurrFallingBackward = false;
-    [HideInInspector] public float dotProduct;
-    [HideInInspector] public float forceRatio;
-    [HideInInspector] public float targetRotationAngle;
-    [HideInInspector] public Vector3 thrownDirection;
-    [HideInInspector] public CardboardBoxObject thrownBox;
-    [HideInInspector] public Quaternion impactTargetRotation;
-
-    //-------------SABOTAGE VARIABLES-----------------------------
-
-    [HideInInspector] public bool sabotageStateAllowed = true;
-    [HideInInspector] public bool sabotageStateDisabledByHit = false;
-    [HideInInspector] public bool sabotageStateActivated = false;
-    [HideInInspector] public bool recentlyHitFood = false;
-    [HideInInspector] public bool isCurrentlyGoingToStall = false;
-    [HideInInspector] public bool isCurrentlyHittingStall = false;
-    [HideInInspector] public bool isCurrentlyTaunting = false;
-    public bool seenPlayerDuringSabotage = false;
-    [HideInInspector] public Transform chosenFoodStallPos;
-    [HideInInspector] public FoodStall chosenFoodStall;
-
-    public List<Transform> foodStallList = new List<Transform>();
-
-    //-------------IDLE VARIABLES-----------------------------
-
-    [HideInInspector] public bool idleStateAllowed = true;
-    [HideInInspector] public bool idleStateActivated = false;
-
-    //-------------IK RIGGING-----------------------------
-
     [HideInInspector] CustomerIKRigging IKRigging;
-    [HideInInspector] public MultiAimConstraint chestRig;
-    [HideInInspector] public MultiAimConstraint headRig;
-    [HideInInspector] public bool IKRiggingEnabled = true;
-    [HideInInspector] public Transform IKAimTarget;
-    [HideInInspector] public Transform cameraTransform;
-    //----------------------------------------------------
 
     [Header("Customer Stats")]
-    public float walkSpeed;
+    public float walkSpeed = 2f;
     public float runSpeed = 5f;
     public int nrGoodsNeeded = 2;
     public float minIdleTime = 2;
@@ -170,7 +43,6 @@ public class CustomerManager : MonoBehaviour
     //public float getHitStateCD = 0;
     public float sabotageStateCD = 0;
     
-
     [Header("Behaviour Chance %")]
     public float confusedChance = 100f;
     public float chasePlayerChance = 100f;
@@ -180,7 +52,8 @@ public class CustomerManager : MonoBehaviour
     private void Awake()
     {
         navigation = GetComponent<NavMeshAgent>();
-        initiateAllComponents = new InitiateAllComponents(this);
+
+        initiateComponents = new InitiateCustomerComponents(this);
         C_Functions = new CustomerFunctions(this);
         IKRigging = new CustomerIKRigging(this);
         animator = GetComponent<CustomerAnimator>();
@@ -188,13 +61,13 @@ public class CustomerManager : MonoBehaviour
     }
     void Start()
     {
-        initiateAllComponents.GenerateAllComponents();
-        customerVision = new CustomerVision(this); //Behöver ändras, dålig arkitektur placering
+        initiateComponents.GenerateAllComponents();
+        BB.SFP.customerVision = new CustomerVision(this); //Behöver ändras, dålig arkitektur placering
         //nrGoodsNeeded = Random.Range(1, 6);
         
-        currentState = enterStoreState;
-        currentState.EnterState(this);
-        ConstructBT();
+        AI.FSM.currentState = AI.FSM.enterStoreState;
+        AI.FSM.currentState.EnterState(this);
+        AI.BT.ConstructBT();
     }
 
     void Update()
@@ -202,21 +75,21 @@ public class CustomerManager : MonoBehaviour
 
         IKRigging.UpdateIK();
 
-        if (BTActivated) // BT
+        if (AI.BTActivated) // BT
         {
-            rootNode.Evaluate(this);
+            AI.BT.rootNode.Evaluate(this);
             
         }
         else //FSM
         {
-            currentState.UpdateState(this);
+            AI.FSM.currentState.UpdateState(this);
         }
-
+        
     }
 
     public void SwitchState(FSMBaseState state)
     {
-        currentState = state;
+        AI.FSM.currentState = state;
         state.EnterState(this);
     }
 
@@ -228,13 +101,13 @@ public class CustomerManager : MonoBehaviour
             var box = other.GetComponentInParent<CardboardBoxObject>();
             if (box == null || !box.IsInFlight) return;
 
-            gotHitByBox = true;
-            thrownBox = box;                 // store the box, not just its RB
-            thrownDirection = box.ThrownDirection;
+            BB.GetHit.gotHitByBox = true;
+            BB.GetHit.thrownBox = box;                 // store the box, not just its RB
+            BB.GetHit.thrownDirection = box.ThrownDirection;
         }
         else if (other.CompareTag("Player"))
         {
-            currentlyTouchingPlayer = true;
+            BB.SFP.currentlyTouchingPlayer = true;
         }
     }
 
@@ -242,130 +115,15 @@ public class CustomerManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            currentlyTouchingPlayer = false;
+            BB.SFP.currentlyTouchingPlayer = false;
         }
-    }
-
-    private void ConstructBT()
-    {
-
-        //------IdleState scripts ------
-
-        IdleConditions idleConditions = new IdleConditions();
-        Idle idle = new Idle();
-
-
-        //------GetHitState scripts ------
-
-        GetHitConditions getHitConditions = new GetHitConditions();
-        FallBackwardConditions fallBackwardConditions = new FallBackwardConditions();
-        //FallBackward fallBackward = new FallBackward(); - PUBLIC
-        FallForwardConditions fallForwardConditions = new FallForwardConditions();
-        //FallForward fallForward = new FallForward(); - PUBLIC
-
-
-        //------SabotageState scripts -------
-
-        SabotageConditions sabotageConditions = new SabotageConditions();
-        GoToStallConditions goToStallConditions = new GoToStallConditions();
-        GoToStall goToStall = new GoToStall();
-        HitFoodConditions hitFoodConditions = new HitFoodConditions();
-        //HitFood hitFood = new HitFood(); - PUBLIC
-        TauntPlayerConditions tauntPlayerConditions = new TauntPlayerConditions();
-        //TauntPlayer tauntPlayer = new TauntPlayer(); - PUBLIC
-
-
-        //------SearchForPlayerState scripts ------
-
-        SearchConditions searchConditions = new SearchConditions();
-        ChasePlayerConditions chasePlayerConditions = new ChasePlayerConditions();
-        ChasePlayer chasePlayer = new ChasePlayer();
-        FollowPlayerConditions followPlayerConditions = new FollowPlayerConditions();
-        FollowPlayer followPlayer = new FollowPlayer();
-        IdleStareConditions idleStareConditions = new IdleStareConditions();
-        //IdleStare idleStare = new IdleStare(); - PUBLIC
-   
-
-        //------ConfusedState scripts ------
-
-        ConfusedConditions confusedConditions = new ConfusedConditions();
-        PatroleAisleConditions patroleAisleConditions = new PatroleAisleConditions();
-        //PatroleAisle patroleAisle = new PatroleAisle(); - PUBLIC
-        CheckWrongShelfConditions checkWrongShelfConditions = new CheckWrongShelfConditions();
-        //CheckWrongShelf checkWrongShelf = new CheckWrongShelf(); - PUBLIC
-
-
-        //------ShelfState scripts ------
-
-        GrabItemConditions grabItemConditions = new GrabItemConditions();
-        GoToShelfConditions goToShelfConditions = new GoToShelfConditions();
-        GoToShelf goToShelf = new GoToShelf();
-        PickGoodsConditions pickGoodsConditions = new PickGoodsConditions();
-        //PickGoods pickGoods = new PickGoods(); - PUBLIC
-
-
-        //----------------------------------------------------------------------------------------------------------------------
-
-        //IDLE STATE BRANCH
-
-        Sequence standIdle = new Sequence(new List<BTNode>() { idleConditions, idle });
-
-        //GETHIT STATE BRANCH
-
-        Sequence fallBackwardState = new Sequence(new List<BTNode>() { fallBackwardConditions, fallBackward });
-        Sequence fallForwardState = new Sequence(new List<BTNode>() { fallForwardConditions, fallForward });
-
-        Selector fallingDirectionBehaviour = new Selector(new List<BTNode> { fallBackwardState, fallForwardState });
-        Sequence getHit = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionBehaviour });
-
-
-        //SABOTAGE BRANCH
-
-        Sequence goToStallState = new Sequence(new List<BTNode>() { goToStallConditions, goToStall });
-        Sequence hitFoodState = new Sequence(new List<BTNode>() { hitFoodConditions, hitFood });
-        Sequence tauntPlayerState = new Sequence(new List<BTNode>() { tauntPlayerConditions, tauntPlayer });
-
-        Selector sabotageBehaviour = new Selector(new List<BTNode>() { goToStallState, hitFoodState, tauntPlayerState });
-        Sequence sabotage = new Sequence(new List<BTNode>() { sabotageConditions, sabotageBehaviour });
-
-
-        //SEARCHFORPLAYER STATE BRANCH
-
-        Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
-        Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
-        Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
-
-        Selector playerSpottedBehaviour = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState });
-        Sequence searchForPlayer = new Sequence(new List<BTNode>() { searchConditions, playerSpottedBehaviour });
-
-
-        //CONFUSED STATE BRANCH
-
-        Sequence patroleAisleState = new Sequence(new List<BTNode>() { patroleAisleConditions, patroleAisle });
-        Sequence checkWrongShelfState = new Sequence(new List<BTNode>() { checkWrongShelfConditions, checkWrongShelf});
-
-        Selector confusedBehaviour = new Selector(new List<BTNode> { patroleAisleState, checkWrongShelfState});
-        Sequence confused = new Sequence(new List<BTNode>() { confusedConditions, confusedBehaviour});
-
-
-        //SHELF STATE BRANCH
-        Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
-        Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
-
-
-        Selector grabItemBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
-        Sequence grabItem = new Sequence(new List<BTNode>() { grabItemConditions, grabItemBehaviour });
-
-
-
-        rootNode = new Selector(new List<BTNode> { standIdle, getHit, sabotage, searchForPlayer, confused, grabItem});
     }
 
     private void OnDrawGizmosSelected() //used for checking CustomerVision raycasts
     {
-        if (customerVision == null || !customerVision.drawDebugGizmos)
+        if (BB.SFP.customerVision == null || !BB.SFP.customerVision.drawDebugGizmos)
             return;
 
-        customerVision.DrawGizmos();
+        BB.SFP.customerVision.DrawGizmos();
     }
 }

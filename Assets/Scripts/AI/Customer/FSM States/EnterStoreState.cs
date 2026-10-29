@@ -9,12 +9,12 @@ public class EnterStoreState : FSMBaseState
     {
         agent.currentBehavior = CustomerManager.CurrentBehaviour.enterStore;
 
-        agent.FSMStateActivated = true;
+        agent.AI.FSMActivated = true;
 
-        storePosition = agent.enterStorePos;
+        storePosition = agent.BB.Store.enterStorePos;
         idleTime = Random.Range(agent.minIdleTime, agent.maxIdleTime);
 
-        agent.IKRiggingEnabled = true;
+        agent.BB.IKRigging.IKRiggingEnabled = true;
         
     }
 
@@ -32,18 +32,18 @@ public class EnterStoreState : FSMBaseState
 
         if (distanceToTarget < 0.5f)
         {
-            agent.idleStateAllowed = true;
-            agent.FSMStateActivated = false;
+            agent.BB.Idle.idleStateAllowed = true;
+            agent.AI.FSMActivated = false;
             agent.C_Functions.ChooseShelfRoute(agent);
-            agent.SwitchState(agent.nothingState);
-            agent.BTActivated = true;
+            agent.SwitchState(agent.AI.FSM.nothingState);
+            agent.AI.BTActivated = true;
 
 
         }
         // In case agent needs to enter GetHitState when FSM is activated.
-        else if (distanceToTarget > 0.5f && agent.gotHitByBox)
+        else if (distanceToTarget > 0.5f && agent.BB.GetHit.gotHitByBox)
         {
-            agent.BTActivated = true;
+            agent.AI.BTActivated = true;
         }
 
     }

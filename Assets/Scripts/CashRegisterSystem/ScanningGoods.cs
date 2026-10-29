@@ -141,7 +141,7 @@ public class ScanningGoods : PlayerInput.ICashRegisterActions
 
         if (!_exitRequested && register.customerFirstInLine != null)
         {
-            register.customerFirstInLine.transactionComplete = true;
+            register.customerFirstInLine.BB.CashRegister.transactionComplete = true;
             //ExitScanning();
 
         }

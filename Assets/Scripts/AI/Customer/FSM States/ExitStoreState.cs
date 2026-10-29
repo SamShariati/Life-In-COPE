@@ -7,9 +7,9 @@ public class ExitStoreState : FSMBaseState
 
     public override void EnterState(CustomerManager agent)
     {
-        agent.IKRiggingEnabled = true;
+        agent.BB.IKRigging.IKRiggingEnabled = true;
 
-        targetPosition = agent.exitStorePos;
+        targetPosition = agent.BB.Store.exitStorePos;
     }
 
     public override void UpdateState(CustomerManager agent)
@@ -30,9 +30,9 @@ public class ExitStoreState : FSMBaseState
             agent.animator.SetState(AnimState.Walk);
         }
 
-        if (agent.gotHitByBox)
+        if (agent.BB.GetHit.gotHitByBox)
         {
-            agent.BTActivated = true;
+            agent.AI.BTActivated = true;
         }
     }
 }

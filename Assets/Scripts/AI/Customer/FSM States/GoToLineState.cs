@@ -8,10 +8,10 @@ public class GoToLineState : FSMBaseState
     Vector3 targetPos;
     public override void EnterState(CustomerManager agent)
     {
-        agent.IKRiggingEnabled = true;
+        agent.BB.IKRigging.IKRiggingEnabled = true;
 
-        targetPos = agent.walkToRegisterPos;
-        agent.FSMStateActivated = true;
+        targetPos = agent.BB.Store.walkToRegisterPos;
+        agent.AI.FSMActivated = true;
 
         
 
@@ -22,18 +22,18 @@ public class GoToLineState : FSMBaseState
         agent.currentBehavior = CustomerManager.CurrentBehaviour.goToLine;
 
         agent.animator.SetState(AnimState.Walk);
-        distanceToTarget = Vector3.Distance(agent.transform.position, agent.walkToRegisterPos);
+        distanceToTarget = Vector3.Distance(agent.transform.position, agent.BB.Store.walkToRegisterPos);
         agent.navigation.SetDestination(targetPos);
 
         if (distanceToTarget < 0.5f)
         {
-            agent.SwitchState(agent.standInLineState);
+            agent.SwitchState(agent.AI.FSM.standInLineState);
         }
 
         // In case agent needs to enter GetHitState when FSM is activated.
-        else if (distanceToTarget > 0.5f && agent.gotHitByBox)
+        else if (distanceToTarget > 0.5f && agent.BB.GetHit.gotHitByBox)
         {
-            agent.BTActivated = true;
+            agent.AI.BTActivated = true;
         }
 
     }

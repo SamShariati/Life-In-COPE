@@ -6,7 +6,7 @@ public class ShelfStateConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
         
-        if (agent.shelfStateAllowed)
+        if (agent.BB.GSI.shelfStateAllowed)
         {
             return NodeState.SUCCESS;
         }

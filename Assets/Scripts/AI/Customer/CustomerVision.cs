@@ -16,10 +16,10 @@ public class CustomerVision
 
     public CustomerVision(CustomerManager agent)
     {
-        headTransform = agent.headObject;
+        headTransform = agent.BB.SFP.headObject;
         this.player = agent.player;
-        this.obstacleMask = agent.obstacleMask;
-        this.playerMask = agent.playerMask;
+        this.obstacleMask = agent.BB.SFP.obstacleMask;
+        this.playerMask = agent.BB.SFP.playerMask;
         this.agent = agent;
     }
 
@@ -28,7 +28,7 @@ public class CustomerVision
 
         currentlyDetected = false;
 
-        if (agent.currentlyTouchingPlayer)
+        if (agent.BB.SFP.currentlyTouchingPlayer)
         {
             return true;
         }

@@ -6,9 +6,8 @@ public class FallForwardConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        agent.currentBehavior = CustomerManager.CurrentBehaviour.fallForwardConditions;
 
-        if (agent.isCurrFallingForward)
+        if (agent.BB.GetHit.isCurrFallingForward)
         {
             return NodeState.SUCCESS;
         }

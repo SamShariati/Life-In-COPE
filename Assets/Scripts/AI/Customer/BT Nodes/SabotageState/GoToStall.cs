@@ -12,14 +12,14 @@ public class GoToStall : BTNode
         agent.animator.SetState(AnimState.Walk);
         agent.navigation.isStopped = false;
         agent.navigation.speed = agent.walkSpeed;
-        agent.navigation.SetDestination(agent.chosenFoodStallPos.position);
+        agent.navigation.SetDestination(agent.BB.Sabotage.chosenFoodStallPos.position);
 
-        distanceToTarget = Vector3.Distance(agent.transform.position, agent.chosenFoodStallPos.position);
+        distanceToTarget = Vector3.Distance(agent.transform.position, agent.BB.Sabotage.chosenFoodStallPos.position);
 
         if (distanceToTarget < 0.25f)
         {
-            agent.isCurrentlyGoingToStall = false;
-            agent.isCurrentlyHittingStall = true;
+            agent.BB.Sabotage.isCurrentlyGoingToStall = false;
+            agent.BB.Sabotage.isCurrentlyHittingStall = true;
             return NodeState.SUCCESS;
         }
         return NodeState.RUNNING;

@@ -10,14 +10,14 @@ public class CheckWrongShelfConditions : BTNode
 
         if (StateConditions(agent))
         {
-            agent.wrongShelfChosen = true;
+            agent.BB.Confused.wrongShelfChosen = true;
             agent.C_Functions.GetCorrectAisle();
             ChooseWrongShelfPosition(agent);
 
             return NodeState.SUCCESS;
            
         }
-        else if (agent.isCurrCheckingWrongShelf)
+        else if (agent.BB.Confused.isCurrCheckingWrongShelf)
         {
             return NodeState.SUCCESS;
         }
@@ -32,7 +32,7 @@ public class CheckWrongShelfConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.wrongShelfChosen && agent.isCurrCheckingWrongShelf)
+        if (!agent.BB.Confused.wrongShelfChosen && agent.BB.Confused.isCurrCheckingWrongShelf)
         {
             return true;
         }
@@ -43,12 +43,12 @@ public class CheckWrongShelfConditions : BTNode
     }
     private void ChooseWrongShelfPosition(CustomerManager agent)
     {
-        int randomIndex = Random.Range(0, ShelfManager.Instance.shelvesByAisle[agent.aisleID].Count);
-        agent.currentWrongShelf = ShelfManager.Instance.shelvesByAisle[agent.aisleID][randomIndex];
+        int randomIndex = Random.Range(0, ShelfManager.Instance.shelvesByAisle[agent.BB.Confused.aisleID].Count);
+        agent.BB.Confused.currentWrongShelf = ShelfManager.Instance.shelvesByAisle[agent.BB.Confused.aisleID][randomIndex];
 
-        string shelfGoodsType = agent.currentWrongShelf.goodsType.ToString();
+        string shelfGoodsType = agent.BB.Confused.currentWrongShelf.goodsType.ToString();
 
 
-        agent.wrongShelfArrowPos = agent.allShelfArrowPositions[shelfGoodsType];
+        agent.BB.Confused.wrongShelfArrowPos = agent.BB.GSI.allShelfArrowPositions[shelfGoodsType];
     }
 }

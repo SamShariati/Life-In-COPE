@@ -7,16 +7,15 @@ public class PatroleAisleConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        agent.currentBehavior = CustomerManager.CurrentBehaviour.patroleAisleConditions;
         if (StateConditions(agent))
         {
-            agent.patroleRouteChosen = true;
+            agent.BB.Confused.patroleRouteChosen = true;
             agent.C_Functions.GetCorrectAisle();
             ChooseAislePatrolePoint(agent);
 
             return NodeState.SUCCESS;
         }
-        else if (agent.isCurrentlyPatrolling)
+        else if (agent.BB.Confused.isCurrentlyPatrolling)
         {
             return NodeState.SUCCESS;
         }
@@ -28,7 +27,7 @@ public class PatroleAisleConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.patroleRouteChosen && agent.isCurrentlyPatrolling)
+        if (!agent.BB.Confused.patroleRouteChosen && agent.BB.Confused.isCurrentlyPatrolling)
         {
             return true;
         }
@@ -40,7 +39,7 @@ public class PatroleAisleConditions : BTNode
 
     private void ChooseAislePatrolePoint(CustomerManager agent)
     {
-        int randomIndex = Random.Range(0, agent.allAislePositions[agent.aisleID].Count);
-        agent.chosenAislePos = agent.allAislePositions[agent.aisleID][randomIndex].position;
+        int randomIndex = Random.Range(0, agent.BB.Confused.allAislePositions[agent.BB.Confused.aisleID].Count);
+        agent.BB.Confused.chosenAislePos = agent.BB.Confused.allAislePositions[agent.BB.Confused.aisleID][randomIndex].position;
     }
 }

@@ -8,12 +8,12 @@ public class SabotageConditions : BTNode
         
         if (Stateconditions(agent))
         {
-            agent.sabotageStateActivated = true;
+            agent.BB.Sabotage.sabotageStateActivated = true;
             return NodeState.SUCCESS;
 
         }
 
-        else if (agent.sabotageStateActivated)
+        else if (agent.BB.Sabotage.sabotageStateActivated)
         {
 
             return NodeState.SUCCESS;
@@ -32,7 +32,7 @@ public class SabotageConditions : BTNode
     private bool Stateconditions(CustomerManager agent)
     {
 
-        if (agent.sabotageStateAllowed && !agent.sabotageStateActivated && !agent.sabotageStateDisabledByHit &&
+        if (agent.BB.Sabotage.sabotageStateAllowed && !agent.BB.Sabotage.sabotageStateActivated && !agent.BB.Sabotage.sabotageStateDisabledByHit &&
             agent.C_Functions.CheckSabotageCD())
         {
 
@@ -42,7 +42,7 @@ public class SabotageConditions : BTNode
             }
             else
             {
-                agent.sabotageStateAllowed = false;
+                agent.BB.Sabotage.sabotageStateAllowed = false;
                 return false;
             }
 

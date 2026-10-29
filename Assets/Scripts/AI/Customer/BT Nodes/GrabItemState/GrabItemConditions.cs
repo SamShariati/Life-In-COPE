@@ -5,9 +5,9 @@ public class GrabItemConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        if (agent.shelfStateAllowed)
+        if (agent.BB.GSI.shelfStateAllowed)
         {
-            agent.sabotageStateAllowed = false;
+            agent.BB.Sabotage.sabotageStateAllowed = false;
             return NodeState.SUCCESS;
         }
         else

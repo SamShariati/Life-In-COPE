@@ -26,7 +26,7 @@ public class FollowPlayer : BTNode
 
                 agent.C_Functions.ChooseShelfRoute(agent); //Kan bli en framtid bug. Möjligt att BTActivated blir false?
                 agent.C_Functions.SetTimer(agent.wasteCustomerTime);
-                PlayerState.Instance.CaughtPlayer(agent.headObject);
+                PlayerState.Instance.CaughtPlayer(agent.BB.SFP.headObject);
 
                 phase = Phase.RotatePlayer;
 
@@ -49,7 +49,7 @@ public class FollowPlayer : BTNode
                 if (PlayerState.Instance._activeCaught.isFacingTarget)
                 {
                     phase = Phase.IdleTime;
-                    arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.currentChosenGood.boxID);
+                    arrowPosition = ShelfManager.Instance.GetArrowPosition(agent.BB.GSI.currentChosenGood.boxID);
                     ShelfManager.Instance.DisableShelfArrow();
                 }
                 return NodeState.RUNNING;
@@ -70,7 +70,7 @@ public class FollowPlayer : BTNode
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.FollowPlayer;
-                    ShelfManager.Instance.EnableShelfArrow(agent.currentChosenGood.boxID);
+                    ShelfManager.Instance.EnableShelfArrow(agent.BB.GSI.currentChosenGood.boxID);
                     PlayerState.Instance.ReleasePlayer();
                 }
                 return NodeState.RUNNING;
@@ -78,7 +78,7 @@ public class FollowPlayer : BTNode
 
             case Phase.FollowPlayer:
 
-                CustomerDialogue.Instance.ShowMessage(agent.currentChosenGood.boxID);
+                CustomerDialogue.Instance.ShowMessage(agent.BB.GSI.currentChosenGood.boxID);
 
                 distanceToPlayer = Vector3.Distance(agent.player.position, agent.transform.position);
                 distanceToChosenArrow = Vector3.Distance(agent.player.position, arrowPosition);
@@ -94,8 +94,8 @@ public class FollowPlayer : BTNode
                     PlayerState.Instance.currentlyBeingFollowed = false;
                     ShelfManager.Instance.DisableShelfArrow();
                     CustomerDialogue.Instance.HideMessage();
-                    agent.isCurrentlyFollowing = false;
-                    agent.isCurrentlyStaring = true;
+                    agent.BB.SFP.isCurrentlyFollowing = false;
+                    agent.BB.SFP.isCurrentlyStaring = true;
 
                     phase = Phase.Instansiate;
 

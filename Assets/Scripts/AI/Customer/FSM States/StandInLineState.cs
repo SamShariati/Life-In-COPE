@@ -9,13 +9,13 @@ public class StandInLineState : FSMBaseState
 
     public override void EnterState(CustomerManager agent)
     {
-        if (agent.goodsGathered.Count > 0)
+        if (agent.BB.GSI.goodsGathered.Count > 0)
         {
             QueueManager.Instance.JoinQueue(agent);
         }
         else
         {
-            agent.SwitchState(agent.exitStoreState);
+            agent.SwitchState(agent.AI.FSM.exitStoreState);
         }
      
     }
@@ -25,22 +25,22 @@ public class StandInLineState : FSMBaseState
 
 
 
-        if (agent.assignedQueueSlot == -1)
+        if (agent.BB.CashRegister.assignedQueueSlot == -1)
         {
             QueueManager.Instance.JoinQueue(agent);
         }
 
-        distanceToTarget = Vector3.Distance(agent.transform.position, agent.currentQueuePos);
-        agent.navigation.SetDestination(agent.currentQueuePos);
+        distanceToTarget = Vector3.Distance(agent.transform.position, agent.BB.CashRegister.currentQueuePos);
+        agent.navigation.SetDestination(agent.BB.CashRegister.currentQueuePos);
         agent.navigation.speed = agent.walkSpeed;
         agent.navigation.isStopped = false;
 
         if (distanceToTarget < 0.2f)
         {
             agent.animator.SetState(AnimState.Idle);
-            if (agent.assignedQueueSlot == 0)
+            if (agent.BB.CashRegister.assignedQueueSlot == 0)
             {
-                agent.SwitchState(agent.firstInLineState);
+                agent.SwitchState(agent.AI.FSM.firstInLineState);
             }
             
         }
@@ -49,9 +49,9 @@ public class StandInLineState : FSMBaseState
             agent.animator.SetState(AnimState.Walk);
         }
 
-        if (agent.gotHitByBox)
+        if (agent.BB.GetHit.gotHitByBox)
         {
-            agent.BTActivated = true;
+            agent.AI.BTActivated = true;
         }
 
     }

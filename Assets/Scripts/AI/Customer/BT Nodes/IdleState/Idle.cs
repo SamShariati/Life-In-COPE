@@ -11,8 +11,8 @@ public class Idle : BTNode
 
         if (agent.C_Functions.TickTimer(Time.deltaTime))
         {
-            agent.idleStateAllowed = false;
-            agent.idleStateActivated = false;
+            agent.BB.Idle.idleStateAllowed = false;
+            agent.BB.Idle.idleStateActivated = false;
 
             return NodeState.SUCCESS;
         }

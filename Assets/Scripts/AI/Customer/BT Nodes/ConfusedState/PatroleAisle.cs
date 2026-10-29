@@ -27,9 +27,9 @@ public class PatroleAisle : BTNode
                 agent.animator.SetState(AnimState.Walk);
                 agent.navigation.isStopped = false;
                 agent.navigation.speed = agent.walkSpeed;
-                agent.navigation.SetDestination(agent.chosenAislePos);
+                agent.navigation.SetDestination(agent.BB.Confused.chosenAislePos);
 
-                distanceToTarget = Vector3.Distance(agent.transform.position, agent.chosenAislePos);
+                distanceToTarget = Vector3.Distance(agent.transform.position, agent.BB.Confused.chosenAislePos);
 
                 if (distanceToTarget < 0.25f)
                 {
@@ -44,11 +44,11 @@ public class PatroleAisle : BTNode
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
-                    agent.isCurrentlyPatrolling = false;
-                    agent.patroleRouteChosen = false;
-                    agent.confusedStateActivated = false;
+                    agent.BB.Confused.isCurrentlyPatrolling = false;
+                    agent.BB.Confused.patroleRouteChosen = false;
+                    agent.BB.Confused.confusedStateActivated = false;
 
-                    agent.sabotageStateAllowed = true;
+                    agent.BB.Sabotage.sabotageStateAllowed = true;
 
                     phase = Phase.Initiate;
 

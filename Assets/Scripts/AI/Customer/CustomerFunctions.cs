@@ -52,25 +52,25 @@ public class CustomerFunctions
     {
 
         //Sabotage State
-        agent.sabotageStateActivated = false;
-        agent.sabotageStateAllowed = true;
-        agent.recentlyHitFood = false;
-        agent.isCurrentlyGoingToStall = false;
-        agent.isCurrentlyHittingStall = false;
-        agent.isCurrentlyTaunting = false;
-        agent.seenPlayerDuringSabotage = false;
-        agent.hitFood.phase = HitFood.Phase.Initiate;
-        agent.tauntPlayer.phase = TauntPlayer.Phase.Idle;
+        agent.BB.Sabotage.sabotageStateActivated = false;
+        agent.BB.Sabotage.sabotageStateAllowed = true;
+        agent.BB.Sabotage.recentlyHitFood = false;
+        agent.BB.Sabotage.isCurrentlyGoingToStall = false;
+        agent.BB.Sabotage.isCurrentlyHittingStall = false;
+        agent.BB.Sabotage.isCurrentlyTaunting = false;
+        agent.BB.Sabotage.seenPlayerDuringSabotage = false;
+        agent.AI.BT.hitFood.phase = HitFood.Phase.Initiate;
+        agent.AI.BT.tauntPlayer.phase = TauntPlayer.Phase.Idle;
 
 
 
         //SearchForPlayer State
-        agent.spottedPlayer = false;
-        agent.isCurrentlyChasing = false;
-        agent.isCurrentlyFollowing = false;
-        agent.isCurrentlyStaring = false;
-        agent.idleStare.phase = IdleStare.Phase.initiate;
-        agent.allowedToChase = true;
+        agent.BB.SFP.spottedPlayer = false;
+        agent.BB.SFP.isCurrentlyChasing = false;
+        agent.BB.SFP.isCurrentlyFollowing = false;
+        agent.BB.SFP.isCurrentlyStaring = false;
+        agent.AI.BT.idleStare.phase = IdleStare.Phase.initiate;
+        agent.BB.SFP.allowedToChase = true;
 
         
 
@@ -80,19 +80,19 @@ public class CustomerFunctions
     public void SearchForPlayerResetFlags()
     {
         //Shelf State
-        agent.shelfRouteReached = false;
-        agent.currentlyPickingGoods = false;
-        agent.pickGoods.phase = PickGoods.Phase.WaitingToPick;
+        agent.BB.GSI.shelfRouteReached = false;
+        agent.BB.GSI.currentlyPickingGoods = false;
+        agent.AI.BT.pickGoods.phase = PickGoods.Phase.WaitingToPick;
 
         //Confused State
-        agent.confusedStateActivated = false;
-        agent.isCurrentlyPatrolling = false;
-        agent.patroleRouteChosen = false;
+        agent.BB.Confused.confusedStateActivated = false;
+        agent.BB.Confused.isCurrentlyPatrolling = false;
+        agent.BB.Confused.patroleRouteChosen = false;
         
-        agent.isCurrCheckingWrongShelf = false;
-        agent.wrongShelfChosen = false;
-        agent.patroleAisle.phase = PatroleAisle.Phase.Initiate;
-        agent.checkWrongShelf.phase = CheckWrongShelf.Phase.Initiate;
+        agent.BB.Confused.isCurrCheckingWrongShelf = false;
+        agent.BB.Confused.wrongShelfChosen = false;
+        agent.AI.BT.patroleAisle.phase = PatroleAisle.Phase.Initiate;
+        agent.AI.BT.checkWrongShelf.phase = CheckWrongShelf.Phase.Initiate;
 
 
 
@@ -106,9 +106,9 @@ public class CustomerFunctions
 
             string shelfGoodsType = shelf.goodsType.ToString();
 
-            if (shelfGoodsType == agent.currentChosenGood.boxID)
+            if (shelfGoodsType == agent.BB.GSI.currentChosenGood.boxID)
             {
-                agent.aisleID = (int)shelf.aisle;
+                agent.BB.Confused.aisleID = (int)shelf.aisle;
             }
         }
 
@@ -116,37 +116,37 @@ public class CustomerFunctions
 
     public void ChooseShelfRoute(CustomerManager agent)
     {
-        if (agent.remainingGoodsList.Count > 0)
+        if (agent.BB.GSI.remainingGoodsList.Count > 0)
         {
-            int rand = Random.Range(0, agent.remainingGoodsList.Count);
-            agent.currentChosenGood = agent.remainingGoodsList[rand];
+            int rand = Random.Range(0, agent.BB.GSI.remainingGoodsList.Count);
+            agent.BB.GSI.currentChosenGood = agent.BB.GSI.remainingGoodsList[rand];
 
-            agent.chosenShelfPosition = agent.allShelfArrowPositions[agent.currentChosenGood.boxID];
+            agent.BB.GSI.chosenShelfPosition = agent.BB.GSI.allShelfArrowPositions[agent.BB.GSI.currentChosenGood.boxID];
         }
         else
         {
-            agent.SwitchState(agent.goToLineState);
-            agent.BTActivated = false;
+            agent.SwitchState(agent.AI.FSM.goToLineState);
+            agent.AI.BTActivated = false;
         }
     }
 
     public void CalculateImpactRotation()
     {
 
-        Vector3 dir = agent.dotProduct < 0f ? -agent.thrownDirection : agent.thrownDirection;
+        Vector3 dir = agent.BB.GetHit.dotProduct < 0f ? -agent.BB.GetHit.thrownDirection : agent.BB.GetHit.thrownDirection;
 
         dir.y = 0f;
 
         if (dir.sqrMagnitude < 0.0001f)
             dir = agent.transform.forward; // fallback, e.g. near-vertical throw
 
-        agent.impactTargetRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+        agent.BB.GetHit.impactTargetRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
     }   
 
     public void RotateOnHitImpact()
     {
         agent.transform.rotation = Quaternion.RotateTowards(agent.transform.rotation,
-            agent.impactTargetRotation, rotateSpeedDegPerSec * Time.deltaTime);
+            agent.BB.GetHit.impactTargetRotation, rotateSpeedDegPerSec * Time.deltaTime);
     }
 
 

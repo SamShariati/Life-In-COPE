@@ -5,9 +5,8 @@ public class FallBackwardConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        agent.currentBehavior = CustomerManager.CurrentBehaviour.fallBackwardConditions;
 
-        if (agent.isCurrFallingBackward)
+        if (agent.BB.GetHit.isCurrFallingBackward)
         {
             return NodeState.SUCCESS;
         }

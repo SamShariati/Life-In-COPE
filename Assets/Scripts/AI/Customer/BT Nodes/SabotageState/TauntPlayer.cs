@@ -40,12 +40,12 @@ public class TauntPlayer : BTNode
 
             case Phase.Initiate:
 
-                if (agent.seenPlayerDuringSabotage && agent.recentlyHitFood)
+                if (agent.BB.Sabotage.seenPlayerDuringSabotage && agent.BB.Sabotage.recentlyHitFood)
                 {
                     scenario = Scenario.A;
                     agent.C_Functions.SetTimer(4f);
                 }
-                else if (!agent.seenPlayerDuringSabotage && agent.recentlyHitFood)
+                else if (!agent.BB.Sabotage.seenPlayerDuringSabotage && agent.BB.Sabotage.recentlyHitFood)
                 {
                     scenario = Scenario.B;
                     agent.C_Functions.SetTimer(3f);
@@ -83,10 +83,10 @@ public class TauntPlayer : BTNode
 
                 if (agent.C_Functions.TickTimer(Time.deltaTime))
                 {
-                    agent.sabotageStateActivated = false;
-                    agent.recentlyHitFood = false;
-                    agent.seenPlayerDuringSabotage = false;
-                    agent.isCurrentlyTaunting = false;
+                    agent.BB.Sabotage.sabotageStateActivated = false;
+                    agent.BB.Sabotage.recentlyHitFood = false;
+                    agent.BB.Sabotage.seenPlayerDuringSabotage = false;
+                    agent.BB.Sabotage.isCurrentlyTaunting = false;
                     phase = Phase.Initiate;
 
                     return NodeState.SUCCESS;

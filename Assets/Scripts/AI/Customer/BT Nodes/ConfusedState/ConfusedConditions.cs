@@ -6,16 +6,16 @@ public class ConfusedConditions : BTNode
     {
         if (StateConditions(agent))
         {
-            agent.IKRiggingEnabled = true;
-            agent.confusedStateActivated = true;
-            agent.sabotageStateAllowed = false;
+            agent.BB.IKRigging.IKRiggingEnabled = true;
+            agent.BB.Confused.confusedStateActivated = true;
+            agent.BB.Sabotage.sabotageStateAllowed = false;
 
             RollConfusedType(agent);
 
             return NodeState.SUCCESS;
         }
 
-        else if (agent.confusedStateActivated)
+        else if (agent.BB.Confused.confusedStateActivated)
         {
             
             return NodeState.SUCCESS;
@@ -32,7 +32,7 @@ public class ConfusedConditions : BTNode
     
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.confusedStateAllowed && !agent.confusedStateActivated)
+        if (agent.BB.Confused.confusedStateAllowed && !agent.BB.Confused.confusedStateActivated)
         {
             if (RollConfusedChance(agent))
             {
@@ -58,13 +58,13 @@ public class ConfusedConditions : BTNode
 
         if (randPercent <= agent.confusedChance)
         {
-            agent.confusedStateAllowed = true;
+            agent.BB.Confused.confusedStateAllowed = true;
             return true;
 
         }
         else
         {
-            agent.confusedStateAllowed = false;
+            agent.BB.Confused.confusedStateAllowed = false;
             return false;
         }
 
@@ -76,11 +76,11 @@ public class ConfusedConditions : BTNode
 
         if (randPercent < 66.7f)
         {
-            agent.isCurrentlyPatrolling = true;
+            agent.BB.Confused.isCurrentlyPatrolling = true;
         }
         else
         {
-            agent.isCurrCheckingWrongShelf = true;
+            agent.BB.Confused.isCurrCheckingWrongShelf = true;
         }
             
     }

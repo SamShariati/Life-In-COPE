@@ -8,11 +8,11 @@ public class ChasePlayerConditions : BTNode
         //Entering SearchForPlayerState for the first time.
         if (StateConditions(agent))
         {
-            agent.isCurrentlyChasing = true;
+            agent.BB.SFP.isCurrentlyChasing = true;
             return NodeState.SUCCESS;
         }
 
-        else if (agent.isCurrentlyChasing)
+        else if (agent.BB.SFP.isCurrentlyChasing)
         {
             return NodeState.SUCCESS;
         }
@@ -27,7 +27,7 @@ public class ChasePlayerConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (!agent.isCurrentlyChasing && !agent.isCurrentlyFollowing && !agent.isCurrentlyStaring)
+        if (!agent.BB.SFP.isCurrentlyChasing && !agent.BB.SFP.isCurrentlyFollowing && !agent.BB.SFP.isCurrentlyStaring)
         {
             return true;
         }

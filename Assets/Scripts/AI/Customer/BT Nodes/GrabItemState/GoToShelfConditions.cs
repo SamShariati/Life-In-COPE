@@ -6,11 +6,9 @@ public class GoToShelfConditions : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        agent.currentBehavior = CustomerManager.CurrentBehaviour.goToShelfConditions;
-
-        if (!agent.shelfRouteReached)
+        if (!agent.BB.GSI.shelfRouteReached)
         {
-            agent.IKRiggingEnabled = true;
+            agent.BB.IKRigging.IKRiggingEnabled = true;
             return NodeState.SUCCESS;
         }
         else

@@ -6,12 +6,11 @@ public class GetHitConditions : BTNode
 
     public override NodeState Evaluate(CustomerManager agent)
     {
-        agent.currentBehavior = CustomerManager.CurrentBehaviour.getHitConditions;
 
         if (StateConditions(agent))
         {
-            agent.IKRiggingEnabled = false;
-            agent.getHitStateActivated = true;
+            agent.BB.IKRigging.IKRiggingEnabled = false;
+            agent.BB.GetHit.getHitStateActivated = true;
             agent.C_Functions.GetHitResetFlags();
             CalculateImpactDotProduct(agent);
             
@@ -19,16 +18,16 @@ public class GetHitConditions : BTNode
             return NodeState.SUCCESS;
         }
 
-        else if (agent.getHitStateActivated)
+        else if (agent.BB.GetHit.getHitStateActivated)
         {
 
             return NodeState.SUCCESS;
         }
 
         // Used to make sure that once FSM states are activated, GetHitState can still be activated, But will disable BT again once it is finished.
-        else if (agent.FSMStateActivated)
+        else if (agent.AI.FSMActivated)
         {
-            agent.BTActivated = false;
+            agent.AI.BTActivated = false;
             return NodeState.FAILURE;
         }
 
@@ -40,21 +39,21 @@ public class GetHitConditions : BTNode
 
     private bool StateConditions(CustomerManager agent)
     {
-        if (agent.getHitStateAllowed && !agent.getHitStateActivated && agent.gotHitByBox &&
-            !agent.isCurrFallingBackward && !agent.isCurrFallingForward )
+        if (agent.BB.GetHit.getHitStateAllowed && !agent.BB.GetHit.getHitStateActivated && agent.BB.GetHit.gotHitByBox &&
+            !agent.BB.GetHit.isCurrFallingBackward && !agent.BB.GetHit.isCurrFallingForward )
         {
 
             //Completely disables the sabotage behaviour if agent gets hit while sabotaging.
-            if (agent.recentlyHitFood)
+            if (agent.BB.Sabotage.recentlyHitFood)
             {
-                agent.sabotageStateDisabledByHit = true;
+                agent.BB.Sabotage.sabotageStateDisabledByHit = true;
             }
 
             return true;
         }
         else
         {
-            agent.gotHitByBox = false;
+            agent.BB.GetHit.gotHitByBox = false;
             return false;
         }
     }
@@ -66,15 +65,15 @@ public class GetHitConditions : BTNode
         agentForward.y = 0f;
         agentForward.Normalize();
 
-        agent.dotProduct = Vector3.Dot(agent.thrownDirection, agentForward);
+        agent.BB.GetHit.dotProduct = Vector3.Dot(agent.BB.GetHit.thrownDirection, agentForward);
 
-        if (agent.dotProduct < 0) // - är träffad framifrån, + är träffad bakifrån
+        if (agent.BB.GetHit.dotProduct < 0) // - är träffad framifrån, + är träffad bakifrån
         {
-            agent.isCurrFallingBackward = true;
+            agent.BB.GetHit.isCurrFallingBackward = true;
         }
         else
         {
-            agent.isCurrFallingForward = true;
+            agent.BB.GetHit.isCurrFallingForward = true;
         }
     }
 

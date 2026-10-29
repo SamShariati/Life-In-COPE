@@ -45,17 +45,17 @@ public class PickGoods : BTNode
                 {
                     currentAnimationTime = pickAnimationTime;
 
-                    agent.allowedToChase = true;
+                    agent.BB.SFP.allowedToChase = true;
                     PickGoodsFromShelf(agent); //Failsafe in case we don't enter ConfusedState right after.
                     
                     phase = Phase.WaitingToPick; 
-                    agent.currentlyPickingGoods = false;
-                    agent.shelfRouteReached = false; 
-                    agent.confusedStateAllowed = true; 
+                    agent.BB.GSI.currentlyPickingGoods = false;
+                    agent.BB.GSI.shelfRouteReached = false; 
+                    agent.BB.Confused.confusedStateAllowed = true; 
 
                     agent.C_Functions.ChooseShelfRoute(agent);
 
-                    agent.sabotageStateAllowed = true;
+                    agent.BB.Sabotage.sabotageStateAllowed = true;
 
                     return NodeState.SUCCESS;
                 }
@@ -77,7 +77,7 @@ public class PickGoods : BTNode
 
     private void RotateTowardsShelf(CustomerManager agent)
     {
-        Shelf chosenShelf = agent.allShelfPositions[agent.currentChosenGood.boxID];
+        Shelf chosenShelf = agent.BB.GSI.allShelfPositions[agent.BB.GSI.currentChosenGood.boxID];
         Vector3 direction = (chosenShelf.transform.position - agent.transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -88,15 +88,15 @@ public class PickGoods : BTNode
     private void PickGoodsFromShelf(CustomerManager agent)
     {
 
-        Shelf chosenShelf = agent.allShelfPositions[agent.currentChosenGood.boxID];
+        Shelf chosenShelf = agent.BB.GSI.allShelfPositions[agent.BB.GSI.currentChosenGood.boxID];
 
 
         if (chosenShelf.remainingGoodsToStock <= 0)
         {
             
             //agent.nrGoodsFound++;
-            agent.goodsGathered.Add(agent.currentChosenGood.placedPrefab);
+            agent.BB.GSI.goodsGathered.Add(agent.BB.GSI.currentChosenGood.placedPrefab);
         }
-        agent.remainingGoodsList.Remove(agent.currentChosenGood);
+        agent.BB.GSI.remainingGoodsList.Remove(agent.BB.GSI.currentChosenGood);
     }
 }
