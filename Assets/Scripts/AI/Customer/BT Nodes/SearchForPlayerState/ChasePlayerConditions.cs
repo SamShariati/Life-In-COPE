@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
-public class ChasePlayerConditions : BTNode
+public class ChasePlayerConditions : CustomerBTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {

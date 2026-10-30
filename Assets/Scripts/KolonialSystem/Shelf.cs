@@ -77,7 +77,6 @@ public class Shelf : MonoBehaviour, IInteractable
         foreach (Transform pos in thirdLayer) stockingPosList.Add(pos);
         shelfItemRotation = stockingPosList[0].transform.rotation;
 
-
     }
 
     private void Start()

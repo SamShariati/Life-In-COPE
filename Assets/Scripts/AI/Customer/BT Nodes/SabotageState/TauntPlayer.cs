@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TauntPlayer : BTNode
+public class TauntPlayer : CustomerBTNode
 {
     public enum Phase { Idle, Initiate, Act}
     public enum Scenario { A, B, C}

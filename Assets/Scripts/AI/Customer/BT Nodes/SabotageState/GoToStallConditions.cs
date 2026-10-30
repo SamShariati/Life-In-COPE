@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GoToStallConditions : BTNode
+public class GoToStallConditions : CustomerBTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PatroleAisleConditions : BTNode
+public class PatroleAisleConditions : CustomerBTNode
 {
     
 

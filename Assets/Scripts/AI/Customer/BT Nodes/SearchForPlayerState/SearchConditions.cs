@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class SearchConditions : BTNode
+public class SearchConditions : CustomerBTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {

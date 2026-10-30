@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FirstInLineState : FSMBaseState
+public class FirstInLineState : CustomerFSMBaseState
 {
     float distanceToTarget;
     private enum Phase { IdleStanding, ThankAnimation, Exit}

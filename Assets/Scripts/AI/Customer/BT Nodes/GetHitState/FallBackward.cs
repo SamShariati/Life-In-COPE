@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FallBackward : BTNode
+public class FallBackward : CustomerBTNode
 {
 
     private enum Phase {  Initiate, Falling, GettingUp, Dizzy}

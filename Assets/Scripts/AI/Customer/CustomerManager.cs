@@ -87,7 +87,7 @@ public class CustomerManager : MonoBehaviour
         
     }
 
-    public void SwitchState(FSMBaseState state)
+    public void SwitchState(CustomerFSMBaseState state)
     {
         AI.FSM.currentState = state;
         state.EnterState(this);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CheckWrongShelf : BTNode
+public class CheckWrongShelf : CustomerBTNode
 {
     public enum Phase { Initiate, WalkingToShelf, InspectingShelf}
     public Phase phase = Phase.Initiate;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConfusedConditions : BTNode
+public class ConfusedConditions : CustomerBTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {
