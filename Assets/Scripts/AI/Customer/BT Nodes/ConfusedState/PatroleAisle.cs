@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class PatroleAisle : CustomerBTNode
+public class PatroleAisle : BTNode
 {
     public enum Phase { Initiate, WalkToSpot, Idle}
     public Phase phase = Phase.WalkToSpot;

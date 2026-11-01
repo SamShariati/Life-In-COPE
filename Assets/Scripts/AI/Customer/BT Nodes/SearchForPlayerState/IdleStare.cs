@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleStare : CustomerBTNode
+public class IdleStare : BTNode
 {
 
     public enum Phase { initiate, idle}

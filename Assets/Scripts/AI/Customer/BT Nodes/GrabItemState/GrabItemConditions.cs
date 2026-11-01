@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GrabItemConditions : CustomerBTNode
+public class GrabItemConditions : BTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {

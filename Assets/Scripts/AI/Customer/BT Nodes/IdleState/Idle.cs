@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Idle : CustomerBTNode
+public class Idle : BTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {

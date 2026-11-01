@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowPlayer : CustomerBTNode
+public class FollowPlayer : BTNode
 {
 
     float distanceToPlayer;

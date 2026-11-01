@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GoToShelfConditions : CustomerBTNode
+public class GoToShelfConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FallBackwardConditions : CustomerBTNode
+public class FallBackwardConditions : BTNode
 {
     public override NodeState Evaluate(CustomerManager agent)
     {

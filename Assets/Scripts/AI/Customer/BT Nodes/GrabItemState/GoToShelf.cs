@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GoToShelf : CustomerBTNode
+public class GoToShelf : BTNode
 {
     float distanceTarget;
     public override NodeState Evaluate(CustomerManager agent)

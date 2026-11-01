@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChasePlayer : CustomerBTNode
+public class ChasePlayer : BTNode
 {
     float distanceToTarget;
 

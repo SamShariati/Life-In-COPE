@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CustomerFSMBaseState
+public abstract class FSMBaseState
 {
 
     public abstract void EnterState(CustomerManager agent);

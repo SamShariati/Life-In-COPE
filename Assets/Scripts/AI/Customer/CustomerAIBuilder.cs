@@ -11,7 +11,7 @@ public class CustomerAIBuilder
 
     public class CustomerFiniteStateMachine
     {
-        public CustomerFSMBaseState currentState;
+        public FSMBaseState currentState;
 
         public EnterStoreState enterStoreState = new EnterStoreState();
         public NothingState nothingState = new NothingState();
@@ -20,7 +20,7 @@ public class CustomerAIBuilder
         public FirstInLineState firstInLineState = new FirstInLineState();
         public ExitStoreState exitStoreState = new ExitStoreState();
 
-        public void SwitchState(CustomerFSMBaseState state, CustomerManager agent)
+        public void SwitchState(FSMBaseState state, CustomerManager agent)
         {
             currentState = state;
             state.EnterState(agent);
@@ -30,7 +30,7 @@ public class CustomerAIBuilder
     public class CustomerBehaviourTree
     {
 
-        public CustomerBTNode rootNode;
+        public BTNode rootNode;
 
         //------Idle scripts-------------
 
@@ -89,57 +89,57 @@ public class CustomerAIBuilder
 
             //IDLE STATE BRANCH
 
-            CustomerSequence standIdle = new CustomerSequence(new List<CustomerBTNode>() { idleConditions, idle });
+            Sequence standIdle = new Sequence(new List<BTNode>() { idleConditions, idle });
 
             //GETHIT STATE BRANCH
 
-            CustomerSequence fallBackwardState = new CustomerSequence(new List<CustomerBTNode>() { fallBackwardConditions, fallBackward });
-            CustomerSequence fallForwardState = new CustomerSequence(new List<CustomerBTNode>() { fallForwardConditions, fallForward });
+            Sequence fallBackwardState = new Sequence(new List<BTNode>() { fallBackwardConditions, fallBackward });
+            Sequence fallForwardState = new Sequence(new List<BTNode>() { fallForwardConditions, fallForward });
 
-            CustomerSelector fallingDirectionBehaviour = new CustomerSelector(new List<CustomerBTNode> { fallBackwardState, fallForwardState });
-            CustomerSequence getHit = new CustomerSequence(new List<CustomerBTNode>() { getHitConditions, fallingDirectionBehaviour });
+            Selector fallingDirectionBehaviour = new Selector(new List<BTNode> { fallBackwardState, fallForwardState });
+            Sequence getHit = new Sequence(new List<BTNode>() { getHitConditions, fallingDirectionBehaviour });
 
 
             //SABOTAGE BRANCH
 
-            CustomerSequence goToStallState = new CustomerSequence(new List<CustomerBTNode>() { goToStallConditions, goToStall });
-            CustomerSequence hitFoodState = new CustomerSequence(new List<CustomerBTNode>() { hitFoodConditions, hitFood });
-            CustomerSequence tauntPlayerState = new CustomerSequence(new List<CustomerBTNode>() { tauntPlayerConditions, tauntPlayer });
+            Sequence goToStallState = new Sequence(new List<BTNode>() { goToStallConditions, goToStall });
+            Sequence hitFoodState = new Sequence(new List<BTNode>() { hitFoodConditions, hitFood });
+            Sequence tauntPlayerState = new Sequence(new List<BTNode>() { tauntPlayerConditions, tauntPlayer });
 
-            CustomerSelector sabotageBehaviour = new CustomerSelector(new List<CustomerBTNode>() { goToStallState, hitFoodState, tauntPlayerState });
-            CustomerSequence sabotage = new CustomerSequence(new List<CustomerBTNode>() { sabotageConditions, sabotageBehaviour });
+            Selector sabotageBehaviour = new Selector(new List<BTNode>() { goToStallState, hitFoodState, tauntPlayerState });
+            Sequence sabotage = new Sequence(new List<BTNode>() { sabotageConditions, sabotageBehaviour });
 
 
             //SEARCHFORPLAYER STATE BRANCH
 
-            CustomerSequence chasePlayerState = new CustomerSequence(new List<CustomerBTNode>() { chasePlayerConditions, chasePlayer });
-            CustomerSequence followPlayerState = new CustomerSequence(new List<CustomerBTNode>() { followPlayerConditions, followPlayer });
-            CustomerSequence idleStareState = new CustomerSequence(new List<CustomerBTNode>() { idleStareConditions, idleStare });
+            Sequence chasePlayerState = new Sequence(new List<BTNode>() { chasePlayerConditions, chasePlayer });
+            Sequence followPlayerState = new Sequence(new List<BTNode>() { followPlayerConditions, followPlayer });
+            Sequence idleStareState = new Sequence(new List<BTNode>() { idleStareConditions, idleStare });
 
-            CustomerSelector playerSpottedBehaviour = new CustomerSelector(new List<CustomerBTNode> { chasePlayerState, followPlayerState, idleStareState });
-            CustomerSequence searchForPlayer = new CustomerSequence(new List<CustomerBTNode>() { searchConditions, playerSpottedBehaviour });
+            Selector playerSpottedBehaviour = new Selector(new List<BTNode> { chasePlayerState, followPlayerState, idleStareState });
+            Sequence searchForPlayer = new Sequence(new List<BTNode>() { searchConditions, playerSpottedBehaviour });
 
 
             //CONFUSED STATE BRANCH
 
-            CustomerSequence patroleAisleState = new CustomerSequence(new List<CustomerBTNode>() { patroleAisleConditions, patroleAisle });
-            CustomerSequence checkWrongShelfState = new CustomerSequence(new List<CustomerBTNode>() { checkWrongShelfConditions, checkWrongShelf });
+            Sequence patroleAisleState = new Sequence(new List<BTNode>() { patroleAisleConditions, patroleAisle });
+            Sequence checkWrongShelfState = new Sequence(new List<BTNode>() { checkWrongShelfConditions, checkWrongShelf });
 
-            CustomerSelector confusedBehaviour = new CustomerSelector(new List<CustomerBTNode> { patroleAisleState, checkWrongShelfState });
-            CustomerSequence confused = new CustomerSequence(new List<CustomerBTNode>() { confusedConditions, confusedBehaviour });
+            Selector confusedBehaviour = new Selector(new List<BTNode> { patroleAisleState, checkWrongShelfState });
+            Sequence confused = new Sequence(new List<BTNode>() { confusedConditions, confusedBehaviour });
 
 
             //SHELF STATE BRANCH
-            CustomerSequence goToShelfState = new CustomerSequence(new List<CustomerBTNode>() { goToShelfConditions, goToShelf });
-            CustomerSequence pickGoodsState = new CustomerSequence(new List<CustomerBTNode>() { pickGoodsConditions, pickGoods });
+            Sequence goToShelfState = new Sequence(new List<BTNode>() { goToShelfConditions, goToShelf });
+            Sequence pickGoodsState = new Sequence(new List<BTNode>() { pickGoodsConditions, pickGoods });
 
 
-            CustomerSelector grabItemBehaviour = new CustomerSelector(new List<CustomerBTNode> { goToShelfState, pickGoodsState });
-            CustomerSequence grabItem = new CustomerSequence(new List<CustomerBTNode>() { grabItemConditions, grabItemBehaviour });
+            Selector grabItemBehaviour = new Selector(new List<BTNode> { goToShelfState, pickGoodsState });
+            Sequence grabItem = new Sequence(new List<BTNode>() { grabItemConditions, grabItemBehaviour });
 
 
 
-            rootNode = new CustomerSelector(new List<CustomerBTNode> { standIdle, getHit, sabotage, searchForPlayer, confused, grabItem });
+            rootNode = new Selector(new List<BTNode> { standIdle, getHit, sabotage, searchForPlayer, confused, grabItem });
         }
 
     }

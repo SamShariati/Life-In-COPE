@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HitFoodConditions : CustomerBTNode
+public class HitFoodConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

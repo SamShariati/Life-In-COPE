@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickGoods : CustomerBTNode
+public class PickGoods : BTNode
 {
 
     public enum Phase { WaitingToPick, Picking, WaitingToExit}

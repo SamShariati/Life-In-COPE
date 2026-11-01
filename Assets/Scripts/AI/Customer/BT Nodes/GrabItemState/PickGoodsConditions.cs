@@ -1,7 +1,7 @@
 using System.Data;
 using UnityEngine;
 
-public class PickGoodsConditions : CustomerBTNode
+public class PickGoodsConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

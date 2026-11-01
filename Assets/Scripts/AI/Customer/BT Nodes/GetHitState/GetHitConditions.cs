@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class GetHitConditions : CustomerBTNode
+public class GetHitConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

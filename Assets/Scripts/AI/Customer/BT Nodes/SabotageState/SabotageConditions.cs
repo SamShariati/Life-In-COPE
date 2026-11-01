@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SabotageConditions : CustomerBTNode
+public class SabotageConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

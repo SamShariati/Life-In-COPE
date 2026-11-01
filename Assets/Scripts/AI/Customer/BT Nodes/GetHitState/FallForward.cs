@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FallForward : CustomerBTNode
+public class FallForward : BTNode
 {
     private enum Phase { Initiate, Falling, GettingUp, Dizzy, Idle }
     private Phase phase = Phase.Initiate;

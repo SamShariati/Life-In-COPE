@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExitStoreState : CustomerFSMBaseState
+public class ExitStoreState : FSMBaseState
 {
     Vector3 targetPosition;
     float distanceToTarget;

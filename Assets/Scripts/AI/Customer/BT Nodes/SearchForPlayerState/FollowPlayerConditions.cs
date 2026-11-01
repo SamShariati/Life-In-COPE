@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowPlayerConditions : CustomerBTNode
+public class FollowPlayerConditions : BTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

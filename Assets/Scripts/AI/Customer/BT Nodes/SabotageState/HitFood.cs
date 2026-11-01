@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitFood : CustomerBTNode
+public class HitFood : BTNode
 {
     public enum Phase { Initiate, LookAround, Idle, HitFood}
     public Phase phase = Phase.Initiate;
