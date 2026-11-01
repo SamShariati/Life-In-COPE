@@ -10,8 +10,3 @@ public abstract class CustomerBTNode
     public abstract NodeState Evaluate(CustomerManager agent);
 }
 
-public enum NodeState
-{
-
-    RUNNING, SUCCESS, FAILURE,
-}

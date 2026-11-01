@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossBlackboard : MonoBehaviour
+public class BossBlackboard
 {
 
     public InspectionData Inspection = new InspectionData();
