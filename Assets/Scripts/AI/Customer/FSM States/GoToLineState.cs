@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GoToLineState : FSMBaseState
+public class GoToLineState : CustomerFSMBaseState
 {
 
     float distanceToTarget;

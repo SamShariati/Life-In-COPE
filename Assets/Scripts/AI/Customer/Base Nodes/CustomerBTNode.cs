@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
-public abstract class BTNode
+public abstract class CustomerBTNode
 {
     protected NodeState _nodeState;
     //protected Transform targetedPlayer;
@@ -18,4 +15,3 @@ public enum NodeState
 
     RUNNING, SUCCESS, FAILURE,
 }
-

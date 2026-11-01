@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GoToStall : BTNode
+public class GoToStall : CustomerBTNode
 {
     float distanceToTarget;
 

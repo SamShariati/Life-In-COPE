@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class StandInLineState : FSMBaseState
+public class StandInLineState : CustomerFSMBaseState
 {
     //bool firstInLine = false;
     float distanceToTarget;

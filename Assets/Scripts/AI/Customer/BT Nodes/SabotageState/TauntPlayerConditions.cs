@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TauntPlayerConditions : BTNode
+public class TauntPlayerConditions : CustomerBTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

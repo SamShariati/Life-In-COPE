@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CheckWrongShelfConditions : BTNode
+public class CheckWrongShelfConditions : CustomerBTNode
 {
 
     public override NodeState Evaluate(CustomerManager agent)

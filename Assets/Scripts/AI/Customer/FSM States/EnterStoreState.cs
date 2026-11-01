@@ -1,5 +1,5 @@
 using UnityEngine;
-public class EnterStoreState : FSMBaseState
+public class EnterStoreState : CustomerFSMBaseState
 {
     Vector3 storePosition;
     float distanceToTarget;

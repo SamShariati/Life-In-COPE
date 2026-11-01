@@ -56,7 +56,7 @@ public class FoodStall : MonoBehaviour
         Transform spawnPoint = prefabPositionsDictionary[chosenPrefab];
 
         // Use the existing "Trash" object, or create an empty one if none exists
-        GameObject trash = GameObject.Find("Trash") ?? new GameObject("Trash");
+        GameObject trash = GameObject.Find("FoodStalls/CurrentTrash");
 
         for (int i = 0; i < sabotageLevel; i++)
         {

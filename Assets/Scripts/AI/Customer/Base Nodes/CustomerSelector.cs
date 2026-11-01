@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class Sequence : BTNode
+public class CustomerSelector : CustomerBTNode
 {
-    protected List<BTNode> nodes = new List<BTNode>();
+    protected List<CustomerBTNode> nodes = new List<CustomerBTNode>();
 
-    public Sequence(List<BTNode> nodes)
+    public CustomerSelector(List<CustomerBTNode> nodes)
     {
         this.nodes = nodes;
     }
@@ -14,7 +15,7 @@ public class Sequence : BTNode
     public override NodeState Evaluate(CustomerManager agent)
     {
 
-        foreach (BTNode node in nodes)
+        foreach (CustomerBTNode node in nodes)
         {
             switch (node.Evaluate(agent))
             {
@@ -23,18 +24,18 @@ public class Sequence : BTNode
                     return _nodeState;
 
                 case NodeState.SUCCESS:
-                    break;
+                    _nodeState = NodeState.SUCCESS;
+                    return _nodeState;
 
                 case NodeState.FAILURE:
-                    _nodeState = NodeState.FAILURE;
-                    return _nodeState;
+                    break;
 
                 default:
                     break;
             }
 
         }
-        _nodeState = NodeState.SUCCESS;
+        _nodeState = NodeState.FAILURE;
         return _nodeState;
     }
 }

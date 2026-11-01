@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NothingState : FSMBaseState
+public class NothingState : CustomerFSMBaseState
 {
     public override void EnterState(CustomerManager agent)
     {
