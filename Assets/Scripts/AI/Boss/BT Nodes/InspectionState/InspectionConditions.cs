@@ -4,21 +4,61 @@ public class InspectionConditions : BossBTNode
 {
     public override NodeState Evaluate(BossManager agent)
     {
-        throw new System.NotImplementedException();
-    }
-
-    private void RollConfusedType(CustomerManager agent)
-    {
-        float randPercent = Random.Range(0, 100);
-
-        if (randPercent < 66.7f)
+        
+        if (StateConditions(agent))
         {
-            agent.BB.Confused.isCurrentlyPatrolling = true;
+
+            agent.BB.Inspection.stateActivated = true;
+
+            return NodeState.SUCCESS;
+        }
+        else if (agent.BB.Inspection.stateActivated)
+        {
+
+            return NodeState.SUCCESS;
         }
         else
         {
-            agent.BB.Confused.isCurrCheckingWrongShelf = true;
+            return NodeState.FAILURE;
         }
 
+
+
+
+
+
+
+
+    }
+
+    private void RollInspectionType(BossManager agent)
+    {
+        float randPercent = Random.Range(0f, 100f);
+
+        // 50, 30, 20?
+        if (randPercent < 50f)
+        {
+            agent.BB.Inspection.inspectShelfChosen = true;
+        }
+        else if (randPercent >= 50f && randPercent < 80f)
+        {
+            agent.BB.Inspection.inspectTrashChosen = true;
+        }
+        else
+        {
+            agent.BB.Inspection.inspectRegLineChosen = true;
+        }
+    }
+
+    private bool StateConditions(BossManager agent)
+    {
+        if (agent.BB.Inspection.stateAllowed && !agent.BB.Inspection.stateActivated)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

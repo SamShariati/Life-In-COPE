@@ -12,7 +12,7 @@ public class BossFunctions : MonoBehaviour
     }
 
 
-    private void UpdateShelvesFullyStockedStatus()
+    public void UpdateShelvesFullyStockedStatus()
     {
 
         foreach (Shelf shelf in ShelfManager.Instance.shelfList)

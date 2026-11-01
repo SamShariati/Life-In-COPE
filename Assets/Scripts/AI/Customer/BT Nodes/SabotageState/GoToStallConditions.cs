@@ -46,7 +46,6 @@ public class GoToStallConditions : CustomerBTNode
         agent.BB.Sabotage.chosenFoodStall = agent.BB.Sabotage.foodStallList[randInt].GetComponent<FoodStall>();
 
         agent.BB.Sabotage.chosenFoodStallPos = agent.BB.Sabotage.chosenFoodStall.stallPosList[Random.Range(0, agent.BB.Sabotage.chosenFoodStall.stallPosList.Count)];
-
     }
 
 }

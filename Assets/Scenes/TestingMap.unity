@@ -107553,7 +107553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: sabotageStateCD
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -870789391586482391, guid: e7cb2a6ec4a00d64a9ef95a10a8aa2ec, type: 3}
       propertyPath: IKRiggingAllowed
@@ -216142,7 +216142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550d3ab5ca136e4aaa06c7ab1729a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossManager
-  BB: {fileID: 0}
   walkSpeed: 2
   runSpeed: 5
   sprintSpeed: 10

@@ -14,16 +14,6 @@ public class BossManager : MonoBehaviour
     public float sprintSpeed = 10f;
 
 
-
-
-
-
-
-
-
-
-
-
     private void Awake()
     {
 

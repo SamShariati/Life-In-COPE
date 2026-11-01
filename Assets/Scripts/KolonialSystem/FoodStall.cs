@@ -5,7 +5,8 @@ using UnityEngine;
 public class FoodStall : MonoBehaviour
 {
     [SerializeField] private List<GameObject> prefabList;
-    [SerializeField] private List<Transform> prefabPosList;
+    private List<Transform> prefabPosList = new List<Transform>();
+    [HideInInspector] public List<Transform> stallPosList = new List<Transform>();
 
     [Header("Throw Settings")]
     [SerializeField] private float minForce = 3f;
@@ -17,16 +18,17 @@ public class FoodStall : MonoBehaviour
     [Header("Stall Collision")]
     [SerializeField] private float maxIgnoreTime = 1.5f; // safety fallback
 
-    public List<Transform> stallPosList = new List<Transform>();
     public Dictionary<Transform, GameObject> stallPositionsDictionary = new Dictionary<Transform, GameObject>();
     public Dictionary<GameObject, Transform> prefabPositionsDictionary = new Dictionary<GameObject, Transform>();
 
     private Collider[] stallColliders;
+    GameObject trashParent;
 
     void Awake()
     {
         stallColliders = GetComponentsInChildren<Collider>();
         GenerateStallDictionaries();
+        trashParent = GameObject.Find("FoodStalls/CurrentTrash");
     }
 
     private void GenerateStallDictionaries()
@@ -36,6 +38,7 @@ public class FoodStall : MonoBehaviour
 
         // Clear first: the serialized list may already contain entries, which would shift the indices
         prefabPosList.Clear();
+        stallPosList.Clear();
 
         foreach (Transform pos in stallPositions) stallPosList.Add(pos);
         foreach (Transform pos in prefabPositions) prefabPosList.Add(pos);
@@ -55,12 +58,9 @@ public class FoodStall : MonoBehaviour
 
         Transform spawnPoint = prefabPositionsDictionary[chosenPrefab];
 
-        // Use the existing "Trash" object, or create an empty one if none exists
-        GameObject trash = GameObject.Find("FoodStalls/CurrentTrash");
-
         for (int i = 0; i < sabotageLevel; i++)
         {
-            GameObject item = Instantiate(chosenPrefab, spawnPoint.position, Random.rotation, trash.transform);
+            GameObject item = Instantiate(chosenPrefab, spawnPoint.position, Random.rotation, trashParent.transform);
 
             if (item.TryGetComponent(out Rigidbody rb))
             {

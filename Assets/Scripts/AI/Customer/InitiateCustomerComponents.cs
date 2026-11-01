@@ -55,7 +55,10 @@ public class InitiateCustomerComponents
 
         foreach (Transform child in foodStalls.transform)
         {
-            agent.BB.Sabotage.foodStallList.Add(child);
+            if (child.TryGetComponent<FoodStall>(out _))
+            {
+                agent.BB.Sabotage.foodStallList.Add(child);
+            }
         }
     }
 

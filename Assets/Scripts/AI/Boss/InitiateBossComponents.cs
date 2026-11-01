@@ -13,6 +13,10 @@ public class InitiateBossComponents : MonoBehaviour
         this.agent = agent;
     }
 
+    public void GenerateAllComponents()
+    {
+        GenerateAllShelfDictionaries();
+    }
 
     private void GenerateAllShelfDictionaries()
     {
