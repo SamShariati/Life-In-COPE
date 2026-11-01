@@ -1,17 +1,10 @@
 using UnityEngine;
 
-public class InspectionConditions : MonoBehaviour
+public class InspectionConditions : BossBTNode
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override NodeState Evaluate(BossManager agent)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 
     private void RollConfusedType(CustomerManager agent)
