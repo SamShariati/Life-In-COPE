@@ -31,7 +31,7 @@ public class TauntPlayer : CustomerBTNode
 
 
                 //Timer for this statement is set in HitFood.
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.Initiate;
                 }
@@ -43,17 +43,17 @@ public class TauntPlayer : CustomerBTNode
                 if (agent.BB.Sabotage.seenPlayerDuringSabotage && agent.BB.Sabotage.recentlyHitFood)
                 {
                     scenario = Scenario.A;
-                    agent.C_Functions.SetTimer(4f);
+                    agent.Functions.SetTimer(4f);
                 }
                 else if (!agent.BB.Sabotage.seenPlayerDuringSabotage && agent.BB.Sabotage.recentlyHitFood)
                 {
                     scenario = Scenario.B;
-                    agent.C_Functions.SetTimer(3f);
+                    agent.Functions.SetTimer(3f);
                 }
                 else
                 {
 
-                    agent.C_Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
+                    agent.Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
                     scenario = Scenario.C;
                 }
 
@@ -68,7 +68,7 @@ public class TauntPlayer : CustomerBTNode
 
                 if (scenario == Scenario.A)
                 {
-                    agent.C_Functions.RotateTowardsPlayer();
+                    agent.Functions.RotateTowardsPlayer();
                     agent.animator.SetState(AnimState.Taunt);
                 }
                 else if (scenario == Scenario.B)
@@ -81,7 +81,7 @@ public class TauntPlayer : CustomerBTNode
                 }
 
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     agent.BB.Sabotage.sabotageStateActivated = false;
                     agent.BB.Sabotage.recentlyHitFood = false;

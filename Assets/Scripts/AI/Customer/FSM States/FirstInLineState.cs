@@ -46,7 +46,7 @@ public class FirstInLineState : CustomerFSMBaseState
 
             case Phase.ThankAnimation:
 
-                agent.C_Functions.RotateTowardsPlayer();
+                agent.Functions.RotateTowardsPlayer();
 
                 if (!thankStarted)
                 {

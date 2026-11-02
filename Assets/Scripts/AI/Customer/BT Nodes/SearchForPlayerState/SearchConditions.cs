@@ -10,7 +10,7 @@ public class SearchConditions : CustomerBTNode
             agent.BB.IKRigging.IKRiggingEnabled = false;
             agent.BB.SFP.spottedPlayer = true;
             agent.BB.Sabotage.sabotageStateAllowed = false;
-            agent.C_Functions.SearchForPlayerResetFlags();
+            agent.Functions.SearchForPlayerResetFlags();
             CheckIfGoodChosen(agent);
 
             return NodeState.SUCCESS;
@@ -36,7 +36,7 @@ public class SearchConditions : CustomerBTNode
     private bool StateConditions(CustomerManager agent)
     {
         if (agent.BB.SFP.customerVision.CanSeePlayer() && !agent.BB.SFP.spottedPlayer && !PlayerState.Instance.currentlyBeingFollowed
-            && agent.C_Functions.CheckSearchForPlayerStateCD() && agent.BB.SFP.allowedToChase && !PlayerState.Instance.inScanningMode)
+            && agent.Functions.CheckSearchForPlayerStateCD() && agent.BB.SFP.allowedToChase && !PlayerState.Instance.inScanningMode)
         {
             if (RollSearchForPlayerChance(agent))
             {
@@ -69,7 +69,7 @@ public class SearchConditions : CustomerBTNode
     private bool RollSearchForPlayerChance(CustomerManager agent)
     {
         float randPercent = Random.Range(0f, 100f);
-        agent.C_Functions.ResetSearchForPlayerStateCD();
+        agent.Functions.ResetSearchForPlayerStateCD();
 
         if (randPercent <= agent.chasePlayerChance)
         {

@@ -120,6 +120,11 @@ public class ShelfDragController
             spawnedObject = null;
             isDragging = false;
             shelf.remainingGoodsToStock -= 1;
+
+            if (shelf.remainingGoodsToStock <= 0)
+            {
+                shelf.shelfFullyStocked = true;
+            }
         }
         else if (dragPlane.Raycast(ray, out float enter))
         {

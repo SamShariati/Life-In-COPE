@@ -24,8 +24,8 @@ public class FollowPlayer : CustomerBTNode
 
             case Phase.Instansiate:
 
-                agent.C_Functions.ChooseShelfRoute(agent); 
-                agent.C_Functions.SetTimer(agent.wasteCustomerTime);
+                agent.Functions.ChooseShelfRoute(agent); 
+                agent.Functions.SetTimer(agent.wasteCustomerTime);
                 PlayerState.Instance.CaughtPlayer(agent.BB.SFP.headObject);
 
                 phase = Phase.RotatePlayer;
@@ -43,7 +43,7 @@ public class FollowPlayer : CustomerBTNode
                 {
                     agent.navigation.isStopped = true;
                     agent.animator.SetState(AnimState.CaughtPlayer);
-                    agent.C_Functions.RotateTowardsPlayer();
+                    agent.Functions.RotateTowardsPlayer();
                 }
 
                 if (PlayerState.Instance._activeCaught.isFacingTarget)
@@ -65,9 +65,9 @@ public class FollowPlayer : CustomerBTNode
 
                 agent.navigation.isStopped = true;
                 agent.animator.SetState(AnimState.CaughtPlayer);
-                agent.C_Functions.RotateTowardsPlayer();
+                agent.Functions.RotateTowardsPlayer();
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.FollowPlayer;
                     ShelfManager.Instance.EnableShelfArrow(agent.BB.GSI.currentChosenGood.boxID);
@@ -85,7 +85,7 @@ public class FollowPlayer : CustomerBTNode
 
                 agent.navigation.speed = agent.playerMovement.currentSpeed;
 
-                agent.C_Functions.CalculatePlayerDestination();
+                agent.Functions.CalculatePlayerDestination();
 
                 SetAnimation(agent);
 
@@ -126,7 +126,7 @@ public class FollowPlayer : CustomerBTNode
         {
             agent.navigation.isStopped = true;
             agent.animator.SetState(AnimState.Idle);
-            agent.C_Functions.RotateTowardsPlayer();
+            agent.Functions.RotateTowardsPlayer();
 
 
         }

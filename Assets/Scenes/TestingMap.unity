@@ -195680,7 +195680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: maxNrBoxes
-      value: 28
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8994669244103032446, guid: 03ba7821fc4db3145acc05b59370d4bf, type: 3}
       propertyPath: allBoxTypes.Array.size
@@ -212821,14 +212821,17 @@ Animator:
   m_GameObject: {fileID: 7723968881520670496}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0be15d3e163aef642a9c70f34e53d7b0, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b86f1c2b5c23e27498fa79358c7417ab, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Eyebrows'\n\tTransform 'Eyes'\n\tTransform 'Eyebrows'\n\tTransform
+    'Eyes'\n\tTransform 'Eyebrows'\n\tTransform 'Eyes'\n\tFrom animation clip 'A_POLY_EMOT_Happy_ThumbsUp_Masc'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -215198,6 +215201,7 @@ GameObject:
   - component: {fileID: 7726526882930966081}
   - component: {fileID: 7726526882930966080}
   - component: {fileID: 7726526882930966079}
+  - component: {fileID: 7726526882930966083}
   m_Layer: 0
   m_Name: BossAgent
   m_TagString: Untagged
@@ -216142,9 +216146,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6550d3ab5ca136e4aaa06c7ab1729a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossManager
+  currentBehavior: 0
+  navigation: {fileID: 0}
+  animator: {fileID: 0}
   walkSpeed: 2
   runSpeed: 5
   sprintSpeed: 10
+--- !u!114 &7726526882930966083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7723968881520670496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b386c4eb389de46a93cb4e07384c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAnimator
 --- !u!4 &7726559491619397910
 Transform:
   m_ObjectHideFlags: 0

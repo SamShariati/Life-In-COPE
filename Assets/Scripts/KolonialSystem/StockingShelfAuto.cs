@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class StockingShelf2 : PlayerInput.IShelfActions
+public class StockingShelfAuto : PlayerInput.IShelfActions
 {
     private PlayerInput _input;
     private Shelf shelf;
@@ -40,7 +40,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
     // since StockingShelf is not itself a MonoBehaviour
     private ShelfCoroutineRunner2 _runner;
 
-    public StockingShelf2(Shelf _shelf)
+    public StockingShelfAuto(Shelf _shelf)
     {
         shelf = _shelf;
         _input = shelf.player.GetComponent<PlayerInteract>().Input;
@@ -331,7 +331,7 @@ public class StockingShelf2 : PlayerInput.IShelfActions
 // Minimal MonoBehaviour used purely to run coroutines and forward Update
 public class ShelfCoroutineRunner2 : MonoBehaviour
 {
-    public StockingShelf2 Owner;
+    public StockingShelfAuto Owner;
 
     private void Update()
     {

@@ -15,11 +15,11 @@ public class IdleStare : CustomerBTNode
         {
             case Phase.initiate:
 
-                agent.C_Functions.SetTimer(4);
+                agent.Functions.SetTimer(4);
                 phase = Phase.idle;
                 agent.BB.Confused.confusedStateAllowed = false;
                 agent.BB.GetHit.getHitStateAllowed = true;
-                agent.C_Functions.ResetSearchForPlayerStateCD();
+                agent.Functions.ResetSearchForPlayerStateCD();
 
                 return NodeState.RUNNING;
 
@@ -30,7 +30,7 @@ public class IdleStare : CustomerBTNode
                 agent.navigation.isStopped = true;
                 agent.animator.SetState(AnimState.Thank);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.initiate;
                     agent.BB.SFP.isCurrentlyStaring = false;

@@ -33,7 +33,7 @@ public class SabotageConditions : CustomerBTNode
     {
 
         if (agent.BB.Sabotage.sabotageStateAllowed && !agent.BB.Sabotage.sabotageStateActivated && !agent.BB.Sabotage.sabotageStateDisabledByHit &&
-            agent.C_Functions.CheckSabotageCD())
+            agent.Functions.CheckSabotageCD())
         {
 
             if (RollSabotageChance(agent))
@@ -57,7 +57,7 @@ public class SabotageConditions : CustomerBTNode
     private bool RollSabotageChance(CustomerManager agent)
     {
         float randPercent = Random.Range(0f, 100f);
-        agent.C_Functions.ResetSabotageStateCD();
+        agent.Functions.ResetSabotageStateCD();
 
         if (randPercent <= agent.sabotageChance)
         {

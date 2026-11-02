@@ -7,8 +7,8 @@ public class InspectionConditions : BossBTNode
         
         if (StateConditions(agent))
         {
-
             agent.BB.Inspection.stateActivated = true;
+            RollInspectionType(agent);
 
             return NodeState.SUCCESS;
         }
@@ -35,19 +35,21 @@ public class InspectionConditions : BossBTNode
     {
         float randPercent = Random.Range(0f, 100f);
 
-        // 50, 30, 20?
-        if (randPercent < 50f)
-        {
-            agent.BB.Inspection.inspectShelfChosen = true;
-        }
-        else if (randPercent >= 50f && randPercent < 80f)
-        {
-            agent.BB.Inspection.inspectTrashChosen = true;
-        }
-        else
-        {
-            agent.BB.Inspection.inspectRegLineChosen = true;
-        }
+        agent.BB.Inspection.isCurrInspectingShelf = true;
+
+        //// 50, 30, 20?
+        //if (randPercent < 50f)
+        //{
+        //    agent.BB.Inspection.inspectShelfChosen = true;
+        //}
+        //else if (randPercent >= 50f && randPercent < 80f)
+        //{
+        //    agent.BB.Inspection.inspectTrashChosen = true;
+        //}
+        //else
+        //{
+        //    agent.BB.Inspection.inspectRegLineChosen = true;
+        //}
     }
 
     private bool StateConditions(BossManager agent)

@@ -16,7 +16,7 @@ public class CheckWrongShelf : CustomerBTNode
 
             case Phase.Initiate:
 
-                agent.C_Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
+                agent.Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
 
                 phase = Phase.WalkingToShelf;
 
@@ -47,7 +47,7 @@ public class CheckWrongShelf : CustomerBTNode
                 agent.animator.SetState(AnimState.Idle);
                 agent.navigation.isStopped = true;
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     agent.BB.Confused.isCurrCheckingWrongShelf = false;
                     agent.BB.Confused.wrongShelfChosen = false;

@@ -11,7 +11,8 @@ public class Shelf : MonoBehaviour, IInteractable
     [HideInInspector] public GameObject transparentGoodsPrefab;
     [HideInInspector] public GameObject stockingGoodsPrefab;
     [HideInInspector] public Transform shelfArrow;
-    [HideInInspector] public int remainingGoodsToStock; //ATM if variable = 0 --> shelf stocked, else not
+    [HideInInspector] public int remainingGoodsToStock; //ATM if variable = 0 --> shelfFullyStocked = true;
+    [HideInInspector] public bool shelfFullyStocked = false;
     [HideInInspector] private StockingShelf stockingShelf;
     [HideInInspector] public Quaternion shelfItemRotation;
     //[HideInInspector] public List<CardboardBoxData> goodsDataList;
@@ -92,6 +93,8 @@ public class Shelf : MonoBehaviour, IInteractable
 
             case ShelfStatus.empty:
 
+                shelfFullyStocked = false;
+
                 foreach (Transform layer in shelfLayers)
                 {
 
@@ -123,6 +126,8 @@ public class Shelf : MonoBehaviour, IInteractable
             case ShelfStatus.stocked:
 
                 remainingGoodsToStock = 0;
+                shelfFullyStocked = true;
+
                 foreach (Transform layer in shelfLayers)
                 {
 
@@ -152,7 +157,7 @@ public class Shelf : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract player)
     {
-        if (player.Inventory.currentlyHoldingBox && remainingGoodsToStock > 0)
+        if (player.Inventory.currentlyHoldingBox && !shelfFullyStocked)
         {
             string shelfGoodsType = goodsType.ToString();
             if (shelfGoodsType == player.Inventory.heldBox.data.boxID && !PlayerState.Instance.currentlyBeingFollowed)
@@ -176,7 +181,7 @@ public class Shelf : MonoBehaviour, IInteractable
     {
 
         string shelfGoodsType = goodsType.ToString();
-        if (!PlayerState.Instance.inStockingMode && player.Inventory.currentlyHoldingBox && remainingGoodsToStock > 0
+        if (!PlayerState.Instance.inStockingMode && player.Inventory.currentlyHoldingBox && !shelfFullyStocked
             && shelfGoodsType == player.Inventory.heldBox.data.boxID)
         {
             return true;

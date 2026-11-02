@@ -19,8 +19,8 @@ public class FallBackward : CustomerBTNode
             case Phase.Initiate:
 
                 agent.navigation.isStopped = true;
-                agent.C_Functions.SetTimer(agent.gettingStunnedTime);
-                agent.C_Functions.CalculateImpactRotation();
+                agent.Functions.SetTimer(agent.gettingStunnedTime);
+                agent.Functions.CalculateImpactRotation();
 
                 phase = Phase.Falling;
 
@@ -29,13 +29,13 @@ public class FallBackward : CustomerBTNode
             
             case Phase.Falling:
 
-                agent.C_Functions.RotateOnHitImpact();
+                agent.Functions.RotateOnHitImpact();
                 agent.animator.SetState(AnimState.FallBackward);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.GettingUp;
-                    agent.C_Functions.SetTimer(getUpAnimationTime);
+                    agent.Functions.SetTimer(getUpAnimationTime);
 
                 }
 
@@ -46,10 +46,10 @@ public class FallBackward : CustomerBTNode
 
                 agent.animator.SetState(AnimState.GetUpForward);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.Dizzy;
-                    agent.C_Functions.SetTimer(idleAnimationTime);
+                    agent.Functions.SetTimer(idleAnimationTime);
                 }
                 return NodeState.RUNNING;
 
@@ -58,7 +58,7 @@ public class FallBackward : CustomerBTNode
 
                 agent.animator.SetState(AnimState.Dizzy);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
           
                     agent.BB.GetHit.getHitStateActivated = false;

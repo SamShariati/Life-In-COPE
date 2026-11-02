@@ -21,7 +21,7 @@ public class CustomerManager : MonoBehaviour
 
     [HideInInspector] public NavMeshAgent navigation;
     [HideInInspector] public InitiateCustomerComponents initiateComponents;
-    public CustomerFunctions C_Functions;
+    public CustomerFunctions Functions;
     [HideInInspector] public CashRegister cashRegister;
     [HideInInspector] public Transform player;
     [HideInInspector] public PlayerMovement playerMovement;
@@ -54,7 +54,7 @@ public class CustomerManager : MonoBehaviour
         navigation = GetComponent<NavMeshAgent>();
 
         initiateComponents = new InitiateCustomerComponents(this);
-        C_Functions = new CustomerFunctions(this);
+        Functions = new CustomerFunctions(this);
         IKRigging = new CustomerIKRigging(this);
         animator = GetComponent<CustomerAnimator>();
 
@@ -62,7 +62,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         initiateComponents.GenerateAllComponents();
-        BB.SFP.customerVision = new CustomerVision(this); //Behöver ändras, dålig arkitektur placering
+        BB.SFP.customerVision = new CustomerVision(this);
         //nrGoodsNeeded = Random.Range(1, 6);
         
         AI.FSM.currentState = AI.FSM.enterStoreState;

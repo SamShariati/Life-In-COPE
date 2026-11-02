@@ -18,7 +18,7 @@ public class PickGoodsConditions : CustomerBTNode
             agent.BB.IKRigging.IKRiggingEnabled = false;
             agent.BB.SFP.allowedToChase = false;
             agent.BB.GSI.currentlyPickingGoods = true;
-            agent.C_Functions.SetTimer(3f);
+            agent.Functions.SetTimer(3f);
         }
 
         return NodeState.SUCCESS;

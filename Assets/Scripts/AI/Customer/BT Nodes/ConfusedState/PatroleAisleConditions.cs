@@ -10,7 +10,7 @@ public class PatroleAisleConditions : CustomerBTNode
         if (StateConditions(agent))
         {
             agent.BB.Confused.patroleRouteChosen = true;
-            agent.C_Functions.GetCorrectAisle();
+            agent.Functions.GetCorrectAisle();
             ChooseAislePatrolePoint(agent);
 
             return NodeState.SUCCESS;

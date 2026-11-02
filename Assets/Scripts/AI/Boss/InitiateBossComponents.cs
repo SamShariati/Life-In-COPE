@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitiateBossComponents : MonoBehaviour
+public class InitiateBossComponents
 {
     public Dictionary<Shelf, bool> shelvesFullyStockedStatus = new Dictionary<Shelf, bool>();
     
@@ -30,7 +30,7 @@ public class InitiateBossComponents : MonoBehaviour
             agent.BB.Inspection.allShelfArrowPositions[shelf] = shelfArrowPos;
             agent.BB.Inspection.allShelfPositions[shelf] = shelf.transform.position;
 
-            if (shelf.remainingGoodsToStock <= 0)
+            if (shelf.shelfFullyStocked)
             {
                 agent.BB.Inspection.shelvesFullyStockedStatus[shelf] = true;
             }

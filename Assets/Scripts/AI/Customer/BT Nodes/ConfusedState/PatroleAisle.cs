@@ -15,7 +15,7 @@ public class PatroleAisle : CustomerBTNode
             case Phase.Initiate:
 
 
-                agent.C_Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
+                agent.Functions.SetTimer(Random.Range(agent.minIdleTime, agent.maxIdleTime));
 
                 phase = Phase.WalkToSpot;
 
@@ -42,7 +42,7 @@ public class PatroleAisle : CustomerBTNode
                 agent.navigation.isStopped = true;
                 agent.animator.SetState(AnimState.Idle);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     agent.BB.Confused.isCurrentlyPatrolling = false;
                     agent.BB.Confused.patroleRouteChosen = false;

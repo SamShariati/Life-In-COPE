@@ -11,7 +11,7 @@ public class CheckWrongShelfConditions : CustomerBTNode
         if (StateConditions(agent))
         {
             agent.BB.Confused.wrongShelfChosen = true;
-            agent.C_Functions.GetCorrectAisle();
+            agent.Functions.GetCorrectAisle();
             ChooseWrongShelfPosition(agent);
 
             return NodeState.SUCCESS;

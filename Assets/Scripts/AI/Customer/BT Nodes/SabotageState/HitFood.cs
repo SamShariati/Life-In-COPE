@@ -24,7 +24,7 @@ public class HitFood : CustomerBTNode
                 foodStallPrefabPos = agent.BB.Sabotage.chosenFoodStall.prefabPositionsDictionary[key].position;
 
                 agent.BB.IKRigging.IKRiggingEnabled = false;
-                agent.C_Functions.SetTimer(5f);
+                agent.Functions.SetTimer(5f);
                 phase = Phase.LookAround;
                 runOnce = false;
 
@@ -54,7 +54,7 @@ public class HitFood : CustomerBTNode
                 }
 
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
 
                     if (agent.BB.Sabotage.seenPlayerDuringSabotage)
@@ -62,7 +62,7 @@ public class HitFood : CustomerBTNode
                         if (RollSabotageChance(agent))
                         {
                             phase = Phase.HitFood;
-                            agent.C_Functions.SetTimer(1f);
+                            agent.Functions.SetTimer(1f);
 
                             return NodeState.RUNNING;
                         }
@@ -78,7 +78,7 @@ public class HitFood : CustomerBTNode
                     else
                     {
                         phase = Phase.HitFood;
-                        agent.C_Functions.SetTimer(1f);
+                        agent.Functions.SetTimer(1f);
                         return NodeState.RUNNING;
                     }
                 }
@@ -91,7 +91,7 @@ public class HitFood : CustomerBTNode
 
                 agent.animator.SetState(AnimState.Idle);
 
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     phase = Phase.HitFood;
                 }
@@ -118,7 +118,7 @@ public class HitFood : CustomerBTNode
                     phase = Phase.Initiate;
 
                     //Prepare an idle time for TauntPlayer
-                    agent.C_Functions.SetTimer(1f);
+                    agent.Functions.SetTimer(1f);
 
                     return NodeState.SUCCESS;
                 }
@@ -135,7 +135,7 @@ public class HitFood : CustomerBTNode
     private bool RollSabotageChance(CustomerManager agent)
     {
         float randPercent = Random.Range(0f, 100f);
-        agent.C_Functions.ResetSabotageStateCD();
+        agent.Functions.ResetSabotageStateCD();
 
         if (randPercent <= agent.sabotageChance)
         {

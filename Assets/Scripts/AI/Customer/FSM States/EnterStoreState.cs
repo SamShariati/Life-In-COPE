@@ -34,7 +34,7 @@ public class EnterStoreState : CustomerFSMBaseState
         {
             agent.BB.Idle.idleStateAllowed = true;
             agent.AI.FSMActivated = false;
-            agent.C_Functions.ChooseShelfRoute(agent);
+            agent.Functions.ChooseShelfRoute(agent);
             agent.SwitchState(agent.AI.FSM.nothingState);
             agent.AI.BTActivated = true;
 

@@ -11,7 +11,7 @@ public class GetHitConditions : CustomerBTNode
         {
             agent.BB.IKRigging.IKRiggingEnabled = false;
             agent.BB.GetHit.getHitStateActivated = true;
-            agent.C_Functions.GetHitResetFlags();
+            agent.Functions.GetHitResetFlags();
             CalculateImpactDotProduct(agent);
             
 

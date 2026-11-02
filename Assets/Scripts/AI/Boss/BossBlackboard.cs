@@ -14,9 +14,12 @@ public class BossBlackboard
         public Dictionary<Shelf, Vector3> allShelfArrowPositions = new Dictionary<Shelf, Vector3>();
         public Dictionary<Shelf, Vector3> allShelfPositions = new Dictionary<Shelf, Vector3>();
         public Dictionary<Shelf, bool> shelvesFullyStockedStatus = new Dictionary<Shelf, bool>();
-        public bool inspectShelfChosen = false;
-        public bool inspectTrashChosen = false;
-        public bool inspectRegLineChosen = false;
+        public Shelf chosenShelf;
+
+        public bool shelfToInspectChosen = false;
+        public bool isCurrInspectingShelf = false;
+        public bool trashToInspectChosen = false;
+        //public bool inspectRegLineChosen = false;
 
     }
 }

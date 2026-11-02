@@ -137,7 +137,7 @@ public class StockingShelf : PlayerInput.IShelfActions
 
         //-----------------LOOP----------------------------
 
-        while (shelf.remainingGoodsToStock > 0)
+        while (!shelf.shelfFullyStocked)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -178,7 +178,7 @@ public class StockingShelf : PlayerInput.IShelfActions
             _runner = null;
         }
 
-        if (shelf.remainingGoodsToStock > 0)
+        if (!shelf.shelfFullyStocked)
         {
             ShelfManager.Instance.EnableShelfArrow(PlayerInventory.Instance.heldBox.data.boxID);
         }

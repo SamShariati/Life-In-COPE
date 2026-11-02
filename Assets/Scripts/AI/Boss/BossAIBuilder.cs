@@ -1,16 +1,46 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class BossAIBuilder : MonoBehaviour
+public class BossAIBuilder
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public bool BTActivated = true;
+    public bool FSMActivated = false;
+
+    public BossFiniteStateMachine FSM = new BossFiniteStateMachine();
+    public BossBehaviourTree BT = new BossBehaviourTree();
+
+
+}
+
+public class BossFiniteStateMachine
+{
+
+}
+
+public class BossBehaviourTree
+{
+    public BossBTNode rootNode;
+
+    //----INSPECTION SCRIPTS------
+    
+    InspectionConditions inspectionConditions = new InspectionConditions();
+    InspectShelfConditions inspectShelfConditions = new InspectShelfConditions();
+    public InspectShelf inspectShelf = new InspectShelf();
+
+
+
+    public void ConstructBT()
     {
-        
+
+        //---INSPECTION BRANCH------
+        BossSequence inspectShelfState = new BossSequence(new List<BossBTNode>() { inspectShelfConditions, inspectShelf });
+        //BossSequence inspectTrashState
+        //BossSequence inspectRegisterState
+
+        BossSelector inspectionBehaviour = new BossSelector(new List<BossBTNode>() { inspectShelfState });
+        BossSequence inspection = new BossSequence(new List<BossBTNode>() { inspectionConditions, inspectionBehaviour });
+
+        rootNode = new BossSequence(new List<BossBTNode>() { inspection });
     }
 }

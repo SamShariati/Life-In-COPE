@@ -22,10 +22,10 @@ public class PickGoods : CustomerBTNode
             case Phase.WaitingToPick:
 
                 agent.animator.SetState(AnimState.Idle);
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     
-                    agent.C_Functions.SetTimer(agent.minIdleTime);
+                    agent.Functions.SetTimer(agent.minIdleTime);
                     phase = Phase.Picking;
                 }
                 return NodeState.RUNNING;
@@ -41,7 +41,7 @@ public class PickGoods : CustomerBTNode
             case Phase.WaitingToExit:
 
                 CheckGrabAnimation(agent);
-                if (agent.C_Functions.TickTimer(Time.deltaTime))
+                if (agent.Functions.TickTimer(Time.deltaTime))
                 {
                     currentAnimationTime = pickAnimationTime;
 
@@ -53,7 +53,7 @@ public class PickGoods : CustomerBTNode
                     agent.BB.GSI.shelfRouteReached = false; 
                     agent.BB.Confused.confusedStateAllowed = true; 
 
-                    agent.C_Functions.ChooseShelfRoute(agent);
+                    agent.Functions.ChooseShelfRoute(agent);
 
                     agent.BB.Sabotage.sabotageStateAllowed = true;
 
@@ -91,7 +91,7 @@ public class PickGoods : CustomerBTNode
         Shelf chosenShelf = agent.BB.GSI.allShelfPositions[agent.BB.GSI.currentChosenGood.boxID];
 
 
-        if (chosenShelf.remainingGoodsToStock <= 0)
+        if (chosenShelf.shelfFullyStocked)
         {
             
             //agent.nrGoodsFound++;
