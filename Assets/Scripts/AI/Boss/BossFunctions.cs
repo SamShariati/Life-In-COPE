@@ -25,10 +25,13 @@ public class BossFunctions
         agent.BB.Inspection.isCurrInspectingShelf = false;
         agent.BB.Inspection.shelfToInspectChosen = false;
         agent.AI.BT.inspectShelf.phase = InspectShelf.Phase.Instantiate;
-
         agent.BB.Inspection.isCurrInspectingTrash = false;
         agent.BB.Inspection.trashToInspectChosen = false;
         agent.AI.BT.inspectTrash.phase = InspectTrash.Phase.Instantiate;
+        agent.BB.Inspection.isCurrInspectingRegister = false;
+        agent.AI.BT.inspectRegister.phase = InspectRegister.Phase.Instantiate;
+
+
 
 
     }

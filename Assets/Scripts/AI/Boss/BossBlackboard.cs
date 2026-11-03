@@ -21,6 +21,7 @@ public class BossBlackboard
         public bool isCurrInspectingShelf = false;
         public bool trashToInspectChosen = false;
         public bool isCurrInspectingTrash = false;
+        public bool isCurrInspectingRegister = false;
         public Transform chosenTrash;
 
         //public bool inspectRegLineChosen = false;
@@ -32,5 +33,7 @@ public class BossBlackboard
     {
         public Transform inspectTrashPos;
         public Transform inspectTrashRotPos;
+        public Transform inspectRegisterPos;
+        public Transform inspectRegisterRotPos;
     }
 }

@@ -34611,8 +34611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
   m_SerializedVersion: 0
-  m_OverrideArea: 0
-  m_Area: 0
+  m_OverrideArea: 1
+  m_Area: 1
   m_OverrideGenerateLinks: 0
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 0
@@ -44524,6 +44524,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4628869598492252, guid: 00262f28970a1e544b5917df840c496b, type: 3}
   m_PrefabInstance: {fileID: 459483893}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &460054540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 460054541}
+  m_Layer: 0
+  m_Name: inspectRegisterRotPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &460054541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460054540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.1, y: 0, z: -8.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 731761160}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &461931487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72428,6 +72459,8 @@ Transform:
   - {fileID: 431369393}
   - {fileID: 1097680864}
   - {fileID: 739218352}
+  - {fileID: 798327466}
+  - {fileID: 460054541}
   - {fileID: 456256657}
   - {fileID: 410352240}
   - {fileID: 861823110}
@@ -73020,6 +73053,10 @@ PrefabInstance:
     - target: {fileID: 1793482155834120, guid: 457c3dd6546fb4d4ebfa5343a240bb77, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Market_Checkout_Shelf_Large_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793482155834120, guid: 457c3dd6546fb4d4ebfa5343a240bb77, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4263308801613848, guid: 457c3dd6546fb4d4ebfa5343a240bb77, type: 3}
       propertyPath: m_LocalScale.x
@@ -77541,6 +77578,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4503361063038982, guid: 1564891dba1ea9745a4b1628f1d5e5b5, type: 3}
   m_PrefabInstance: {fileID: 798196143}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &798327465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798327466}
+  m_Layer: 0
+  m_Name: inspectRegisterPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &798327466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798327465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.3, y: 0, z: -19.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 731761160}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798329739
 GameObject:
   m_ObjectHideFlags: 0
@@ -215266,6 +215334,7 @@ GameObject:
   - component: {fileID: 7726526882930966080}
   - component: {fileID: 7726526882930966079}
   - component: {fileID: 7726526882930966083}
+  - component: {fileID: 7726526882930966084}
   m_Layer: 0
   m_Name: BossAgent
   m_TagString: Untagged
@@ -216228,6 +216297,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b386c4eb389de46a93cb4e07384c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAnimator
+--- !u!114 &7726526882930966084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7723968881520670496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaba8aee10ce29649b47c175746ba570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossDataTracker
+  nrFoodItemsOnGround: 0
+  nrEmptyShelvesLeft: 0
+  nrCustomersInLine: 0
 --- !u!4 &7726559491619397910
 Transform:
   m_ObjectHideFlags: 0

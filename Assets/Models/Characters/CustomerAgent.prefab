@@ -1261,64 +1261,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playerMovement: {fileID: 0}
   animator: {fileID: 0}
-  BTActivated: 0
-  FSMStateActivated: 0
-  shelfStateAllowed: 1
-  currentChosenGood: {fileID: 0}
-  remainingGoodsList: []
-  goodsGathered: []
-  chosenShelfPosition: {x: 0, y: 0, z: 0}
-  shelfRouteReached: 0
-  currentlyPickingGoods: 0
-  assignedQueueSlot: -1
-  currentQueuePos: {x: 0, y: 0, z: 0}
-  transactionComplete: 0
-  spawnAgentPos: {x: 0, y: 0, z: 0}
-  enterStorePos: {x: 0, y: 0, z: 0}
-  walkToRegisterPos: {x: 0, y: 0, z: 0}
-  exitStorePos: {x: 0, y: 0, z: 0}
-  headObject: {fileID: 0}
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 2560
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  currentlyTouchingPlayer: 0
-  allowedToChase: 1
-  spottedPlayer: 0
-  isCurrentlyChasing: 0
-  isCurrentlyFollowing: 0
-  isCurrentlyStaring: 0
-  confusedStateAllowed: 1
-  confusedStateActivated: 0
-  isCurrentlyPatrolling: 0
-  patroleRouteChosen: 0
-  isCurrCheckingWrongShelf: 0
-  wrongShelfChosen: 0
-  aisleID: 0
-  wrongShelfArrowPos: {x: 0, y: 0, z: 0}
-  currentWrongShelf: {fileID: 0}
-  chosenAislePos: {x: 0, y: 0, z: 0}
-  getHitStateAllowed: 1
-  getHitStateActivated: 0
-  gotHitByBox: 0
-  collidingBoxRB: {fileID: 0}
-  isCurrFallingForward: 0
-  isCurrFallingBackward: 0
-  dotProduct: 0
-  forceRatio: 0
-  targetRotationAngle: 0
-  thrownDirection: {x: 0, y: 0, z: 0}
-  thrownBox: {fileID: 0}
-  impactTargetRotation: {x: 0, y: 0, z: 0, w: 0}
-  idleStateAllowed: 1
-  idleStateActivated: 0
-  chestRig: {fileID: 0}
-  headRig: {fileID: 0}
-  IKRiggingEnabled: 1
-  IKAimTarget: {fileID: 0}
-  cameraTransform: {fileID: 0}
   walkSpeed: 2
   runSpeed: 5
   nrGoodsNeeded: 2
@@ -1330,9 +1272,10 @@ MonoBehaviour:
   wasteCustomerTime: 2
   gettingStunnedTime: 4
   searchForPlayerStateCD: 10
-  getHitStateCD: 0
+  sabotageStateCD: 0
   confusedChance: 0
   chasePlayerChance: 0
+  sabotageChance: 0
 --- !u!195 &3985933204275392539
 NavMeshAgent:
   m_ObjectHideFlags: 0

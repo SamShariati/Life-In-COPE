@@ -39,7 +39,7 @@ public class InitiateBossComponents
             else
             {
                 agent.BB.Inspection.shelvesFullyStockedStatus[shelf] = false;
-                agent.dataTracker.nrEmptyShelvesLeft++;
+                BossDataTracker.Instance.nrEmptyShelvesLeft++;
             }
         }
     }
@@ -53,5 +53,7 @@ public class InitiateBossComponents
     {
         agent.BB.Store.inspectTrashPos = GameObject.Find("inspectTrashPos").transform;
         agent.BB.Store.inspectTrashRotPos = GameObject.Find("inspectTrashRotPos").transform;
+        agent.BB.Store.inspectRegisterPos = GameObject.Find("inspectRegisterPos").transform;
+        agent.BB.Store.inspectRegisterRotPos = GameObject.Find("inspectRegisterRotPos").transform;
     }
 }

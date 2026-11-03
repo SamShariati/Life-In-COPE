@@ -37,15 +37,20 @@ public class InspectionConditions : BossBTNode
 
         //agent.BB.Inspection.isCurrInspectingShelf = true;
         //agent.BB.Inspection.isCurrInspectingTrash = true;
+        //agent.BB.Inspection.isCurrInspectingRegister = true;
 
-        //// 50, 30, 20?
-        if (randPercent < 70f)
+        // 50, 30, 20?
+        if (randPercent < 60f)
         {
             agent.BB.Inspection.isCurrInspectingShelf = true;
         }
-        else
+        else if (randPercent >= 60f && randPercent < 80f)
         {
             agent.BB.Inspection.isCurrInspectingTrash = true;
+        }
+        else
+        {
+            agent.BB.Inspection.isCurrInspectingRegister = true;
         }
 
     }

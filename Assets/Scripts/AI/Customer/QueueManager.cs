@@ -48,6 +48,8 @@ public class QueueManager : MonoBehaviour
                 agent.BB.CashRegister.assignedQueueSlot = i;
                 agent.BB.CashRegister.currentQueuePos = queue[i].queuePos.transform.position;
                 //agent.navigation.SetDestination(queue[i].position.transform.position); //ska flyttas in till FSM
+                BossDataTracker.Instance.nrCustomersInLine = GetNrCustomersInLine();
+
                 return true;
             }
         }
@@ -68,7 +70,19 @@ public class QueueManager : MonoBehaviour
                 customer.BB.CashRegister.assignedQueueSlot = i - 1;
                 customer.BB.CashRegister.currentQueuePos = queue[i - 1].queuePos.transform.position;
                 //customer.navigation.SetDestination(queue[i - 1].position.transform.position); //ska flyttas in till FSM
-            }
+            }    
         }
+        BossDataTracker.Instance.nrCustomersInLine = GetNrCustomersInLine();
+    }
+
+    public int GetNrCustomersInLine()
+    {
+        int count = 0;
+
+        foreach (QueueSlot slot in queue)
+        {
+            if (slot.occupant != null) count++;
+        }
+        return count;
     }
 }
