@@ -16,6 +16,8 @@ public class InitiateBossComponents
     public void GenerateAllComponents()
     {
         GenerateAllShelfDictionaries();
+        GetTrashParentObject();
+        GetNavPositions();
     }
 
     private void GenerateAllShelfDictionaries()
@@ -40,5 +42,16 @@ public class InitiateBossComponents
                 agent.dataTracker.nrEmptyShelvesLeft++;
             }
         }
+    }
+
+    private void GetTrashParentObject()
+    {
+        agent.BB.Inspection.trashParent = GameObject.Find("CurrentTrash");
+    }
+
+    private void GetNavPositions()
+    {
+        agent.BB.Store.inspectTrashPos = GameObject.Find("inspectTrashPos").transform;
+        agent.BB.Store.inspectTrashRotPos = GameObject.Find("inspectTrashRotPos").transform;
     }
 }

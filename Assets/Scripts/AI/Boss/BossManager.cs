@@ -6,7 +6,7 @@ public class BossManager : MonoBehaviour
 
     public enum CurrentBehaviour
     {
-        Nothing, InspectShelf, 
+        Nothing, InspectShelf, InspectTrash 
     }
 
     public CurrentBehaviour currentBehavior = CurrentBehaviour.Nothing;

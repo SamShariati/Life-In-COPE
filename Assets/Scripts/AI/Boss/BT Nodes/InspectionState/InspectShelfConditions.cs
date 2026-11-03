@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InspectShelfConditions : BossBTNode
 {
-    int test = 0;
+
     public override NodeState Evaluate(BossManager agent)
     {
         
@@ -42,10 +42,7 @@ public class InspectShelfConditions : BossBTNode
 
         int randNr = Random.Range(0, ShelfManager.Instance.shelfList.Count);
 
-        Debug.Log(randNr);
-
         agent.BB.Inspection.chosenShelf = ShelfManager.Instance.shelfList[(randNr)];
-
 
     }
 

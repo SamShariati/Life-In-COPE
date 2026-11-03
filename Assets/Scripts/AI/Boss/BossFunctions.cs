@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 
 public class BossFunctions
@@ -7,6 +8,7 @@ public class BossFunctions
     BossManager agent;
 
     public float idleTimer = 0f;
+    private List<Transform > trashList = new List<Transform>();
 
     public BossFunctions(BossManager agent)
     {
@@ -21,6 +23,13 @@ public class BossFunctions
     {
         agent.BB.Inspection.stateActivated = false;
         agent.BB.Inspection.isCurrInspectingShelf = false;
+        agent.BB.Inspection.shelfToInspectChosen = false;
+        agent.AI.BT.inspectShelf.phase = InspectShelf.Phase.Instantiate;
+
+        agent.BB.Inspection.isCurrInspectingTrash = false;
+        agent.BB.Inspection.trashToInspectChosen = false;
+        agent.AI.BT.inspectTrash.phase = InspectTrash.Phase.Instantiate;
+
 
     }
 
@@ -52,6 +61,26 @@ public class BossFunctions
         Time.deltaTime * (agent.navigation.angularSpeed / 120));
     }
 
+    public void ChooseTrashToInspect()
+    {
+        trashList = new List<Transform>();
+
+        foreach (Transform trash in agent.BB.Inspection.trashParent.transform)
+        {
+            trashList.Add(trash);
+        }
+
+        int randNr = Random.Range(0, trashList.Count);
+
+        if (trashList.Count != 0)
+        {
+            agent.BB.Inspection.chosenTrash = trashList[randNr];
+        }
+        else
+        {
+            agent.BB.Inspection.chosenTrash = agent.BB.Store.inspectTrashPos;
+        }
+    }
 
     //--------------GENERAL TIMERS---------------------
     public bool TickTimer(float delta)

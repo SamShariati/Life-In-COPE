@@ -5,6 +5,7 @@ public class BossBlackboard
 {
 
     public InspectionData Inspection = new InspectionData();
+    public StoreData Store = new StoreData();
 
     public class InspectionData
     {
@@ -19,7 +20,17 @@ public class BossBlackboard
         public bool shelfToInspectChosen = false;
         public bool isCurrInspectingShelf = false;
         public bool trashToInspectChosen = false;
+        public bool isCurrInspectingTrash = false;
+        public Transform chosenTrash;
+
         //public bool inspectRegLineChosen = false;
 
+        public GameObject trashParent;
+    }
+
+    public class StoreData
+    {
+        public Transform inspectTrashPos;
+        public Transform inspectTrashRotPos;
     }
 }

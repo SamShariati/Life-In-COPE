@@ -27,6 +27,8 @@ public class BossBehaviourTree
     InspectionConditions inspectionConditions = new InspectionConditions();
     InspectShelfConditions inspectShelfConditions = new InspectShelfConditions();
     public InspectShelf inspectShelf = new InspectShelf();
+    InspectTrashConditions inspectTrashConditions = new InspectTrashConditions();
+    public InspectTrash inspectTrash = new InspectTrash();
 
 
 
@@ -35,10 +37,10 @@ public class BossBehaviourTree
 
         //---INSPECTION BRANCH------
         BossSequence inspectShelfState = new BossSequence(new List<BossBTNode>() { inspectShelfConditions, inspectShelf });
-        //BossSequence inspectTrashState
+        BossSequence inspectTrashState = new BossSequence(new List<BossBTNode>() { inspectTrashConditions, inspectTrash });
         //BossSequence inspectRegisterState
 
-        BossSelector inspectionBehaviour = new BossSelector(new List<BossBTNode>() { inspectShelfState });
+        BossSelector inspectionBehaviour = new BossSelector(new List<BossBTNode>() { inspectShelfState, inspectTrashState });
         BossSequence inspection = new BossSequence(new List<BossBTNode>() { inspectionConditions, inspectionBehaviour });
 
         rootNode = new BossSequence(new List<BossBTNode>() { inspection });

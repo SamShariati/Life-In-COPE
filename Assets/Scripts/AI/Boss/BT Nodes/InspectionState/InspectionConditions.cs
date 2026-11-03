@@ -35,21 +35,19 @@ public class InspectionConditions : BossBTNode
     {
         float randPercent = Random.Range(0f, 100f);
 
-        agent.BB.Inspection.isCurrInspectingShelf = true;
+        //agent.BB.Inspection.isCurrInspectingShelf = true;
+        //agent.BB.Inspection.isCurrInspectingTrash = true;
 
         //// 50, 30, 20?
-        //if (randPercent < 50f)
-        //{
-        //    agent.BB.Inspection.inspectShelfChosen = true;
-        //}
-        //else if (randPercent >= 50f && randPercent < 80f)
-        //{
-        //    agent.BB.Inspection.inspectTrashChosen = true;
-        //}
-        //else
-        //{
-        //    agent.BB.Inspection.inspectRegLineChosen = true;
-        //}
+        if (randPercent < 70f)
+        {
+            agent.BB.Inspection.isCurrInspectingShelf = true;
+        }
+        else
+        {
+            agent.BB.Inspection.isCurrInspectingTrash = true;
+        }
+
     }
 
     private bool StateConditions(BossManager agent)
