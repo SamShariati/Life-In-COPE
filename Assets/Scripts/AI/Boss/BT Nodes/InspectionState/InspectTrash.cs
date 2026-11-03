@@ -59,6 +59,7 @@ public class InspectTrash : BossBTNode
 
                 if (agent.Functions.TickTimer(Time.deltaTime))
                 {
+                    agent.Functions.SetTimer(2f);
                     phase = Phase.ResultAnimation;
                 }
 
@@ -69,8 +70,10 @@ public class InspectTrash : BossBTNode
 
                 if (destination == agent.BB.Store.inspectTrashPos.position)
                 {
-                    agent.animator.SetState(AnimState.Pleased);
-                    agent.Functions.RotateTowardsTarget(agent.BB.Store.inspectTrashRotPos.position);
+                    if (agent.Functions.TickTimer(Time.deltaTime))
+                    {
+                        phase = Phase.Exit;
+                    }
                 }
                 else
                 {
