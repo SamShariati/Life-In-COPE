@@ -23,6 +23,18 @@ public class BossManager : MonoBehaviour
     public float walkSpeed = 2f;
     public float runSpeed = 5f;
     public float sprintSpeed = 10f;
+    public int customersInLineComplainLimit = 2;
+    public int firstInLinePlingRageLimit = 100;
+    public int trashOnFloorComplainLimit = 1;
+    public int trashOnFloorWarnLimit = 8;
+    public int trashOnFloorRageLimit = 12;
+    public int hitCustomersComplainLimit = 2;
+    public int hitCustomersWarnLimit = 10;
+    public int hitCustomersRageLimit = 14;
+    public int hitBossComplainLimit = 1;
+    public int hitBossWarnLimit = 2;
+    public int hitBossRageLimit = 3;
+
 
 
     private void Awake()

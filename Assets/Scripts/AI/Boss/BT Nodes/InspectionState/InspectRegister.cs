@@ -18,7 +18,7 @@ public class InspectRegister : BossBTNode
 
 
                 agent.Functions.SetTimer(4f);
-                destination = agent.BB.Store.inspectRegisterPos.position;
+                destination = agent.BB.StoreNav.inspectRegisterPos.position;
                 phase = Phase.GoToRegister;
                 return NodeState.RUNNING;
 
@@ -43,7 +43,7 @@ public class InspectRegister : BossBTNode
 
                 agent.navigation.isStopped = true;
                 agent.animator.SetState(AnimState.Inspect);
-                agent.Functions.RotateTowardsTarget(agent.BB.Store.inspectRegisterRotPos.position);
+                agent.Functions.RotateTowardsTarget(agent.BB.StoreNav.inspectRegisterRotPos.position);
 
                 if (agent.Functions.TickTimer(Time.deltaTime))
                 {

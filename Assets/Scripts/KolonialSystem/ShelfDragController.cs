@@ -124,6 +124,7 @@ public class ShelfDragController
             if (shelf.remainingGoodsToStock <= 0)
             {
                 shelf.shelfFullyStocked = true;
+                BossDataTracker.Instance.nrEmptyShelvesLeft--;
             }
         }
         else if (dragPlane.Raycast(ray, out float enter))

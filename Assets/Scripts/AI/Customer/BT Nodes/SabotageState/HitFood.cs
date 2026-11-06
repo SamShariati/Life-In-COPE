@@ -107,7 +107,9 @@ public class HitFood : CustomerBTNode
                 {
                     agent.animator.SetState(AnimState.Attack);
                     runOnce = true;
-                    agent.BB.Sabotage.chosenFoodStall.SpawnFood(agent.BB.Sabotage.chosenFoodStallPos, 3);
+                    agent.BB.Sabotage.chosenFoodStall.SpawnFood(agent.BB.Sabotage.chosenFoodStallPos, agent.sabotageLevel);
+                    BossDataTracker.Instance.nrTrashOnGround += agent.sabotageLevel;
+
                 }
 
                 if (agent.animator.IsStateFinished("Attack"))

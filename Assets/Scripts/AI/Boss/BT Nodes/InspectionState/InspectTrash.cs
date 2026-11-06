@@ -68,7 +68,7 @@ public class InspectTrash : BossBTNode
 
             case Phase.ResultAnimation:
 
-                if (destination == agent.BB.Store.inspectTrashPos.position)
+                if (destination == agent.BB.StoreNav.inspectTrashPos.position)
                 {
                     if (agent.Functions.TickTimer(Time.deltaTime))
                     {

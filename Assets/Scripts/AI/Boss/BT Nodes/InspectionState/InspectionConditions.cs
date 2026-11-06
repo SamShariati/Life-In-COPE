@@ -19,15 +19,9 @@ public class InspectionConditions : BossBTNode
         }
         else
         {
+
             return NodeState.FAILURE;
         }
-
-
-
-
-
-
-
 
     }
 

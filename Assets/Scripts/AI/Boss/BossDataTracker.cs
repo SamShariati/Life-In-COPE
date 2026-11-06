@@ -6,9 +6,11 @@ public class BossDataTracker : MonoBehaviour
 {
     public static BossDataTracker Instance;
 
-    public int nrFoodItemsOnGround = 0;
+    public int nrTrashOnGround = 0;
     public int nrEmptyShelvesLeft = 0;
     public int nrCustomersInLine = 0;
+    public int nrTimesCustomersGotHit = 0;
+    public int nrTimesBossGotHit = 0;
 
     private void Awake()
     {

@@ -39,6 +39,7 @@ public class CustomerManager : MonoBehaviour
     public float playerAwernessRange = 10f;
     public float wasteCustomerTime = 1.5f;
     public float gettingStunnedTime = 4f;
+    public int sabotageLevel = 2;
     public float searchForPlayerStateCD = 10;
     //public float getHitStateCD = 0;
     public float sabotageStateCD = 0;

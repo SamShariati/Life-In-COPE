@@ -1271,6 +1271,7 @@ MonoBehaviour:
   playerAwernessRange: 10
   wasteCustomerTime: 2
   gettingStunnedTime: 4
+  sabotageLevel: 2
   searchForPlayerStateCD: 10
   sabotageStateCD: 0
   confusedChance: 0
@@ -1346,7 +1347,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65600
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

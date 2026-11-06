@@ -81,9 +81,21 @@ public class BossFunctions
         }
         else
         {
-            agent.BB.Inspection.chosenTrash = agent.BB.Store.inspectTrashPos;
+            agent.BB.Inspection.chosenTrash = agent.BB.StoreNav.inspectTrashPos;
         }
     }
+
+    public int GetNrTrashOnGround()
+    {
+        int count = 0;
+
+        foreach (Transform trash in agent.BB.Inspection.trashParent.transform)
+        {
+            count++;
+        }
+        return count;
+    }
+
 
     //--------------GENERAL TIMERS---------------------
     public bool TickTimer(float delta)

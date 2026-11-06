@@ -51,9 +51,9 @@ public class InitiateBossComponents
 
     private void GetNavPositions()
     {
-        agent.BB.Store.inspectTrashPos = GameObject.Find("inspectTrashPos").transform;
-        agent.BB.Store.inspectTrashRotPos = GameObject.Find("inspectTrashRotPos").transform;
-        agent.BB.Store.inspectRegisterPos = GameObject.Find("inspectRegisterPos").transform;
-        agent.BB.Store.inspectRegisterRotPos = GameObject.Find("inspectRegisterRotPos").transform;
+        agent.BB.StoreNav.inspectTrashPos = GameObject.Find("inspectTrashPos").transform;
+        agent.BB.StoreNav.inspectTrashRotPos = GameObject.Find("inspectTrashRotPos").transform;
+        agent.BB.StoreNav.inspectRegisterPos = GameObject.Find("inspectRegisterPos").transform;
+        agent.BB.StoreNav.inspectRegisterRotPos = GameObject.Find("inspectRegisterRotPos").transform;
     }
 }

@@ -8,6 +8,7 @@ public class KillZone : MonoBehaviour
         if (other.attachedRigidbody != null)
         {
             Destroy(other.attachedRigidbody.gameObject);
+            BossDataTracker.Instance.nrTrashOnGround--;
         }
     }
 }
