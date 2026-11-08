@@ -23,7 +23,12 @@ public class BossBehaviourTree
     public BossBTNode rootNode;
 
     //----INSPECTION SCRIPTS------
-    
+
+    GoToPlayerConditions goToPlayerConditions = new GoToPlayerConditions();
+    GoToPlayer goToPlayer = new GoToPlayer();
+
+    //----INSPECTION SCRIPTS------
+
     InspectionConditions inspectionConditions = new InspectionConditions();
     InspectShelfConditions inspectShelfConditions = new InspectShelfConditions();
     public InspectShelf inspectShelf = new InspectShelf();
@@ -32,10 +37,22 @@ public class BossBehaviourTree
     InspectRegisterConditions inspectRegisterConditions = new InspectRegisterConditions();
     public InspectRegister inspectRegister = new InspectRegister();
 
+    //----INSPECTION SCRIPTS------
+
+    ComplainConditions complainConditions = new ComplainConditions();
+
 
 
     public void ConstructBT()
     {
+        //---GOTOPLAYER BRANCH-------
+
+        BossSequence goToPlayerState = new BossSequence(new List<BossBTNode>() { goToPlayerConditions, goToPlayer } );
+
+        //---COMPLAIN BRANCH------
+
+        BossSelector complainBehaviour = new BossSelector(new List<BossBTNode>() { goToPlayerState });
+        BossSequence complain = new BossSequence(new List<BossBTNode>() { complainConditions, complainBehaviour });
 
         //---INSPECTION BRANCH------
         BossSequence inspectShelfState = new BossSequence(new List<BossBTNode>() { inspectShelfConditions, inspectShelf });
@@ -45,6 +62,6 @@ public class BossBehaviourTree
         BossSelector inspectionBehaviour = new BossSelector(new List<BossBTNode>() { inspectShelfState, inspectTrashState, inspectRegisterState });
         BossSequence inspection = new BossSequence(new List<BossBTNode>() { inspectionConditions, inspectionBehaviour });
 
-        rootNode = new BossSequence(new List<BossBTNode>() { inspection });
+        rootNode = new BossSequence(new List<BossBTNode>() { complain });
     }
 }

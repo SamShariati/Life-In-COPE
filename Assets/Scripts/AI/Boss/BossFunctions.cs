@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BossFunctions
 {
@@ -9,6 +10,8 @@ public class BossFunctions
 
     public float idleTimer = 0f;
     private List<Transform > trashList = new List<Transform>();
+    private const float destinationBuffer = 0.75f;
+    private const float sampleSearchRadius = 3f;
 
     public BossFunctions(BossManager agent)
     {
@@ -36,7 +39,6 @@ public class BossFunctions
 
     }
 
-
     public void UpdateShelvesFullyStockedStatus()
     {
 
@@ -49,6 +51,31 @@ public class BossFunctions
             }
         }
     }
+
+    public void SetPlayerDestination()
+    {
+        agent.navigation.isStopped = false;
+        Vector3 rawTarget = agent.player.position;
+        if (NavMesh.SamplePosition(rawTarget, out NavMeshHit hit, sampleSearchRadius, NavMesh.AllAreas))
+        {
+            Vector3 toHit = hit.position - agent.transform.position;
+            float distToHit = toHit.magnitude;
+
+            Vector3 destination = hit.position;
+            if (distToHit > destinationBuffer)
+            {
+                destination = hit.position - toHit.normalized * destinationBuffer;
+
+                if (NavMesh.SamplePosition(destination, out NavMeshHit bufferedHit, 1f, NavMesh.AllAreas))
+                {
+                    destination = bufferedHit.position;
+                }
+            }
+
+            agent.navigation.SetDestination(destination);
+        }
+    }
+
 
     public void RotateTowardsTarget(Vector3 target)
     {

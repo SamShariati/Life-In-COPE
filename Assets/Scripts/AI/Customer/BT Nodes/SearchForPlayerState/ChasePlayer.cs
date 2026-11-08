@@ -16,7 +16,7 @@ public class ChasePlayer : CustomerBTNode
 
         agent.animator.SetState(AnimState.Chase);
 
-        agent.Functions.CalculatePlayerDestination();
+        agent.Functions.SetPlayerDestination();
 
         if (distanceToTarget < 1.5f)
         {

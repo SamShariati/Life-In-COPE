@@ -37,7 +37,7 @@ public class BossBlackboard
         public Transform inspectRegisterPos;
         public Transform inspectRegisterRotPos;
         public Vector3 chosenTarget;
-        public bool reachedTargetDestination = true;
+        public bool reachedPlayerDestination = true;
     }
 
     public class ComplainData

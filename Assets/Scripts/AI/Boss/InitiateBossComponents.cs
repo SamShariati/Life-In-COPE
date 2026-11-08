@@ -18,6 +18,7 @@ public class InitiateBossComponents
         GenerateAllShelfDictionaries();
         GetTrashParentObject();
         GetNavPositions();
+        GetPlayerObject();
     }
 
     private void GenerateAllShelfDictionaries()
@@ -42,6 +43,12 @@ public class InitiateBossComponents
                 BossDataTracker.Instance.nrEmptyShelvesLeft++;
             }
         }
+    }
+
+    private void GetPlayerObject()
+    {
+        agent.player = GameObject.FindWithTag("Player").transform;
+        //agent.playerMovement = agent.player.GetComponent<PlayerMovement>();
     }
 
     private void GetTrashParentObject()

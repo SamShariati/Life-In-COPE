@@ -25,7 +25,7 @@ public class CustomerFunctions
         lastSabotageStateCD = -agent.sabotageStateCD;
     }
 
-    public void CalculatePlayerDestination()
+    public void SetPlayerDestination()
     {
         Vector3 rawTarget = agent.player.position;
         if (NavMesh.SamplePosition(rawTarget, out NavMeshHit hit, sampleSearchRadius, NavMesh.AllAreas))

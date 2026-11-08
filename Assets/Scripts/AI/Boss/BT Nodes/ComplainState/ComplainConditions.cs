@@ -16,10 +16,14 @@ public class ComplainConditions : BossBTNode
             }
 
             agent.BB.Complain.stateActivated = true;
+            agent.BB.StoreNav.reachedPlayerDestination = false;
+            agent.navigation.speed = agent.walkSpeed;
+
             return NodeState.SUCCESS;
         }
         else if (agent.BB.Complain.stateActivated)
         {
+
             return NodeState.SUCCESS;
         }
         else

@@ -26,7 +26,7 @@ public class BossDialogue : MonoBehaviour
         }
         else if (type == "hitBoss")
         {
-            message = $"I do not appreciate being by stuff, neither by you or anyone else! You do not want to piss me off, understood?";
+            message = $"I do not appreciate being hit by stuff, neither by you or anyone else! You do not want to piss me off, understood?";
         }
         else if (type == "hitCustomers")
         {

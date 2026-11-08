@@ -85,7 +85,7 @@ public class FollowPlayer : CustomerBTNode
 
                 agent.navigation.speed = agent.playerMovement.currentSpeed;
 
-                agent.Functions.CalculatePlayerDestination();
+                agent.Functions.SetPlayerDestination();
 
                 SetAnimation(agent);
 

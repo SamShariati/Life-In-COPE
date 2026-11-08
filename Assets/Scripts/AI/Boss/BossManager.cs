@@ -14,9 +14,10 @@ public class BossManager : MonoBehaviour
     [HideInInspector] public BossBlackboard BB = new BossBlackboard();
     [HideInInspector] public BossAIBuilder AI = new BossAIBuilder();
     [HideInInspector] public BossFunctions Functions;
-    public NavMeshAgent navigation;
+    [HideInInspector] public NavMeshAgent navigation;
     [HideInInspector] InitiateBossComponents initiateComponents;
     [HideInInspector] public BossAnimator animator;
+    [HideInInspector] public Transform player;
 
 
     [Header("Boss Stats")]
