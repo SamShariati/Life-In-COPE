@@ -11,7 +11,6 @@ public class GoToPlayer : BossBTNode
         agent.Functions.SetPlayerDestination();
         ChooseAnimation(agent);
         distanceToTarget = Vector3.Distance(agent.transform.position, agent.player.position);
-        Debug.Log(distanceToTarget);
 
         if (distanceToTarget < 1.5f)
         {

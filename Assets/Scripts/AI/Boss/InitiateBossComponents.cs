@@ -19,6 +19,7 @@ public class InitiateBossComponents
         GetTrashParentObject();
         GetNavPositions();
         GetPlayerObject();
+        //GetSpeechVariables();
     }
 
     private void GenerateAllShelfDictionaries()
@@ -63,4 +64,5 @@ public class InitiateBossComponents
         agent.BB.StoreNav.inspectRegisterPos = GameObject.Find("inspectRegisterPos").transform;
         agent.BB.StoreNav.inspectRegisterRotPos = GameObject.Find("inspectRegisterRotPos").transform;
     }
+
 }

@@ -7,8 +7,8 @@ namespace ithappy.City_Characters
     {
         private void Start()
         {
-            MovePlayerInput[] playerInputs = FindObjectsOfType<MovePlayerInput>();
-            PlayerCamera[] playerCameras = FindObjectsOfType<PlayerCamera>();
+            MovePlayerInput[] playerInputs = FindObjectsByType<MovePlayerInput>();
+            PlayerCamera[] playerCameras = FindObjectsByType<PlayerCamera>();
             
             if (playerInputs.Length == 0)
             {

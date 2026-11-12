@@ -18,7 +18,8 @@ public class BossManager : MonoBehaviour
     [HideInInspector] InitiateBossComponents initiateComponents;
     [HideInInspector] public BossAnimator animator;
     [HideInInspector] public Transform player;
-
+    [HideInInspector] public BossSpeechBubble Speech;
+ 
 
     [Header("Boss Stats")]
     public float walkSpeed = 2f;
@@ -44,6 +45,7 @@ public class BossManager : MonoBehaviour
         navigation = GetComponent<NavMeshAgent>();
         animator = GetComponent<BossAnimator>();
         Functions = new BossFunctions(this);
+        Speech = GetComponent<BossSpeechBubble>();
     }
 
     private void Start()
