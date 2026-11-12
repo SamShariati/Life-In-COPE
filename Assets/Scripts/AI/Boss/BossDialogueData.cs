@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossDialogue : MonoBehaviour
+public class BossDialogueData : MonoBehaviour
 {
     
-    public static BossDialogue instance;
+    public static BossDialogueData Instance;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
+    public string GetTestWord()
+    {
+        return "hejkhóaiudjfoaijdfoiajfoijaosdfjoaijfa";
+    }
 
     public string GetComplainDialogue(string type)
     {

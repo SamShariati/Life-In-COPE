@@ -31635,6 +31635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf712221f2d56e4d81acdfd3175426d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSpeechBubble
+  charsPerSecond: 30
 --- !u!1001 &329954712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36521,6 +36522,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4683471679752792, guid: 4f7ebdffef5b1a645af7813eeab5ebc2, type: 3}
   m_PrefabInstance: {fileID: 372972770}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &376199029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 376199030}
+  - component: {fileID: 376199032}
+  - component: {fileID: 376199031}
+  m_Layer: 0
+  m_Name: BossDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &376199030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376199029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 504749697}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376199031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376199029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1aa69eef3507964dbdc76c81049dcb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossDialogueData
+--- !u!114 &376199032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376199029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbadb2707d36ca64da4d76ec6e4a9844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerDialogue
+  speechBubble: {fileID: 510371694}
+  text: {fileID: 892791234}
 --- !u!1001 &377201566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50043,6 +50103,7 @@ Transform:
   - {fileID: 2121148825}
   - {fileID: 1528935465}
   - {fileID: 2022423593}
+  - {fileID: 376199030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &505437443

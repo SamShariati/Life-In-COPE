@@ -14,6 +14,9 @@ public class GoToPlayer : BossBTNode
 
         if (distanceToTarget < 1.5f)
         {
+            string chosenText = BossDialogueData.Instance.GetComplainDialogue(agent.BB.Complain.complainTypeChosen);
+            //string chosenText = "Hejhej mitt namn är sam och jag är en riktig alfahane";
+            agent.Speech.Speak(chosenText, 10f);
             agent.navigation.isStopped = true;
             agent.BB.StoreNav.reachedPlayerDestination = true;
             return NodeState.SUCCESS;

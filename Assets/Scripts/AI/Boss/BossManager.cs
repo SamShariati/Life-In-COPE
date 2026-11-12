@@ -52,12 +52,14 @@ public class BossManager : MonoBehaviour
     {
         initiateComponents.GenerateAllComponents();
         AI.BT.ConstructBT();
+
     }
 
     void Update()
     {
         if (AI.BTActivated) // BT
         {
+
             AI.BT.rootNode.Evaluate(this);
 
         }
